@@ -6,7 +6,7 @@ F1 base 裸奔四因子带闸版的上线信号引擎。与权威回测 `/tmp/en
 
 - **引擎文件**：`f1_signal.py`（v1，seed=42 一次成活，改参数=新工单）
 - **代码 sha256**：见 `checks_result.json` → `G1.engine_sha256`，同步烙印在每次生成的 `f1_live.json → meta.engine_sha256`
-- **git commit hash 锁定**：`COMMIT_HASH_PLACEHOLDER`（本 README 与引擎同仓入库后的锁定提交，部署步骤回填）
+- **git commit hash 锁定**：`c8817d0c96449563007b65f175f8ddad29b96664`（本 README 与引擎同仓入库的锁定提交）
 - **同源依据**：`f1_backtest.py` sha256 = 见 `checks_result.json → G1.backtest_src_sha256`
 
 ## 组成

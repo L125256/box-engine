@@ -4,7 +4,7 @@
 - 验收日期：2026-10-17
 - seed：42（一次成活；改参数=新工单，禁止调参重跑）
 - 引擎：`engine_f1/f1_signal.py` v1，sha256 见 `checks_result.json → G1`
-- 锁定 commit：`COMMIT_HASH_PLACEHOLDER`（部署步骤回填）
+- 锁定 commit：`c8817d0c96449563007b65f175f8ddad29b96664`
 
 ## 上线方案要点（照此部署，已确认条款）
 
@@ -36,7 +36,7 @@
 
 ## push 结果
 
-`PUSH_RESULT_PLACEHOLDER`（部署步骤回填）
+`PUSH OK`：引擎锁定提交 `c8817d0`（a17b590..c8817d0 main→main，2026-10-17 23:20，第 1 次尝试成功；此前 2 轮失败为本机工作目录问题非网络故障，如实记录）。文档回填提交随后追加。
 
 ## 复现命令
 
