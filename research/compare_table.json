@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "workorder": "两校验对比终审（选一 ft_calib × 选二 R6-1）",
+    "date": "2026-10-17",
+    "inputs": [
+      "/tmp/ft_calib/ft_calib_report.md",
+      "/tmp/ft_calib/ft_calib.json",
+      "/tmp/r6_1/R6-1_report.md",
+      "/tmp/r6_1/ab_validation.json",
+      "/tmp/ft_spec/大肉神圣不可侵犯校验方法书.md",
+      "/tmp/chair_verdict_r61.md",
+      "/tmp/chair_verdict_r5.md"
+    ],
+    "seats": ["tech", "bull", "bear", "chair"],
+    "mantra": ["做到当下最好", "未来打折", "契合市场", "离谱论证零容忍", "各种假设随便跑循环推进"]
+  },
+  "cross_check": {
+    "same_engine": true,
+    "engine_lineage": "/tmp/r5_3/r5_3_scan.py <- /tmp/eng_w2_f1/f1_backtest.py，两单均逐行复制，seed=42",
+    "baseline_replication": {
+      "ft_calib_vs_f1_results": "四窗全 True",
+      "ab_validation_vs_f1_results": "<1e-9"
+    },
+    "concession_reconciliation": {
+      "r61_59_4pp": "AB_cap2/old131，entry 类错过大肉实现口径，不含 exit_deferred",
+      "ft_calib_90_97pp": "同方案同池，1.1 全谱事件（entry + exit_deferred 两条实现路径差）",
+      "delta_exit_deferred_side_pp": 31.61,
+      "verdict": "事件集差，非矛盾；让渡主体=exit_deferred 结论自洽"
+    },
+    "gross_vs_net": {
+      "gross_conceded": "全窗累计 pp（初始权益=100），毛成本",
+      "net_ledger": "AB 全窗年化 -7.97pp = 费省+4.04 避损+4.15 V型段多吐-22 让渡-59.4 轧差年化",
+      "verdict": "同向互洽"
+    }
+  },
+  "red_line_assessment": {
+    "single_trade_rule": "让渡金额 > 5% × 决策日 base NAV（事前可知）",
+    "geometry": "槽位=10%×NAV_T → entry_missed 触线需该笔实现涨幅≳50%",
+    "hits": [{"scheme": "AB_cap2", "pool": "full144", "sym": "IRENUSDT", "date": "2025-09-09", "conceded_pp": 5.37, "threshold_pp": 5.29}],
+    "tech_verdict": "单笔保险丝有效、累积无牙（分母单笔 vs 损害累积量纲失配）；累积防线显式移交 3.1 双轨/3.3 轨2，体系未漏",
+    "bear_note": "5%·NAV 分母仅 full144（NAV 复利放大后）才有牙"
+  },
+  "schemes": {
+    "base": {
+      "status": "反事实参照",
+      "holdout_MDD": {"old131": -0.2937, "full144": -0.3185},
+      "fee_drag_full": {"old131": 0.0439, "full144": 0.0385}
+    },
+    "A_confirm2": {
+      "train_d_ann_pp": {"old131": -15.64, "full144": -13.68},
+      "holdout_ann": {"old131": 0.7334, "full144": 1.1567},
+      "conceded_pp": {"old131": 63.02, "full144": 62.64},
+      "redline_hits": 0,
+      "dual_track_pass": false,
+      "concentration_top1": {"old131": 0.158, "full144": 0.138},
+      "note": "唯一可议放行项，需用户保险费框架授权"
+    },
+    "AB_cap2": {
+      "status": "已判不放行（馈赠坐实，净账 -7.97pp/年）",
+      "conceded_pp": {"old131": 90.97, "full144": 91.75},
+      "redline_hits": {"old131": 0, "full144": 1}
+    },
+    "AB_cap4": {
+      "status": "不入选（预注册：不因留出窗入选；训练 Δ年化 -11.3pp 且训练 MDD 恶化）",
+      "conceded_pp": {"old131": 64.01, "full144": 65.49},
+      "redline_hits": 0
+    },
+    "cap3": {"status": "污染名单，重入须 R6-1b"}
+  },
+  "structure_findings": {
+    "concession_dominant_kind": "exit_deferred（确认制延迟退出，两条实现路径差）",
+    "entry_missed_recovery": "补回率 K=20/60 全 0 = 永久错过",
+    "concentration": "让渡侧 top1 9.4%~15.8%，无单笔灾难主导，不可单笔否决",
+    "design_implication": "entry 确认保留 + 退出延迟设上限 → R7 新工单方向"
+  },
+  "chair_ranking": {
+    "1": {"path": "base 裸奔维持", "precondition": "无，即刻默认"},
+    "2": {"path": "A 单档放行", "precondition": ["用户签署保险费框架（训练窗 Δ年化 -8.5~-15.6pp 保费知情）", "失效边界自动退场：≥2 年复检 MDD 改善回 base±3pp 即退", "逐月净账监控，季度劣化超保费上限 1.5 倍触发复审"]},
+    "3": {"path": "cap4", "precondition": "无路径，归档"},
+    "4": {"path": "R7 新设计（exit_deferred 上限 + entry 单侧治理）", "precondition": ["新工单+预注册", "换未污染评估段重切 train/holdout", "八列+双向净账全报", "cap3 污染名单纪律不松动"]}
+  },
+  "user_decisions": [
+    "A 单档去留：是否接受保险费框架放行 A（保费=训练窗 Δ年化，失效边界自动退场）；不接受则 base 为默认",
+    "R7 新设计立项：是否批准 exit_deferred 上限 + entry 单侧治理新工单（预注册+换段复验）",
+    "方法书 v1.0 维持确认：5% 红线维持单笔级，累积防线由 3.1 双轨承担；升级为组合层累积线须新版本号显式批准"
+  ]
+}
