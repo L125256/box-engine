@@ -111,4 +111,4 @@ PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py replay --
 
 ## 四、push 结果
 
-见文末追记。
+`PUSH OK`：施工提交 `1387d23`（63f8b09..1387d23 main→main，2026-10-18，第 1 次尝试成功）。产物归档：引擎与检测标在 `engine_f1/`，页面与说明书同步归档至 `f1_web/` 与 `f1/`。
