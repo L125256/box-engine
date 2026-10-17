@@ -1,17 +1,43 @@
 {
  "state": "NORMAL",
- "consec_fail": 0,
- "consec_ok": 1,
- "last_ok": "2026-10-17T20:08:13Z",
- "last_fail": null,
+ "consec_fail": 1,
+ "consec_ok": 0,
+ "last_ok": "2026-10-17T20:48:44Z",
+ "last_fail": "2026-10-17T20:49:44Z",
  "degraded_since": null,
  "pending_manual": false,
  "frozen_asof": null,
  "history": [
   {
-   "ts": "2026-10-17T20:08:13Z",
+   "ts": "2026-10-17T20:48:34Z",
    "from": "NORMAL",
+   "round_ok": false
+  },
+  {
+   "ts": "2026-10-17T20:48:34Z",
+   "from": "NORMAL",
+   "round_ok": false
+  },
+  {
+   "ts": "2026-10-17T20:48:35Z",
+   "from": "DEGRADED",
    "round_ok": true
+  },
+  {
+   "ts": "2026-10-17T20:48:43Z",
+   "from": "DEGRADED",
+   "round_ok": true
+  },
+  {
+   "ts": "2026-10-17T20:48:44Z",
+   "from": "RECOVERING",
+   "round_ok": true
+  },
+  {
+   "ts": "2026-10-17T20:49:44Z",
+   "from": "NORMAL",
+   "round_ok": false
   }
- ]
+ ],
+ "last_round_id": "DRILL-VERIFY"
 }
