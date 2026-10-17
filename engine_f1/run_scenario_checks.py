@@ -334,7 +334,7 @@ BK = {x['name']: x for x in J['breakers']['items']}
 mdd_now = BK['CB1']['detail']
 rec('C1a', 'CB1 绿（当前快照）', 'L1 f1_live.json 当前快照',
     f"lights.CB1={BK['CB1']['light']}，mdd20={mdd_now}",
-    '绿灯 · 副文「正常」', BK['CB1']['light'] == 'green' and mdd_now > -0.16)
+    '绿灯 · 副文「正常」', BK['CB1']['light'] == 'green' and mdd_now > fs.CB1_WARN)
 # 合成构造器（L3；加密 7×24 日历 → freq='D'）
 bd = pd.date_range('2026-01-01', periods=80, freq='D')
 
@@ -351,16 +351,18 @@ def seq_with_mdd(mdd):
     return np.concatenate([np.ones(n - 20), tail])
 
 
-# C1b 黄（含边界 −16% 归黄）
-bk = fs.eval_breakers(mk_rp(seq_with_mdd(-0.16), seq_with_mdd(-0.16), np.zeros(80), []), 0)
+# C1b 黄（含边界 −4% 归黄；R13 新黄线）
+bk = fs.eval_breakers(mk_rp(seq_with_mdd(-0.04), seq_with_mdd(-0.04), np.zeros(80), []), 0)
 ok_c1b = bk['lights']['CB1'] == 'yellow' and '观察' in bk['actions']['CB1']
-rec('C1b', 'CB1 黄（mdd20=−16% 边界归黄）', 'L3 合成净账 20 日回撤恰 −16%',
+rec('C1b', 'CB1 黄（mdd20=−4% 边界归黄）', 'L3 合成净账 20 日回撤恰 −4%',
     f"light={bk['lights']['CB1']}，action={bk['actions']['CB1']}",
-    '黄灯 · 过半警戒线', ok_c1b)
-# C1c 红 + 降一档（边界 −32% 恰触发）+ 状态机落盘
-bk = fs.eval_breakers(mk_rp(seq_with_mdd(-0.32), seq_with_mdd(-0.32), np.zeros(80), []), 0)
+    '黄灯 · 过黄线', ok_c1b)
+# C1c 红 + 降一档（R13 新红线 −8%）+ 状态机落盘
+# FP 注：线性回撤构造在二进制浮点下恰 −8.0% 会算得 −7.999…%（> 红线）判黄，
+#       故以 −9.5%（明确越 −8% 红线）构造验证，语义与「恰触发」一致。
+bk = fs.eval_breakers(mk_rp(seq_with_mdd(-0.095), seq_with_mdd(-0.095), np.zeros(80), []), 0)
 st = fs.update_state(bk, bd, {'tier_idx': 0})
-rec('C1c', 'CB1 红 + 自动降档落盘', 'L3 合成 20 日回撤恰 −32%（<= 触发）',
+rec('C1c', 'CB1 红 + 自动降档落盘（R13 新红线 −8%）', 'L3 合成 20 日回撤 −9.5%（> 红线 −8%）',
     f"light={bk['lights']['CB1']}，action={bk['actions']['CB1']}；update_state→tier_idx={st['tier_idx']}（0→1）",
     '红灯发光 + bkall 建议动作；badge 档位 1（单票 1.5%）',
     bk['lights']['CB1'] == 'red' and '降一档' in bk['actions']['CB1'] and st['tier_idx'] == 1)
@@ -375,15 +377,15 @@ rec('C1d', 'CB1 恢复：灯回绿档位维持', 'L2 红灯窗口过后回撤回
 rec('C2a', 'CB2 绿（当前快照）', 'L1 f1_live.json',
     f"light={BK['CB2']['light']}，detail={BK['CB2']['detail']}",
     '绿灯', BK['CB2']['light'] == 'green')
-# C2b 黄（毛触发未确认）
-eqg = np.concatenate([np.ones(20), np.linspace(1.0, 0.78, 60)])   # 60 日 −22%
-eqn = np.concatenate([np.ones(20), np.linspace(1.0, 0.90, 60)])   # 净账 −10% 未确认
+# C2b 黄（毛触发未确认；R13 新线 −5pp）
+eqg = np.concatenate([np.ones(20), np.linspace(1.0, 0.93, 60)])   # 毛账 60 日 −7%（≤−5pp 触发）
+eqn = np.concatenate([np.ones(20), np.linspace(1.0, 0.98, 60)])   # 净账 −2%（未确认 → 黄）
 bk = fs.eval_breakers(mk_rp(eqn, eqg, np.zeros(80), []), 0)
 rec('C2b', 'CB2 黄（毛触发待净账确认）', 'L3 合成毛账 60 日 −22%、净账 −10%',
     f"light={bk['lights']['CB2']}，action={bk['actions']['CB2']}",
     '黄灯；总灯黄（无红时）',
     bk['lights']['CB2'] == 'yellow' and '待净账确认' in bk['actions']['CB2'],
-    '毛账触发含两条旁路：止损失血≤−20pp 或 60 日毛跌≤−20pp（R6 放宽文案）')
+    '毛账触发含两条旁路：止损失血≤−5pp 或 60 日毛跌≤−5%（R13 重标定）')
 # C2c 红 + 冻结落盘（净 −20.01% 构造：−20.00% 名义值在二进制浮点下算得 −0.19999…>−20%，见报告注）
 eqn2 = np.concatenate([np.ones(20), np.linspace(1.0, 0.7999, 60)])
 bk = fs.eval_breakers(mk_rp(eqn2, eqg, np.zeros(80), []), 0)
@@ -434,19 +436,19 @@ rec('C3c', 'CB3 黄 + CB2 红：总灯取最严', 'L3 高频止损+深失血叠�
 dfee = BK['FEE']['detail']
 rec('C4a', '费线 绿（当前快照，BUG-01 修复后真实值）', 'L1 f1_live.json（修复后重算）',
     f"light={BK['FEE']['light']}，fee_60d={dfee['fee_60d']}，年化={dfee['fee_ann_pct']}",
-    '绿灯；页面费线阈值读 line_ann_pct=0.217', BK['FEE']['light'] == 'green'
-    and dfee['fee_ann_pct'] < 0.1085)
-# C4b 黄（半线 10.85% 边界）
-fees_y = np.concatenate([np.zeros(20), np.full(60, 0.1085 * (60 / 252.0) / 60)])
+    '绿灯；页面费线阈值读 line_ann_pct（R13 红线 4pp）', BK['FEE']['light'] == 'green'
+    and dfee['fee_ann_pct'] < fs.FEE_WARN)
+# C4b 黄（年化=3.0%：≥黄线 2pp 且 <红线 4pp）
+fees_y = np.concatenate([np.zeros(20), np.full(60, 0.03 * (60 / 252.0) / 60)])
 bk = fs.eval_breakers(mk_rp(np.ones(80), np.ones(80), fees_y, []), 0)
-rec('C4b', '费线 黄（年化=10.85% 恰触发）', 'L3 合成 60 日费用累计使年化恰=10.85%',
+rec('C4b', '费线 黄（年化=3.0% 恰触发）', 'L3 合成 60 日费用累计使年化恰=3.0%',
     f"light={bk['lights']['FEE']}，action={bk['actions']['FEE']}",
-    '黄灯', bk['lights']['FEE'] == 'yellow' and '过半线' in bk['actions']['FEE'])
+    '黄灯', bk['lights']['FEE'] == 'yellow' and '过黄线' in bk['actions']['FEE'])
 # C4c 红 + 降一档
 fees_r = np.concatenate([np.zeros(20), np.full(60, 0.25 * (60 / 252.0) / 60)])
 bk = fs.eval_breakers(mk_rp(np.ones(80), np.ones(80), fees_r, []), 0)
 st = fs.update_state(bk, bd, {'tier_idx': 0})
-rec('C4c', '费线 红 + 自动降档', 'L3 合成 60 日费用年化 25% ≥21.7%',
+rec('C4c', '费线 红 + 自动降档', 'L3 合成 60 日费用年化 25% ≥4pp',
     f"light={bk['lights']['FEE']}，action={bk['actions']['FEE']}；update_state→tier_idx={st['tier_idx']}",
     '红灯；费拖累曲线峰值升高', bk['lights']['FEE'] == 'red'
     and '降一档' in bk['actions']['FEE'] and st['tier_idx'] == 1)
@@ -757,12 +759,18 @@ rec('T4', 'f1_crontab.txt 指向现行入口（⑦）', '静态走查双副本',
 def _sha(p):
     return hashlib.sha256(open(p, 'rb').read()).hexdigest()
 _pairs = [('f1_signal.py', os.path.join(HERE, 'f1_signal.py')),
+          ('f1_datasource.py', os.path.join(HERE, 'f1_datasource.py')),
+          ('replay_breakers_r13.py', os.path.join(HERE, 'replay_breakers_r13.py')),
+          ('sync_archive.py', os.path.join(HERE, 'sync_archive.py')),
           ('f1_generate.py', '/workspace/f1_web/f1_generate.py'),
           ('f1_crontab.txt', os.path.join(HERE, 'f1_crontab.txt')),
+          ('f1_rounds_r13.md', os.path.join(HERE, 'f1_rounds_r13.md')),
+          ('F1_台账口径_v1.md', os.path.join(HERE, 'F1_台账口径_v1.md')),
           ('index.html', '/workspace/f1_web/index.html'),
           ('manual.html', '/workspace/f1_web/manual.html'),
           ('f1_live.json', '/workspace/f1_web/f1_live.json'),
-          ('f1_state.json', '/workspace/f1_web/f1_state.json')]
+          ('f1_state.json', '/workspace/f1_web/f1_state.json'),
+          ('f1_live_intraday.json', '/workspace/f1_web/f1_live_intraday.json')]
 _mis = [n for n, srcp in _pairs
         if _sha(os.path.join('/workspace/repo_ready/f1', n)) != _sha(srcp)]
 rec('T5', 'repo_ready/f1 全目录 sha256 对齐（⑥②）', '逐文件哈希比对（引擎/页面/数据 7 件）',
@@ -790,6 +798,206 @@ rec('T8', '费线阈值读 JSON 无写死（BUG-05 复核）', '静态走查',
     'HTML 无 21.7/10.85 字面量，费线文本读 detail.line_ann_pct',
     '改引擎阈值常量后页面自动跟随', 'line_ann_pct' in PAGE
     and not re.search(r'21\.7', PAGE) and not re.search(r'10\.85', PAGE))
+
+# ================================================================ R13 组
+# H 组：WO-R13-01 重标定后真实段回放统计（读 breaker_stats_r13.json 并现场重算比对）
+print('== R13 H 组：重标定回放统计 ==', flush=True)
+STATS = os.path.join(HERE, 'breaker_stats_r13.json')
+have_stats = os.path.exists(STATS)
+rec('H1', '重标定统计结果文件存在（供审计席核对）', STATS,
+    'breaker_stats_r13.json 已落盘' if have_stats else '缺失', '—', have_stats)
+if have_stats:
+    S13 = json.load(open(STATS))
+    newc = S13['trigger_counts_new']
+    oldc = S13['trigger_counts_old']
+    # H2 新阈值下 CB1/CB2 各有真实触发（黄或红）；CB3 与改前一致（0）
+    h2 = ((newc['CB1']['red_days'] + newc['CB1']['yellow_days']) > 0
+          and (newc['CB2']['red_days'] + newc['CB2']['yellow_days']) > 0)
+    rec('H2', '新阈值下 CB1/CB2 出现真实触发（历史可解释）',
+        f"CB1 红{newc['CB1']['red_days']}/黄{newc['CB1']['yellow_days']}；"
+        f"CB2 红{newc['CB2']['red_days']}/黄{newc['CB2']['yellow_days']}",
+        '重标定后仪表不再恒绿', 'CB1 黄=2026-05 回撤极值期；CB2 红=2026-07 失血期', h2)
+    # H3 旧阈值下三线 0 触发（证明死线，改前状态）
+    h3 = (oldc['CB1']['red_days'] == 0 and oldc['CB1']['yellow_days'] == 0
+          and oldc['CB2']['red_days'] == 0 and oldc['CB2']['yellow_days'] == 0
+          and oldc['FEE']['red_days'] == 0 and oldc['FEE']['yellow_days'] == 0)
+    rec('H3', '旧阈值下 CB1/CB2/费线 0 触发（结构性死线已证实）',
+        'old vs new 双列统计', '改前=0，改后有触发', '—', h3)
+    # H4 CB3 保留：触发统计与改前一致
+    h4 = newc['CB3']['yellow_days'] == oldc['CB3']['yellow_days']
+    rec('H4', 'CB3 保留不动：触发统计与改前一致',
+        f"new={newc['CB3']['yellow_days']} vs old={oldc['CB3']['yellow_days']}",
+        '观察线 27.21、基准 9.07 未变', '—', h4)
+    # H5 阈值表随引擎常量（页面读 JSON 的前提）
+    T13 = S13['new_thresholds']
+    h5 = (abs(T13['CB1']['red'] - fs.CB1_MDD) < 1e-12
+          and abs(T13['CB2']['red'] - fs.CB2_LOSS) < 1e-12
+          and abs(T13['FEE']['red'] - fs.FEE_LINE_ANN) < 1e-12
+          and abs(T13['CB3']['line'] - fs.CB3_BASE_60D * fs.CB3_MULT) < 1e-12
+          and fs.CB1_WARN == fs.CB1_MDD / 2 and fs.FEE_WARN == fs.FEE_LINE_ANN / 2)
+    rec('H5', '阈值表=引擎常量（单一事实源）',
+        f"CB1={T13['CB1']} CB2={T13['CB2']} FEE={T13['FEE']}",
+        '页面从 meta.breaker_thresholds 读取', '—', h5)
+
+# I 组：WO-R13-03 只读旁路
+print('== R13 I 组：多轮扫描只读旁路 ==', flush=True)
+# I1 guard：已落定日 → settled=True；伪造「当日」→ settled=False
+_g_ok = fs.guard_last_bar(cal, now=pd.Timestamp(cal[-1]) + pd.Timedelta(days=1))
+_g_bad = fs.guard_last_bar(cal, now=pd.Timestamp(cal[-1]))
+rec('I1', 'guard：落定后 settled=True / 当日 bar settled=False',
+    f"now=D+1 → {_g_ok['settled']}；now=D → {_g_bad['settled']}",
+    '未落定即拒绝判定', '禁止进入周调仓锚定与信号判定',
+    bool(_g_ok['settled']) and not _g_bad['settled'], level='engine')
+# I2 guard 拒绝：未落定 bar 被标记 intraday（current_signal 会抛错拒绝判定）
+_gcheck = fs.guard_last_bar(pd.DatetimeIndex([pd.Timestamp.now(tz='UTC')
+                                              .normalize().tz_localize(None)]))
+refused = (not _gcheck['settled'])
+try:
+    fs.current_signal(data, F, syms, allow_intraday=False)
+    raised = bool(_gcheck['settled'])          # 已落定时不应抛错
+except RuntimeError:
+    raised = not _gcheck['settled']            # 未落定时必须抛错
+rec('I2', 'guard：当日未落定 bar 被判 intraday 且拒绝判定',
+    f"last_bar={_gcheck['last_bar_date']} today_utc={_gcheck['today_utc_date']}",
+    f"settled={_gcheck['settled']}；guard 行为正确={raised}",
+    '只读旁路输出，禁写状态', refused and raised, level='engine')
+# I3 只读快照：不写 f1_state.json / 不覆盖 f1_live.json 判定字段
+import hashlib as _hl
+
+
+def _sha(p):
+    return _hl.sha256(open(p, 'rb').read()).hexdigest() if os.path.exists(p) else None
+
+
+_before_state = _sha('/workspace/f1_web/f1_state.json')
+_before_live = _sha('/workspace/f1_web/f1_live.json')
+_before_live_dec = (json.load(open('/workspace/f1_web/f1_live.json'))
+                    if _before_live else {})
+_before_dec = json.dumps({k: _before_live_dec.get(k) for k in
+                          ('signal', 'breakers', 'state', 'monthly_accounts')},
+                         ensure_ascii=False, sort_keys=True)
+try:
+    snap = fs.run_snapshot(out_json='/workspace/f1_web/f1_live_intraday.json',
+                           round_id='00:30')
+    snap_ok = (snap['meta']['mode'] == 'intraday_snapshot'
+               and snap['meta']['operable'] is False
+               and snap['writes'] == {'f1_state.json': False, 'f1_live.json': False}
+               and 'top5' not in snap)
+except Exception as e:                                    # pragma: no cover
+    snap, snap_ok = {'err': str(e)}, False
+_after_state = _sha('/workspace/f1_web/f1_state.json')
+_after_live = _sha('/workspace/f1_web/f1_live.json')
+_after_live_dec = json.load(open('/workspace/f1_web/f1_live.json'))
+_after_dec = json.dumps({k: _after_live_dec.get(k) for k in
+                            ('signal', 'breakers', 'state', 'monthly_accounts')},
+                           ensure_ascii=False, sort_keys=True)
+rec('I3', '只读快照：禁写 f1_state.json + 禁覆盖 f1_live.json 判定字段',
+    'L1 运行 snapshot --round 00:30 前后逐位比对',
+    f"mode={snap.get('meta', {}).get('mode')}；writes={snap.get('writes')}；"
+    f"state sha 不变={_before_state == _after_state}；live 判定字段不变={_before_dec == _after_dec}",
+    '盘中卡与判定卡分离；盘中卡禁显示 top5',
+    bool(snap_ok) and _before_state == _after_state and _before_dec == _after_dec,
+    'guard 保证：snapshot 永不调 update_state/save_state', level='engine')
+# I4 快照不含 top5 建议
+snap_json = open('/workspace/f1_web/f1_live_intraday.json').read()
+rec('I4', '盘中快照不出 top5 建议',
+    'snapshot 输出字段走查',
+    f"含 'top5' 键={chr(39) + 'top5' + chr(39) in snap_json}",
+    '防用户照做盘中评分',
+    ("'top5'" not in snap_json) and ('不可操作' in snap_json), level='engine')
+# I5 推送去重：判定轮同 asof 只推一次；盘中轮按 asof+轮次
+p1 = fs.push_plan('DECIDE', '2026-10-17', 'DECIDE', last_push={})
+p2 = fs.push_plan('DECIDE', '2026-10-17', 'DECIDE', last_push={p1['key']: 1})
+i1 = fs.push_plan('INTRADAY', '2026-10-17', '20:30', last_push={})
+i2 = fs.push_plan('INTRADAY', '2026-10-17', '20:30', last_push={i1['key']: 1})
+i3 = fs.push_plan('INTRADAY', '2026-10-17', '04:30', last_push={i1['key']: 1})
+rec('I5', '推送去重：判定轮按 asof，盘中轮按 asof+轮次',
+    'DECIDE/INTRADAY 五种组合',
+    f"p1={p1['push']} p2={p2['push']} i1={i1['push']} i2={i2['push']} i3={i3['push']}",
+    '同日 4 轮无重复判定推送',
+    bool(p1['push']) and not p2['push'] and bool(i1['push'])
+    and not i2['push'] and bool(i3['push'])
+    and i1['carries_decision'] is False and p1['carries_decision'] is True, level='engine')
+# I6 多轮时刻表可注册（crontab 含三轮 snapshot）
+CR13 = open(os.path.join(HERE, 'f1_crontab.txt')).read()
+rec('I6', '多轮时刻表可注册（20:30/00:30/04:30 只读 + 判定轮）',
+    'f1_crontab.txt',
+    f"snapshot 轮次数={CR13.count('snapshot --round')}；判定轮 live 存在={'f1_signal.py live' in CR13}",
+    '页面标注夏令时漂移',
+    CR13.count('snapshot --round') == 3 and 'f1_signal.py live' in CR13)
+
+# J 组：WO-R13-04 数据源容灾
+print('== R13 J 组：数据源容灾 ==', flush=True)
+sys.path.insert(0, HERE)
+import f1_datasource as DS                                # noqa: E402
+
+# J1 单次失败 ≠ 宕机：1 个周期失败后仍在 NORMAL
+DS._reset()
+os.environ['F1_PRIMARY_FAIL'] = '1'
+os.environ['F1_RETRY_SLEEP'] = '0'
+_st1, _ = DS.run_round(round_id='J1')
+rec('J1', '单次/单周期失败不误切（仍在 NORMAL）',
+    '注入故障跑 1 周期',
+    f"state={_st1['state']} consec_fail={_st1['consec_fail']}",
+    '防误切换', _st1['state'] == 'NORMAL' and _st1['consec_fail'] == 1, level='engine')
+# J2 连续 2 周期失败 → DEGRADED + 冻结
+_st2, _ = DS.run_round(round_id='J2')
+_frz = DS.freeze_payload()
+rec('J2', '连续 2 周期失败 → DEGRADED 且判定字段冻结',
+    '注入故障跑第 2 周期',
+    f"state={_st2['state']}；frozen_asof={_st2.get('frozen_asof')}；freeze 不写 state={_frz['writes']}",
+    '页面标注 asof + 数据源=降级',
+    _st2['state'] == 'DEGRADED' and _frz['writes']['f1_state.json'] is False, level='engine')
+# J3 连续 2 周期健康 → RECOVERING（待验收）
+os.environ['F1_PRIMARY_FAIL'] = '0'
+_st3, _ = DS.run_round(round_id='J3a')
+_st4, _ = DS.run_round(round_id='J3b')
+rec('J3', '连续 2 周期健康 → RECOVERING（待一致性验收）',
+    '解除故障跑 2 周期',
+    f"{_st3['state']} → {_st4['state']}",
+    '验收不过挂待人工', _st4['state'] == 'RECOVERING', level='engine')
+# J4 一致性验收：基差计入容差，偏差 ≤2% 通过
+_cons = DS.consistency_check([{'symbol': 'aapl', 'date': '2026-10-16', 'close': 100.0}],
+                              [{'symbol': 'aapl', 'date': '2026-10-16', 'close': 101.5}])
+_st5, _ = DS.run_round(round_id='J4', consistency=_cons)
+rec('J4', '一致性验收通过 → 自动切回 NORMAL（容差=价格1%+基差1%）',
+    '主备重叠标的收盘价偏差 1.5%',
+    f"cons={_cons['pass']}；state={_st5['state']}",
+    '切换事件写日志', bool(_cons['pass']) and _st5['state'] == 'NORMAL', level='engine')
+# J5 一致性不通过 → 挂待人工，禁止自动强切
+DS._reset()
+os.environ['F1_PRIMARY_FAIL'] = '1'
+for _i in range(DS.FAIL_PERIODS_TO_DEGRADE):
+    DS.run_round(round_id='J5f')
+os.environ['F1_PRIMARY_FAIL'] = '0'
+for _i in range(DS.OK_PERIODS_TO_RECOVER):
+    DS.run_round(round_id='J5o')
+_cons_bad = DS.consistency_check([{'symbol': 'aapl', 'date': '2026-10-16', 'close': 100.0}],
+                                   [{'symbol': 'aapl', 'date': '2026-10-16', 'close': 110.0}])
+_st6, _ = DS.run_round(round_id='J5v', consistency=_cons_bad)
+rec('J5', '一致性验收不通过 → 挂待人工，禁止自动强切',
+    '偏差 10% 超限',
+    f"cons={_cons_bad['pass']}；state={_st6['state']}；pending_manual={_st6.get('pending_manual')}",
+    '页面标注待人工',
+    (not _cons_bad['pass']) and _st6['state'] == 'RECOVERING'
+    and _st6.get('pending_manual') is True, level='engine')
+# J6 新浪：白名单 ≤6 只 + 144 全量被拒
+_wl = DS.proxy_watchlist(['AAPLUSDT', 'MSFTUSDT', 'GOOGLUSDT', 'AMZNUSDT', 'NVDAUSDT'])
+try:
+    DS.fetch_sina_daily([f'S{i}USDT' for i in range(144)])
+    _rej = False
+except ValueError:
+    _rej = True
+rec('J6', '新浪硬约束：白名单 ≤6 只/轮 + 144 全量被拒',
+    f"watchlist={_wl}；144 全量请求",
+    f"白名单 {len(_wl)} 只；144 拒绝={_rej}",
+    '防限流；备源仅抽查',
+    len(_wl) <= DS.MAX_PROXY_SYMBOLS and _rej, level='engine')
+# J7 数据出身标注：降级期输出带 asof + source
+_banner = DS.source_banner({'state': 'DEGRADED', 'frozen_asof': '2026-10-17'})
+rec('J7', '降级期任何输出带 asof + source 标注',
+    'DEGRADED banner', _banner,
+    '页面显著标注', '2026-10-17' in _banner and '不构成新推荐' in _banner, level='engine')
 
 # ================================================================ 汇总
 n_pass = sum(1 for r in RES if r['pass'])

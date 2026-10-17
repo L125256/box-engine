@@ -1,0 +1,174 @@
+{
+ "G1": {
+  "name": "引擎版本锁定",
+  "engine_sha256": "ae92dfafc1b136034bc383ac30baa1711a28480aac1ca2f68c3a3861a77459d8",
+  "self_file_sha256": "ae92dfafc1b136034bc383ac30baa1711a28480aac1ca2f68c3a3861a77459d8",
+  "match": true,
+  "backtest_src_sha256": "ac1add4e4757dda24376bbb9b4d6d7699e7b69e1712567045b72618a1d79868a",
+  "git_commit_at_check": "65bb3fd721ab6a5e617e67edd20d0371522fa604",
+  "seed": 42,
+  "note": "commit hash 在引擎入库后由 deploy 步骤回填 README/报告（hash 不可自含）",
+  "pass": true
+ },
+ "G2": {
+  "name": "数据源健康",
+  "pass": true,
+  "probes": [
+   {
+    "sym": "AAPLUSDT",
+    "api_last": "2026-10-17",
+    "cache_last": "2026-10-17",
+    "fresh": true,
+    "fields_ok": true,
+    "ohlc_sane": true
+   },
+   {
+    "sym": "NVDAUSDT",
+    "api_last": "2026-10-17",
+    "cache_last": "2026-10-17",
+    "fresh": true,
+    "fields_ok": true,
+    "ohlc_sane": true
+   },
+   {
+    "sym": "TSLAUSDT",
+    "api_last": "2026-10-17",
+    "cache_last": "2026-10-17",
+    "fresh": true,
+    "fields_ok": true,
+    "ohlc_sane": true
+   },
+   {
+    "sym": "EWZUSDT",
+    "api_last": "2026-10-17",
+    "cache_last": "2026-10-17",
+    "fresh": true,
+    "fields_ok": true,
+    "ohlc_sane": true
+   }
+  ],
+  "cache_files": 176,
+  "pool_n": 144,
+  "bad_cache_files": [],
+  "api": "kxiandaoyan（kx_client.get_kline futures 1d）"
+ },
+ "G3": {
+  "name": "监控越线实测",
+  "pass": true,
+  "n_cases": 11,
+  "n_pass": 11,
+  "cases": [
+   {
+    "case": "CB1",
+    "desc": "20日MDD −10% 越红线",
+    "want": "red/降一档",
+    "got": "red/降一档（滚动20日MDD=-9.5%≤-8%）",
+    "pass": true
+   },
+   {
+    "case": "CB1",
+    "desc": "20日MDD −5% 黄线预警",
+    "want": "yellow/观察",
+    "got": "yellow/观察（滚动20日MDD=-4.7%，过黄线-4%）",
+    "pass": true
+   },
+   {
+    "case": "CB1",
+    "desc": "平稳上涨对照",
+    "want": "green/正常",
+    "got": "green/正常",
+    "pass": true
+   },
+   {
+    "case": "CB2",
+    "desc": "毛账60日−7%+净账确认",
+    "want": "red/冻结开新仓",
+    "got": "red/冻结开新仓20交易日（首月暂定）：60日毛账失血触发+净账确认",
+    "pass": true
+   },
+   {
+    "case": "CB2",
+    "desc": "止损失血−24pp触发、净账未确认",
+    "want": "yellow/待净账确认",
+    "got": "yellow/预警：毛账触发待净账确认",
+    "pass": true
+   },
+   {
+    "case": "CB2",
+    "desc": "正常对照",
+    "want": "green/正常",
+    "got": "green/正常",
+    "pass": true
+   },
+   {
+    "case": "CB3",
+    "desc": "60日止损28次越观察线",
+    "want": "yellow/外移观察",
+    "got": "yellow/外移观察：60日止损28次≥观察线27次",
+    "pass": true
+   },
+   {
+    "case": "CB3",
+    "desc": "60日止损5次正常",
+    "want": "green/正常",
+    "got": "green/正常",
+    "pass": true
+   },
+   {
+    "case": "FEE",
+    "desc": "60日费拖累年化25.2%越线",
+    "want": "red/降一档",
+    "got": "red/降一档（滚动60日费拖累年化=25.2%≥4.0%）",
+    "pass": true
+   },
+   {
+    "case": "FEE",
+    "desc": "费拖累年化3.0%黄线预警",
+    "want": "yellow/预警",
+    "got": "yellow/预警：费拖累年化=3.0%过黄线2%",
+    "pass": true
+   },
+   {
+    "case": "FEE",
+    "desc": "费拖累年化0.76%正常",
+    "want": "green/正常",
+    "got": "green/正常",
+    "pass": true
+   }
+  ]
+ },
+ "G4": {
+  "name": "回放对账",
+  "days": 767,
+  "days_match": 756,
+  "holdings_diff_days": [
+   "2025-08-12",
+   "2025-08-13",
+   "2025-08-14",
+   "2025-08-15",
+   "2025-08-18",
+   "2025-08-20",
+   "2025-08-21",
+   "2025-08-22",
+   "2025-08-25",
+   "2026-01-06",
+   "2026-01-07"
+  ],
+  "n_holdings_diff": 11,
+  "curve_max_abs_diff": 0.09976285015285669,
+  "pass": false,
+  "note": "权威侧=f1_backtest.run_backtest 源码插桩逐日持仓；引擎侧=f1_signal.replay（slot=0.10 对齐）"
+ },
+ "G5": {
+  "name": "定时接线",
+  "crontab_available": false,
+  "crontab_installed": false,
+  "wtc_daily_entry": true,
+  "suggested_crontab": [
+   "10 9 * * * /tmp/wtc/run_daily.sh >> /tmp/wtc/logs/cron.log 2>&1",
+   "25 9 * * 1-5 python3 /workspace/f1_web/f1_generate.py >> /workspace/f1_web/cron.log 2>&1"
+  ],
+  "note": "本机无 crontab（G5=PASS 以注册说明+建议交付）；接线上岗时执行 crontab 载入 f1_crontab.txt 或改用 systemd timer",
+  "pass": true
+ }
+}

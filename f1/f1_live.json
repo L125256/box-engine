@@ -2,8 +2,8 @@
  "meta": {
   "workorder": "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
   "seed": 42,
-  "generated": "2026-10-18 01:31:36",
-  "engine_sha256": "83dc6caa7ade8b5510affc6f0a4f28b6b71e91138d1f29355c8484545bda1635",
+  "generated": "2026-10-18 04:00:37",
+  "engine_sha256": "ae92dfafc1b136034bc383ac30baa1711a28480aac1ca2f68c3a3861a77459d8",
   "pool_n": 144,
   "caliber": "V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar",
   "tier_table_pct_per_stock": [
@@ -12,6 +12,45 @@
    1.0,
    0.5
   ],
+  "total_exposure_pct": 12.5,
+  "calib_epoch": "R13-2026-10-18",
+  "breaker_thresholds": {
+   "CB1": {
+    "name": "回撤闸",
+    "red": -0.08,
+    "yellow": -0.04,
+    "window": 20,
+    "action": "降一档",
+    "metric": "滚动20交易日净账最大回撤(MDD)"
+   },
+   "CB2": {
+    "name": "止损闸",
+    "red": -0.05,
+    "yellow": -0.025,
+    "window": 60,
+    "freeze_days": 20,
+    "action": "冻结开新仓20交易日",
+    "metric": "滚动60日止损失血(毛账触发)/净账确认"
+   },
+   "CB3": {
+    "name": "频次观察",
+    "line": 27.21,
+    "baseline": 9.07,
+    "mult": 3,
+    "window": 60,
+    "action": "观察不动仓",
+    "metric": "滚动60日止损次数"
+   },
+   "FEE": {
+    "name": "费用闸",
+    "red": 0.04,
+    "yellow": 0.02,
+    "window": 60,
+    "action": "降一档",
+    "metric": "滚动60日费用(滑点+资金费)折年化"
+   }
+  },
+  "calib_note": "熔断阈值=R13 重标定（现行 12.5% 敞口口径：单票 2.5%×5 票）。旧阈值 −32%/−20pp/21.7pp 属满仓时代口径，在本敞口下数学不可达，已废。若未来人工升敞口，须按敞口比例重标定（升档=新工单）。",
   "cb3_baseline_60d": 9.07,
   "cb3_baseline_recomputed": 9.07,
   "cb3_baseline_drift_alert": false,
@@ -21,6 +60,13 @@
    "eq_net": 1.2641,
    "eq_gross": 1.2859,
    "stop_events_total": 104
+  },
+  "source": {
+   "primary": "kxiandaoyan",
+   "state": "NORMAL",
+   "asof": "2026-10-17",
+   "label": "主源",
+   "mode": "判定轮"
   }
  },
  "signal": {
@@ -94,7 +140,9 @@
      "gross_60d_pct": -0.017,
      "net_60d_pct": -0.0182,
      "stop_count_60d": 14,
-     "stop_pnl_sum_60d": -0.035
+     "stop_pnl_sum_60d": -0.035,
+     "red_pp": -0.05,
+     "warn_pp": -0.025
     }
    },
    {
@@ -114,7 +162,9 @@
     "detail": {
      "fee_60d": 0.001615,
      "fee_ann_pct": 0.0068,
-     "line_ann_pct": 0.217
+     "line_ann_pct": 0.04,
+     "red_ann_pct": 0.04,
+     "warn_ann_pct": 0.02
     }
    }
   ]

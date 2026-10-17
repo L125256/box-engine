@@ -1,0 +1,97 @@
+{
+ "drill": "WO-R13-04 数据源容灾演练",
+ "n_checks": 8,
+ "n_pass": 8,
+ "all_pass": true,
+ "checks": [
+  {
+   "id": "DR1",
+   "desc": "主源连续 2 周期失败 → 状态机判死降级",
+   "pass": true
+  },
+  {
+   "id": "DR2",
+   "desc": "降级期 f1_live.json 判定字段逐位不变（冻结）",
+   "pass": true
+  },
+  {
+   "id": "DR3",
+   "desc": "降级期不写 f1_state.json",
+   "pass": true
+  },
+  {
+   "id": "DR4",
+   "desc": "新浪白名单 ≤6 只/轮",
+   "pass": true,
+   "watchlist": [
+    "AAPLUSDT",
+    "NVDAUSDT",
+    "TSLAUSDT",
+    "MSFTUSDT",
+    "GOOGLUSDT",
+    "AAPL"
+   ]
+  },
+  {
+   "id": "DR5",
+   "desc": "新浪 144 全量拉取被拒绝（无全量代码路径）",
+   "pass": true
+  },
+  {
+   "id": "DR6",
+   "desc": "主源连续 2 周期健康 → 进入 RECOVERING 待验收",
+   "pass": true
+  },
+  {
+   "id": "DR7",
+   "desc": "一致性验收通过 → 自动切回 NORMAL",
+   "pass": true
+  },
+  {
+   "id": "DR8",
+   "desc": "降级期输出带 asof + source 标注",
+   "pass": true
+  }
+ ],
+ "trace": [
+  {
+   "step": "fail1",
+   "state": "NORMAL",
+   "ok": false
+  },
+  {
+   "step": "fail2",
+   "state": "DEGRADED",
+   "ok": false
+  },
+  {
+   "step": "ok1",
+   "state": "DEGRADED",
+   "ok": true
+  },
+  {
+   "step": "ok2",
+   "state": "RECOVERING",
+   "ok": true
+  },
+  {
+   "step": "verify",
+   "state": "NORMAL",
+   "consistency": {
+    "pass": true,
+    "reason": "一致性通过",
+    "overlap": 1,
+    "max_dev": 0.01,
+    "worst": {
+     "symbol": "aapl",
+     "date": "2026-10-16"
+    },
+    "tol": 0.02,
+    "price_tol": 0.01,
+    "basis_tol": 0.01
+   }
+  }
+ ],
+ "events_log": "/workspace/repo_ready/engine_f1/f1_source_events.log",
+ "state_file": "/workspace/repo_ready/engine_f1/f1_source_state.json"
+}

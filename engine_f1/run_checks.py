@@ -108,25 +108,28 @@ def g3():
         cases.append({'case': cid, 'desc': desc, 'want': f'{want_light}/{want_kw}',
                       'got': f'{got}/{act}', 'pass': bool(okk)})
 
-    # CB1 red：滚动20日窗口 MDD −35%
-    p = [1.0] * 100 + [1.0 * (1 - 0.35 * i / 20) for i in range(20)]
-    case('CB1', '20日MDD −35% 越线', _mk_rp(p), 'red', '降一档')
-    # CB1 yellow：−18%（过半警戒）
-    p = [1.0] * 100 + [1.0 * (1 - 0.18 * i / 20) for i in range(20)]
-    case('CB1', '20日MDD −18% 半线预警', _mk_rp(p), 'yellow', '观察')
+    # 说明：R13 重标定后阈值 = CB1 红 −8%/黄 −4%；CB2 红 −5pp/黄 −2.5pp；
+    #       费线 红 4pp/黄 2pp；CB3 观察线 27.21（保留不动）。
+    # CB1 red：滚动20日窗口 MDD −10%（≤−8% 红线）
+    p = [1.0] * 100 + [1.0 * (1 - 0.10 * i / 20) for i in range(20)]
+    case('CB1', '20日MDD −10% 越红线', _mk_rp(p), 'red', '降一档')
+    # CB1 yellow：−5%（≤−4% 黄线但未及红线）
+    p = [1.0] * 100 + [1.0 * (1 - 0.05 * i / 20) for i in range(20)]
+    case('CB1', '20日MDD −5% 黄线预警', _mk_rp(p), 'yellow', '观察')
     # CB1 green 对照
     p = [1.0 * (1 + 0.001 * i) for i in range(120)]
     case('CB1', '平稳上涨对照', _mk_rp(p), 'green', '正常')
 
-    # CB2 red：毛账60日 −22% 且净账 −22% 确认
-    p = [1.0] * 60 + [1.0 * (1 - 0.22 * i / 60) for i in range(60)]
-    case('CB2', '毛账60日−22%+净账确认', _mk_rp(p), 'red', '冻结开新仓')
-    # CB2 yellow：毛账触发（止损失血名义加权 −24pp）但净账未确认
-    eq_flat = [1.0] * 120
+    # CB2 red：毛账60日 −7% 且净账 −7% 确认（均 ≤ −5pp 红线）
+    p = [1.0] * 60 + [1.0 * (1 - 0.07 * i / 60) for i in range(60)]
+    case('CB2', '毛账60日−7%+净账确认', _mk_rp(p), 'red', '冻结开新仓')
+    # CB2 yellow：毛账触发（止损失血名义加权 −6pp）但净账未确认（−1%）
+    eqg = np.concatenate([np.ones(60), np.linspace(1.0, 0.99, 60)])
+    eqn = np.concatenate([np.ones(60), np.linspace(1.0, 0.99, 60)])
     stops = [{'date': str(d.date()), 'sym': 'X', 'px': 1.0, 'pnl_pct': -0.08,
               'slot': 0.10, 'kind': 'stop_touch'}
              for d in pd.date_range('2026-08-01', periods=30, freq='B')]
-    case('CB2', '止损失血−24pp触发、净账未确认', _mk_rp(eq_flat, stops=stops),
+    case('CB2', '止损失血−24pp触发、净账未确认', _mk_rp(eqn, stops=stops),
          'yellow', '待净账确认')
     # CB2 green 对照
     case('CB2', '正常对照', _mk_rp([1.0 * (1 + 0.0005 * i) for i in range(120)]),
@@ -142,17 +145,17 @@ def g3():
         {'date': '2026-08-05', 'sym': 'X', 'px': 1.0, 'pnl_pct': -0.08,
          'slot': 0.025, 'kind': 'stop_touch'}] * 5), 'green', '正常', cb3_base=9.07)
 
-    # 费线 red：60日费合计0.06 → 年化 25.2% ≥21.7%
+    # 费线 red：60日费合计0.06 → 年化 25.2% ≥ 4pp（R13 新红线）
     fees = [0.001] * 120
     case('FEE', '60日费拖累年化25.2%越线', _mk_rp([1.0] * 120, fees_path=fees),
          'red', '降一档')
-    # 费线 yellow：年化12.6% 过半线
-    fees = [0.0005] * 120
-    case('FEE', '费拖累年化12.6%半线预警', _mk_rp([1.0] * 120, fees_path=fees),
+    # 费线 yellow：年化 3.0%（≥黄线 2pp 且 <红线 4pp）
+    fees = [0.000119048] * 120
+    case('FEE', '费拖累年化3.0%黄线预警', _mk_rp([1.0] * 120, fees_path=fees),
          'yellow', '预警')
-    # 费线 green 对照
-    fees = [0.0001] * 120
-    case('FEE', '费拖累年化2.5%正常', _mk_rp([1.0] * 120, fees_path=fees),
+    # 费线 green 对照（年化 0.76% < 黄线 2pp）
+    fees = [0.00003] * 120
+    case('FEE', '费拖累年化0.76%正常', _mk_rp([1.0] * 120, fees_path=fees),
          'green', '正常')
 
     n_pass = sum(1 for c in cases if c['pass'])

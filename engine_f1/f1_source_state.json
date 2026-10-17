@@ -1,0 +1,17 @@
+{
+ "state": "NORMAL",
+ "consec_fail": 0,
+ "consec_ok": 1,
+ "last_ok": "2026-10-17T20:08:13Z",
+ "last_fail": null,
+ "degraded_since": null,
+ "pending_manual": false,
+ "frozen_asof": null,
+ "history": [
+  {
+   "ts": "2026-10-17T20:08:13Z",
+   "from": "NORMAL",
+   "round_ok": true
+  }
+ ]
+}

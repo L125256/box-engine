@@ -10,3 +10,19 @@
 25 9 * * 1-5 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live >> /workspace/f1_web/cron.log 2>&1
 # 任务3（建议）：月度三本账归档，每月首个交易日追加落盘
 30 9 1-3 * * python3 /workspace/repo_ready/engine_f1/f1_signal.py live --out /workspace/repo_ready/f1/monthly/$(date +\%Y\%m).json >> /workspace/f1_web/cron.log 2>&1
+#
+# ===== R13 WO-03：多轮扫描（展示多轮、判定一轮）=====
+# 判定轮 = 任务2（每日 09:25 北京，日K 00:00 UTC 落定后；可选前移 08:30，二选一）。
+# 以下三轮为 **只读盘中快照**：只算当前持仓盈亏 + 熔断预演 + 崩市预估，
+#   禁写 f1_state.json、禁覆盖 f1_live.json 判定字段、禁出 top5 建议。
+#   输出 → /workspace/f1_web/f1_live_intraday.json
+# 时刻为**北京时间**（北京无夏令时，全年固定）；美股语义随 DST 漂移，见 f1_rounds_r13.md。
+# 20:30 = 美股盘前（夏令时开盘前约 1 小时）
+30 20 * * 1-5 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py snapshot --round 20:30 >> /workspace/f1_web/cron.log 2>&1
+# 00:30 = 美股盘中（夏令时约 12:30 ET）
+30 0 * * 1-5 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py snapshot --round 00:30 >> /workspace/f1_web/cron.log 2>&1
+# 04:30 = 美股收盘附近（夏令时=收盘后 30 分钟；冬令时=收盘前 30 分钟）
+30 4 * * 1-5 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py snapshot --round 04:30 >> /workspace/f1_web/cron.log 2>&1
+#
+# 主源健康检查（WO-04）：每个判定轮由 f1_signal.run_live 内置 probe 推进状态机；
+#   亦可单独巡检：*/30 * * * * python3 /workspace/repo_ready/engine_f1/f1_datasource.py check >> /workspace/f1_web/cron.log 2>&1

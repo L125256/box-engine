@@ -22,13 +22,13 @@ BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
 - BUG-04 崩市清仓日禁止当日重建仓（跳过当期调仓执行）；止损票当日禁止买回
 - BUG-05 页面费线阈值读 JSON（line_ann_pct），HTML 不写死
 
-熔断器（R11' 上线方案）：
-- CB1  MDD−32%/20交易日：滚动 20 交易日窗口内净账 MDD ≤ −32% → 降一档
-- CB2  滚动60日止损失血：毛账滚动 60 交易日止损单合计亏损 ≤ −20pp 触发（黄灯），
-       净账确认（同期净账亏损 ≤ −20pp）→ 红灯，动作=冻结开新仓 20 交易日（首月暂定）
+熔断器（R13 重标定 · 12.5% 敞口口径；阈值表见 breaker_thresholds()）：
+- CB1  回撤闸：滚动 20 交易日窗口内净账 MDD ≤ −8%（红）→ 降一档；≤ −4%（黄）→ 观察
+- CB2  止损闸：滚动 60 交易日止损失血（毛账：止损单名义加权 ≤ −5pp 或 60 日毛跌 ≤ −5%）触发（黄），
+       净账确认（同期净账 ≤ −5pp）→ 红，动作=冻结开新仓 20 交易日
 - CB3  频次外移观察线：滚动 60 交易日止损次数 ≥ 冻结基准(9.07)×3=27.21 → 黄灯观察
-       （基准=v1 冻结快照常量，live 重算值仅存 json 对账参考字段，不参与判定）
-- 费线 21.7pp×2月：滚动 60 交易日费用年化拖累 ≥ 21.7pp → 降一档；≥50%线(10.85pp)黄灯
+       （基准=v1 冻结快照常量，live 重算值仅存 json 对账参考字段，不参与判定；R13 保留不动）
+- 费线 费用闸：滚动 60 交易日费用年化拖累 ≥ 4pp（红）→ 降一档；≥ 2pp（黄）→ 预警
 
 三本账（月报）：
 - 毛账：不含任何费用的策略收益
@@ -36,9 +36,13 @@ BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
 - 让渡账：池等权买入持有收益 − 策略毛账收益（正值=策略让渡给市场的机会成本）
 
 用法：
-  python3 f1_signal.py live  [--out /workspace/f1_web/f1_live.json]   # 每日生成信号+熔断+月报
+  python3 f1_signal.py live  [--out /workspace/f1_web/f1_live.json]   # 每日生成信号+熔断+月报（日K落定后跑）
+  python3 f1_signal.py snapshot --round {20:30|00:30|04:30}           # 只读盘中快照（禁写状态）
   python3 f1_signal.py replay [--slot 0.10] [--holdings-out FILE]     # 历史回放（G4 对账用）
 复现：PYTHONHASHSEED=42 python3 f1_signal.py live（数据 /tmp/box_cache/*.json，刷缓存用 /tmp/wtc/refresh_cache.py）
+多轮口径（WO-R13-03）：展示多轮、判定一轮。20:30/00:30/04:30 = 只读快照（输出 f1_live_intraday.json，
+      不写 f1_state.json、不出 top5）；判定轮 = 日K落定后现行 09:25 一轮。
+      未落定的当日 bar 由 guard_last_bar() 标记 intraday 并拒绝进入周调仓锚定与信号判定。
 """
 import json
 import os
@@ -64,16 +68,45 @@ FEE_SIDE = 0.0005
 FUNDING = 0.0003
 MA_REG = 50
 
-CB1_MDD = -0.32          # CB1：滚动窗口 MDD 线
+# ---- 熔断阈值（R13 重标定 · 现行 12.5% 敞口口径）
+# 依据：旧阈值（−32%/−20pp/21.7pp）为满仓时代口径遗产，在 5 票×2.5%=12.5% 敞口下数学不可达
+#      （真实回放 2025-06→2026-10 四条线 0 触发）。R13 按「现行口径实测极值×1.06~1.2」重标定。
+# 口径警告：若未来人工升敞口，须按敞口比例重标定（升档=新工单），否则刻度重新失真。
+CALIB_EPOCH = 'R13-2026-10-18'   # 重标定批次号（落盘 f1_state.json；换批即清空 prev_reds 防新旧混判）
+CB1_MDD = -0.08          # CB1 红线：滚动 20 交易日净账 MDD ≤ −8%  → 降一档（实测极值 −6.64%×1.20）
+CB1_WARN = -0.04         # CB1 黄线：≤ −4% 观察（原隐式取 CB1_MDD/2，R13 改显式常量）
 CB1_WINDOW = 20          # CB1：20 交易日
-CB2_LOSS = -0.20         # CB2：止损失血线（毛账触发/净账确认）
+CB2_LOSS = -0.05         # CB2 红线：滚动 60 日止损失血/毛账 ≤ −5pp（实测 stop_pnl60 −4.73pp×1.06）
+CB2_WARN = -0.025        # CB2 黄线：≤ −2.5pp 观察（原隐式取 CB2_LOSS/2，R13 改显式常量）
 CB2_WINDOW = 60          # CB2：滚动 60 交易日
-CB2_FREEZE_DAYS = 20     # CB2 动作：冻结开新仓 20 交易日（首月暂定）
+CB2_FREEZE_DAYS = 20     # CB2 动作：冻结开新仓 20 交易日
 CB3_BASE_60D = 9.07      # CB3：60 日止损次数基准（R7 v1 冻结快照；主管席⑧裁定：冻结常量，
                          # live 重算值仅作 json 对账参考字段 cb3_baseline_recomputed，改基准=新工单）
-CB3_MULT = 3             # CB3：观察线 = 基准×3 = 27.21
-FEE_LINE_ANN = 0.217     # 费线：年化费拖累 21.7pp
+CB3_MULT = 3             # CB3：观察线 = 基准×3 = 27.21（R13 保留不动：唯一活线，基准无漂移）
+FEE_LINE_ANN = 0.04      # 费线 红线：滚动 60 日费用年化拖累 ≥ 4pp → 降一档
+FEE_WARN = 0.02          # 费线 黄线：≥ 2pp 预警（原隐式取 FEE_LINE_ANN/2，R13 改显式常量）
 FEE_WINDOW = 60          # 费线：滚动 60 交易日（≈2月）
+
+
+def breaker_thresholds():
+    """熔断阈值表（R13）：单一事实源，写入 f1_live.json → meta.breaker_thresholds，
+    页面一律从此处读取，HTML 不得写死任何阈值数字。"""
+    return {
+        'CB1': {'name': '回撤闸', 'red': CB1_MDD, 'yellow': CB1_WARN,
+                'window': CB1_WINDOW, 'action': '降一档',
+                'metric': '滚动20交易日净账最大回撤(MDD)'},
+        'CB2': {'name': '止损闸', 'red': CB2_LOSS, 'yellow': CB2_WARN,
+                'window': CB2_WINDOW, 'freeze_days': CB2_FREEZE_DAYS,
+                'action': f'冻结开新仓{CB2_FREEZE_DAYS}交易日',
+                'metric': '滚动60日止损失血(毛账触发)/净账确认'},
+        'CB3': {'name': '频次观察', 'line': CB3_BASE_60D * CB3_MULT,
+                'baseline': CB3_BASE_60D, 'mult': CB3_MULT, 'window': CB2_WINDOW,
+                'action': '观察不动仓',
+                'metric': '滚动60日止损次数'},
+        'FEE': {'name': '费用闸', 'red': FEE_LINE_ANN, 'yellow': FEE_WARN,
+                'window': FEE_WINDOW, 'action': '降一档',
+                'metric': '滚动60日费用(滑点+资金费)折年化'},
+    }
 
 FACTORS = ['ma20_slope', 'obv_slope20', 'dist_52w_high', 'mom_1m']
 
@@ -140,9 +173,10 @@ def week_first_days(cal):
 
 
 # ---------------------------------------------------------------- 回放（双账本，同源逻辑）
-def replay(data, F, syms, slot=0.025):
+def replay(data, F, syms, slot=0.025, entry_out=None):
     """历史回放：净账（含费）+ 毛账（零费）双轨；逐日持仓/权益/费用/止损事件。
-    逻辑与 f1_backtest.run_backtest（gated 四因子）逐行同源，v1 锁定。"""
+    逻辑与 f1_backtest.run_backtest（gated 四因子）逐行同源，v1 锁定。
+    entry_out：可选 dict，接收回放末日的持仓明细 {sym:{'qty','entry'}}（供 WO-R13-03 只读快照用）。"""
     close = pd.DataFrame({s: data[s]['close'] for s in syms})
     open_ = pd.DataFrame({s: data[s]['open'] for s in syms})
     low = pd.DataFrame({s: data[s]['low'] for s in syms})
@@ -258,14 +292,15 @@ def replay(data, F, syms, slot=0.025):
     eq_g, _, _ = one_pass(False)
     holdings = {}          # 逐日持仓（净账轨=毛账轨，决策一致）
     # 重跑轻量一遍只为持仓记录：改用净账轨在循环内记录会更贵，这里以独立快照循环实现
-    hold = _replay_holdings(data, F, syms, slot)
+    hold = _replay_holdings(data, F, syms, slot, entry_out=entry_out)
     return {'cal': cal, 'idx': idx, 'idx_ma': idx_ma, 'med_ret': med_ret,
             'eq_net': eq_n, 'eq_gross': eq_g, 'fees': fees_n,
             'stops': stops_n, 'holdings': hold}
 
 
-def _replay_holdings(data, F, syms, slot=0.025):
-    """逐日持仓集合（与回放同源，仅记录 pos.keys()）。"""
+def _replay_holdings(data, F, syms, slot=0.025, entry_out=None):
+    """逐日持仓集合（与回放同源，仅记录 pos.keys()）。
+    entry_out：传入 dict 时，循环结束后写入末日持仓明细 {sym:{'qty','entry'}}。"""
     close = pd.DataFrame({s: data[s]['close'] for s in syms})
     open_ = pd.DataFrame({s: data[s]['open'] for s in syms})
     low = pd.DataFrame({s: data[s]['low'] for s in syms})
@@ -338,6 +373,9 @@ def _replay_holdings(data, F, syms, slot=0.025):
             eq_sig = cash + sum(p['qty'] * mark.at[t, s] for s, p in pos.items())
             pending_exec = (cal[cal.get_loc(t) + 1], target, eq_sig) \
                 if cal.get_loc(t) + 1 < len(cal) else None
+    if entry_out is not None:
+        entry_out.update({s: {'qty': float(p['qty']), 'entry': float(p['entry'])}
+                          for s, p in pos.items()})
     return pd.Series(hold).sort_index()
 
 
@@ -370,9 +408,9 @@ def eval_breakers(rp, tier_idx, asof=None, cb3_base=CB3_BASE_60D):
     if cur_mdd <= CB1_MDD:
         lights['CB1'] = 'red'
         actions['CB1'] = f'降一档（滚动{CB1_WINDOW}日MDD={cur_mdd:.1%}≤{CB1_MDD:.0%}）'
-    elif cur_mdd <= CB1_MDD / 2:
+    elif cur_mdd <= CB1_WARN:
         lights['CB1'] = 'yellow'
-        actions['CB1'] = f'观察（滚动{CB1_WINDOW}日MDD={cur_mdd:.1%}，过半警戒线）'
+        actions['CB1'] = f'观察（滚动{CB1_WINDOW}日MDD={cur_mdd:.1%}，过黄线{CB1_WARN:.0%}）'
     else:
         lights['CB1'] = 'green'
         actions['CB1'] = '正常'
@@ -401,7 +439,8 @@ def eval_breakers(rp, tier_idx, asof=None, cb3_base=CB3_BASE_60D):
         actions['CB2'] = '正常'
     cb2_detail = {'gross_60d_pct': round(gross_60, 4), 'net_60d_pct': round(net_60, 4),
                   'stop_count_60d': stop_cnt_60,
-                  'stop_pnl_sum_60d': round(stop_pnl_60, 4)}
+                  'stop_pnl_sum_60d': round(stop_pnl_60, 4),
+                  'red_pp': CB2_LOSS, 'warn_pp': CB2_WARN}
 
     # CB3：止损频次外移观察线
     line = cb3_base * CB3_MULT
@@ -419,14 +458,15 @@ def eval_breakers(rp, tier_idx, asof=None, cb3_base=CB3_BASE_60D):
     if fee_ann >= FEE_LINE_ANN:
         lights['FEE'] = 'red'
         actions['FEE'] = f'降一档（滚动60日费拖累年化={fee_ann:.1%}≥{FEE_LINE_ANN:.1%}）'
-    elif fee_ann >= FEE_LINE_ANN / 2:
+    elif fee_ann >= FEE_WARN:
         lights['FEE'] = 'yellow'
-        actions['FEE'] = f'预警：费拖累年化={fee_ann:.1%}过半线'
+        actions['FEE'] = f'预警：费拖累年化={fee_ann:.1%}过黄线{FEE_WARN:.0%}'
     else:
         lights['FEE'] = 'green'
         actions['FEE'] = '正常'
     fee_detail = {'fee_60d': round(fee_60, 6), 'fee_ann_pct': round(fee_ann, 4),
-                  'line_ann_pct': FEE_LINE_ANN}
+                  'line_ann_pct': FEE_LINE_ANN,
+                  'red_ann_pct': FEE_LINE_ANN, 'warn_ann_pct': FEE_WARN}
 
     # 汇总建议：任一红灯 → 执行对应动作；多红灯取最严（冻结 > 降档 > 观察）
     reds = [k for k, v in lights.items() if v == 'red']
@@ -483,8 +523,13 @@ def save_state(state_path, state):
 def update_state(bk, cal, state, asof=None):
     """BUG-03 状态机落盘（就地更新 state 并返回）：
     ① CB2 红灯 → 冻结开新仓 20 交易日，记录解除日与剩余交易日数；
-    ② CB1/费线红灯新触发 → 自动降一档写盘；升档仍人工（改 state.tier_idx 后重跑）。"""
+    ② CB1/费线红灯新触发 → 自动降一档写盘；升档仍人工（改 state.tier_idx 后重跑）。
+    R13 迁移：calib_epoch 与当前 CALIB_EPOCH 不一致（=熔断阈值重标定换批）→ 清空 prev_reds，
+    避免旧阈值下的红灯记录在新阈值下被当成「已触发过」而漏判新红灯。"""
     today = asof if asof is not None else cal[-1]
+    if state.get('calib_epoch') != CALIB_EPOCH:
+        state['calib_epoch'] = CALIB_EPOCH
+        state['prev_reds'] = []
     # ① CB2 冻结：红灯且当前无生效冻结时启动倒计时（触发日起 +20 交易日；
     #    本池为加密 7×24 日历，交易日=自然日，故解除日=触发日+20 自然日）
     fu = state.get('freeze_until_date')
@@ -513,12 +558,16 @@ def update_state(bk, cal, state, asof=None):
 
 # ---------------------------------------------------------------- 实时信号
 def current_signal(data, F, syms, tier_idx=0,
-                   freeze_until_date=None, freeze_days_left=0):
+                   freeze_until_date=None, freeze_days_left=0, allow_intraday=False):
     cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
     close = pd.DataFrame({s: data[s]['close'] for s in syms}).reindex(cal)
     idx = close.mean(axis=1)
     idx_ma = idx.rolling(MA_REG).mean()
     med_ret = close.pct_change().median(axis=1)
+    # WO-R13-03 防污染 guard：最后一根K若未落定（部分K），拒绝产出判定结论
+    _g = guard_last_bar(cal)
+    if not _g['settled'] and not allow_intraday:
+        raise RuntimeError('拒绝判定：' + _g['reason'])
     t = cal[-1]
     gate_on = bool(not pd.isna(idx_ma.iloc[-1]) and idx.iloc[-1] < idx_ma.iloc[-1])
     sig_days = week_first_days(cal)
@@ -547,16 +596,229 @@ def current_signal(data, F, syms, tier_idx=0,
     }
 
 
+# ---------------------------------------------------------------- 多轮扫描只读旁路（WO-R13-03）
+# 口径：「展示多轮、判定一轮」。判定引擎每日仅在日K落定后跑一轮（现行 09:25 北京）；
+#       20:30 / 00:30 / 04:30 三轮为 **只读盘中快照**，仅算当前持仓盈亏 + 熔断预演 +
+#       崩市预估，禁写 f1_state.json、禁覆盖 f1_live.json 判定字段、禁出 top5 建议。
+DAILY_BAR_SETTLE_UTC_HOUR = 0        # 日K落定时刻：00:00 UTC = 北京 08:00
+INTRADAY_ROUNDS = {
+    '20:30': {'tz': '北京时间', 'readonly': True,
+              'semantic': '美股盘前（夏令时 9:30 ET 开盘 = 北京 21:30，本轮=开盘前约 1 小时）'},
+    '00:30': {'tz': '北京时间', 'readonly': True,
+              'semantic': '美股盘中（夏令时约 12:30 ET）'},
+    '04:30': {'tz': '北京时间', 'readonly': True,
+              'semantic': '美股收盘附近：夏令时=收盘后 30 分钟快照；'
+                          '冬令时=收盘前 30 分钟快照（语义随 DST 漂移，页面按窗口改标）'},
+    'DECIDE': {'tz': '北京时间', 'readonly': False,
+               'semantic': '日K落定后判定轮（现行 09:25；可选前移 08:30，二者读同一根K，二选一）'},
+}
+# DST 标注：美国夏令时 = 3 月第二个周日 ~ 11 月第一个周日（北京无夏令时，时刻固定）
+DST_NOTE = ('北京时刻全年固定（无夏令时）；美股夏令时窗口 = 3 月第二个周日 ~ 11 月第一个周日。'
+            '04:30 轮在夏令时窗口内=收盘后快照，窗口外（冬令时）=收盘前 30 分钟快照。')
+PUSH_LABEL_INTRADAY = '盘中快照·不可操作'
+
+
+def _log_guard(kind, payload, log_path=None):
+    """guard / 数据源事件日志（append-only，JSONL）。"""
+    log_path = log_path or os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                        'f1_guard.log')
+    rec = {'ts': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'), 'kind': kind}
+    rec.update(payload)
+    try:
+        with open(log_path, 'a') as f:
+            f.write(json.dumps(rec, ensure_ascii=False, default=str) + '\n')
+    except Exception:
+        pass
+    return rec
+
+
+def guard_last_bar(cal, now=None):
+    """防部分K污染 guard。
+    日K 于 00:00 UTC 落定：bar 日期 D 的这根K只有到 D+1 日 00:00 UTC 才完整。
+    因此 D >= 当前 UTC 日期 ⇒ 该 bar 仍在形成中（intraday 部分K），
+    **禁止进入周调仓锚定与信号判定**。"""
+    now = pd.Timestamp.now(tz='UTC') if now is None else pd.Timestamp(now)
+    if now.tzinfo is None:
+        now = now.tz_localize('UTC')
+    now = now.tz_convert('UTC')
+    today_utc = now.normalize().tz_localize(None)
+    last = pd.Timestamp(cal[-1]).normalize()
+    settled = bool(last < today_utc)
+    return {'last_bar_date': str(last.date()),
+            'today_utc_date': str(today_utc.date()),
+            'settled': settled,
+            'reason': ('已落定日K，可判定' if settled else
+                       f'最后一根K日期 {last.date()} >= 当前 UTC 日 {today_utc.date()}：'
+                       '未收盘的部分K（intraday），禁止进入周调仓锚定与信号判定'),
+            'settle_rule': f'日K {DAILY_BAR_SETTLE_UTC_HOUR:02d}:00 UTC（北京 08:00）落定'}
+
+
+def push_plan(mode, asof, round_id, last_push=None):
+    """推送去重（WO-R13-03）。
+    - DECIDE 判定轮：同一 asof 只推一次（key=`decide:<asof>`）；携带信号日结论。
+    - 盘中只读轮：同一 (asof, round_id) 只推一次；**永不携带判定结论/top5**，
+      强制带「盘中快照·不可操作」标注，只更新展示数据。
+    返回 dict：{push:bool, key:str, kind:str, label:str, carries_decision:bool}"""
+    last_push = last_push or {}
+    if mode == 'DECIDE':
+        key, kind, label, carries = f'decide:{asof}', 'decision', '判定轮结论', True
+    else:
+        key = f'intraday:{asof}:{round_id}'
+        kind, label, carries = 'intraday', PUSH_LABEL_INTRADAY, False
+    return {'push': key not in last_push, 'key': key, 'kind': kind,
+            'label': label, 'carries_decision': carries,
+            'dedup_rule': '判定轮按 asof 去重；盘中轮按 asof+轮次去重，且不携带判定结论'}
+
+
+def _emit_frozen(out_json, src_state):
+    """WO-R13-04 降级期：不重算、不写状态，只把上一版落定 f1_live.json 补上
+    「降级冻结」标注后原样输出（判定字段逐位不动）。"""
+    if not os.path.exists(out_json):
+        _log_guard('FREEZE_NO_BASELINE', {'out_json': out_json})
+        raise RuntimeError('降级期冻结失败：无历史落定 f1_live.json 可冻结')
+    prev = json.load(open(out_json))
+    frozen = json.loads(json.dumps(prev))      # 深拷贝，判定字段逐位不动
+    meta = frozen.setdefault('meta', {})
+    meta['source'] = {'primary': 'kxiandaoyan', 'state': src_state.get('state'),
+                      'asof': (frozen.get('signal') or {}).get('asof'),
+                      'label': '降级冻结（备源抽查参考·不构成新推荐）',
+                      'mode': '判定轮（冻结）', 'banner': src_state.get('banner')}
+    meta['data_source'] = '降级冻结'
+    sig = frozen.get('signal') or {}
+    sig['frozen_by_source_failover'] = True
+    sig['operable'] = False
+    frozen['signal'] = sig
+    frozen['writes'] = {'f1_state.json': False, 'recomputed': False}
+    _log_guard('FROZEN_EMIT', {'state': src_state.get('state'),
+                               'asof': (frozen.get('signal') or {}).get('asof')})
+    with open(out_json + '.tmp', 'w') as f:
+        json.dump(frozen, f, ensure_ascii=False, indent=1, default=str)
+    os.replace(out_json + '.tmp', out_json)
+    return frozen
+
+
+def run_snapshot(out_json='/workspace/f1_web/f1_live_intraday.json', cache=CACHE,
+                 round_id='20:30'):
+    """只读盘中快照（WO-R13-03）。
+    做：① 当前持仓浮动盈亏（含止损距离/逼近提示）② 熔断预演（**只用已落定日K**）
+        ③ 崩市中位跌幅预估（部分K，标注「预估·未落定」）
+    不做：不写 f1_state.json、不覆盖 f1_live.json 任何判定字段、不出 top5 建议、
+          不做周调仓锚定与任何调仓决策。"""
+    data = load_data(cache)
+    syms = build_pool(data)
+    F = build_factors(data)
+    entries = {}
+    rp = replay(data, F, syms, slot=SLOTS[0], entry_out=entries)
+
+    cal = rp['cal']
+    g = guard_last_bar(cal)
+    asof_settled = pd.Timestamp(cal[-1]) if g['settled'] else pd.Timestamp(cal[-2])
+
+    # ① 持仓浮动盈亏（最后一根bar=盘中价，标注未落定）
+    close = pd.DataFrame({s: data[s]['close'] for s in syms}).reindex(cal)
+    last_px_row = close.iloc[-1]
+    holdings = []
+    for s, p in sorted(entries.items()):
+        px = float(last_px_row.get(s, np.nan))
+        if not np.isfinite(px):
+            continue
+        entry = float(p['entry'])
+        stop_px = entry * (1 + STOP)
+        dist = px / stop_px - 1.0
+        holdings.append({'sym': s, 'entry': round(entry, 4), 'last_px': round(px, 4),
+                         'pnl_pct': round(px / entry - 1.0, 6),
+                         'stop_px': round(stop_px, 4),
+                         'dist_to_stop_pct': round(dist, 6),
+                         'stop_near': bool(dist <= 0.02)})
+
+    # ② 熔断预演（用已落定日K；非判定，仅供观察）
+    state_path = os.path.join(os.path.dirname(os.path.abspath(out_json)), 'f1_state.json')
+    st = load_state(state_path)                      # 只读：绝不写回
+    tier_idx = int(st.get('tier_idx', 0))
+    bk = eval_breakers(rp, tier_idx=tier_idx, asof=asof_settled, cb3_base=CB3_BASE_60D)
+
+    # ③ 崩市预估（部分K；仅预警，不触发任何动作）
+    med = close.pct_change().median(axis=1)
+    med_last = float(med.iloc[-1]) if np.isfinite(med.iloc[-1]) else float('nan')
+
+    meta_round = INTRADAY_ROUNDS.get(round_id, INTRADAY_ROUNDS['20:30'])
+    push = push_plan('INTRADAY', str(asof_settled.date()), round_id,
+                     last_push=st.get('last_push'))
+    out = {
+        'meta': {'workorder': 'R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）',
+                 'seed': SEED, 'generated': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+                 'engine_sha256': engine_sha256(), 'pool_n': len(syms),
+                 'mode': 'intraday_snapshot', 'operable': False,
+                 'round_id': round_id, 'round_tz': meta_round['tz'],
+                 'round_semantic': meta_round['semantic'], 'dst_note': DST_NOTE,
+                 'asof_settled': str(asof_settled.date()),
+                 'total_exposure_pct': round(SLOTS[0] * TOP_N * 100, 2),
+                 'calib_epoch': CALIB_EPOCH,
+                 'breaker_thresholds': breaker_thresholds(),
+                 'replay': {'start': str(cal[0].date()), 'end': str(cal[-1].date())}},
+        'guard': g,  # 部分K污染守卫：settled=False 时禁止判定（见 guard_last_bar）
+        'snapshot': {
+            'notice': '盘中快照·不可操作：信号日结论只在日K落定后那轮产出',
+            'intraday_bar': {'date': g['last_bar_date'], 'intraday': not g['settled'],
+                             'source': '主源(kxiandaoyan)', 'settled': g['settled']},
+            'holdings': holdings,
+            'crash_watch': {'pool_med_ret_intraday': None if not np.isfinite(med_last)
+                            else round(med_last, 4),
+                            'line': CRASH_MED,
+                            'triggered_estimate': bool(np.isfinite(med_last)
+                                                       and med_last < CRASH_MED),
+                            'kind': '预估（部分K·未落定），不触发任何动作'},
+            'breaker_preview': {
+                'asof': str(asof_settled.date()),
+                'kind': '熔断预演（基于已落定日K，非当日判定）',
+                'overall': {'light': bk['overall'][0], 'action': bk['overall'][1]},
+                'items': [{'name': k, 'light': bk['lights'][k],
+                           'action': bk['actions'][k], 'detail': bk['detail'][k]}
+                          for k in ('CB1', 'CB2', 'CB3', 'FEE')]}},
+        'push': push,
+        'writes': {'f1_state.json': False, 'f1_live.json': False},
+    }
+    os.makedirs(os.path.dirname(out_json), exist_ok=True)
+    tmp = out_json + '.tmp'
+    with open(tmp, 'w') as f:
+        json.dump(out, f, ensure_ascii=False, indent=1, default=str)
+    os.replace(tmp, out_json)
+    return out
+
+
 # ---------------------------------------------------------------- live 主入口
 def engine_sha256(path=None):
     path = path or os.path.abspath(__file__)
     return hashlib.sha256(open(path, 'rb').read()).hexdigest()
 
 
-def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
+def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE, allow_intraday=False,
+             source_probe=True):
+    # WO-R13-04：先做主源健康检查并推进状态机；DEGRADED → 冻结信号，直接返回冻结负载
+    src_state = None
+    if source_probe:
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import f1_datasource as DS
+            _r = DS.check_round(cache=cache)
+            src_state, _ = DS.transition(DS.load_state(), _r['ok'])
+            DS.save_state(src_state)
+            src_state['banner'] = DS.source_banner(src_state)
+            if src_state['state'] in ('DEGRADED', 'RECOVERING'):
+                return _emit_frozen(out_json, src_state)
+        except RuntimeError:
+            raise
+        except Exception:
+            src_state = None
     data = load_data(cache)
     syms = build_pool(data)
     F = build_factors(data)
+    # WO-R13-03：入口先过 guard；未落定则拒绝判定（不写 f1_live.json、不写 f1_state.json）
+    _cal0 = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
+    _g = guard_last_bar(_cal0)
+    if not _g['settled'] and not allow_intraday:
+        _log_guard('REFUSE_DECIDE', _g)
+        raise RuntimeError('拒绝判定：' + _g['reason'])
     rp = replay(data, F, syms, slot=SLOTS[0])
 
     # ⑧ CB3 基准=R7 v1 冻结快照常量 9.07，live 不再重算覆盖（原重算机制废除，主管席裁定）；
@@ -576,7 +838,8 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
     fdays = int(state.get('freeze_days_left', 0) or 0)
     fdate = state.get('freeze_until_date')
     sig = current_signal(data, F, syms, tier_idx=tier_idx,
-                         freeze_until_date=fdate, freeze_days_left=fdays)
+                         freeze_until_date=fdate, freeze_days_left=fdays,
+                         allow_intraday=allow_intraday)
     bk['tier_idx'] = tier_idx
     bk['slot_now'] = SLOTS[tier_idx]
     acct = monthly_accounts(rp)
@@ -588,6 +851,12 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
                  'caliber': 'V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar',
                  'tier_table_pct_per_stock': [round(s * 100, 2) for s in SLOTS],
+                 'total_exposure_pct': round(SLOTS[0] * TOP_N * 100, 2),
+                 'calib_epoch': CALIB_EPOCH,
+                 'breaker_thresholds': breaker_thresholds(),
+                 'calib_note': ('熔断阈值=R13 重标定（现行 12.5% 敞口口径：单票 2.5%×5 票）。'
+                                '旧阈值 −32%/−20pp/21.7pp 属满仓时代口径，在本敞口下数学不可达，已废。'
+                                '若未来人工升敞口，须按敞口比例重标定（升档=新工单）。'),
                  'cb3_baseline_60d': CB3_BASE_60D,
                  'cb3_baseline_recomputed': cb3_recomputed,
                  'cb3_baseline_drift_alert': bool(cb3_drift),
@@ -610,6 +879,14 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
                     'notes': ['止损−8%硬截断(V2口径)', '崩市=池单日中位跌幅<−5%次日清仓',
                               'regime闸=idx<MA50清仓持币', 'CB3基准=9.07（v1 冻结快照，重算值仅对账）']},
     }
+    out['meta']['source'] = {
+        'primary': 'kxiandaoyan',
+        'state': (src_state or {}).get('state', 'NORMAL'),
+        'asof': str(rp['cal'][-1].date()),
+        'label': '主源' if (src_state or {}).get('state', 'NORMAL') == 'NORMAL'
+                 else '降级冻结（备源抽查参考·不构成新推荐）',
+        'mode': '判定轮',
+    }
     os.makedirs(os.path.dirname(out_json), exist_ok=True)
     tmp = out_json + '.tmp'
     with open(tmp, 'w') as f:
@@ -622,7 +899,13 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'live'
     if mode == 'live':
-        out = run_live()
+        try:
+            out = run_live(allow_intraday='--allow-intraday' in sys.argv)
+        except RuntimeError as e:                      # WO-R13-03 guard 拒绝判定
+            print(f'live REFUSED: {e}')
+            print('说明：日K 于 00:00 UTC（北京 08:00）落定；请在落定后重跑判定轮，'
+                  '或改用 `snapshot` 只读盘中快照。确需强判定请加 --allow-intraday（仅演练用）。')
+            sys.exit(2)
         bk = out['breakers']['overall']
         st = out['state']
         print(f"live ok: asof={out['signal']['asof']} gate={'持币' if out['signal']['gate']['on_holdcash'] else '持仓'} "
@@ -630,6 +913,19 @@ def main():
               f"breaker={bk['light']} action={bk['action']} "
               f"tier={st['tier_idx']} freeze_left={st['freeze_days_left']}"
               + (f"(至{st['freeze_until_date']})" if st['freeze_until_date'] else ''))
+    elif mode == 'snapshot':
+        # WO-R13-03 只读盘中快照：--round {20:30|00:30|04:30}
+        rnd = sys.argv[sys.argv.index('--round') + 1] if '--round' in sys.argv else '20:30'
+        if rnd not in INTRADAY_ROUNDS or rnd == 'DECIDE':
+            print(f'未知轮次 {rnd}；可选：20:30 / 00:30 / 04:30')
+            sys.exit(2)
+        out = run_snapshot(round_id=rnd)
+        sn = out['snapshot']
+        print(f"snapshot ok(只读): round={rnd} asof_settled={out['meta']['asof_settled']} "
+              f"intraday_bar={sn['intraday_bar']['date']}(intraday={sn['intraday_bar']['intraday']}) "
+              f"holdings={len(sn['holdings'])} 预演总灯={out['snapshot']['breaker_preview']['overall']['light']} "
+              f"push={out['push']['push']}({out['push']['label']}) "
+              f"writes={out['writes']}")
     elif mode == 'replay':
         slot = float(sys.argv[sys.argv.index('--slot') + 1]) if '--slot' in sys.argv else SLOTS[0]
         data = load_data()

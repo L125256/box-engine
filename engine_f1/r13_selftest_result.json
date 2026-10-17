@@ -1,0 +1,197 @@
+{
+ "workorder": "R13 四工单工程自测",
+ "total": 21,
+ "pass": 21,
+ "fail": 0,
+ "results": [
+  {
+   "id": "R1",
+   "name": "CB1 新阈值（红 −8% / 黄 −4%）",
+   "input": "引擎常量",
+   "got": "red=-0.08 warn=-0.04",
+   "want": "red=-0.08 warn=-0.04",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R2",
+   "name": "CB2 新阈值（红 −5pp / 黄 −2.5pp）",
+   "input": "引擎常量",
+   "got": "red=-0.05 warn=-0.025",
+   "want": "red=-0.05 warn=-0.025",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R3",
+   "name": "费线新阈值（红 4pp / 黄 2pp）",
+   "input": "引擎常量",
+   "got": "red=0.04 warn=0.02",
+   "want": "red=0.04 warn=0.02",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R4",
+   "name": "CB3 保留不动（基准 9.07 / 观察线 27.21）",
+   "input": "引擎常量",
+   "got": "base=9.07 mult=3 line=27.21",
+   "want": "base=9.07 line=27.21",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R5",
+   "name": "重标定后真实段回放触发统计（现场重算）",
+   "input": "2025-06-02~2026-10-17（428 交易日）",
+   "got": "CB1 红0/黄18；CB2 红5/黄0；CB3 黄0；费线 红0/黄0",
+   "want": "CB1/CB2 有真实触发；CB3 与改前一致",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R6",
+   "name": "旧阈值下 CB1/CB2/费线 0 触发（结构性死线已证实）",
+   "input": "同一段回放 + 旧阈值",
+   "got": "CB1/CB2/费线 红黄灯天数全 0",
+   "want": "全 0（改前状态）",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R7",
+   "name": "月报三本账与改前逐位一致",
+   "input": "/tmp/base_live.json vs 现行 f1_live.json",
+   "got": "identical=True；行数 12",
+   "want": "identical=True",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R8",
+   "name": "重标定换批：prev_reds 清空且 epoch 落盘",
+   "input": "calib_epoch=R11-OLD → R13",
+   "got": "epoch=R13-2026-10-18；prev_reds=['CB1', 'FEE']；tier_idx=1（红灯新触发=不连降，因已清空故为 1）",
+   "want": "epoch=R13-2026-10-18；prev_reds=['CB1','FEE']；tier_idx=1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R9",
+   "name": "guard 二态：落定后 settled=True / 当日 bar settled=False",
+   "input": "last_bar=2026-10-17；now=D+2 vs now=D",
+   "got": "D+2→True；D→False",
+   "want": "True / False",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R10",
+   "name": "guard：未落定 bar 拒绝产出判定（抛错）",
+   "input": "当前 UTC 日 = 最后 bar 日（intraday）",
+   "got": "RuntimeError: 拒绝判定：最后一根K日期 2026-10-17 >= 当前 UTC 日 2026-10-17：未收盘的部分K（intraday），禁止进入周调仓锚定与信号判定",
+   "want": "拒绝判定且写日志",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R11",
+   "name": "snapshot 只读：禁写 f1_state.json + 禁覆盖 f1_live.json 判定字段",
+   "input": "运行 snapshot --round 20:30 前后 sha256 逐位比对",
+   "got": "state sha 不变=True；live 判定字段不变=True；writes={'f1_state.json': False, 'f1_live.json': False}",
+   "want": "state 不变 + 判定字段不变 + writes 全 False",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R12",
+   "name": "snapshot 不出 top5 建议 + 带「不可操作」标注",
+   "input": "snapshot 输出字段走查",
+   "got": "含 top5 键=False；含不可操作标注=True",
+   "want": "无 top5 + 有标注",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R13",
+   "name": "推送去重：判定轮按 asof；盘中轮按 asof+轮次且不携带结论",
+   "input": "DECIDE×2 + INTRADAY×3 组合",
+   "got": "p1=True p2=False i1=True i2=False i3=True；i1 携带结论=False",
+   "want": "True/False/True/False/True；i1 不携带结论",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R14",
+   "name": "多轮时刻表可注册（20:30/00:30/04:30 只读 + 判定轮）",
+   "input": "f1_crontab.txt",
+   "got": "snapshot 轮次=3；判定轮=True；DST 标注=True",
+   "want": "3 轮只读 + 1 判定轮 + DST 标注",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R15",
+   "name": "① 第 1 周期失败：不误切（仍 NORMAL）",
+   "input": "F1_PRIMARY_FAIL=1",
+   "got": "state=NORMAL, consec_fail=1",
+   "want": "NORMAL / 1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R16",
+   "name": "② 第 2 周期失败 → DEGRADED + f1_live.json 判定字段冻结",
+   "input": "F1_PRIMARY_FAIL=1 连跑 2 周期",
+   "got": "state=DEGRADED；判定字段逐位不变=True；freeze 写 state=False",
+   "want": "DEGRADED + 不变 + False",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R17",
+   "name": "③ 连续 2 周期健康 → RECOVERING（待一致性验收）",
+   "input": "F1_PRIMARY_FAIL=0 连跑 2 周期",
+   "got": "DEGRADED → RECOVERING",
+   "want": "DEGRADED → RECOVERING",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R18",
+   "name": "④ 一致性验收通过 → 自动切回 NORMAL（容差=价格1%+基差1%）",
+   "input": "主备重叠收盘价偏差 1.5% ≤ 2%",
+   "got": "cons_p=True, max_dev=0.015, tol=0.02, state=NORMAL",
+   "want": "True + NORMAL",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R19",
+   "name": "⑤ 一致性验收不通过 → 挂待人工，禁止自动强切",
+   "input": "偏差 10% > 2%",
+   "got": "cons_p=False, state=RECOVERING, pending_manual=True",
+   "want": "False + RECOVERING + True",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R20",
+   "name": "⑥ 新浪硬约束：白名单 ≤6 只/轮 + 144 全量被拒",
+   "input": "watchlist=['AAPLUSDT', 'MSFTUSDT', 'GOOGLUSDT', 'AMZNUSDT', 'NVDAUSDT', 'AAPL']；144 只请求",
+   "got": "白名单=6 只；144 拒绝=True",
+   "want": "≤6 且 True",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "id": "R21",
+   "name": "⑦ 降级期输出带 asof + source 标注",
+   "input": "DEGRADED banner",
+   "got": "主源故障：信号冻结至 2026-10-17，以下为备源（新浪）抽查参考，不构成新推荐。",
+   "want": "含 asof + 不构成新推荐",
+   "pass": true,
+   "note": ""
+  }
+ ]
+}
