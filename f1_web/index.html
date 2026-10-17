@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📦 F1 多因子轮动 · 上线运营版</title>
+<style>
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,sans-serif;margin:0;padding:16px}
+h1{font-size:20px} a{color:#58a6ff;text-decoration:none}
+.tabs{margin:6px 0 10px}.tabs a{display:inline-block;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:4px 12px;margin-right:6px;font-size:13px}
+.tabs a.on{background:#1f6feb;border-color:#1f6feb;color:#fff}
+.meta{color:#8b949e;font-size:12px;margin-bottom:10px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px;margin:8px 0;font-size:14px}
+.hold{border-left:4px solid #f59e0b}.cash{border-left:4px solid #f85149}
+.tk{font-weight:bold;font-size:16px}
+.buy{color:#ff2d2d;font-weight:bold}.sell{color:#16a34a;font-weight:bold}
+.line{color:#8b949e;font-size:12px;margin-top:4px}
+.stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:12px}
+td,th{border-bottom:1px solid #21262d;padding:4px 6px;text-align:left}
+.up{color:#ff2d2d}.dn{color:#16a34a}.neutral{color:#c9d1d9}
+.lamp{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.g{background:#16a34a}.y{background:#f59e0b}.r{background:#f85149;box-shadow:0 0 6px #f85149}
+.biglamp{display:inline-block;width:40px;height:40px;border-radius:10px;vertical-align:middle;margin-right:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+footer{color:#8b949e;font-size:11px;margin-top:16px;line-height:1.6}
+.badge{display:inline-block;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:2px 8px;font-size:12px;color:#8b949e;margin-right:6px}
+.decision{border-radius:10px;padding:16px;margin:10px 0;font-size:19px;font-weight:bold;line-height:1.5}
+.decision .sub{font-size:13px;font-weight:normal;color:#c9d1d9;margin-top:6px}
+.d-hold{background:#132a1a;border:2px solid #16a34a}
+.d-cash{background:#3a1212;border:2px solid #f85149}
+.d-act{background:#3a2a10;border:2px solid #f59e0b}
+.warnline{background:#4a3b12;border:1px solid #f59e0b;color:#ffe08a;border-radius:6px;padding:6px 10px;font-size:12px;margin:6px 0}
+details{margin-top:6px;font-size:12px;color:#8b949e}
+summary{cursor:pointer;color:#58a6ff}
+</style></head><body>
+<h1>📦 F1 多因子轮动 · 上线运营版</h1>
+<div class="tabs"><a class="on" href="index.html">📊 运行状态</a><a href="manual.html">📖 使用说明</a></div>
+<div class="meta" id="meta">加载中…</div>
+<div class="warnline">模拟数据·起步仓位 12.5%·请勿仅依赖本页决策</div>
+<div id="decision" class="decision d-hold">加载中…</div>
+<div id="sig"></div>
+<div class="stat"><b>🚦 策略健康灯（与上面开关无关）</b><div id="bkall" style="margin-top:8px"></div><div id="bk" class="grid" style="margin-top:8px"></div></div>
+<div class="stat"><b>📒 三本账月报（不算费的账 / 费用账 / 跑输躺平的账）</b><div id="acct"></div></div>
+<div class="stat"><b>📉 费拖累曲线（月度费用 % 权益）</b><div id="feecurve"></div><div id="feeline" class="line"></div></div>
+<div class="stat"><b>🔍 监控明细</b><div id="mon"></div></div>
+<footer id="foot"></footer>
+<script>
+let D=null;
+function lamp(l){return '<span class="lamp '+(l==='green'?'g':l==='yellow'?'y':'r')+'"></span>'}
+function pct(x,sgn){return (x>0&&sgn?'+':'')+x+'%'}
+function render(){
+  const m=D.meta,s=D.signal,b=D.breakers,st=D.state||{};
+  const frozen=(st.freeze_days_left||0)>0;
+  document.getElementById('meta').innerHTML='生成于 '+m.generated+' · 数据截至 '+s.asof+
+    ' · <span class="badge">仓位档：第'+((st.tier_idx||0)+1)+'档/共'+m.tier_table_pct_per_stock.length+'档（最重档=第1档）· 单票 '+s.slot_per_stock_pct+'% · 总上限 '+s.total_exposure_pct+'%</span>'+
+    (frozen?'<span class="badge" style="border-color:#f59e0b;color:#f59e0b">🧊 冻结开新仓：剩 '+st.freeze_days_left+' 个交易日（至 '+st.freeze_until_date+'）</span>':'')+
+    ' · <a href="manual.html">📖 怎么用这份页面？看使用说明</a>';
+  /* ---- UI-01 决策条：聚合优先级 熔断红灯＞闸关闭＞正常持仓 ---- */
+  const dec=document.getElementById('decision');
+  const red=b.overall.light==='red', yellow=b.overall.light==='yellow';
+  let dcls,dtext,dsub;
+  if(red){
+    dcls='d-act';
+    dtext='当前状态：动作中 — '+b.overall.action;
+    dsub=(frozen?'冻结期内不买任何新票（剩 '+st.freeze_days_left+' 个交易日，至 '+st.freeze_until_date+'）。':'')+
+      '市场总开关：'+(s.gate.on_holdcash?'已关闭（空仓观望）。':'开放。')+'动作完成后自动恢复；升档需人工复核。';
+  }else if(s.gate.on_holdcash){
+    dcls='d-cash';
+    dtext='当前状态：空仓观望';
+    dsub='市场总开关已关闭：池均价 '+s.gate.idx+' 低于其 50 日平均线 '+s.gate.ma50+' → 不出新仓，等均价重新站上 50 日线后自动恢复。老仓位按止损/崩市/换仓规则照常退出（不是立即全部卖出）。';
+  }else{
+    dcls='d-hold';
+    dtext='当前状态：本周持有下列 '+(s.top5||[]).length+' 只，各 '+s.slot_per_stock_pct+'%';
+    dsub='下期信号：周首个交易日收盘（多为周一），次日开盘成交。'+(yellow?'健康灯有黄灯预警（见下），暂不动手。':'');
+  }
+  dec.className='decision '+dcls;
+  dec.innerHTML=dtext+'<div class="sub">'+dsub+'</div>';
+  /* ---- 信号区「现在该做什么」---- */
+  const sg=document.getElementById('sig');
+  let h='<div class="card '+(s.gate.on_holdcash?'cash':'hold')+'"><span class="tk">'+
+    (s.gate.on_holdcash?'🟥 市场总开关：已关闭（空仓观望）':'🟩 市场总开关：开放 · 本期建议名单（top-5 等权，单票 '+s.slot_per_stock_pct+'%）')+'</span>'+
+    '<div class="line">'+(s.gate.on_holdcash
+      ?'当前池均价 '+s.gate.idx+'，低于其 50 日平均线 '+s.gate.ma50+' → 本周不出新仓；等均价重新站上 50 日线后自动恢复（原始术语：regime 闸，idx=144 只池内标的等权均价）'
+      :'信号日 '+s.asof+(s.is_signal_day?'（今日为周信号日）':'（非信号日，下期信号以周首个交易日收盘为准）')+' · '+s.signal_rule)+'</div></div>';
+  if(s.crash_check&&s.crash_check.triggered){
+    h+='<div class="warnline">⚠️ 崩市检测：池中位 '+(-s.crash_check.pool_med_ret*100).toFixed(2)+'% 跌幅 &lt; −5% 线，次日开盘清仓（池里一半以上标的单日暴跌）</div>';
+  }
+  if(s.gate.on_holdcash){
+    h+='<div class="line" style="margin:6px 0">以下为参考排名，<b style="color:#e6edf3">当前不建仓</b>；开关恢复后下一信号日按此优先：</div>';
+  }
+  (s.top5||[]).forEach((c,i)=>{
+    h+='<div class="card '+(s.gate.on_holdcash?'cash':'hold')+'"><span class="tk">'+(i+1)+'. '+c.sym+'</span> '+
+      (s.gate.on_holdcash?'<span class="sell">[闸门关闭·不开仓]</span>':'<span class="buy">[目标仓 '+s.slot_per_stock_pct+'%]</span>')+
+      '<div class="line">综合评分 '+c.score+'（比池里其他票强多少的相对分）· 组成：均线斜率+量能斜率+距一年高点+近一月涨幅 · 成交口径：信号次日开盘</div></div>';});
+  sg.innerHTML=h;
+  /* ---- 健康灯 ---- */
+  const names={'CB1':'回撤闸','CB2':'止损闸','CB3':'频次观察','FEE':'费用闸'};
+  const CN={'green':'正常','yellow':'预警','red':'动作中'};
+  const ol=b.overall.light;
+  document.getElementById('bkall').innerHTML=
+    '<span class="biglamp '+(ol==='green'?'g':ol==='yellow'?'y':'r')+'"></span>'+
+    '<span style="font-size:17px;font-weight:bold">健康总灯：'+CN[ol]+'</span> · 建议：'+b.overall.action+
+    '<details><summary>触发时会怎样（展开）</summary>降档顺序（单票）：'+m.tier_table_pct_per_stock.join('% → ')+'%；止损闸触发=暂停开新仓 20 个交易日；降档自动、升档人工复核解锁。'+(m.state_note||'')+'</details>';
+  const bk=document.getElementById('bk');bk.innerHTML='';
+  b.items.forEach(x=>{
+    const d=x.detail;
+    let cn='';
+    if(x.name==='CB1')cn='近 20 日净值最大回撤 '+(d*100).toFixed(2)+'%（回撤闸：≤−32% 降一档；≤−16% 黄灯观察）';
+    else if(x.name==='CB2')cn='近 60 日：止损 '+d.stop_count_60d+' 次 · 合计失血 '+(d.stop_pnl_sum_60d*100).toFixed(1)+'pp · 毛账 '+(d.gross_60d_pct*100).toFixed(1)+'% · 净账 '+(d.net_60d_pct*100).toFixed(1)+'%';
+    else if(x.name==='CB3')cn='近 60 日止损 '+d.stop_count_60d+' 次 / 观察线 '+(+d.line).toFixed(0)+' 次（基准 '+(+d.baseline_60d).toFixed(2)+'×3，只观察不动仓）';
+    else if(x.name==='FEE')cn='近 60 日费用折年化 '+(d.fee_ann_pct*100).toFixed(2)+'% / 警戒线 '+(d.line_ann_pct*100).toFixed(2)+'%（过半线 '+(d.line_ann_pct/2*100).toFixed(2)+'% 预警）';
+    bk.insertAdjacentHTML('beforeend','<div class="card" style="border-left:4px solid '+(x.light==='green'?'#16a34a':x.light==='yellow'?'#f59e0b':'#f85149')+'">'+
+      lamp(x.light)+'<b>'+names[x.name]+'</b> <small style="color:#8b949e">'+x.name+'</small>'+
+      '<div class="line">'+x.action+'</div><div class="line">'+cn+'</div>'+
+      '<details><summary>原始字段（对账用）</summary><code style="word-break:break-all">'+(typeof d==='object'?JSON.stringify(d):d)+'</code></details></div>');});
+  /* ---- 三本账 ---- */
+  const a=document.getElementById('acct');
+  let t='<table><tr><th>月份</th><th>毛账%（不算费）</th><th>净账%（扣完费）</th><th>费用%</th><th>基准：144 只等权躺着不动%</th><th>跑输躺平(+)/跑赢躺平(−)</th></tr>';
+  const rows=D.monthly_accounts.slice().reverse();
+  rows.slice(0,3).forEach(r=>{t+=acctRow(r);});
+  t+='</table>';
+  if(rows.length>3){
+    let t2='<table>';rows.slice(3).forEach(r=>{t2+=acctRow(r);});t2+='</table>';
+    t+='<details><summary>更早月份（展开 '+rows.slice(3).length+' 个月）</summary>'+t2+'</details>';
+  }
+  a.innerHTML=t+'<div class="line">跑输/跑赢躺平 = 池等权买入持有 − 策略毛账：正数=这段时间拿着不动反而更好（策略跑输），负数=策略跑赢躺平持有。费用=滑点 0.05%/边+资金费 0.03%/bar 合计。</div>';
+  /* ---- 费拖累曲线 ---- */
+  const fc=D.fee_curve, w=640,ht=90;
+  const feeItem=b.items.find(x=>x.name==='FEE');
+  if(fc.length>1&&feeItem){
+    const mx=Math.max(...fc.map(x=>x.fee_pct),0.01);
+    const pts=fc.map((x,i)=>(i/(fc.length-1)*w).toFixed(1)+','+(ht-6-x.fee_pct/mx*(ht-16)).toFixed(1)).join(' ');
+    document.getElementById('feecurve').innerHTML='<svg viewBox="0 0 '+w+' '+ht+'" style="width:100%;background:#0d1117;border-radius:6px">'+
+      '<polyline points="'+pts+'" fill="none" stroke="#f59e0b" stroke-width="2"/>'+
+      '<text x="4" y="12" fill="#8b949e" font-size="10">max '+mx.toFixed(3)+'%</text></svg>';
+    const fd=feeItem.detail;
+    document.getElementById('feeline').textContent='费用警戒线：近 60 日费用折年化 ≥'+(fd.line_ann_pct*100).toFixed(2)+'% → 降一档（黄线 '+(fd.line_ann_pct/2*100).toFixed(2)+'%）；当前 '+(fd.fee_ann_pct*100).toFixed(2)+'%。月度费用含滑点 0.05%/边+资金费 0.03%/bar。';
+  }
+  /* ---- 监控明细 ---- */
+  const mo=D.monitor,re=mo.recent_stops||[];
+  let mt='<table><tr><th>日期</th><th>标的</th><th>卖出价</th><th>收益</th><th>卖出类型</th></tr>';
+  re.slice().reverse().forEach(x=>{
+    mt+='<tr><td>'+x.date+'</td><td>'+x.sym+'</td><td>'+x.px+'</td>'+
+      '<td class="dn">'+(x.pnl_pct*100).toFixed(2)+'%</td><td>'+(x.kind==='stop_gap'?'开盘跳空直接低过止损价，按开盘价卖出':'盘中触及止损价，按止损价卖出')+'</td></tr>';});
+  document.getElementById('mon').innerHTML=(re.length?mt+'</table>':'<div class="line">回放期无止损事件</div>')+
+    '<div class="warnline">止损线是 −8%（相对买入价）；跳空日实际亏损可能更大（例：2026-09-09 GPRO 实亏 −12.2%）——开盘价已低于止损价时只能按开盘价卖，这是口径内的正常损耗，不要因为「卖低了」而不卖。</div>'+
+    '<div class="line">月报每月首个交易日随信号更新 · 口径注释：'+mo.notes.join(' · ')+'</div>';
+  /* ---- 页脚：技术详情折叠 + 免责声明降级 ---- */
+  document.getElementById('foot').innerHTML=
+    '<details><summary>技术详情（seed / sha256 / 口径 / 复现命令）</summary>'+
+    'seed='+m.seed+' · 引擎 sha256 <code>'+m.engine_sha256.slice(0,16)+'…</code> · 池='+m.pool_n+' 标的 · '+
+    '历史模拟（非实盘）：回放 '+m.replay.start+'~'+m.replay.end+'，同期资金翻 '+m.replay.eq_net.toFixed(2)+' 倍（即 '+((m.replay.eq_net-1)*100).toFixed(1)+'%，含费）· '+
+    '口径：'+m.caliber+' · CB3 频次基准（v1 冻结快照）='+m.cb3_baseline_60d+'<br>'+
+    '复现：PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live（先 /tmp/wtc/refresh_cache.py 刷缓存）'+
+    ' · 引擎锁定：repo_ready/engine_f1/f1_signal.py · 验收：DEPLOY_REPORT.md</details>'+
+    '<details><summary>诚实声明（完整版）</summary>⚠️ 诚实声明（R11\' 上线方案）：F1 base 裸奔四因子带闸版，回测含幸存者偏差（池=当前存续票，已被现实证明活着的票），真实收益会打折；收益与池贝塔强相关。上线起步仓位仅 12.5%（单票 2.5%），熔断降档自动、升档由人工复核后解锁。本页为本机信号引擎输出：口径=V2 可实现出场（成交价按你真实下单能拿到的价格）+ 滑点 0.05%/边 + 资金费 0.03%/bar。仓位与买卖决策请勿仅依赖本页。</details>';
+}
+function acctRow(r){
+  return '<tr><td>'+r.month+'</td><td class="'+(r.gross_pct>0?'up':'dn')+'">'+pct(r.gross_pct,1)+'</td>'+
+    '<td class="'+(r.net_pct>0?'up':'dn')+'">'+pct(r.net_pct,1)+'</td><td>'+r.fee_pct+'</td>'+
+    '<td class="'+(r.pool_pct>0?'up':'dn')+'">'+pct(r.pool_pct,1)+'</td>'+
+    '<td class="neutral">'+pct(r.concede_pct,1)+'</td></tr>';
+}
+fetch('f1_live.json?ts='+Date.now()).then(r=>r.json()).then(d=>{D=d;render();})
+ .catch(e=>{document.getElementById('meta').textContent='数据加载失败：'+e});
+</script></body></html>

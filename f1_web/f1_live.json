@@ -1,0 +1,358 @@
+{
+ "meta": {
+  "workorder": "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
+  "seed": 42,
+  "generated": "2026-10-18 00:33:39",
+  "engine_sha256": "58cb0fecef2aff51e45dc21fffdc08ad653e348b6df975102cede040f83dc60c",
+  "pool_n": 144,
+  "caliber": "V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar",
+  "tier_table_pct_per_stock": [
+   2.5,
+   1.5,
+   1.0,
+   0.5
+  ],
+  "cb3_baseline_60d": 9.07,
+  "replay": {
+   "start": "2024-01-24",
+   "end": "2026-10-17",
+   "eq_net": 1.2641,
+   "eq_gross": 1.2859,
+   "stop_events_total": 104
+  }
+ },
+ "signal": {
+  "asof": "2026-10-17",
+  "is_signal_day": false,
+  "signal_rule": "每周首个交易日收盘出信号，次日开盘成交；本表为最新横截面评分参考",
+  "gate": {
+   "idx": 220.0968,
+   "ma50": 236.4119,
+   "on_holdcash": true,
+   "status": "red"
+  },
+  "crash_check": {
+   "pool_med_ret": 0.0024,
+   "line": -0.05,
+   "triggered": false
+  },
+  "top5": [
+   {
+    "sym": "EWZUSDT",
+    "score": 1.824
+   },
+   {
+    "sym": "SHOPUSDT",
+    "score": 1.7646
+   },
+   {
+    "sym": "VUSDT",
+    "score": 1.6558
+   },
+   {
+    "sym": "EBAYUSDT",
+    "score": 1.5891
+   },
+   {
+    "sym": "GMEUSDT",
+    "score": 1.5061
+   }
+  ],
+  "slot_per_stock_pct": 2.5,
+  "total_exposure_pct": 12.5,
+  "tier_idx": 0,
+  "freeze_until_date": null,
+  "freeze_days_left": 0,
+  "frozen": false
+ },
+ "state": {
+  "tier_idx": 0,
+  "slot_per_stock_pct": 2.5,
+  "freeze_until_date": null,
+  "freeze_days_left": 0,
+  "note": "降档自动落盘；升档人工复核（改 f1_state.json tier_idx 后重跑）"
+ },
+ "breakers": {
+  "overall": {
+   "light": "green",
+   "action": "正常运行"
+  },
+  "items": [
+   {
+    "name": "CB1",
+    "light": "green",
+    "action": "正常",
+    "detail": -0.0069
+   },
+   {
+    "name": "CB2",
+    "light": "green",
+    "action": "正常",
+    "detail": {
+     "gross_60d_pct": -0.017,
+     "net_60d_pct": -0.0182,
+     "stop_count_60d": 14,
+     "stop_pnl_sum_60d": -0.035
+    }
+   },
+   {
+    "name": "CB3",
+    "light": "green",
+    "action": "正常",
+    "detail": {
+     "stop_count_60d": 14,
+     "baseline_60d": 9.07,
+     "line": 27.21
+    }
+   },
+   {
+    "name": "FEE",
+    "light": "green",
+    "action": "正常",
+    "detail": {
+     "fee_60d": 0.001615,
+     "fee_ann_pct": 0.0068,
+     "line_ann_pct": 0.217
+    }
+   }
+  ]
+ },
+ "monthly_accounts": [
+  {
+   "month": "2025-11",
+   "gross_pct": 0.62,
+   "net_pct": 0.55,
+   "fee_pct": 0.063,
+   "pool_pct": -2.75,
+   "concede_pct": -3.36
+  },
+  {
+   "month": "2025-12",
+   "gross_pct": -0.75,
+   "net_pct": -0.81,
+   "fee_pct": 0.068,
+   "pool_pct": 0.45,
+   "concede_pct": 1.2
+  },
+  {
+   "month": "2026-01",
+   "gross_pct": 6.28,
+   "net_pct": 6.17,
+   "fee_pct": 0.118,
+   "pool_pct": 138.98,
+   "concede_pct": 132.71
+  },
+  {
+   "month": "2026-02",
+   "gross_pct": 1.89,
+   "net_pct": 1.87,
+   "fee_pct": 0.021,
+   "pool_pct": -63.36,
+   "concede_pct": -65.25
+  },
+  {
+   "month": "2026-03",
+   "gross_pct": -0.79,
+   "net_pct": -0.82,
+   "fee_pct": 0.033,
+   "pool_pct": 12.79,
+   "concede_pct": 13.58
+  },
+  {
+   "month": "2026-04",
+   "gross_pct": 10.26,
+   "net_pct": 10.12,
+   "fee_pct": 0.166,
+   "pool_pct": 17.41,
+   "concede_pct": 7.14
+  },
+  {
+   "month": "2026-05",
+   "gross_pct": 3.17,
+   "net_pct": 3.01,
+   "fee_pct": 0.206,
+   "pool_pct": 53.51,
+   "concede_pct": 50.33
+  },
+  {
+   "month": "2026-06",
+   "gross_pct": -1.42,
+   "net_pct": -1.48,
+   "fee_pct": 0.071,
+   "pool_pct": -18.09,
+   "concede_pct": -16.67
+  },
+  {
+   "month": "2026-07",
+   "gross_pct": 0.0,
+   "net_pct": 0.0,
+   "fee_pct": 0.0,
+   "pool_pct": -16.61,
+   "concede_pct": -16.61
+  },
+  {
+   "month": "2026-08",
+   "gross_pct": -1.2,
+   "net_pct": -1.22,
+   "fee_pct": 0.026,
+   "pool_pct": 6.18,
+   "concede_pct": 7.39
+  },
+  {
+   "month": "2026-09",
+   "gross_pct": -1.38,
+   "net_pct": -1.44,
+   "fee_pct": 0.084,
+   "pool_pct": 3.97,
+   "concede_pct": 5.35
+  },
+  {
+   "month": "2026-10",
+   "gross_pct": -0.27,
+   "net_pct": -0.33,
+   "fee_pct": 0.064,
+   "pool_pct": -8.64,
+   "concede_pct": -8.37
+  }
+ ],
+ "fee_curve": [
+  {
+   "month": "2025-11",
+   "fee_pct": 0.063
+  },
+  {
+   "month": "2025-12",
+   "fee_pct": 0.068
+  },
+  {
+   "month": "2026-01",
+   "fee_pct": 0.118
+  },
+  {
+   "month": "2026-02",
+   "fee_pct": 0.021
+  },
+  {
+   "month": "2026-03",
+   "fee_pct": 0.033
+  },
+  {
+   "month": "2026-04",
+   "fee_pct": 0.166
+  },
+  {
+   "month": "2026-05",
+   "fee_pct": 0.206
+  },
+  {
+   "month": "2026-06",
+   "fee_pct": 0.071
+  },
+  {
+   "month": "2026-07",
+   "fee_pct": 0.0
+  },
+  {
+   "month": "2026-08",
+   "fee_pct": 0.026
+  },
+  {
+   "month": "2026-09",
+   "fee_pct": 0.084
+  },
+  {
+   "month": "2026-10",
+   "fee_pct": 0.064
+  }
+ ],
+ "monitor": {
+  "recent_stops": [
+   {
+    "date": "2026-09-09",
+    "sym": "GPROUSDT",
+    "px": 1.448,
+    "pnl_pct": -0.122424,
+    "slot": 0.025,
+    "kind": "stop_gap"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "MRNAUSDT",
+    "px": 134.0808,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "MSTRUSDT",
+    "px": 130.4928,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-09-13",
+    "sym": "TEAMUSDT",
+    "px": 174.202,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-09-23",
+    "sym": "BNCUSDT",
+    "px": 6.13916,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "INTWUSDT",
+    "px": 31.004,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-09-29",
+    "sym": "INTCUSDT",
+    "px": 113.9972,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-10-07",
+    "sym": "SOXLUSDT",
+    "px": 152.0944,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-10-07",
+    "sym": "AXTIUSDT",
+    "px": 79.81,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   },
+   {
+    "date": "2026-10-13",
+    "sym": "CRDOUSDT",
+    "px": 196.1164,
+    "pnl_pct": -0.08,
+    "slot": 0.025,
+    "kind": "stop_touch"
+   }
+  ],
+  "notes": [
+   "止损−8%硬截断(V2口径)",
+   "崩市=池单日中位跌幅<−5%次日清仓",
+   "regime闸=idx<MA50清仓持币",
+   "CB3频次基准由回放期统计回填"
+  ]
+ }
+}
