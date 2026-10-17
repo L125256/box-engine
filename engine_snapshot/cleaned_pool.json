@@ -1,0 +1,745 @@
+{
+ "generated": "WT-A",
+ "n_kept": 144,
+ "kept": [
+  {
+   "tkr": "AAOIUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "AAPLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ADBEUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ALABUSDT",
+   "bars": 682
+  },
+  {
+   "tkr": "AMATUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "AMDUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "AMZNUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "APPUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ARMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ASMLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ASTSUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "AVGOUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "AXTIUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "BABAUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "BEUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "BMNRUSDT",
+   "bars": 384
+  },
+  {
+   "tkr": "BNCUSDT",
+   "bars": 332
+  },
+  {
+   "tkr": "BOTUSDT",
+   "bars": 141
+  },
+  {
+   "tkr": "BRKBUSDT",
+   "bars": 153
+  },
+  {
+   "tkr": "BXUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "CATUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "CBRSUSDT",
+   "bars": 155
+  },
+  {
+   "tkr": "CIENUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "COHRUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "COINUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "COSTUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "CRCLUSDT",
+   "bars": 421
+  },
+  {
+   "tkr": "CRDOUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "CRMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "CRWDUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "CRWVUSDT",
+   "bars": 438
+  },
+  {
+   "tkr": "CSCOUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "DDOGUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "DELLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "DISUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "DJTUSDT",
+   "bars": 659
+  },
+  {
+   "tkr": "DKNGUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "DRAMUSDT",
+   "bars": 184
+  },
+  {
+   "tkr": "EBAYUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "EWJUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "EWTUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "EWYUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "EWZUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "FLEXUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "FLNCUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "GDXUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "GEVUSDT",
+   "bars": 669
+  },
+  {
+   "tkr": "GLWUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "GMEUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "GOOGLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "GPROUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "GSUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "GTLBUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "HDUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "HIMSUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "HOODUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "HPEUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "IBMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "INTCUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "INTWUSDT",
+   "bars": 451
+  },
+  {
+   "tkr": "IONQUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "IRENUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "IWMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "JPMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "KLACUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "KORUUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "KOUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "KSTRUSDT",
+   "bars": 667
+  },
+  {
+   "tkr": "LITEUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "LLYUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "LRCXUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MARAUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MDBUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "METAUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MRKUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MRNAUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MRVLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MSFTUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MSTRUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MUUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "MUUUSDT",
+   "bars": 533
+  },
+  {
+   "tkr": "MVLLUSDT",
+   "bars": 439
+  },
+  {
+   "tkr": "NBISUSDT",
+   "bars": 543
+  },
+  {
+   "tkr": "NETUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "NFLXUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "NOKUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "NOWUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "NVDAUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "NVOUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ONDSUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ORCLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "PANWUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "PAYPUSDT",
+   "bars": 216
+  },
+  {
+   "tkr": "PDDUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "PENGUSDT",
+   "bars": 529
+  },
+  {
+   "tkr": "PLTRUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "PYPLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "QCOMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "QNTXUSDT",
+   "bars": 142
+  },
+  {
+   "tkr": "QQQUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "RDDTUSDT",
+   "bars": 668
+  },
+  {
+   "tkr": "RIVNUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "RKLBUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SHAZUSDT",
+   "bars": 194
+  },
+  {
+   "tkr": "SHOPUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SKHYUSDT",
+   "bars": 100
+  },
+  {
+   "tkr": "SMCIUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SMHUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SNDKUSDT",
+   "bars": 474
+  },
+  {
+   "tkr": "SNOWUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SNXXUSDT",
+   "bars": 213
+  },
+  {
+   "tkr": "SOFIUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SONYUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SOXLUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SOXSUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SPCXUSDT",
+   "bars": 150
+  },
+  {
+   "tkr": "SPYUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "SQQQUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "STXXUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TBTUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TEAMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TEMUSDT",
+   "bars": 603
+  },
+  {
+   "tkr": "TERUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TMFUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TQQQUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TSLAUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TSMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TTWOUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TXNUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "TZAUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "UBERUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "URNMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "USARUSDT",
+   "bars": 452
+  },
+  {
+   "tkr": "UVXYUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "VRTUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "VSTUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "VUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "WDCUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "WENUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "WMTUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "XBIUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "XLEUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ZMUSDT",
+   "bars": 700
+  },
+  {
+   "tkr": "ZSUSDT",
+   "bars": 700
+  }
+ ],
+ "n_dropped": 32,
+ "dropped": [
+  {
+   "tkr": "ACNUSDT",
+   "bars_raw": 19,
+   "bars_clean": 19
+  },
+  {
+   "tkr": "AGPUUSDT",
+   "bars_raw": 30,
+   "bars_clean": 30
+  },
+  {
+   "tkr": "AKAMUSDT",
+   "bars_raw": 12,
+   "bars_clean": 12
+  },
+  {
+   "tkr": "AMCUSDT",
+   "bars_raw": 30,
+   "bars_clean": 30
+  },
+  {
+   "tkr": "ANETUSDT",
+   "bars_raw": 30,
+   "bars_clean": 30
+  },
+  {
+   "tkr": "APLDUSDT",
+   "bars_raw": 30,
+   "bars_clean": 30
+  },
+  {
+   "tkr": "BWETUSDT",
+   "bars_raw": 19,
+   "bars_clean": 19
+  },
+  {
+   "tkr": "CRMLUSDT",
+   "bars_raw": 19,
+   "bars_clean": 19
+  },
+  {
+   "tkr": "CVNAUSDT",
+   "bars_raw": 20,
+   "bars_clean": 20
+  },
+  {
+   "tkr": "CXMTUSDT",
+   "bars_raw": 77,
+   "bars_clean": 77
+  },
+  {
+   "tkr": "CYPHUSDT",
+   "bars_raw": 30,
+   "bars_clean": 30
+  },
+  {
+   "tkr": "HUTUSDT",
+   "bars_raw": 30,
+   "bars_clean": 30
+  },
+  {
+   "tkr": "LYTEUSDT",
+   "bars_raw": 69,
+   "bars_clean": 69
+  },
+  {
+   "tkr": "MCDUSDT",
+   "bars_raw": 12,
+   "bars_clean": 12
+  },
+  {
+   "tkr": "MPUSDT",
+   "bars_raw": 19,
+   "bars_clean": 19
+  },
+  {
+   "tkr": "NKEUSDT",
+   "bars_raw": 19,
+   "bars_clean": 19
+  },
+  {
+   "tkr": "NVDLUSDT",
+   "bars_raw": 46,
+   "bars_clean": 46
+  },
+  {
+   "tkr": "OKLOUSDT",
+   "bars_raw": 20,
+   "bars_clean": 20
+  },
+  {
+   "tkr": "PATHUSDT",
+   "bars_raw": 30,
+   "bars_clean": 30
+  },
+  {
+   "tkr": "RAMUSDT",
+   "bars_raw": 54,
+   "bars_clean": 54
+  },
+  {
+   "tkr": "RUMUSDT",
+   "bars_raw": 20,
+   "bars_clean": 20
+  },
+  {
+   "tkr": "SECZUSDT",
+   "bars_raw": 19,
+   "bars_clean": 19
+  },
+  {
+   "tkr": "SKDDUSDT",
+   "bars_raw": 54,
+   "bars_clean": 54
+  },
+  {
+   "tkr": "SKUUUSDT",
+   "bars_raw": 54,
+   "bars_clean": 54
+  },
+  {
+   "tkr": "TSLLUSDT",
+   "bars_raw": 46,
+   "bars_clean": 46
+  },
+  {
+   "tkr": "TWSTUSDT",
+   "bars_raw": 20,
+   "bars_clean": 20
+  },
+  {
+   "tkr": "UNHUSDT",
+   "bars_raw": 19,
+   "bars_clean": 19
+  },
+  {
+   "tkr": "UNITREEUSDT",
+   "bars_raw": 60,
+   "bars_clean": 60
+  },
+  {
+   "tkr": "USDBRLUSDT",
+   "bars_raw": 27,
+   "bars_clean": 27
+  },
+  {
+   "tkr": "USDEXUSDT",
+   "bars_raw": 12,
+   "bars_clean": 12
+  },
+  {
+   "tkr": "VKTXUSDT",
+   "bars_raw": 12,
+   "bars_clean": 12
+  },
+  {
+   "tkr": "XOMUSDT",
+   "bars_raw": 20,
+   "bars_clean": 20
+  }
+ ]
+}

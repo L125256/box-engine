@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📦 箱体引擎 · 丁导K线交易系统</title>
+<style>
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,sans-serif;margin:0;padding:16px}
+h1{font-size:20px} a{color:#58a6ff;text-decoration:none}
+.meta{color:#8b949e;font-size:12px;margin-bottom:12px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px;margin:8px 0;font-size:14px}
+.hold{border-left:4px solid #f59e0b}.lock{border-left:4px solid #30363d}.seek{border-left:4px solid #58a6ff;opacity:.75}
+.tk{font-weight:bold;font-size:16px}
+.buy{color:#ff2d2d;font-weight:bold}.sell{color:#16a34a;font-weight:bold}
+.line{color:#8b949e;font-size:12px;margin-top:4px}
+.stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:12px}
+td,th{border-bottom:1px solid #21262d;padding:4px 6px;text-align:left}
+.up{color:#ff2d2d}.dn{color:#16a34a}
+.sbar{position:relative;height:22px;background:#21262d;border-radius:4px;margin-top:6px}
+.sfill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#16a34a55,#f59e0b55)}
+.sline{position:absolute;top:2px;font-size:10px;padding:0 4px}
+.sline.stop{left:0;color:#8b949e}.sline.trg{right:0;color:#f59e0b}
+.ptabs{margin:8px 0}.ptabs button{background:#161b22;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:4px 12px;margin-right:6px;cursor:pointer;font-size:12px}
+.ptabs button.on{color:#e6edf3;border-color:#58a6ff}
+footer{color:#8b949e;font-size:11px;margin-top:16px;line-height:1.6}
+</style></head><body>
+<h1>📦 箱体引擎 · 丁导K线交易系统</h1>
+<div class="meta" id="meta">加载中…</div>
+<div style="background:#5a1e1e;border:1px solid #f85149;color:#ffb3b3;border-radius:8px;padding:10px;margin:8px 0;font-size:13px"><b>⚠️ 诚实声明（空头席复核 2026-10-15）</b>：本策略为防守型工具，收益与池贝塔强相关——剔除同期池等权涨幅后无独立超额；回测含幸存者偏差（池=当前存续票，估计 ≥+9pp 高估，务必打折看待）；年化指标曾因计算错误高估已修正。本页为本机复刻版：口径=V2 可实现出场（触发仍为 V1 收盘判定）+ 清洗后 144 标的池，与权威引擎 eng_final.py 同源同数。仓位与买卖决策请勿仅依赖本页。</div>
+<div class="ptabs" id="ptabs"></div>
+<div id="cards"></div>
+<div class="stat"><b>近30日已平交易</b><div id="stat" class="line"></div>
+<table id="hist"></table></div>
+<footer id="foot"></footer>
+<script>
+let DATA=null,CUR='baseline';
+function render(){
+  const d=DATA,r=d.runs[CUR];
+  document.getElementById('meta').textContent='生成于 '+d.generated+' · 版本 '+d.version+
+    ' · 参数组 '+r.label+' N='+r.params.N+' k='+r.params.k+' m='+r.params.m+' e='+r.params.e+
+    ' · 牛市闸=idx>MA50 · 池='+d.pool.n+' 标的 · seed='+d.seed;
+  const tb=document.getElementById('ptabs');tb.innerHTML='';
+  Object.keys(d.runs).forEach(k=>{
+    const b=document.createElement('button');b.textContent=d.runs[k].label+' N'+r2(d.runs[k].params);
+    if(k===CUR)b.className='on';b.onclick=()=>{CUR=k;render();};tb.appendChild(b);});
+  const cs=document.getElementById('cards');cs.innerHTML='';
+  (r.cards||[]).forEach(c=>{
+    const el=document.createElement('div');
+    if(c.mode==='持仓中'){
+      el.className='card hold';
+      el.innerHTML='<span class="tk">'+c.tkr+'</span> <span class="buy">['+(c.kind==='bk'?'突破持仓':'回归持仓')+']</span> '+c.mode+
+        '<div class="line">买入 '+c.ep+' → 止盈 '+c.tp+' | 显示止损 '+c.disp+' | 有效止损 '+c.eff+
+        ' | 已持 '+c.days+' 天 | 现价 '+c.last+'</div>';
+    }else if(c.mode==='箱体锁定'){
+      el.className='card lock';
+      const pct=Math.max(0,Math.min(100,(c.pos_in_box||0.5)*100));
+      const near=(c.dist!==undefined&&c.dist<=1.5);
+      el.innerHTML='<span class="tk">'+c.tkr+'</span> '+c.mode+(near?' <span class="buy">⚡接近触发('+c.dist+'%)</span>':'')+
+        '<div class="sbar"><div class="sfill" style="width:'+pct+'%"></div>'+
+        '<span class="sline stop">箱底 '+c.bot+'</span><span class="sline trg">触发 '+c.trig+'</span></div>'+
+        '<div class="line">箱顶 '+c.top+' / 箱底 '+c.bot+' | 箱龄 '+c.age+' 天 | 现价 '+c.last+
+        ' | 距突破触发 <b>'+c.dist+'%</b>（收盘判定，盘中触摸≠买入）</div>';
+    }else{
+      el.className='card seek';
+      el.innerHTML='<span class="tk">'+c.tkr+'</span> 箱体搜索 seek '+c.seek_streak+'/'+c.seek_need+
+        '<div class="line">N='+c.N+' 窗口收紧计数中 · 现价 '+c.last+'</div>';
+    }
+    cs.appendChild(el);});
+  const s=r.stats||{};
+  document.getElementById('stat').textContent='共 '+s.total+' 笔 · 胜 '+s.wins+' 笔 · 单笔均值 '+s.mean+'%（含资金费，收盘判定口径，主窗 et≥2025-06-01）';
+  const h=document.getElementById('hist');
+  h.innerHTML='<tr><th>标的</th><th>买</th><th>卖</th><th>收益</th><th>原因</th><th>日期</th></tr>';
+  (r.recent||[]).forEach(x=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+x.tkr+'</td><td class="buy">'+x.ep+'</td><td class="sell">'+x.xc+'</td>'+
+      '<td class="'+(x.r>0?'up':'dn')+'">'+(x.r>0?'+':'')+x.r+'%</td><td>'+x.why+'</td><td>'+x.xt+'</td>';
+    h.appendChild(tr);});
+  document.getElementById('foot').innerHTML='seed='+d.seed+' · 口径：'+d.caliber.fill+'；触发：'+d.caliber.trigger+
+    ' · 复现：PYTHONHASHSEED='+d.seed+' python3 generate_page.py';
+}
+function r2(p){return p.N+'/k'+p.k+'/m'+p.m+'/e'+p.e}
+fetch('box_live.json?ts='+Date.now()).then(r=>r.json()).then(d=>{DATA=d;render();})
+ .catch(e=>{document.getElementById('meta').textContent='数据加载失败：'+e});
+</script></body></html>
