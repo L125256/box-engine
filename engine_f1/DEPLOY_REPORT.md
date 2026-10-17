@@ -52,8 +52,8 @@ PYTHONHASHSEED=42 python3 /tmp/eng_w2_f1/f1_backtest.py
 # 2) G1-G5 检查单
 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/run_checks.py
 
-# 3) 信号引擎 live（页面数据）
-PYTHONHASHSEED=42 python3 /workspace/f1_web/f1_generate.py
+# 3) 信号引擎 live（页面数据；⑦ 口径统一为现行入口）
+PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live
 
 # 4) 历史回放（口径复核）
 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py replay --slot 0.10
@@ -112,3 +112,21 @@ PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py replay --
 ## 四、push 结果
 
 `PUSH OK`：施工提交 `1387d23`（63f8b09..1387d23 main→main，2026-10-18，第 1 次尝试成功）。产物归档：引擎与检测标在 `engine_f1/`，页面与说明书同步归档至 `f1_web/` 与 `f1/`。
+
+## 五、R7-3 留出窗口径差说明（附加公示项 · 主管席尾巴工单裁决，2026-10-18）
+
+本报告 BUG-01 验收段此前只引 base **4.39pp/年** 做同量级论证，未提留出窗 **21.97pp/年**（两数相差约 5 倍）。选择性引用违反「离谱论证零容忍」精神，随版补全口径差公示：
+
+- **4.39pp/年** = old131 池**全窗口**费拖累年化（R7-3 权威审计口径，50% 敞口）；
+- **21.97pp/年** = old131 池**留出窗**（out-of-sample）费拖累年化——留出窗恰为高波动段，换手与费用同步放大。**两数并存非矛盾**，是同一口径在不同时间窗上的取值；
+- 本引擎（pool144、12.5% 敞口）技术席同窗实测 ≈**1.13pp/年**，量级差由三因素解释：①池 144 vs old131（成分与换手结构不同）；②BUG-04 保守化（崩市不当日重建 + 止损票当日不买回）系统性砍换手；③闸关空仓段无持仓即无费用。
+
+台账 diff=0 是硬证据（BUG-01 修复后逐日费账与独立重算全对齐），不构成错账；本段仅补全披露口径。另：CB3 基准自 ⑧ 裁决起为冻结常量 9.07（v1 快照），live 重算值降为 json 对账参考字段 `cb3_baseline_recomputed`，正文「由回放期统计回填 9.07」为当时施工记录，机制已被冻结常量取代。
+
+## 六、尾巴工单施工记录（10 项 · 2026-10-18 · 测试席终验批）
+
+①「现在该做什么」渲染为可见分区标题（index.html，与熔断区对称）；②repo_ready/f1 引擎补拷修复版（全目录 sha256 逐文件对齐）；③冻结期+闸开时 top5 标签改「🧊 冻结中·不开新仓」+卡头冻结说明；④⑩monitor.notes 折叠进页底「技术详情」，正文留白话指引；⑤box 页 B9/B10 顺带修（参数徽章入悬浮、牛市闸加白话、seek 卡补状态解释）；⑥⑦⑧⑨施工与全量重跑详见 /tmp/r12_test/TEST_REPORT.md。复现命令第 3 条同步统一为现行入口：
+
+```bash
+PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live
+```

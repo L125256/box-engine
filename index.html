@@ -24,6 +24,7 @@ footer{color:#8b949e;font-size:11px;margin-top:16px;line-height:1.6}
 </style></head><body>
 <h1>📦 箱体引擎 · 丁导K线交易系统</h1>
 <div class="meta" id="meta">加载中…</div>
+<div class="line" id="params" style="margin:-6px 0 8px"></div>
 <div style="background:#5a1e1e;border:1px solid #f85149;color:#ffb3b3;border-radius:8px;padding:10px;margin:8px 0;font-size:13px"><b>⚠️ 诚实声明（空头席复核 2026-10-15）</b>：本策略为防守型工具，收益与池贝塔强相关——剔除同期池等权涨幅后无独立超额；回测含幸存者偏差（池=当前存续票，估计 ≥+9pp 高估，务必打折看待）；年化指标曾因计算错误高估已修正。本页为本机复刻版：口径=V2 可实现出场（触发仍为 V1 收盘判定）+ 清洗后 144 标的池，与权威引擎 eng_final.py 同源同数。仓位与买卖决策请勿仅依赖本页。</div>
 <div class="ptabs" id="ptabs"></div>
 <div id="cards"></div>
@@ -32,14 +33,15 @@ footer{color:#8b949e;font-size:11px;margin-top:16px;line-height:1.6}
 <footer id="foot"></footer>
 <script>
 let DATA=null,CUR='baseline';
-function render(){
-  const d=DATA,r=d.runs[CUR];
+function render(){  const d=DATA,r=d.runs[CUR],p=r.params;
   document.getElementById('meta').textContent='生成于 '+d.generated+' · 版本 '+d.version+
-    ' · 参数组 '+r.label+' N='+r.params.N+' k='+r.params.k+' m='+r.params.m+' e='+r.params.e+
-    ' · 牛市闸=idx>MA50 · 池='+d.pool.n+' 标的 · seed='+d.seed;
+    ' · 参数组 '+r.label+' · 行情好于 50 日线才找票（牛市闸=idx>MA50） · 池='+d.pool.n+' 标的 · seed='+d.seed;
+  document.getElementById('params').innerHTML='<details><summary>参数 N/k/m/e（对账用，悬浮/展开）</summary>N='+p.N+'（箱体窗口天数）· k='+p.k+'（回撤容忍系数）· m='+p.m+'（最小箱体高度）· e='+p.e+'（突破确认阈值）</details>';
   const tb=document.getElementById('ptabs');tb.innerHTML='';
   Object.keys(d.runs).forEach(k=>{
-    const b=document.createElement('button');b.textContent=d.runs[k].label+' N'+r2(d.runs[k].params);
+    const q=d.runs[k].params;
+    const b=document.createElement('button');b.textContent=d.runs[k].label;
+    b.title='N='+q.N+' k='+q.k+' m='+q.m+' e='+q.e+'（参数详情悬浮可见）';
     if(k===CUR)b.className='on';b.onclick=()=>{CUR=k;render();};tb.appendChild(b);});
   const cs=document.getElementById('cards');cs.innerHTML='';
   (r.cards||[]).forEach(c=>{
@@ -61,7 +63,7 @@ function render(){
     }else{
       el.className='card seek';
       el.innerHTML='<span class="tk">'+c.tkr+'</span> 箱体搜索 seek '+c.seek_streak+'/'+c.seek_need+
-        '<div class="line">N='+c.N+' 窗口收紧计数中 · 现价 '+c.last+'</div>';
+        '<div class="line">N='+c.N+' 窗口收紧计数中 · 正在等波动连续收窄到条件成立（连续 N 天振幅收窄即入列候选）· 现价 '+c.last+'</div>';
     }
     cs.appendChild(el);});
   const s=r.stats||{};
@@ -76,7 +78,6 @@ function render(){
   document.getElementById('foot').innerHTML='seed='+d.seed+' · 口径：'+d.caliber.fill+'；触发：'+d.caliber.trigger+
     ' · 复现：PYTHONHASHSEED='+d.seed+' python3 generate_page.py';
 }
-function r2(p){return p.N+'/k'+p.k+'/m'+p.m+'/e'+p.e}
 fetch('box_live.json?ts='+Date.now()).then(r=>r.json()).then(d=>{DATA=d;render();})
  .catch(e=>{document.getElementById('meta').textContent='数据加载失败：'+e});
 </script></body></html>

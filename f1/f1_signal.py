@@ -13,11 +13,21 @@ seed=42 一次成活；改参数=新工单，禁止调参重跑。
 - 费：滑点 0.05%/边 + 资金费 0.03%/bar（持仓名义）
 - 仓位档位：起步 12.5%（单票 2.5%）；CB1/CB费线 触发降一档（2.5→1.5→1.0→0.5%/票）
 
+BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
+- BUG-01 资金费 f_bar 当日求和累计（原覆盖）；月报费用 resample('ME').sum()（原 last 取单日）；
+  费用时序=当日滑点+资金费全额入账
+- BUG-02 KEEP_RANK 死参数删除，注释锁定「全量 top-5 重选」为 v1 口径
+- BUG-03 CB2 冻结状态机落盘（freeze_until_date/freeze_days_left）+ tier_idx 降档落盘
+  （f1_state.json），升档仍人工
+- BUG-04 崩市清仓日禁止当日重建仓（跳过当期调仓执行）；止损票当日禁止买回
+- BUG-05 页面费线阈值读 JSON（line_ann_pct），HTML 不写死
+
 熔断器（R11' 上线方案）：
 - CB1  MDD−32%/20交易日：滚动 20 交易日窗口内净账 MDD ≤ −32% → 降一档
 - CB2  滚动60日止损失血：毛账滚动 60 交易日止损单合计亏损 ≤ −20pp 触发（黄灯），
        净账确认（同期净账亏损 ≤ −20pp）→ 红灯，动作=冻结开新仓 20 交易日（首月暂定）
-- CB3  频次外移观察线：滚动 60 交易日止损次数 ≥ 基准(60日1次)×3 → 黄灯观察（外移观察线，不动作）
+- CB3  频次外移观察线：滚动 60 交易日止损次数 ≥ 冻结基准(9.07)×3=27.21 → 黄灯观察
+       （基准=v1 冻结快照常量，live 重算值仅存 json 对账参考字段，不参与判定）
 - 费线 21.7pp×2月：滚动 60 交易日费用年化拖累 ≥ 21.7pp → 降一档；≥50%线(10.85pp)黄灯
 
 三本账（月报）：
@@ -46,7 +56,8 @@ CLEANED_POOL = '/tmp/eng_wt/cleaned_pool.json'
 
 TOP_N = 5
 SLOTS = [0.025, 0.015, 0.010, 0.005]   # 仓位档位表（单票），起步档=0.025 → 12.5% 敞口
-KEEP_RANK = 15
+# 周换仓口径（v1 锁定，主管席 BUG-02 裁决）：每周全量 top-5 重选，跌出榜单即换出，
+# 无 top-N 缓冲；原 KEEP_RANK=15 死参数已删除，不补缓冲实现（两引擎口径一致，回测对账不破）。
 STOP = -0.08
 CRASH_MED = -0.05
 FEE_SIDE = 0.0005
@@ -58,8 +69,9 @@ CB1_WINDOW = 20          # CB1：20 交易日
 CB2_LOSS = -0.20         # CB2：止损失血线（毛账触发/净账确认）
 CB2_WINDOW = 60          # CB2：滚动 60 交易日
 CB2_FREEZE_DAYS = 20     # CB2 动作：冻结开新仓 20 交易日（首月暂定）
-CB3_BASE_60D = 1.0       # CB3：回放基准 60 日止损次数（G4 回放统计后锁定）
-CB3_MULT = 3             # CB3：观察线 = 基准×3
+CB3_BASE_60D = 9.07      # CB3：60 日止损次数基准（R7 v1 冻结快照；主管席⑧裁定：冻结常量，
+                         # live 重算值仅作 json 对账参考字段 cb3_baseline_recomputed，改基准=新工单）
+CB3_MULT = 3             # CB3：观察线 = 基准×3 = 27.21
 FEE_LINE_ANN = 0.217     # 费线：年化费拖累 21.7pp
 FEE_WINDOW = 60          # 费线：滚动 60 交易日（≈2月）
 
@@ -145,9 +157,12 @@ def replay(data, F, syms, slot=0.025):
     def one_pass(with_fees):
         cash, pos = 1.0, {}
         pending_sells, pending_exec = set(), None
+        crash_next = None                                     # BUG-04：崩市清仓日（次日）日期标记
         eq, fees_d, stops = {}, {}, []
         for t in cal:
             o_t, lo_t, c_t = open_.loc[t], low.loc[t], close.loc[t]
+            day_fee = 0.0                                       # 当日全部费用（滑点+资金费），BUG-01 修复
+            stopped_today = set()                               # 当日止损票（BUG-04：禁止当日买回）
             for s in list(pos):                                   # 1) 盘中断价止损
                 if s in pending_sells or pd.isna(o_t.get(s, np.nan)):
                     continue
@@ -160,6 +175,8 @@ def replay(data, F, syms, slot=0.025):
                     continue
                 fee = pos[s]['qty'] * px * FEE_SIDE if with_fees else 0.0
                 cash += pos[s]['qty'] * px - fee
+                day_fee += fee
+                stopped_today.add(s)
                 if with_fees:
                     stops.append({'date': str(t.date()), 'sym': s, 'px': round(px, 6),
                                   'pnl_pct': round(px / pos[s]['entry'] - 1, 6),
@@ -173,55 +190,68 @@ def replay(data, F, syms, slot=0.025):
                 if s in pos:
                     fee = pos[s]['qty'] * px * FEE_SIDE if with_fees else 0.0
                     cash += pos[s]['qty'] * px - fee
+                    day_fee += fee
                     del pos[s]
                 pending_sells.discard(s)
+            skip_rebuild = (crash_next == t)                      # BUG-04：崩市清仓日只清仓，跳过当期调仓
+            if skip_rebuild:
+                crash_next = None
             if pending_exec is not None and t == pending_exec[0]:  # 3) 周调仓执行
                 _, target, eq_sig = pending_exec
                 pending_exec = None
-                for s in list(pos):
-                    if s in target or s in pending_sells:
-                        continue
-                    px = o_t.get(s, np.nan)
-                    if pd.isna(px):
-                        pending_sells.add(s)
-                        continue
-                    fee = pos[s]['qty'] * px * FEE_SIDE if with_fees else 0.0
-                    cash += pos[s]['qty'] * px - fee
-                    del pos[s]
-                for s in target:
-                    if s in pos:
-                        continue
-                    px = o_t.get(s, np.nan)
-                    if pd.isna(px):
-                        continue
-                    budget = min(slot * eq_sig, max(cash, 0.0))
-                    if budget <= 0:
-                        continue
-                    qty = budget / px
-                    fee = qty * px * FEE_SIDE if with_fees else 0.0
-                    cash -= qty * px + fee
-                    pos[s] = {'qty': qty, 'entry': px}
+                if not skip_rebuild:
+                    for s in list(pos):
+                        if s in target or s in pending_sells:
+                            continue
+                        px = o_t.get(s, np.nan)
+                        if pd.isna(px):
+                            pending_sells.add(s)
+                            continue
+                        fee = pos[s]['qty'] * px * FEE_SIDE if with_fees else 0.0
+                        cash += pos[s]['qty'] * px - fee
+                        day_fee += fee
+                        del pos[s]
+                    for s in target:
+                        if s in pos or s in stopped_today:        # 止损票当日禁止买回（BUG-04）
+                            continue
+                        px = o_t.get(s, np.nan)
+                        if pd.isna(px):
+                            continue
+                        budget = min(slot * eq_sig, max(cash, 0.0))
+                        if budget <= 0:
+                            continue
+                        qty = budget / px
+                        fee = qty * px * FEE_SIDE if with_fees else 0.0
+                        cash -= qty * px + fee
+                        day_fee += fee
+                        pos[s] = {'qty': qty, 'entry': px}
             equity = cash                                          # 4) 收盘记账
             f_bar = 0.0
             for s, p in pos.items():
                 m = mark.at[t, s]
                 equity += p['qty'] * m
                 if with_fees:
-                    f_bar = p['qty'] * m * FUNDING
-                    cash -= f_bar
+                    f_bar += p['qty'] * m * FUNDING                # BUG-01：当日全部持仓资金费求和（原为覆盖）
+            if with_fees:
+                cash -= f_bar
+                day_fee += f_bar
             eq[t] = equity
-            fees_d[t] = f_bar
+            fees_d[t] = day_fee                                    # BUG-01：当日滑点+资金费全额入账（原仅末仓资金费）
             if len(pos) > 0 and not pd.isna(med_ret.get(t, np.nan)) \
                     and med_ret[t] < CRASH_MED:                    # 5) 崩市清仓
                 pending_sells.update(pos.keys())
+                crash_next = cal[cal.get_loc(t) + 1] \
+                    if cal.get_loc(t) + 1 < len(cal) else None     # BUG-04：次日只清仓，禁止当日重建仓
             if t in sig_days:                                      # 6) 周信号
                 score = cross_scores(F, syms, t)
                 if not pd.isna(idx_ma.get(t, np.nan)) and idx[t] < idx_ma[t]:
                     target = []
                 else:
                     target = list(score.index[:TOP_N])
+                # BUG-04：崩市日仍按常规出信号，但清仓日（次日）由步骤③跳过执行，
+                # 等价于「跳过本期 target 重建，等下一个信号日再建仓」
                 pending_exec = (cal[cal.get_loc(t) + 1], target, equity) \
-                    if cal.get_loc(t) + 1 < len(cal) else None
+                        if cal.get_loc(t) + 1 < len(cal) else None
         return pd.Series(eq).sort_index(), pd.Series(fees_d).sort_index(), stops
 
     eq_n, fees_n, stops_n = one_pass(True)
@@ -248,15 +278,18 @@ def _replay_holdings(data, F, syms, slot=0.025):
     sig_days = week_first_days(cal)
     cash, pos = 1.0, {}
     pending_sells, pending_exec = set(), None
+    crash_next = None                                          # BUG-04：崩市清仓日标记
     hold = {}
     for t in cal:
         o_t, lo_t = open_.loc[t], low.loc[t]
+        stopped_today = set()                                  # 当日止损票（BUG-04：禁止当日买回）
         for s in list(pos):
             if s in pending_sells or pd.isna(o_t.get(s, np.nan)):
                 continue
             stop_p = pos[s]['entry'] * (1 + STOP)
             if o_t[s] <= stop_p or lo_t[s] <= stop_p:
                 cash += pos[s]['qty'] * o_t[s] if o_t[s] <= stop_p else pos[s]['qty'] * stop_p
+                stopped_today.add(s)
                 del pos[s]
         for s in list(pending_sells):
             px = o_t.get(s, np.nan)
@@ -266,30 +299,36 @@ def _replay_holdings(data, F, syms, slot=0.025):
                 cash += pos[s]['qty'] * px
                 del pos[s]
             pending_sells.discard(s)
+        skip_rebuild = (crash_next == t)                       # BUG-04：崩市清仓日只清仓
+        if skip_rebuild:
+            crash_next = None
         if pending_exec is not None and t == pending_exec[0]:
             _, target, eq_sig = pending_exec
             pending_exec = None
-            for s in list(pos):
-                if s in target or s in pending_sells:
-                    continue
-                px = o_t.get(s, np.nan)
-                if pd.isna(px):
-                    pending_sells.add(s)
-                    continue
-                cash += pos[s]['qty'] * px
-                del pos[s]
-            for s in target:
-                if s in pos or pd.isna(o_t.get(s, np.nan)):
-                    continue
-                budget = min(slot * eq_sig, max(cash, 0.0))
-                if budget <= 0:
-                    continue
-                qty = budget / o_t[s]
-                cash -= qty * o_t[s]
-                pos[s] = {'qty': qty, 'entry': o_t[s]}
+            if not skip_rebuild:
+                for s in list(pos):
+                    if s in target or s in pending_sells:
+                        continue
+                    px = o_t.get(s, np.nan)
+                    if pd.isna(px):
+                        pending_sells.add(s)
+                        continue
+                    cash += pos[s]['qty'] * px
+                    del pos[s]
+                for s in target:
+                    if s in pos or s in stopped_today or pd.isna(o_t.get(s, np.nan)):
+                        continue
+                    budget = min(slot * eq_sig, max(cash, 0.0))
+                    if budget <= 0:
+                        continue
+                    qty = budget / o_t[s]
+                    cash -= qty * o_t[s]
+                    pos[s] = {'qty': qty, 'entry': o_t[s]}
         hold[t] = ','.join(sorted(pos))
         if len(pos) > 0 and not pd.isna(med_ret.get(t, np.nan)) and med_ret[t] < CRASH_MED:
             pending_sells.update(pos.keys())
+            crash_next = cal[cal.get_loc(t) + 1] \
+                if cal.get_loc(t) + 1 < len(cal) else None     # BUG-04：次日只清仓
         if t in sig_days:
             score = cross_scores(F, syms, t)
             if not pd.isna(idx_ma.get(t, np.nan)) and idx[t] < idx_ma[t]:
@@ -409,7 +448,8 @@ def eval_breakers(rp, tier_idx, asof=None, cb3_base=CB3_BASE_60D):
 def monthly_accounts(rp, months=12):
     eq_g, eq_n, fees = rp['eq_gross'], rp['eq_net'], rp['fees']
     idx = rp['idx'].reindex(eq_g.index).ffill()
-    mg, mn, mf, mi = (x.resample('ME').last() for x in (eq_g, eq_n, fees, idx))
+    mg, mn, mi = (x.resample('ME').last() for x in (eq_g, eq_n, idx))
+    mf = fees.resample('ME').sum()   # BUG-01：月度费用=逐日合计（原 last() 取月末单日）
     rows = []
     for i in range(1, len(mg)):
         m = str(mg.index[i])[:7]
@@ -423,8 +463,57 @@ def monthly_accounts(rp, months=12):
     return rows[-months:]
 
 
+# ---------------------------------------------------------------- 状态机落盘（BUG-03）
+def load_state(state_path):
+    if os.path.exists(state_path):
+        try:
+            return json.load(open(state_path))
+        except Exception:
+            pass
+    return {}
+
+
+def save_state(state_path, state):
+    tmp = state_path + '.tmp'
+    with open(tmp, 'w') as f:
+        json.dump(state, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, state_path)
+
+
+def update_state(bk, cal, state, asof=None):
+    """BUG-03 状态机落盘（就地更新 state 并返回）：
+    ① CB2 红灯 → 冻结开新仓 20 交易日，记录解除日与剩余交易日数；
+    ② CB1/费线红灯新触发 → 自动降一档写盘；升档仍人工（改 state.tier_idx 后重跑）。"""
+    today = asof if asof is not None else cal[-1]
+    # ① CB2 冻结：红灯且当前无生效冻结时启动倒计时（触发日起 +20 交易日；
+    #    本池为加密 7×24 日历，交易日=自然日，故解除日=触发日+20 自然日）
+    fu = state.get('freeze_until_date')
+    if bk['lights']['CB2'] == 'red' and (not fu or pd.Timestamp(fu) <= today):
+        state['freeze_until_date'] = str((pd.Timestamp(today) + pd.Timedelta(days=CB2_FREEZE_DAYS)).date())
+    fu = state.get('freeze_until_date')
+    if fu:
+        # 本池为加密 7×24 日历（交易日=自然日）；触发日=日历末日时未来日期尚不在 cal 内，
+        # 故剩余交易日数按自然日差计（=逐日递减，到期归零）
+        left = max(0, (pd.Timestamp(fu).normalize() - pd.Timestamp(today).normalize()).days)
+        state['freeze_days_left'] = left
+        if left <= 0:                       # 冻结到期：灯自动回绿，档位不自动回升
+            state['freeze_until_date'] = None
+            state['freeze_days_left'] = 0
+    else:
+        state['freeze_days_left'] = 0
+    # ② 降档：CB1/费线红灯「新触发」时降一档（避免红灯持续期间逐日连降）
+    reds = {k for k in ('CB1', 'FEE') if bk['lights'].get(k) == 'red'}
+    new_reds = reds - set(state.get('prev_reds', []))
+    if new_reds:
+        state['tier_idx'] = min(int(state.get('tier_idx', 0)) + 1, len(SLOTS) - 1)
+    state['prev_reds'] = sorted(reds)
+    state['tier_idx'] = int(state.get('tier_idx', 0))
+    return state
+
+
 # ---------------------------------------------------------------- 实时信号
-def current_signal(data, F, syms, tier_idx=0):
+def current_signal(data, F, syms, tier_idx=0,
+                   freeze_until_date=None, freeze_days_left=0):
     cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
     close = pd.DataFrame({s: data[s]['close'] for s in syms}).reindex(cal)
     idx = close.mean(axis=1)
@@ -452,6 +541,9 @@ def current_signal(data, F, syms, tier_idx=0):
         'slot_per_stock_pct': round(slot * 100, 2),
         'total_exposure_pct': round(slot * TOP_N * 100, 2),
         'tier_idx': tier_idx,
+        'freeze_until_date': freeze_until_date,
+        'freeze_days_left': int(freeze_days_left),
+        'frozen': bool(freeze_days_left and freeze_days_left > 0),
     }
 
 
@@ -467,28 +559,47 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
     F = build_factors(data)
     rp = replay(data, F, syms, slot=SLOTS[0])
 
-    # 由 CB3 基准回填：回放期（2024 全期）止损次数 → 60日期望基准
+    # ⑧ CB3 基准=R7 v1 冻结快照常量 9.07，live 不再重算覆盖（原重算机制废除，主管席裁定）；
+    #    回放期重算值仅存 json 对账参考字段，偏差超 ±10% 时置提示位（提示≠改判定）
     n_years = max((rp['cal'][-1] - rp['cal'][0]).days / 365.25, 1e-9)
-    cb3_base = round(len(rp['stops']) / n_years * (60 / 252.0), 2)
+    cb3_recomputed = round(len(rp['stops']) / n_years * (60 / 252.0), 2)
+    cb3_drift = abs(cb3_recomputed - CB3_BASE_60D) / CB3_BASE_60D > 0.10
 
-    sig = current_signal(data, F, syms, tier_idx=0)
-    bk = eval_breakers(rp, tier_idx=0, cb3_base=cb3_base)
+    # BUG-03：状态机落盘——冻结倒计时 + 红灯自动降档（升档人工），持久化于 f1_state.json
+    state_path = os.path.join(os.path.dirname(os.path.abspath(out_json)), 'f1_state.json')
+    state = load_state(state_path)
+    state.setdefault('tier_idx', 0)
+    bk = eval_breakers(rp, tier_idx=int(state['tier_idx']), cb3_base=CB3_BASE_60D)
+    update_state(bk, rp['cal'], state)
+    save_state(state_path, state)
+    tier_idx = int(state['tier_idx'])
+    fdays = int(state.get('freeze_days_left', 0) or 0)
+    fdate = state.get('freeze_until_date')
+    sig = current_signal(data, F, syms, tier_idx=tier_idx,
+                         freeze_until_date=fdate, freeze_days_left=fdays)
+    bk['tier_idx'] = tier_idx
+    bk['slot_now'] = SLOTS[tier_idx]
     acct = monthly_accounts(rp)
     fee_curve = [{'month': r['month'], 'fee_pct': r['fee_pct']} for r in acct]
     recent_stops = rp['stops'][-10:]
     out = {
-        'meta': {'workorder': "R11' F1 上线运营 · f1_signal.py v1",
+        'meta': {'workorder': "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
                  'seed': SEED, 'generated': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
                  'caliber': 'V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar',
                  'tier_table_pct_per_stock': [round(s * 100, 2) for s in SLOTS],
-                 'cb3_baseline_60d': cb3_base,
+                 'cb3_baseline_60d': CB3_BASE_60D,
+                 'cb3_baseline_recomputed': cb3_recomputed,
+                 'cb3_baseline_drift_alert': bool(cb3_drift),
                  'replay': {'start': str(rp['cal'][0].date()),
                             'end': str(rp['cal'][-1].date()),
                             'eq_net': round(float(rp['eq_net'].iloc[-1]), 4),
                             'eq_gross': round(float(rp['eq_gross'].iloc[-1]), 4),
                             'stop_events_total': len(rp['stops'])}},
         'signal': sig,
+        'state': {'tier_idx': tier_idx, 'slot_per_stock_pct': round(SLOTS[tier_idx] * 100, 2),
+                  'freeze_until_date': fdate, 'freeze_days_left': fdays,
+                  'note': '降档自动落盘；升档人工复核（改 f1_state.json tier_idx 后重跑）'},
         'breakers': {'overall': {'light': bk['overall'][0], 'action': bk['overall'][1]},
                      'items': [{'name': k, 'light': bk['lights'][k],
                                 'action': bk['actions'][k], 'detail': bk['detail'][k]}
@@ -497,7 +608,7 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
         'fee_curve': fee_curve,
         'monitor': {'recent_stops': recent_stops,
                     'notes': ['止损−8%硬截断(V2口径)', '崩市=池单日中位跌幅<−5%次日清仓',
-                              'regime闸=idx<MA50清仓持币', 'CB3频次基准由回放期统计回填']},
+                              'regime闸=idx<MA50清仓持币', 'CB3基准=9.07（v1 冻结快照，重算值仅对账）']},
     }
     os.makedirs(os.path.dirname(out_json), exist_ok=True)
     tmp = out_json + '.tmp'
@@ -513,9 +624,12 @@ def main():
     if mode == 'live':
         out = run_live()
         bk = out['breakers']['overall']
+        st = out['state']
         print(f"live ok: asof={out['signal']['asof']} gate={'持币' if out['signal']['gate']['on_holdcash'] else '持仓'} "
               f"top5={[x['sym'] for x in out['signal']['top5']]} "
-              f"breaker={bk['light']} action={bk['action']}")
+              f"breaker={bk['light']} action={bk['action']} "
+              f"tier={st['tier_idx']} freeze_left={st['freeze_days_left']}"
+              + (f"(至{st['freeze_until_date']})" if st['freeze_until_date'] else ''))
     elif mode == 'replay':
         slot = float(sys.argv[sys.argv.index('--slot') + 1]) if '--slot' in sys.argv else SLOTS[0]
         data = load_data()

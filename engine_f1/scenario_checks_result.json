@@ -1,6 +1,6 @@
 {
- "total": 60,
- "pass": 60,
+ "total": 69,
+ "pass": 69,
  "fail": 0,
  "results": [
   {
@@ -10,7 +10,8 @@
    "engine": "gate 开，持仓 3→5，新增=['BEUSDT', 'USARUSDT']",
    "page": "页面 on_holdcash=false 渲染 hold 卡 + [目标仓 X%]",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "A2",
@@ -19,7 +20,8 @@
    "engine": "gate red=True，闸关段（02-03~03-22）逐日新增=0（存量由止损/换仓消化）",
    "page": "🟥 清仓持币卡 + 副文 idx/MA50 数字与 json 一致",
    "pass": true,
-   "note": "段内无任何新增"
+   "note": "段内无任何新增",
+   "level": "substr"
   },
   {
    "id": "A3",
@@ -28,7 +30,8 @@
    "engine": "gate 重开，新增持仓=['ASTSUSDT', 'CRDOUSDT', 'CRWVUSDT', 'KORUUSDT', 'MUUUSDT']，slot=档位值",
    "page": "🟩 持仓建议卡恢复，[目标仓 X%] 与 badge 档位一致",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "A4",
@@ -37,16 +40,18 @@
    "engine": "持仓单调不增=True，期初 [] → 期末 []",
    "page": "页面无存量持仓区（缺口 E0/R12 冻结：v1 不新增持仓区）",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "A5",
    "name": "闸灯二态颜色映射",
-   "input": "L1 json gate.status ∈ {red,green} + 静态走查",
-   "engine": "引擎 gate.status 映射 red/green；闸关=红边框、闸开=黄边框(.hold)+🟩文案",
-   "page": "页面 .cash 红边框 / .hold 黄边框映射正确（闸开=黄边框+🟩 组合已在说明书注明）",
+   "input": "L1 真实两态日（闸开 t / 闸关 t2）→ 引擎映射 + 页面双态渲染比对",
+   "engine": "引擎映射：闸开日→green(gate_on=False) 闸关日→red(gate_on=True)",
+   "page": "渲染级：闸开=hold 黄边框+🟩+[目标仓]；闸关=cash 红边框+🟥+[闸门关闭·不开仓]（闸开=黄边框+🟩 组合已在说明书注明）",
    "pass": true,
-   "note": ""
+   "note": "⑨加固：原 or True 恒真式已移除",
+   "level": "render"
   },
   {
    "id": "B1",
@@ -55,7 +60,8 @@
    "engine": "止损事件={'date': '2026-09-09', 'sym': 'GPROUSDT', 'px': np.float64(1.448), 'pnl_pct': np.float64(-0.122424), 'slot': 0.025, 'kind': 'stop_gap'}（kind=stop_gap，pnl=-0.122424<-8%）；再入场=True，止损线重置为新 entry×0.92",
    "page": "监控明细「开盘跳空直接低过止损价，按开盘价卖出」+ 强制跳空解释文案",
    "pass": true,
-   "note": "自然再入场"
+   "note": "自然再入场",
+   "level": "substr"
   },
   {
    "id": "B2",
@@ -64,16 +70,28 @@
    "engine": "执行日开盘卖出不在新 target 的旧仓、买入新票；budget=min(slot×信号日权益, cash)",
    "page": "页面只展示建议名单；总敞口上限 12.5%=2.5%×5（静态常量核对）",
    "pass": true,
-   "note": "KEEP_RANK 死参数已删（BUG-02），v1 口径=全量重选"
+   "note": "KEEP_RANK 死参数已删（BUG-02），v1 口径=全量重选",
+   "level": "substr"
   },
   {
    "id": "B3",
-   "name": "崩市清仓（2026-06-05）",
-   "input": "L1 崩市日 2026-06-05（池中位 -6.55% < −5%）",
-   "engine": "崩市日持仓 [] → 次日 2026-06-06 持仓=空（清仓优先，禁止当日重建 BUG-04）",
+   "name": "崩市清仓（2025-04-10，当日有实仓）",
+   "input": "L1 崩市日 2025-04-10（池中位 -5.19% < −5%），当日持仓=['TTWOUSDT']",
+   "engine": "崩市日持仓非空(1只)→ 次日 2025-04-11 持仓=空（清仓主路径真实走通，非空跑）",
    "page": "页面崩市提示行：⚠️ 崩市检测：池中位 −X% < −5%，次日开盘清仓（E12 已补）",
    "pass": true,
-   "note": ""
+   "note": "⑨加固：原用 2026-06-05 当日空仓属空跑主路径，换裁决指定 2025-04-10",
+   "level": "engine"
+  },
+  {
+   "id": "B3b",
+   "name": "崩市禁止重建·区分场景注入（崩市但闸保持开）",
+   "input": "L3 注入 2026-01-26：68/134 只强推 −5.5%（med=-5.50%，合成注入已标注）；闸开=True",
+   "engine": "v1(修复后)次日持仓空=True；v0(旧语义对照)次日持仓非空=True（区分度）；引擎本体次日持仓=''（空=PASS）",
+   "page": "崩市提示行可见；决策条与闸态零矛盾",
+   "pass": true,
+   "note": "⑨加固：技术席补验法——崩市触发但闸保持开，主路径非空跑且对新旧语义有区分度",
+   "level": "engine"
   },
   {
    "id": "B4",
@@ -82,7 +100,8 @@
    "engine": "当日买回=0 例（修复后应为 0；target 生成时排除当日已止损标的）",
    "page": "止损行照常显示；建议卡不受影响",
    "pass": true,
-   "note": "案例：[('2025-02-25', 'HIMSUSDT'), ('2025-08-12', 'GPROUSDT'), ('2025-12-16', 'LITEUSDT'), ('2026-01-06', 'AAOIUSDT')]"
+   "note": "案例：[('2025-02-25', 'HIMSUSDT'), ('2025-08-12', 'GPROUSDT'), ('2025-12-16', 'LITEUSDT'), ('2026-01-06', 'AAOIUSDT')]",
+   "level": "substr"
   },
   {
    "id": "D2",
@@ -91,7 +110,8 @@
    "engine": "步骤①止损先执行（跳空按 open），步骤③买循环排除 stopped_today",
    "page": "监控明细止损行照常；top5 建议卡不受影响",
    "pass": true,
-   "note": "裁决 F9′=禁止买回，已随 BUG-04 实现"
+   "note": "裁决 F9′=禁止买回，已随 BUG-04 实现",
+   "level": "substr"
   },
   {
    "id": "C1a",
@@ -100,7 +120,8 @@
    "engine": "lights.CB1=green，mdd20=-0.0069",
    "page": "绿灯 · 副文「正常」",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C1b",
@@ -109,7 +130,8 @@
    "engine": "light=yellow，action=观察（滚动20日MDD=-16.0%，过半警戒线）",
    "page": "黄灯 · 过半警戒线",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C1c",
@@ -118,7 +140,8 @@
    "engine": "light=red，action=降一档（滚动20日MDD=-32.0%≤-32%）；update_state→tier_idx=1（0→1）",
    "page": "红灯发光 + bkall 建议动作；badge 档位 1（单票 1.5%）",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C1d",
@@ -127,7 +150,8 @@
    "engine": "light=green，tier_idx 维持 1（不自动升档）",
    "page": "灯绿；badge 维持人工/降后档位；页脚声明「降档不升档由人工复核后解锁」",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C2a",
@@ -136,7 +160,8 @@
    "engine": "light=green，detail={'gross_60d_pct': -0.017, 'net_60d_pct': -0.0182, 'stop_count_60d': 14, 'stop_pnl_sum_60d': -0.035}",
    "page": "绿灯",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C2b",
@@ -145,7 +170,8 @@
    "engine": "light=yellow，action=预警：毛账触发待净账确认",
    "page": "黄灯；总灯黄（无红时）",
    "pass": true,
-   "note": "毛账触发含两条旁路：止损失血≤−20pp 或 60 日毛跌≤−20pp（R6 放宽文案）"
+   "note": "毛账触发含两条旁路：止损失血≤−20pp 或 60 日毛跌≤−20pp（R6 放宽文案）",
+   "level": "substr"
   },
   {
    "id": "C2c",
@@ -154,7 +180,8 @@
    "engine": "light=red，action=冻结开新仓20交易日（首月暂定）：60日毛账失血触发+净账确认；freeze_until_date=2026-04-10，freeze_days_left=20",
    "page": "红灯；决策条「暂停开新仓 N 个交易日」倒计时 + badge",
    "pass": true,
-   "note": "FP 边界注：净账恰 −20.00% 时 eq[-1]/eq[d0]−1=−0.19999999999999996（二进制浮点）落在 CB2_LOSS=−0.20 线上方判黄；引擎阈值比较符为 <=，语义正确，矩阵 C2c「恰触发」以 −20.01% 构造验证"
+   "note": "FP 边界注：净账恰 −20.00% 时 eq[-1]/eq[d0]−1=−0.19999999999999996（二进制浮点）落在 CB2_LOSS=−0.20 线上方判黄；引擎阈值比较符为 <=，语义正确，矩阵 C2c「恰触发」以 −20.01% 构造验证",
+   "level": "substr"
   },
   {
    "id": "C2d",
@@ -163,25 +190,28 @@
    "engine": "+10日 days_left=10；+20日 days_left=0，freeze_until_date=None（已清除），tier 维持 0",
    "page": "倒计时逐日递减、归零后灯回绿、档位不自动回升",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C3a",
-   "name": "CB3 绿（当前快照）",
+   "name": "CB3 绿（当前快照）+ 冻结基准在位",
    "input": "L1 f1_live.json",
-   "engine": "light=green，detail={'stop_count_60d': 14, 'baseline_60d': 9.07, 'line': 27.21}",
+   "engine": "light=green，detail={'stop_count_60d': 14, 'baseline_60d': 9.07, 'line': 27.21}；meta.cb3_baseline_60d=9.07（冻结常量），重算对账=9.07，drift_alert=False",
    "page": "绿灯",
    "pass": true,
-   "note": ""
+   "note": "⑧：基准=R7 v1 冻结常量 9.07，live 重算值仅作对账参考字段",
+   "level": "substr"
   },
   {
    "id": "C3b",
-   "name": "CB3 黄（60 日 28 次 ≥ 观察线）",
-   "input": "L3 合成 60 日 28 笔止损事件",
-   "engine": "light=yellow，action=外移观察：60日止损28次≥观察线3次",
+   "name": "CB3 黄（60 日 28 次 ≥ 冻结观察线 27.21）",
+   "input": "L3 合成 60 日 28 笔止损 + 冻结基准 9.07（线 27.21）",
+   "engine": "light=yellow，action=外移观察：60日止损28次≥观察线27次",
    "page": "黄灯（CB3 只有黄/绿两态，永不红、不动作）",
    "pass": true,
-   "note": ""
+   "note": "⑨加固：原用默认基准 1.0（线 3.0），28 次触发属平凡命中；现按冻结基准 27.21 真判定",
+   "level": "substr"
   },
   {
    "id": "C3c",
@@ -190,7 +220,8 @@
    "engine": "CB3=yellow，CB2=red，overall=('red', '冻结开新仓20交易日（首月暂定）：60日毛账失血触发+净账确认')",
    "page": "总灯红且只显示 CB2 冻结动作；CB3 观察文案在分灯卡保留",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C4a",
@@ -199,7 +230,8 @@
    "engine": "light=green，fee_60d=0.001615，年化=0.0068",
    "page": "绿灯；页面费线阈值读 line_ann_pct=0.217",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C4b",
@@ -208,7 +240,8 @@
    "engine": "light=yellow，action=预警：费拖累年化=10.8%过半线",
    "page": "黄灯",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C4c",
@@ -217,7 +250,8 @@
    "engine": "light=red，action=降一档（滚动60日费拖累年化=25.0%≥21.7%）；update_state→tier_idx=1",
    "page": "红灯；费拖累曲线峰值升高",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C4d",
@@ -226,7 +260,8 @@
    "engine": "light=green（回绿），档位不自动回升",
    "page": "同 C1d",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "C5",
@@ -235,7 +270,8 @@
    "engine": "四组合逐一比对 overall(light, action) 与文案拼接：[True, True, True, True]",
    "page": "总灯行灯色+建议动作；「；」分隔、CB2 优先为判定点",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "D1",
@@ -244,16 +280,18 @@
    "engine": "med_ret=-10.01%<-5% 触发；次日 2026-01-27 持仓=空（修复后必空，等下一信号日重建）",
    "page": "次日照常显示信号卡；崩市提示行可见",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "D3",
-   "name": "idx 精确等于 MA50：相等=闸开",
-   "input": "L3 合成 idx==MA50 与 idx=MA50−1e−9 走查",
-   "engine": "相等→on_holdcash=False（True）；差 1e-9→闸关（True）；代码严格小于=True",
-   "page": "相等渲染🟩持仓卡；差 1e-9 渲染🟥持币卡",
+   "name": "idx 精确等于 MA50：相等=闸开（真喂引擎）",
+   "input": "L3 合成池横盘段 idx==MA50（二进制相等=True）vs idx=MA50−1e−9 变体，真喂 replay（评分轮换注入已标注）",
+   "engine": "相等：2026-07-06 闸开（信号日持仓=SYN1,SYN2,SYN3,SYN4,SYN5）→ 次日 2026-07-07 持仓 5 只；差 1e−9：次日持仓=空（target=[] 全部换出）；代码严格小于=True",
+   "page": "相等渲染🟩持仓卡；差 1e−9 渲染🟥持币卡（页面映射由 A5 渲染级断言覆盖）",
    "pass": true,
-   "note": "主管席 R5：贴线不悲观，冻结口径"
+   "note": "⑨加固：原为 100.0<100.0 纯演算+字符串匹配，现合成序列真喂引擎，两态行为有区分度（建满 vs 清空）",
+   "level": "engine"
   },
   {
    "id": "D4",
@@ -262,7 +300,8 @@
    "engine": "闸开窗口持仓数 max=5 min=0（现金耗尽后剩余票跳过）；budget=min(slot×权益, cash) 代码在位=True",
    "page": "页面 total_exposure_pct 为「上限」措辞（达标）",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "D5",
@@ -271,7 +310,8 @@
    "engine": "死参数赋值零残留=True；「全量 top-5 重选为 v1 口径」注释在位=True",
    "page": "页面 signal_rule 文案「每周首个交易日收盘出信号，次日开盘成交」",
    "pass": true,
-   "note": "主管席 BUG-02 裁决：不补 top-15 缓冲实现"
+   "note": "主管席 BUG-02 裁决：不补 top-15 缓冲实现",
+   "level": "substr"
   },
   {
    "id": "D6",
@@ -280,7 +320,8 @@
    "engine": "pending_exec=None 分支覆盖，无 IndexError；",
    "page": "页面照常显示建议",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "BUG-04对账",
@@ -289,7 +330,8 @@
    "engine": "变化交易日数=379/767，首个差异日=2025-08-12，末个=2026-10-17；终值 v0=2.3496 → v1=2.2817（Δ=-0.0680）；最大单日差=0.099763",
    "page": "DEPLOY_REPORT.md 公示差异",
    "pass": true,
-   "note": "差异来源=BUG-04 崩市清仓日禁止重建+止损票当日禁止买回（主管席裁决改变口径），如实报告"
+   "note": "⑨加固：原 rec 恒真 True，现断言与 DEPLOY_REPORT 公示值一致（v0 2.3496→v1 2.2817、首差异日 2025-08-12）",
+   "level": "engine"
   },
   {
    "id": "BUG-01复核",
@@ -298,7 +340,8 @@
    "engine": "不一致月份=无（12 个月全对齐）",
    "page": "三本账费列与引擎一致（E7）",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E1",
@@ -307,16 +350,18 @@
    "engine": "tier_idx=0，slot=2.5%，敞口上限=12.5%",
    "page": "页面 badge：仓位档=第 N 档/共 4 档 + 冻结徽章（freeze_days_left）",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E2",
-   "name": "信号卡主文案映射",
+   "name": "信号卡主文案映射（渲染级）",
    "input": "json signal.gate.on_holdcash=True",
    "engine": "gate idx=220.0968 ma50=236.4119",
-   "page": "页面两分支渲染，副文数字读 gate.idx/gate.ma50",
+   "page": "渲染产物中 idx/MA50 数字与 json 逐位一致 + 分支文案正确",
    "pass": true,
-   "note": ""
+   "note": "⑨加固：子串检查 → 渲染级比对（真实执行页面脚本取渲染产物）",
+   "level": "render"
   },
   {
    "id": "E3",
@@ -325,16 +370,18 @@
    "engine": "is_signal_day 双分支文案在位",
    "page": "与 asof 星期归属一致",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E4",
-   "name": "top5 卡片标签",
-   "input": "top5=5 只",
-   "engine": "闸关=[闸门关闭·不开仓]；闸开=[目标仓 X%]",
-   "page": "两标签 + 「以下为参考排名，当前不建仓」卡头（R10）均在位",
+   "name": "top5 卡片标签（渲染级）",
+   "input": "top5=5 只，快照闸关=True",
+   "engine": "渲染产物：闸关→每卡 [闸门关闭·不开仓] 且无买入标签；闸开→[目标仓 X%]",
+   "page": "标签与决策条零矛盾",
    "pass": true,
-   "note": ""
+   "note": "⑨加固：子串检查 → 渲染级逐卡比对",
+   "level": "render"
   },
   {
    "id": "E5",
@@ -343,7 +390,8 @@
    "engine": "页面 lamp(): g/y/r class；红灯发光阴影（.r box-shadow）",
    "page": "灯色渲染正确",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E6",
@@ -352,7 +400,8 @@
    "engine": "页面读 m.tier_table_pct_per_stock 渲染（读盘不写死）",
    "page": "四档数值与 json 逐项一致",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E7",
@@ -361,7 +410,8 @@
    "engine": "concede=pool−gross 全对齐；费列合计=0.920%（全现金月合法为 0：['2026-07']）",
    "page": "让渡列中性色+列名「跑输躺平(+)/跑赢躺平(−)」；默认近 3 月其余折叠",
    "pass": true,
-   "note": "BUG-01 后费列为逐月合计；闸关全现金月费=0 属正常口径"
+   "note": "BUG-01 后费列为逐月合计；闸关全现金月费=0 属正常口径",
+   "level": "substr"
   },
   {
    "id": "E8",
@@ -370,7 +420,8 @@
    "engine": "页面费线文本读 detail.line_ann_pct（BUG-05：HTML 不写死 21.7/10.85）",
    "page": "改引擎阈值常量后页面自动跟随",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E9",
@@ -379,16 +430,18 @@
    "engine": "类型映射白话：开盘跳空按开盘价卖出 / 盘中触线按止损价卖出；收益列恒绿",
    "page": "最近 10 条倒序",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E10",
-   "name": "监控 notes 静态文案",
+   "name": "监控 notes 折叠（④⑩ 渲染级）",
    "input": "json notes=4 条",
-   "engine": "页面逐条显示（mo.notes 渲染在位）",
-   "page": "与引擎常量一致",
+   "engine": "渲染产物：notes 逐条移入页脚「技术详情」；监控区正文只留白话指引",
+   "page": "与引擎常量一致（含 CB3 冻结基准注释）",
    "pass": true,
-   "note": ""
+   "note": "⑨加固+④⑩施工：原子串检查，现渲染级比对折叠位置",
+   "level": "render"
   },
   {
    "id": "E11",
@@ -397,7 +450,8 @@
    "engine": "页脚=python3 /workspace/repo_ready/engine_f1/f1_signal.py live",
    "page": "不再指向 f1_generate.py",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E12",
@@ -406,7 +460,8 @@
    "engine": "页面新增：⚠️ 崩市检测：池中位 −X% < −5%，次日开盘清仓",
    "page": "crash_check 渲染在位",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "E13",
@@ -415,7 +470,8 @@
    "engine": "「数据加载失败：…」显示",
    "page": "json 缺失/损坏不白屏",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G1",
@@ -424,7 +480,8 @@
    "engine": "闸关=不出新仓，存量按止损/崩市/换仓退出",
    "page": "决策条+说明书明示，无「立即全部卖出」暗示",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G2",
@@ -433,7 +490,8 @@
    "engine": "聚合优先级：熔断红灯＞闸关闭＞正常持仓",
    "page": "页面第一屏大字号一句话结论；双灯合并为「当前状态」",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G3",
@@ -442,7 +500,8 @@
    "engine": "「以下为参考排名，当前不建仓；开关恢复后下一信号日按此优先」",
    "page": "防手动抄单误导",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G4",
@@ -451,7 +510,8 @@
    "engine": "单票 2.5% 为资金比例，5 票合计上限 12.5%",
    "page": "badge「总上限」措辞在位",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G5",
@@ -460,7 +520,8 @@
    "engine": "回撤闸（保留小字 CB1）",
    "page": "页面+说明书均有",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G6",
@@ -469,7 +530,8 @@
    "engine": "冻结期决策条显示「暂停开新仓 N 个交易日（至解除日）」",
    "page": "badge+决策条读盘渲染",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G7",
@@ -478,7 +540,8 @@
    "engine": "毛账触发含两条旁路：止损失血≤−20pp 或 60 日毛跌≤−20pp",
    "page": "说明书写明旁路",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G8",
@@ -487,7 +550,8 @@
    "engine": "「外移观察」改「频次观察」（页面灯名）",
    "page": "页面+说明书",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G9",
@@ -496,7 +560,8 @@
    "engine": "页面费线文本读 line_ann_pct；说明书解释「百分点」",
    "page": "阈值随引擎常量自动跟随",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G10",
@@ -505,7 +570,8 @@
    "engine": "「跑输躺平(+)/跑赢躺平(−)」中性色；反转配色废弃",
    "page": "列头即图例",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G11",
@@ -514,7 +580,8 @@
    "engine": "「止损线 −8%；跳空日实际亏损可能更大（例：2026-09-09 GPRO 实亏 −12.2%）」",
    "page": "监控明细区固定文案",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G12",
@@ -523,7 +590,8 @@
    "engine": "每周第一个交易日收盘出信号，次日开盘成交（含周末日历说明）",
    "page": "页面+说明书",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G13",
@@ -532,7 +600,8 @@
    "engine": "完整声明移页底折叠；顶部仅一行黄字「模拟数据·起步仓位12.5%·请勿仅依赖本页决策」",
    "page": "免责不再压过决策条",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
   },
   {
    "id": "G14",
@@ -541,7 +610,88 @@
    "engine": "「数据加载失败：…」",
    "page": "同 E13",
    "pass": true,
-   "note": ""
+   "note": "",
+   "level": "substr"
+  },
+  {
+   "id": "T1",
+   "name": "「现在该做什么」可见分区标题（①）",
+   "input": "静态元素 + 渲染产物",
+   "engine": "sig 区渲染非空",
+   "page": "与「策略健康灯（与上面开关无关）」分区命名对称",
+   "pass": true,
+   "note": "从 JS 注释升级为可见元素",
+   "level": "render"
+  },
+  {
+   "id": "T2",
+   "name": "冻结期 top5 标签修复（③）",
+   "input": "L3 页面态变体：闸开+CB2 冻结中（freeze_days_left=13）",
+   "engine": "frozen=true 渲染分支生效",
+   "page": "🧊 冻结中·不开新仓 + 卡头冻结说明；无 [目标仓] 买入标签；与决策条零矛盾",
+   "pass": true,
+   "note": "P0：红字买入标签+决策条「动作中—冻结开新仓」同屏矛盾已根治",
+   "level": "render"
+  },
+  {
+   "id": "T3",
+   "name": "CB3 冻结常量 9.07 + live 重算降为对账字段（⑧）",
+   "input": "静态走查 + 常量核对",
+   "engine": "冻结常量在位；run_live 重算覆盖已删除；json 对账字段 cb3_baseline_recomputed 在位（见 C3a）",
+   "page": "技术详情展示冻结值+重算对账参考",
+   "pass": true,
+   "note": "重算机制=绕过冻结规格的暗门，判废",
+   "level": "substr"
+  },
+  {
+   "id": "T4",
+   "name": "f1_crontab.txt 指向现行入口（⑦）",
+   "input": "静态走查双副本",
+   "engine": "任务2=f1_signal.py live + PYTHONHASHSEED=42；与页脚/包装 docstring 三处口径统一；双副本 sha 一致",
+   "page": "—",
+   "pass": true,
+   "note": "",
+   "level": "substr"
+  },
+  {
+   "id": "T5",
+   "name": "repo_ready/f1 全目录 sha256 对齐（⑥②）",
+   "input": "逐文件哈希比对（引擎/页面/数据 7 件）",
+   "engine": "不一致文件=无",
+   "page": "归档目录与修复版逐文件对齐",
+   "pass": true,
+   "note": "旧版引擎 sha 65642b86… 已被修复版取代，按归档复现不再踩 BUG-01",
+   "level": "substr"
+  },
+  {
+   "id": "T6",
+   "name": "box 页 B9/B10 顺带修（⑤）",
+   "input": "对照标注优化单冻结文本",
+   "engine": "牛市闸加白话「行情好于 50 日线才找票」；参数徽章 N/k/m/e 入悬浮(title)；seek 卡补「正在等波动连续收窄到条件成立」",
+   "page": "box_web 与 repo_ready 归档副本 sha 一致",
+   "pass": true,
+   "note": "",
+   "level": "substr"
+  },
+  {
+   "id": "T7",
+   "name": "manual §3 止损行「发现即卖（不等周调仓）」（⑩/裁决①）",
+   "input": "静态文本",
+   "engine": "「无 T+1」与「最迟次日开盘卖」字面矛盾解除；原术语收进小字（零信息损失）",
+   "page": "§3/§4/§8 口径一致；H 组红线 4（GPRO 强制文案）不受影响",
+   "pass": true,
+   "note": "",
+   "level": "substr"
+  },
+  {
+   "id": "T8",
+   "name": "费线阈值读 JSON 无写死（BUG-05 复核）",
+   "input": "静态走查",
+   "engine": "HTML 无 21.7/10.85 字面量，费线文本读 detail.line_ann_pct",
+   "page": "改引擎阈值常量后页面自动跟随",
+   "pass": true,
+   "note": "",
+   "level": "substr"
   }
  ]
 }

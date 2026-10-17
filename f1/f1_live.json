@@ -2,8 +2,8 @@
  "meta": {
   "workorder": "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
   "seed": 42,
-  "generated": "2026-10-18 00:33:39",
-  "engine_sha256": "58cb0fecef2aff51e45dc21fffdc08ad653e348b6df975102cede040f83dc60c",
+  "generated": "2026-10-18 01:31:36",
+  "engine_sha256": "83dc6caa7ade8b5510affc6f0a4f28b6b71e91138d1f29355c8484545bda1635",
   "pool_n": 144,
   "caliber": "V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar",
   "tier_table_pct_per_stock": [
@@ -13,6 +13,8 @@
    0.5
   ],
   "cb3_baseline_60d": 9.07,
+  "cb3_baseline_recomputed": 9.07,
+  "cb3_baseline_drift_alert": false,
   "replay": {
    "start": "2024-01-24",
    "end": "2026-10-17",
@@ -352,7 +354,7 @@
    "止损−8%硬截断(V2口径)",
    "崩市=池单日中位跌幅<−5%次日清仓",
    "regime闸=idx<MA50清仓持币",
-   "CB3频次基准由回放期统计回填"
+   "CB3基准=9.07（v1 冻结快照，重算值仅对账）"
   ]
  }
 }

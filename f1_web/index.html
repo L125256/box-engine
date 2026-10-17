@@ -36,7 +36,7 @@ summary{cursor:pointer;color:#58a6ff}
 <div class="meta" id="meta">加载中…</div>
 <div class="warnline">模拟数据·起步仓位 12.5%·请勿仅依赖本页决策</div>
 <div id="decision" class="decision d-hold">加载中…</div>
-<div id="sig"></div>
+<div class="stat"><b>🧭 现在该做什么</b><div id="sig" style="margin-top:8px"></div></div>
 <div class="stat"><b>🚦 策略健康灯（与上面开关无关）</b><div id="bkall" style="margin-top:8px"></div><div id="bk" class="grid" style="margin-top:8px"></div></div>
 <div class="stat"><b>📒 三本账月报（不算费的账 / 费用账 / 跑输躺平的账）</b><div id="acct"></div></div>
 <div class="stat"><b>📉 费拖累曲线（月度费用 % 权益）</b><div id="feecurve"></div><div id="feeline" class="line"></div></div>
@@ -62,6 +62,10 @@ function render(){
     dtext='当前状态：动作中 — '+b.overall.action;
     dsub=(frozen?'冻结期内不买任何新票（剩 '+st.freeze_days_left+' 个交易日，至 '+st.freeze_until_date+'）。':'')+
       '市场总开关：'+(s.gate.on_holdcash?'已关闭（空仓观望）。':'开放。')+'动作完成后自动恢复；升档需人工复核。';
+  }else if(frozen){
+    dcls='d-act';
+    dtext='当前状态：冻结中 — 暂停开新仓（剩 '+st.freeze_days_left+' 个交易日，至 '+st.freeze_until_date+'）';
+    dsub='CB2 冻结期内不买任何新票：下面名单为冻结前最后一期排名，仅供观察。存量持仓按止损/崩市/换仓规则照常退出；到期自动恢复。';
   }else if(s.gate.on_holdcash){
     dcls='d-cash';
     dtext='当前状态：空仓观望';
@@ -85,10 +89,15 @@ function render(){
   }
   if(s.gate.on_holdcash){
     h+='<div class="line" style="margin:6px 0">以下为参考排名，<b style="color:#e6edf3">当前不建仓</b>；开关恢复后下一信号日按此优先：</div>';
+  }else if(frozen){
+    h+='<div class="line" style="margin:6px 0">以下为冻结前最后一期排名，仅供观察，恢复后下一信号日按此优先：</div>';
   }
   (s.top5||[]).forEach((c,i)=>{
+    const lab=s.gate.on_holdcash?'<span class="sell">[闸门关闭·不开仓]</span>'
+      :frozen?'<span class="sell">🧊 冻结中·不开新仓</span>'
+      :'<span class="buy">[目标仓 '+s.slot_per_stock_pct+'%]</span>';
     h+='<div class="card '+(s.gate.on_holdcash?'cash':'hold')+'"><span class="tk">'+(i+1)+'. '+c.sym+'</span> '+
-      (s.gate.on_holdcash?'<span class="sell">[闸门关闭·不开仓]</span>':'<span class="buy">[目标仓 '+s.slot_per_stock_pct+'%]</span>')+
+      lab+
       '<div class="line">综合评分 '+c.score+'（比池里其他票强多少的相对分）· 组成：均线斜率+量能斜率+距一年高点+近一月涨幅 · 成交口径：信号次日开盘</div></div>';});
   sg.innerHTML=h;
   /* ---- 健康灯 ---- */
@@ -142,13 +151,15 @@ function render(){
       '<td class="dn">'+(x.pnl_pct*100).toFixed(2)+'%</td><td>'+(x.kind==='stop_gap'?'开盘跳空直接低过止损价，按开盘价卖出':'盘中触及止损价，按止损价卖出')+'</td></tr>';});
   document.getElementById('mon').innerHTML=(re.length?mt+'</table>':'<div class="line">回放期无止损事件</div>')+
     '<div class="warnline">止损线是 −8%（相对买入价）；跳空日实际亏损可能更大（例：2026-09-09 GPRO 实亏 −12.2%）——开盘价已低于止损价时只能按开盘价卖，这是口径内的正常损耗，不要因为「卖低了」而不卖。</div>'+
-    '<div class="line">月报每月首个交易日随信号更新 · 口径注释：'+mo.notes.join(' · ')+'</div>';
+    '<div class="line">月报每月首个交易日随信号更新 · 详细口径见页底技术详情；各术语见说明书 §8 词典</div>';
   /* ---- 页脚：技术详情折叠 + 免责声明降级 ---- */
   document.getElementById('foot').innerHTML=
     '<details><summary>技术详情（seed / sha256 / 口径 / 复现命令）</summary>'+
     'seed='+m.seed+' · 引擎 sha256 <code>'+m.engine_sha256.slice(0,16)+'…</code> · 池='+m.pool_n+' 标的 · '+
     '历史模拟（非实盘）：回放 '+m.replay.start+'~'+m.replay.end+'，同期资金翻 '+m.replay.eq_net.toFixed(2)+' 倍（即 '+((m.replay.eq_net-1)*100).toFixed(1)+'%，含费）· '+
-    '口径：'+m.caliber+' · CB3 频次基准（v1 冻结快照）='+m.cb3_baseline_60d+'<br>'+
+    '口径：'+m.caliber+' · CB3 频次基准（v1 冻结快照）='+m.cb3_baseline_60d+
+    ' · live 重算对账参考='+m.cb3_baseline_recomputed+(m.cb3_baseline_drift_alert?'（⚠️ 偏差超 ±10%，请人工复核）':'')+'<br>'+
+    '监控口径注释：'+(D.monitor.notes||[]).join(' · ')+'<br>'+
     '复现：PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live（先 /tmp/wtc/refresh_cache.py 刷缓存）'+
     ' · 引擎锁定：repo_ready/engine_f1/f1_signal.py · 验收：DEPLOY_REPORT.md</details>'+
     '<details><summary>诚实声明（完整版）</summary>⚠️ 诚实声明（R11\' 上线方案）：F1 base 裸奔四因子带闸版，回测含幸存者偏差（池=当前存续票，已被现实证明活着的票），真实收益会打折；收益与池贝塔强相关。上线起步仓位仅 12.5%（单票 2.5%），熔断降档自动、升档由人工复核后解锁。本页为本机信号引擎输出：口径=V2 可实现出场（成交价按你真实下单能拿到的价格）+ 滑点 0.05%/边 + 资金费 0.03%/bar。仓位与买卖决策请勿仅依赖本页。</details>';

@@ -8,11 +8,17 @@ run_scenario_checks.py — F1 状态机全场景检测标（检测矩阵 A-G 组
 被测对象：engine_f1/f1_signal.py（BUG-01~05 修复版）+ /workspace/f1_web/index.html
          + /workspace/f1_web/f1_live.json。
 复现：PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/run_scenario_checks.py
+⑨加固说明：A5/D3/C3b/BUG-04对账弱断言已改真实判定；E2/E4/E10 与 T1/T2 为渲染级断言
+（node render_harness.cjs 真实执行页面脚本取渲染产物，需 node 在 PATH）。
 """
+import copy
+import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
 
 import numpy as np
 import pandas as pd
@@ -26,11 +32,39 @@ PAGE = open('/workspace/f1_web/index.html').read()
 MANUAL = open('/workspace/f1_web/manual.html').read() if os.path.exists('/workspace/f1_web/manual.html') else ''
 J = json.load(open('/workspace/f1_web/f1_live.json'))
 RES = []
+HARNESS = os.path.join(HERE, 'render_harness.cjs')
 
 
-def rec(cid, name, inp, eng, page, ok, note=''):
+def render_page(page_path, json_obj):
+    """渲染级检测（⑨ E 组升级）：stub DOM+fetch 真实执行页面脚本，取渲染产物比对。"""
+    with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False, dir='/tmp') as f:
+        json.dump(json_obj, f, ensure_ascii=False)
+        jp = f.name
+    try:
+        out = subprocess.run(['node', HARNESS, page_path, jp],
+                             capture_output=True, text=True, timeout=120)
+        if out.returncode != 0:
+            raise RuntimeError('render harness failed: ' + out.stderr[:300])
+        return json.loads(out.stdout.split('RENDER_JSON_START')[-1].strip())
+    finally:
+        os.unlink(jp)
+
+
+def page_variant(on_holdcash, frozen=False, freeze_days=0):
+    """从当前快照派生页面态变体（仅改 gate/frozen 字段，供渲染级双态断言）。"""
+    v = copy.deepcopy(J)
+    v['signal']['gate']['on_holdcash'] = on_holdcash
+    v['signal']['gate']['status'] = 'red' if on_holdcash else 'green'
+    for path in ('state', 'signal'):
+        v[path]['freeze_days_left'] = freeze_days if frozen else 0
+        v[path]['freeze_until_date'] = '2026-11-06' if frozen else None
+    v['signal']['frozen'] = frozen
+    return v
+
+
+def rec(cid, name, inp, eng, page, ok, note='', level='substr'):
     RES.append({'id': cid, 'name': name, 'input': inp, 'engine': eng,
-                'page': page, 'pass': bool(ok), 'note': str(note)})
+                'page': page, 'pass': bool(ok), 'note': str(note), 'level': level})
     print(f"[{'PASS' if ok else 'FAIL'}] {cid} {name}" + (f" | {note}" if note else ''), flush=True)
 
 
@@ -97,13 +131,24 @@ rec('A4', '闸关期间存量只减不增', f"L1 切片 2026-02-03~2026-03-22（
     f"持仓单调不增={mono}，期初 {sorted(hset(period[0]))} → 期末 {sorted(hset(period[-1]))}",
     '页面无存量持仓区（缺口 E0/R12 冻结：v1 不新增持仓区）',
     mono)
-# A5 闸灯颜色映射 L1+静态
-ok_a5 = ("on_holdcash?'cash':'hold'" in PAGE) and ("gate.status" not in PAGE or True) \
-    and "'red' if gate_on else 'green'" in open(os.path.join(HERE, 'f1_signal.py')).read()
-rec('A5', '闸灯二态颜色映射', 'L1 json gate.status ∈ {red,green} + 静态走查',
-    f"引擎 gate.status 映射 red/green；闸关=红边框、闸开=黄边框(.hold)+🟩文案",
-    '页面 .cash 红边框 / .hold 黄边框映射正确（闸开=黄边框+🟩 组合已在说明书注明）',
-    ok_a5)
+# A5 闸灯颜色映射 L1+渲染级（⑨加固：去 or True 恒真式，改闸开/闸关两态渲染输出真实断言）
+r_a5_open = render_page('/workspace/f1_web/index.html', page_variant(False))
+r_a5_closed = render_page('/workspace/f1_web/index.html', page_variant(True))
+sig_open, sig_closed = r_a5_open['sig']['innerHTML'], r_a5_closed['sig']['innerHTML']
+# 引擎侧：真实 idx/idx_ma 两态 → gate.status 映射（'red' if gate_on else 'green'，gate_on=idx<ma50）
+gate_on_open_day = bool(idx[t] < idx_ma[t])       # A1 信号日：闸开（gate_on=False）
+gate_on_closed_day = bool(idx[t2] < idx_ma[t2])   # A2 切换日：闸关（gate_on=True）
+eng_map_ok = ('red' if gate_on_open_day else 'green') == 'green' \
+    and ('red' if gate_on_closed_day else 'green') == 'red'
+# 页面侧：闸开→hold 黄边框+🟩+[目标仓]；闸关→cash 红边框+🟥+[闸门关闭·不开仓]
+page_map_ok = ('hold' in sig_open and '[目标仓' in sig_open and '闸门关闭·不开仓' not in sig_open
+               and 'cash' in sig_closed and '[闸门关闭·不开仓]' in sig_closed
+               and '[目标仓' not in sig_closed)
+ok_a5 = eng_map_ok and page_map_ok
+rec('A5', '闸灯二态颜色映射', 'L1 真实两态日（闸开 t / 闸关 t2）→ 引擎映射 + 页面双态渲染比对',
+    f"引擎映射：闸开日→green(gate_on={gate_on_open_day}) 闸关日→red(gate_on={gate_on_closed_day})",
+    '渲染级：闸开=hold 黄边框+🟩+[目标仓]；闸关=cash 红边框+🟥+[闸门关闭·不开仓]（闸开=黄边框+🟩 组合已在说明书注明）',
+    ok_a5, '⑨加固：原 or True 恒真式已移除', level='render')
 
 # ================================================================ 矩阵 B
 print('== 矩阵 B ==', flush=True)
@@ -145,14 +190,120 @@ rec('B2', '换仓：全量 top-5 重选', f"L1 换仓日 {chg[1].date() if chg e
     f"执行日开盘卖出不在新 target 的旧仓、买入新票；budget=min(slot×信号日权益, cash)",
     '页面只展示建议名单；总敞口上限 12.5%=2.5%×5（静态常量核对）',
     ok_b2, 'KEEP_RANK 死参数已删（BUG-02），v1 口径=全量重选')
-# B3 崩市清仓 L1
-t_cr = pd.Timestamp('2026-06-05')
+# B3 崩市清仓 L1（⑨加固：换用次日有仓的崩市日 2025-04-10，清仓主路径非空跑）
+t_cr = pd.Timestamp('2025-04-10')
 med = full['med_ret']
 tn_cr = next_day(t_cr)
-rec('B3', '崩市清仓（2026-06-05）', f"L1 崩市日 {t_cr.date()}（池中位 {med[t_cr]:.2%} < −5%）",
-    f"崩市日持仓 {sorted(hset(t_cr))} → 次日 {tn_cr.date()} 持仓={sorted(hset(tn_cr)) or '空'}（清仓优先，禁止当日重建 BUG-04）",
+had_cr = hset(t_cr)
+rec('B3', '崩市清仓（2025-04-10，当日有实仓）', f"L1 崩市日 {t_cr.date()}（池中位 {med[t_cr]:.2%} < −5%），当日持仓={sorted(had_cr)}",
+    f"崩市日持仓非空({len(had_cr)}只)→ 次日 {tn_cr.date()} 持仓=空（清仓主路径真实走通，非空跑）",
     '页面崩市提示行：⚠️ 崩市检测：池中位 −X% < −5%，次日开盘清仓（E12 已补）',
-    med[t_cr] < -0.05 and len(hset(tn_cr)) == 0)
+    med[t_cr] < -0.05 and len(had_cr) > 0 and len(hset(tn_cr)) == 0,
+    '⑨加固：原用 2026-06-05 当日空仓属空跑主路径，换裁决指定 2025-04-10', level='engine')
+
+# B3b 区分场景注入（⑨加固）：部分票强推 −5.5% 触发崩市但闸保持开（技术席补验法，indep_recheck §5）
+close_df = pd.DataFrame({s: data[s]['close'] for s in syms}).reindex(cal)
+open_df = pd.DataFrame({s: data[s]['open'] for s in syms}).reindex(cal)
+low_df = pd.DataFrame({s: data[s]['low'] for s in syms}).reindex(cal)
+mark_df = close_df.ffill()
+
+
+def _mini_hold(c3, use_skip=True):
+    """独立轻量记账轨（仅持仓集合；区分 v1=崩市次日禁止重建 vs v0=旧语义同日重建）。"""
+    idx_ = c3.mean(axis=1)
+    idx_ma_ = idx_.rolling(fs.MA_REG).mean()
+    med_ = c3.pct_change().median(axis=1)
+    cash, pos = 1.0, {}
+    pending_sells, pending_exec, crash_next = set(), None, None
+    hold = {}
+    for tt in cal:
+        o_t = open_df.loc[tt]
+        stopped_today = set()
+        for s in list(pos):
+            if s in pending_sells or pd.isna(o_t.get(s, np.nan)):
+                continue
+            sp = pos[s]['entry'] * (1 + fs.STOP)
+            if o_t[s] <= sp or (not pd.isna(low_df.at[tt, s]) and low_df.at[tt, s] <= sp):
+                cash += pos[s]['qty'] * (o_t[s] if o_t[s] <= sp else sp)
+                stopped_today.add(s)
+                del pos[s]
+        for s in list(pending_sells):
+            px = o_t.get(s, np.nan)
+            if pd.isna(px):
+                continue
+            if s in pos:
+                cash += pos[s]['qty'] * px
+                del pos[s]
+            pending_sells.discard(s)
+        skip = use_skip and crash_next == tt
+        if crash_next == tt:
+            crash_next = None
+        if pending_exec is not None and tt == pending_exec[0]:
+            _, target, eq_sig = pending_exec
+            pending_exec = None
+            if not skip:
+                for s in list(pos):
+                    if s in target or s in pending_sells:
+                        continue
+                    px = o_t.get(s, np.nan)
+                    if pd.isna(px):
+                        pending_sells.add(s)
+                        continue
+                    cash += pos[s]['qty'] * px
+                    del pos[s]
+                for s in target:
+                    if s in pos or s in stopped_today or pd.isna(o_t.get(s, np.nan)):
+                        continue
+                    budget = min(fs.SLOTS[0] * eq_sig, max(cash, 0.0))
+                    if budget <= 0:
+                        continue
+                    qty = budget / o_t[s]
+                    cash -= qty * o_t[s]
+                    pos[s] = {'qty': qty, 'entry': o_t[s]}
+        hold[tt] = set(pos)
+        if len(pos) > 0 and not pd.isna(med_.get(tt, np.nan)) and med_[tt] < fs.CRASH_MED:
+            pending_sells.update(pos.keys())
+            crash_next = cal[cal.get_loc(tt) + 1] if cal.get_loc(tt) + 1 < len(cal) else None
+        if tt in sig_days:
+            score = fs.cross_scores(F, syms, tt)
+            if not pd.isna(idx_ma_.get(tt, np.nan)) and idx_[tt] < idx_ma_[tt]:
+                target = []
+            else:
+                target = list(score.index[:fs.TOP_N])
+            pending_exec = (cal[cal.get_loc(tt) + 1], target,
+                            cash + sum(p['qty'] * mark_df.at[tt, s] for s, p in pos.items())) \
+                if cal.get_loc(tt) + 1 < len(cal) else None
+    return hold
+
+
+t_inj = pd.Timestamp('2026-01-26')
+prev_d = cal[cal.get_loc(t_inj) - 1]
+valid = [s for s in sorted(syms) if not pd.isna(close_df.at[t_inj, s])
+         and not pd.isna(close_df.at[prev_d, s])]
+inj_syms = valid[:len(valid) // 2 + 1]
+c3 = close_df.copy()
+for s in inj_syms:
+    c3.at[t_inj, s] = close_df.at[prev_d, s] * 0.945   # 强推当日 −5.5%
+idx3 = c3.mean(axis=1)
+ma3 = idx3.rolling(fs.MA_REG).mean()
+med3 = c3.pct_change().median(axis=1)
+gate_open_inj = bool(idx3[t_inj] >= ma3[t_inj])
+hold_v1 = _mini_hold(c3, use_skip=True)
+hold_v0 = _mini_hold(c3, use_skip=False)
+tn_inj = next_day(t_inj)
+# 引擎本体同注入数据（真喂 replay）
+data_inj = {s: d.copy() for s, d in data.items()}
+for s in inj_syms:
+    data_inj[s].loc[t_inj, 'close'] = close_df.at[prev_d, s] * 0.945
+rp_inj = fs.replay(data_inj, F, syms, slot=fs.SLOTS[0])
+h_inj = rp_inj['holdings']
+ok_b3b = (med3[t_inj] < -0.05 and gate_open_inj and len(hold_v1[tn_inj]) == 0
+          and len(hold_v0[tn_inj]) > 0 and h_inj[tn_inj] == '')
+rec('B3b', '崩市禁止重建·区分场景注入（崩市但闸保持开）',
+    f"L3 注入 {t_inj.date()}：{len(inj_syms)}/{len(valid)} 只强推 −5.5%（med={med3[t_inj]:.2%}，合成注入已标注）；闸开={gate_open_inj}",
+    f"v1(修复后)次日持仓空={len(hold_v1[tn_inj])==0}；v0(旧语义对照)次日持仓非空={len(hold_v0[tn_inj])>0}（区分度）；引擎本体次日持仓='{h_inj[tn_inj]}'（空=PASS）",
+    '崩市提示行可见；决策条与闸态零矛盾',
+    ok_b3b, '⑨加固：技术席补验法——崩市触发但闸保持开，主路径非空跑且对新旧语义有区分度', level='engine')
 # B4 / D2 止损票当日禁止买回 L1 扫描
 cases, rebuys = [], []
 for e in stops:
@@ -255,17 +406,24 @@ rec('C2d', 'CB2 冻结倒计时递减 + 到期归零灯回绿', 'L2 触发日 +1
     and st3.get('freeze_until_date') is None)
 # C3a
 d3 = BK['CB3']['detail']
-rec('C3a', 'CB3 绿（当前快照）', 'L1 f1_live.json',
-    f"light={BK['CB3']['light']}，detail={d3}",
-    '绿灯', BK['CB3']['light'] == 'green' and d3['stop_count_60d'] < d3['line'])
-# C3b 黄（观察线）
+rec('C3a', 'CB3 绿（当前快照）+ 冻结基准在位', 'L1 f1_live.json',
+    f"light={BK['CB3']['light']}，detail={d3}；meta.cb3_baseline_60d={J['meta'].get('cb3_baseline_60d')}（冻结常量），"
+    f"重算对账={J['meta'].get('cb3_baseline_recomputed')}，drift_alert={J['meta'].get('cb3_baseline_drift_alert')}",
+    '绿灯', BK['CB3']['light'] == 'green' and d3['stop_count_60d'] < d3['line']
+    and J['meta'].get('cb3_baseline_60d') == 9.07 and 'cb3_baseline_recomputed' in J['meta'],
+    '⑧：基准=R7 v1 冻结常量 9.07，live 重算值仅作对账参考字段')
+# C3b 黄（观察线）——⑨加固：显式用冻结基准 9.07（线 27.21），不再吃默认 1.0
 st4 = [ {'date': str(d.date()), 'sym': f'S{i}', 'pnl_pct': -0.001, 'slot': 0.025,
          'kind': 'stop_touch'} for i, d in enumerate(bd[-28:]) ]
-bk = fs.eval_breakers(mk_rp(np.ones(80), np.ones(80), np.zeros(80), st4), 0)
-rec('C3b', 'CB3 黄（60 日 28 次 ≥ 观察线）', 'L3 合成 60 日 28 笔止损事件',
+bk = fs.eval_breakers(mk_rp(np.ones(80), np.ones(80), np.zeros(80), st4), 0,
+                      cb3_base=fs.CB3_BASE_60D)
+d3b = bk['detail']['CB3']
+rec('C3b', 'CB3 黄（60 日 28 次 ≥ 冻结观察线 27.21）', f"L3 合成 60 日 28 笔止损 + 冻结基准 {fs.CB3_BASE_60D}（线 {d3b['line']}）",
     f"light={bk['lights']['CB3']}，action={bk['actions']['CB3']}",
     '黄灯（CB3 只有黄/绿两态，永不红、不动作）',
-    bk['lights']['CB3'] == 'yellow' and '观察' in bk['actions']['CB3'])
+    fs.CB3_BASE_60D == 9.07 and abs(d3b['line'] - 27.21) < 1e-9
+    and bk['lights']['CB3'] == 'yellow' and 28 >= d3b['line'] and '观察' in bk['actions']['CB3'],
+    '⑨加固：原用默认基准 1.0（线 3.0），28 次触发属平凡命中；现按冻结基准 27.21 真判定')
 # C3c CB3 黄 + CB2 红 联动
 bk = fs.eval_breakers(mk_rp(eqn2, eqg, np.zeros(80), st4), 0)
 rec('C3c', 'CB3 黄 + CB2 红：总灯取最严', 'L3 高频止损+深失血叠加',
@@ -329,15 +487,60 @@ rec('D1', '信号日=崩市日：清仓优先禁止当日重建（BUG-04）',
     f"med_ret={rp_d1['med_ret'][t_d1]:.2%}<-5% 触发；次日 {tn_d1.date()} 持仓={hold_d1[tn_d1] or '空'}（修复后必空，等下一信号日重建）",
     '次日照常显示信号卡；崩市提示行可见',
     rp_d1['med_ret'][t_d1] < -0.05 and empty_next)
-# D3 idx==MA50 相等判开态（R5 认可）
-gate_eq = not (100.0 < 100.0)          # idx==MA50 → 严格小于不成立 → 闸开
-gate_eps = (100.0 - 1e-9) < 100.0      # 差 1e-9 → idx<ma50 → 闸关
-src = open(os.path.join(HERE, 'f1_signal.py')).read()
-strict = 'idx[t] < idx_ma[t]' in src and 'idx[t] <=' not in src
-rec('D3', 'idx 精确等于 MA50：相等=闸开', 'L3 合成 idx==MA50 与 idx=MA50−1e−9 走查',
-    f"相等→on_holdcash=False（{gate_eq}）；差 1e-9→闸关（{gate_eps}）；代码严格小于={strict}",
-    '相等渲染🟩持仓卡；差 1e-9 渲染🟥持币卡',
-    gate_eq and gate_eps and strict, '主管席 R5：贴线不悲观，冻结口径')
+# D3 idx==MA50 相等判开态（R5 认可）——⑨加固：合成序列真喂引擎 replay，断言持仓/决策（不再纯演算）
+def _mk_synth_d3():
+    """6 票合成池：先涨后 60 日整数位横盘 → 横盘段 idx 与其 MA50 二进制精确相等。
+    各票峰值抬升不同 → 横盘段 dist_52w 跨截面有差异，评分有效。"""
+    days_s = pd.date_range('2026-03-02', periods=130, freq='D')
+    syms6 = [f'SYN{i}' for i in range(6)]
+    levels = [100.0, 110.0, 120.0, 130.0, 140.0, 150.0]
+    growth = [1.02, 1.05, 1.10, 1.15, 1.20, 1.30]
+    data_s = {}
+    for s, L, g in zip(syms6, levels, growth):
+        ramp = np.linspace(L * 0.5, L * g, 70)
+        close_s = np.concatenate([ramp, np.full(60, L)])
+        data_s[s] = pd.DataFrame({'open': close_s, 'high': close_s * 1.001,
+                                  'low': close_s * 0.999, 'close': close_s,
+                                  'volume': np.full(130, 1000.0)}, index=days_s)
+    return data_s, syms6, days_s
+
+
+data_eq, syms6, days_s = _mk_synth_d3()
+F_eq = fs.build_factors(data_eq)
+sig_list6 = sorted(d for d in days_s if d in fs.week_first_days(days_s))
+flat_start = days_s[70]
+t_d3 = max(d for d in sig_list6 if flat_start + pd.Timedelta(days=49) <= d <= days_s[128])
+tn_d3 = days_s[days_s.get_loc(t_d3) + 1]
+orig_cs = fs.cross_scores
+
+def _rot_scores(Fx, sy, dt, factors=fs.FACTORS):
+    """L3 注入：各信号日评分轮换（保证闸开时每期 top5 必有换血→建仓可观察）。"""
+    rot = sig_list6.index(pd.Timestamp(dt)) % len(sy)
+    order = sorted(sy)
+    return pd.Series({s: -((order.index(s) + rot) % len(order))
+                      for s in sy}).sort_values(ascending=False)
+
+fs.cross_scores = _rot_scores
+rp_eq = fs.replay(data_eq, F_eq, syms6, slot=fs.SLOTS[0])
+# EPS 变体：测试日 idx=MA50−1e−9 量级（全票 close×(1−1e−11) → idx 相对降 1e−11≈绝对 1e−9）
+data_eps = {s: d.copy() for s, d in data_eq.items()}
+for s in syms6:
+    data_eps[s].loc[t_d3, 'close'] = data_eq[s]['close'].loc[t_d3] * (1 - 1e-11)
+rp_eps = fs.replay(data_eps, F_eq, syms6, slot=fs.SLOTS[0])
+fs.cross_scores = orig_cs
+idx_eq = rp_eq['idx']
+h_eq, h_eps = rp_eq['holdings'], rp_eps['holdings']
+eq_exact = bool(idx_eq[t_d3] == idx_eq.rolling(fs.MA_REG).mean()[t_d3])   # 合成相等（二进制级）
+n_eq_next = len(set(h_eq[tn_d3].split(',')) - {''})
+ok_d3 = (eq_exact and n_eq_next == fs.TOP_N                              # 相等→闸开→次日照常建满 top-5
+         and h_eps[tn_d3] == ''                                          # 差 1e−9→闸关→target=[] 次日清空
+         and 'idx[t] < idx_ma[t]' in open(os.path.join(HERE, 'f1_signal.py')).read()
+         and 'idx[t] <=' not in open(os.path.join(HERE, 'f1_signal.py')).read())
+rec('D3', 'idx 精确等于 MA50：相等=闸开（真喂引擎）',
+    f"L3 合成池横盘段 idx==MA50（二进制相等={eq_exact}）vs idx=MA50−1e−9 变体，真喂 replay（评分轮换注入已标注）",
+    f"相等：{t_d3.date()} 闸开（信号日持仓={h_eq[t_d3] or '空'}）→ 次日 {tn_d3.date()} 持仓 {n_eq_next} 只；差 1e−9：次日持仓=空（target=[] 全部换出）；代码严格小于=True",
+    '相等渲染🟩持仓卡；差 1e−9 渲染🟥持币卡（页面映射由 A5 渲染级断言覆盖）',
+    ok_d3, '⑨加固：原为 100.0<100.0 纯演算+字符串匹配，现合成序列真喂引擎，两态行为有区分度（建满 vs 清空）', level='engine')
 # D4 cap 满员 / 现金不足（L3 大档位）
 rp_d4 = fs.replay(data, F, syms, slot=0.30)
 hd4 = rp_d4['holdings']
@@ -389,7 +592,10 @@ rec('BUG-04对账', '修复后引擎回放 vs 权威回测 v0 逐日 diff',
     f"变化交易日数={ndiff}/{len(a)}，首个差异日={first_d}，末个={last_d}；"
     f"终值 v0={b.iloc[-1]:.4f} → v1={a.iloc[-1]:.4f}（Δ={a.iloc[-1] - b.iloc[-1]:+.4f}）；最大单日差={diff.max():.6f}",
     'DEPLOY_REPORT.md 公示差异',
-    True, '差异来源=BUG-04 崩市清仓日禁止重建+止损票当日禁止买回（主管席裁决改变口径），如实报告')
+    abs(b.iloc[-1] - 2.3496) < 5e-4 and abs(a.iloc[-1] - 2.2817) < 5e-4
+    and ndiff > 0 and first_d == '2025-08-12',
+    '⑨加固：原 rec 恒真 True，现断言与 DEPLOY_REPORT 公示值一致（v0 2.3496→v1 2.2817、首差异日 2025-08-12）',
+    level='engine')
 
 # ================================================================ BUG-01 费账复核
 mf = full['fees'].resample('ME').sum()
@@ -403,22 +609,30 @@ rec('BUG-01复核', '月报费用列=逐日合计（resample sum）', 'L1 独立
 # ================================================================ 矩阵 E（页面一致性 · 静态 + json）
 print('== 矩阵 E ==', flush=True)
 sig = J['signal']
+r_live = render_page('/workspace/f1_web/index.html', J)   # ⑨：渲染产物（真实页面脚本执行）
+deci_txt = r_live['decision']['innerHTML'] + r_live['sig']['innerHTML']
 rec('E1', 'meta 行 badge 档位/敞口', 'json signal.tier_idx/slot/total_exposure',
     f"tier_idx={sig['tier_idx']}，slot={sig['slot_per_stock_pct']}%，敞口上限={sig['total_exposure_pct']}%",
     '页面 badge：仓位档=第 N 档/共 4 档 + 冻结徽章（freeze_days_left）',
     sig['total_exposure_pct'] == round(sig['slot_per_stock_pct'] * 5, 2)
     and 'slot_per_stock_pct' in PAGE and 'freeze_days_left' in PAGE)
-rec('E2', '信号卡主文案映射', 'json signal.gate.on_holdcash=' + str(sig['gate']['on_holdcash']),
+rec('E2', '信号卡主文案映射（渲染级）', 'json signal.gate.on_holdcash=' + str(sig['gate']['on_holdcash']),
     f"gate idx={sig['gate']['idx']} ma50={sig['gate']['ma50']}",
-    '页面两分支渲染，副文数字读 gate.idx/gate.ma50',
-    "s.gate.idx" in PAGE and "s.gate.ma50" in PAGE and 'on_holdcash' in PAGE)
+    '渲染产物中 idx/MA50 数字与 json 逐位一致 + 分支文案正确',
+    str(sig['gate']['idx']) in deci_txt and str(sig['gate']['ma50']) in deci_txt
+    and ('空仓观望' in r_live['decision']['innerHTML']) == bool(sig['gate']['on_holdcash']),
+    '⑨加固：子串检查 → 渲染级比对（真实执行页面脚本取渲染产物）', level='render')
 rec('E3', '信号日提示', f"json is_signal_day={sig['is_signal_day']}",
     'is_signal_day 双分支文案在位', '与 asof 星期归属一致',
     'is_signal_day' in PAGE)
-rec('E4', 'top5 卡片标签', f"top5={len(sig['top5'])} 只",
-    '闸关=[闸门关闭·不开仓]；闸开=[目标仓 X%]',
-    '两标签 + 「以下为参考排名，当前不建仓」卡头（R10）均在位',
-    '闸门关闭·不开仓' in PAGE and '目标仓' in PAGE and '当前不建仓' in PAGE)
+rec('E4', 'top5 卡片标签（渲染级）', f"top5={len(sig['top5'])} 只，快照闸关={sig['gate']['on_holdcash']}",
+    '渲染产物：闸关→每卡 [闸门关闭·不开仓] 且无买入标签；闸开→[目标仓 X%]',
+    '标签与决策条零矛盾',
+    (r_live['sig']['innerHTML'].count('[闸门关闭·不开仓]') == len(sig['top5'])
+     and '[目标仓' not in r_live['sig']['innerHTML']) if sig['gate']['on_holdcash']
+    else (r_live['sig']['innerHTML'].count('[目标仓') == len(sig['top5'])
+          and '[闸门关闭·不开仓]' not in r_live['sig']['innerHTML']),
+    '⑨加固：子串检查 → 渲染级逐卡比对', level='render')
 rec('E5', '四灯卡灯色 class', 'json breakers.items[].light ∈ {green,yellow,red}',
     '页面 lamp(): g/y/r class；红灯发光阴影（.r box-shadow）',
     '灯色渲染正确', all(k in PAGE for k in ('.g{', '.y{', '.r{')))
@@ -441,9 +655,13 @@ rec('E8', '费拖累曲线与费线文本', f"json FEE.detail.line_ann_pct={dfee
 rec('E9', '监控明细表', f"json recent_stops={len(J['monitor']['recent_stops'])} 条",
     '类型映射白话：开盘跳空按开盘价卖出 / 盘中触线按止损价卖出；收益列恒绿',
     '最近 10 条倒序', 'stop_gap' in PAGE and 'pnl_pct' in PAGE)
-rec('E10', '监控 notes 静态文案', f"json notes={len(J['monitor']['notes'])} 条",
-    '页面逐条显示（mo.notes 渲染在位）', '与引擎常量一致',
-    ('mo.notes.forEach' in PAGE or 'mo.notes.join' in PAGE) and len(J['monitor']['notes']) == 4)
+rec('E10', '监控 notes 折叠（④⑩ 渲染级）', f"json notes={len(J['monitor']['notes'])} 条",
+    '渲染产物：notes 逐条移入页脚「技术详情」；监控区正文只留白话指引',
+    '与引擎常量一致（含 CB3 冻结基准注释）',
+    all(n in r_live['foot']['innerHTML'] for n in J['monitor']['notes'])
+    and '详细口径见页底技术详情' in r_live['mon']['innerHTML']
+    and '口径注释：' not in r_live['mon']['innerHTML'],
+    '⑨加固+④⑩施工：原子串检查，现渲染级比对折叠位置', level='render')
 rec('E11', '页脚复现命令（F8 修复）', '静态走查',
     '页脚=python3 /workspace/repo_ready/engine_f1/f1_signal.py live',
     '不再指向 f1_generate.py', 'f1_signal.py live' in PAGE and 'f1_generate.py' not in PAGE)
@@ -498,6 +716,80 @@ rec('G13', '免责声明降级（UI-03）', '静态结构',
     and PAGE.find('warnline') < PAGE.find('id="decision"'))
 rec('G14', '数据加载失败兜底文案', '静态文本', '「数据加载失败：…」',
     '同 E13', '数据加载失败' in PAGE)
+
+# ================================================================ 尾巴工单回归（T 组）
+print('== 尾巴工单回归 T 组 ==', flush=True)
+# T1 ①「现在该做什么」渲染为可见元素
+ok_t1 = bool(re.search(r'<div class="stat"><b>🧭 现在该做什么</b><div id="sig"', PAGE)) \
+    and len(r_live['sig']['innerHTML']) > 200
+rec('T1', '「现在该做什么」可见分区标题（①）', '静态元素 + 渲染产物',
+    'sig 区渲染非空', '与「策略健康灯（与上面开关无关）」分区命名对称',
+    ok_t1, '从 JS 注释升级为可见元素', level='render')
+# T2 ③ 冻结期+闸开：top5 标签改「冻结中·不开新仓」，与决策条零矛盾
+r_fz = render_page('/workspace/f1_web/index.html', page_variant(False, frozen=True, freeze_days=13))
+sig_fz, dec_fz = r_fz['sig']['innerHTML'], r_fz['decision']['innerHTML']
+ok_t2 = ('🧊 冻结中·不开新仓' in sig_fz and '[目标仓' not in sig_fz
+         and '冻结前最后一期排名，仅供观察，恢复后下一信号日按此优先' in sig_fz
+         and '闸门关闭·不开仓' not in sig_fz
+         and '冻结' in dec_fz)
+rec('T2', '冻结期 top5 标签修复（③）', 'L3 页面态变体：闸开+CB2 冻结中（freeze_days_left=13）',
+    'frozen=true 渲染分支生效', '🧊 冻结中·不开新仓 + 卡头冻结说明；无 [目标仓] 买入标签；与决策条零矛盾',
+    ok_t2, 'P0：红字买入标签+决策条「动作中—冻结开新仓」同屏矛盾已根治', level='render')
+# T3 ⑧ CB3 冻结常量引擎在位 + 重算机制废除
+src_sig = open(os.path.join(HERE, 'f1_signal.py')).read()
+ok_t3 = ('CB3_BASE_60D = 9.07' in src_sig
+         and 'cb3_base = round(' not in src_sig
+         and 'cb3_baseline_recomputed' in src_sig
+         and fs.CB3_BASE_60D == 9.07)
+rec('T3', 'CB3 冻结常量 9.07 + live 重算降为对账字段（⑧）', '静态走查 + 常量核对',
+    '冻结常量在位；run_live 重算覆盖已删除；json 对账字段 cb3_baseline_recomputed 在位（见 C3a）',
+    '技术详情展示冻结值+重算对账参考', ok_t3, '重算机制=绕过冻结规格的暗门，判废')
+# T4 ⑦ crontab 指向与口径统一
+CR = open(os.path.join(HERE, 'f1_crontab.txt')).read()
+CR2 = open('/workspace/repo_ready/f1/f1_crontab.txt').read()
+ok_t4 = (CR == CR2
+         and '25 9 * * 1-5 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live' in CR
+         and 'f1_generate.py >>' not in CR)
+rec('T4', 'f1_crontab.txt 指向现行入口（⑦）', '静态走查双副本',
+    '任务2=f1_signal.py live + PYTHONHASHSEED=42；与页脚/包装 docstring 三处口径统一；双副本 sha 一致',
+    '—', ok_t4)
+# T5 ⑥ 归档目录 sha256 逐文件对齐
+def _sha(p):
+    return hashlib.sha256(open(p, 'rb').read()).hexdigest()
+_pairs = [('f1_signal.py', os.path.join(HERE, 'f1_signal.py')),
+          ('f1_generate.py', '/workspace/f1_web/f1_generate.py'),
+          ('f1_crontab.txt', os.path.join(HERE, 'f1_crontab.txt')),
+          ('index.html', '/workspace/f1_web/index.html'),
+          ('manual.html', '/workspace/f1_web/manual.html'),
+          ('f1_live.json', '/workspace/f1_web/f1_live.json'),
+          ('f1_state.json', '/workspace/f1_web/f1_state.json')]
+_mis = [n for n, srcp in _pairs
+        if _sha(os.path.join('/workspace/repo_ready/f1', n)) != _sha(srcp)]
+rec('T5', 'repo_ready/f1 全目录 sha256 对齐（⑥②）', '逐文件哈希比对（引擎/页面/数据 7 件）',
+    f"不一致文件={_mis or '无'}", '归档目录与修复版逐文件对齐', not _mis,
+    '旧版引擎 sha 65642b86… 已被修复版取代，按归档复现不再踩 BUG-01')
+# T6 ⑤ box 页 B9/B10
+BOX = open('/workspace/box_web/index.html').read()
+BOX_ARCH = open('/workspace/repo_ready/index.html').read()
+ok_t6 = ('行情好于 50 日线才找票' in BOX
+         and "b.title='N='+q.N+' k='+q.k+' m='+q.m+' e='+q.e" in BOX
+         and '正在等波动连续收窄到条件成立' in BOX
+         and 'r2(' not in BOX
+         and _sha('/workspace/box_web/index.html') == _sha('/workspace/repo_ready/index.html')
+         and '行情好于 50 日线才找票' in BOX_ARCH)
+rec('T6', 'box 页 B9/B10 顺带修（⑤）', '对照标注优化单冻结文本',
+    '牛市闸加白话「行情好于 50 日线才找票」；参数徽章 N/k/m/e 入悬浮(title)；seek 卡补「正在等波动连续收窄到条件成立」',
+    'box_web 与 repo_ready 归档副本 sha 一致', ok_t6)
+# T7 ⑩ manual §3 止损行口径
+ok_t7 = ('发现即卖（不等周调仓）' in MANUAL and '原始术语：无 T+1' in MANUAL)
+rec('T7', 'manual §3 止损行「发现即卖（不等周调仓）」（⑩/裁决①）', '静态文本',
+    '「无 T+1」与「最迟次日开盘卖」字面矛盾解除；原术语收进小字（零信息损失）',
+    '§3/§4/§8 口径一致；H 组红线 4（GPRO 强制文案）不受影响', ok_t7)
+# T8 E8 费线阈值读 json（④⑩ 关联：BUG-05 复核）
+rec('T8', '费线阈值读 JSON 无写死（BUG-05 复核）', '静态走查',
+    'HTML 无 21.7/10.85 字面量，费线文本读 detail.line_ann_pct',
+    '改引擎阈值常量后页面自动跟随', 'line_ann_pct' in PAGE
+    and not re.search(r'21\.7', PAGE) and not re.search(r'10\.85', PAGE))
 
 # ================================================================ 汇总
 n_pass = sum(1 for r in RES if r['pass'])

@@ -26,7 +26,8 @@ BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
 - CB1  MDD−32%/20交易日：滚动 20 交易日窗口内净账 MDD ≤ −32% → 降一档
 - CB2  滚动60日止损失血：毛账滚动 60 交易日止损单合计亏损 ≤ −20pp 触发（黄灯），
        净账确认（同期净账亏损 ≤ −20pp）→ 红灯，动作=冻结开新仓 20 交易日（首月暂定）
-- CB3  频次外移观察线：滚动 60 交易日止损次数 ≥ 基准(60日1次)×3 → 黄灯观察（外移观察线，不动作）
+- CB3  频次外移观察线：滚动 60 交易日止损次数 ≥ 冻结基准(9.07)×3=27.21 → 黄灯观察
+       （基准=v1 冻结快照常量，live 重算值仅存 json 对账参考字段，不参与判定）
 - 费线 21.7pp×2月：滚动 60 交易日费用年化拖累 ≥ 21.7pp → 降一档；≥50%线(10.85pp)黄灯
 
 三本账（月报）：
@@ -68,8 +69,9 @@ CB1_WINDOW = 20          # CB1：20 交易日
 CB2_LOSS = -0.20         # CB2：止损失血线（毛账触发/净账确认）
 CB2_WINDOW = 60          # CB2：滚动 60 交易日
 CB2_FREEZE_DAYS = 20     # CB2 动作：冻结开新仓 20 交易日（首月暂定）
-CB3_BASE_60D = 1.0       # CB3：回放基准 60 日止损次数（G4 回放统计后锁定）
-CB3_MULT = 3             # CB3：观察线 = 基准×3
+CB3_BASE_60D = 9.07      # CB3：60 日止损次数基准（R7 v1 冻结快照；主管席⑧裁定：冻结常量，
+                         # live 重算值仅作 json 对账参考字段 cb3_baseline_recomputed，改基准=新工单）
+CB3_MULT = 3             # CB3：观察线 = 基准×3 = 27.21
 FEE_LINE_ANN = 0.217     # 费线：年化费拖累 21.7pp
 FEE_WINDOW = 60          # 费线：滚动 60 交易日（≈2月）
 
@@ -557,15 +559,17 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
     F = build_factors(data)
     rp = replay(data, F, syms, slot=SLOTS[0])
 
-    # 由 CB3 基准回填：回放期（2024 全期）止损次数 → 60日期望基准
+    # ⑧ CB3 基准=R7 v1 冻结快照常量 9.07，live 不再重算覆盖（原重算机制废除，主管席裁定）；
+    #    回放期重算值仅存 json 对账参考字段，偏差超 ±10% 时置提示位（提示≠改判定）
     n_years = max((rp['cal'][-1] - rp['cal'][0]).days / 365.25, 1e-9)
-    cb3_base = round(len(rp['stops']) / n_years * (60 / 252.0), 2)
+    cb3_recomputed = round(len(rp['stops']) / n_years * (60 / 252.0), 2)
+    cb3_drift = abs(cb3_recomputed - CB3_BASE_60D) / CB3_BASE_60D > 0.10
 
     # BUG-03：状态机落盘——冻结倒计时 + 红灯自动降档（升档人工），持久化于 f1_state.json
     state_path = os.path.join(os.path.dirname(os.path.abspath(out_json)), 'f1_state.json')
     state = load_state(state_path)
     state.setdefault('tier_idx', 0)
-    bk = eval_breakers(rp, tier_idx=int(state['tier_idx']), cb3_base=cb3_base)
+    bk = eval_breakers(rp, tier_idx=int(state['tier_idx']), cb3_base=CB3_BASE_60D)
     update_state(bk, rp['cal'], state)
     save_state(state_path, state)
     tier_idx = int(state['tier_idx'])
@@ -584,7 +588,9 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
                  'caliber': 'V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar',
                  'tier_table_pct_per_stock': [round(s * 100, 2) for s in SLOTS],
-                 'cb3_baseline_60d': cb3_base,
+                 'cb3_baseline_60d': CB3_BASE_60D,
+                 'cb3_baseline_recomputed': cb3_recomputed,
+                 'cb3_baseline_drift_alert': bool(cb3_drift),
                  'replay': {'start': str(rp['cal'][0].date()),
                             'end': str(rp['cal'][-1].date()),
                             'eq_net': round(float(rp['eq_net'].iloc[-1]), 4),
@@ -602,7 +608,7 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE):
         'fee_curve': fee_curve,
         'monitor': {'recent_stops': recent_stops,
                     'notes': ['止损−8%硬截断(V2口径)', '崩市=池单日中位跌幅<−5%次日清仓',
-                              'regime闸=idx<MA50清仓持币', 'CB3频次基准由回放期统计回填']},
+                              'regime闸=idx<MA50清仓持币', 'CB3基准=9.07（v1 冻结快照，重算值仅对账）']},
     }
     os.makedirs(os.path.dirname(out_json), exist_ok=True)
     tmp = out_json + '.tmp'
