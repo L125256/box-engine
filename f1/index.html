@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📦 F1 多因子轮动 · 上线运营版</title>
+<style>
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,sans-serif;margin:0;padding:16px}
+h1{font-size:20px} a{color:#58a6ff;text-decoration:none}
+.meta{color:#8b949e;font-size:12px;margin-bottom:12px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px;margin:8px 0;font-size:14px}
+.hold{border-left:4px solid #f59e0b}.cash{border-left:4px solid #f85149}
+.tk{font-weight:bold;font-size:16px}
+.buy{color:#ff2d2d;font-weight:bold}.sell{color:#16a34a;font-weight:bold}
+.line{color:#8b949e;font-size:12px;margin-top:4px}
+.stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:12px}
+td,th{border-bottom:1px solid #21262d;padding:4px 6px;text-align:left}
+.up{color:#ff2d2d}.dn{color:#16a34a}
+.lamp{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.g{background:#16a34a}.y{background:#f59e0b}.r{background:#f85149;box-shadow:0 0 6px #f85149}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+footer{color:#8b949e;font-size:11px;margin-top:16px;line-height:1.6}
+.badge{display:inline-block;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:2px 8px;font-size:12px;color:#8b949e;margin-right:6px}
+</style></head><body>
+<h1>📦 F1 多因子轮动 · 上线运营版</h1>
+<div class="meta" id="meta">加载中…</div>
+<div style="background:#5a1e1e;border:1px solid #f85149;color:#ffb3b3;border-radius:8px;padding:10px;margin:8px 0;font-size:13px"><b>⚠️ 诚实声明（R11' 上线方案）</b>：F1 base 裸奔四因子带闸版，回测含幸存者偏差（池=当前存续票），收益与池贝塔强相关；上线起步仓位仅 12.5%（单票 2.5%），熔断降档不升档由人工复核后解锁。本页为本机信号引擎输出：口径=V2 可实现出场 + 滑点 0.05%/边 + 资金费 0.03%/bar，与权威回测 f1_backtest.py 同源（G4 逐日对账 diff=0）。仓位与买卖决策请勿仅依赖本页。</div>
+<div id="sig"></div>
+<div class="stat"><b>🚦 熔断器状态灯</b><div id="bk" class="grid" style="margin-top:8px"></div>
+<div id="bkall" class="line" style="margin-top:8px"></div></div>
+<div class="stat"><b>📒 三本账月报（毛账 / 费账 / 让渡账）</b><div id="acct"></div></div>
+<div class="stat"><b>📉 费拖累曲线（月度费用 % 权益）</b><div id="feecurve"></div><div id="feeline" class="line"></div></div>
+<div class="stat"><b>🔍 监控明细</b><div id="mon"></div></div>
+<footer id="foot"></footer>
+<script>
+let D=null;
+function lamp(l){return '<span class="lamp '+(l==='green'?'g':l==='yellow'?'y':'r')+'"></span>'}
+function pct(x,sgn){return (x>0&&sgn?'+':'')+x+'%'}
+function render(){
+  const m=D.meta,s=D.signal,b=D.breakers;
+  document.getElementById('meta').innerHTML='生成于 '+m.generated+' · 引擎 sha256 <code>'+m.engine_sha256.slice(0,16)+'…</code> · seed='+m.seed+
+    ' · 池='+m.pool_n+' 标的 · 回放 '+m.replay.start+'~'+m.replay.end+'（净账×'+m.replay.eq_net.toFixed(4)+'）'+
+    ' · <span class="badge">档位 '+s.tier_idx+'（单票 '+s.slot_per_stock_pct+'%）</span><span class="badge">总敞口上限 '+s.total_exposure_pct+'%</span>';
+  const sg=document.getElementById('sig');
+  let h='';
+  if(s.gate.on_holdcash){
+    sg.innerHTML='<div class="card cash"><span class="tk">🟥 regime 闸：清仓持币</span>'+
+      '<div class="line">idx '+s.gate.idx+' &lt; MA50 '+s.gate.ma50+' → 信号日不出新仓，等 idx 收复 MA50 再恢复周调仓</div></div>';
+  }else{
+    sg.innerHTML='<div class="card hold"><span class="tk">🟩 regime 闸开放 · 本期持仓建议（top-5 等权，单票 '+s.slot_per_stock_pct+'%）</span>'+
+      '<div class="line">信号日 '+(s.is_signal_day?s.asof+'（今日为周信号日）':s.asof+'（非信号日，下期信号以周首个交易日收盘为准）')+' · '+s.signal_rule+'</div></div>';
+  }
+  (s.top5||[]).forEach((c,i)=>{
+    h+='<div class="card '+(s.gate.on_holdcash?'cash':'hold')+'"><span class="tk">'+(i+1)+'. '+c.sym+'</span> '+
+      (s.gate.on_holdcash?'<span class="sell">[闸门关闭·不开仓]</span>':'<span class="buy">[目标仓 '+s.slot_per_stock_pct+'%]</span>')+
+      '<div class="line">四因子合成分 '+c.score+' · 成交口径：信号次日开盘</div></div>';});
+  sg.insertAdjacentHTML('beforeend',h);
+  const bk=document.getElementById('bk');bk.innerHTML='';
+  b.items.forEach(x=>{
+    const d=x.detail,dt=typeof d==='object'?JSON.stringify(d):d;
+    bk.insertAdjacentHTML('beforeend','<div class="card" style="border-left:4px solid '+(x.light==='green'?'#16a34a':x.light==='yellow'?'#f59e0b':'#f85149')+'">'+
+      lamp(x.light)+'<b>'+x.name+'</b><div class="line">'+x.action+'</div><div class="line" style="word-break:break-all">'+dt+'</div></div>');});
+  document.getElementById('bkall').innerHTML='总灯 '+lamp(b.overall.light)+'<b>'+b.overall.light+'</b> · 建议动作：'+b.overall.action+
+    '（降档表：'+m.tier_table_pct_per_stock.join('% → ')+'%，单票；CB2 动作=冻结开新仓 20 交易日）';
+  const a=document.getElementById('acct');
+  let t='<table><tr><th>月份</th><th>毛账%</th><th>净账%</th><th>费用%</th><th>池等权%</th><th>让渡%</th></tr>';
+  D.monthly_accounts.slice().reverse().forEach(r=>{
+    t+='<tr><td>'+r.month+'</td><td class="'+(r.gross_pct>0?'up':'dn')+'">'+pct(r.gross_pct,1)+'</td>'+
+      '<td class="'+(r.net_pct>0?'up':'dn')+'">'+pct(r.net_pct,1)+'</td><td>'+r.fee_pct+'</td>'+
+      '<td class="'+(r.pool_pct>0?'up':'dn')+'">'+pct(r.pool_pct,1)+'</td>'+
+      '<td class="'+(r.concede_pct>0?'dn':'up')+'">'+pct(r.concede_pct,1)+'</td></tr>';});
+  a.innerHTML=t+'</table><div class="line">让渡=池等权买入持有−策略毛账：正=策略让渡给市场的机会成本；费用=滑点+资金费合计占权益</div>';
+  const fc=D.fee_curve, w=640,ht=90;
+  if(fc.length>1){
+    const mx=Math.max(...fc.map(x=>x.fee_pct),0.01);
+    const pts=fc.map((x,i)=>(i/(fc.length-1)*w).toFixed(1)+','+(ht-6-x.fee_pct/mx*(ht-16)).toFixed(1)).join(' ');
+    document.getElementById('feecurve').innerHTML='<svg viewBox="0 0 '+w+' '+ht+'" style="width:100%;background:#0d1117;border-radius:6px">'+
+      '<polyline points="'+pts+'" fill="none" stroke="#f59e0b" stroke-width="2"/>'+
+      '<text x="4" y="12" fill="#8b949e" font-size="10">max '+mx.toFixed(3)+'%</text></svg>';
+    document.getElementById('feeline').textContent='费线 21.7pp 年化×2月降一档（滚动60日年化≥21.7%触发）；月度费用含滑点0.05%/边+资金费0.03%/bar';
+  }
+  const mo=D.monitor,re=mo.recent_stops||[];
+  let mt='<table><tr><th>日期</th><th>标的</th><th>卖出价</th><th>收益</th><th>类型</th></tr>';
+  re.slice().reverse().forEach(x=>{
+    mt+='<tr><td>'+x.date+'</td><td>'+x.sym+'</td><td>'+x.px+'</td>'+
+      '<td class="dn">'+(x.pnl_pct*100).toFixed(2)+'%</td><td>'+(x.kind==='stop_gap'?'跳空开盘截断':'盘中触线截断')+'</td></tr>';});
+  mo.notes.forEach(n=>{mt+='</table><div class="line">· '+n+'</div><table>';});
+  document.getElementById('mon').innerHTML=(re.length?mt+'</table>':'<div class="line">回放期无止损事件</div>')+
+    '<div class="line">监控四件套：周信号/熔断状态灯/三本账/止损明细 · 月报每月首个交易日随信号更新</div>';
+  document.getElementById('foot').innerHTML='seed='+m.seed+' · 口径：'+m.caliber+
+    ' · 复现：PYTHONHASHSEED=42 python3 /workspace/f1_web/f1_generate.py（先 /tmp/wtc/refresh_cache.py 刷缓存）'+
+    ' · 引擎锁定：repo_ready/engine_f1/f1_signal.py（G1 sha256 见上）· G1-G5 验收：DEPLOY_REPORT.md';
+}
+fetch('f1_live.json?ts='+Date.now()).then(r=>r.json()).then(d=>{D=d;render();})
+ .catch(e=>{document.getElementById('meta').textContent='数据加载失败：'+e});
+</script></body></html>

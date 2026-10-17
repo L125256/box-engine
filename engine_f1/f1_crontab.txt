@@ -1,0 +1,11 @@
+# f1_crontab.txt — F1 上线定时接线（R11' G5 注册说明）
+# 本机（沙箱）无 crontab 命令，本文件为上岗注册模板：
+#   crontab f1_crontab.txt        # 载入（如已有其他任务请先 crontab -l 合并）
+# 或改用 systemd timer（CrashRecovery 后更稳）。
+#
+# 任务1：WT-C 行情缓存刷新 + 影子双轨（已就绪入口）
+10 9 * * * /tmp/wtc/run_daily.sh >> /tmp/wtc/logs/cron.log 2>&1
+# 任务2：F1 信号引擎 + 状态页数据生成（幂等；在缓存刷新后运行，每周5天）
+25 9 * * 1-5 python3 /workspace/f1_web/f1_generate.py >> /workspace/f1_web/cron.log 2>&1
+# 任务3（建议）：月度三本账归档，每月首个交易日追加落盘
+30 9 1-3 * * python3 /workspace/repo_ready/engine_f1/f1_signal.py live --out /workspace/repo_ready/f1/monthly/$(date +\%Y\%m).json >> /workspace/f1_web/cron.log 2>&1
