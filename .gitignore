@@ -5,11 +5,11 @@
 # 静态样例保留：f1/f1_live.example.json（结构参照，勿当运行数据引用）。
 
 # 运行态状态与页面数据
+# —— 2026-10-18 起由 GitHub Actions 四轮接管每日刷新（用户已批）：f1/ 下三件
+# 必须随 git 提交（index.html fetch 页面数据 + 快照展示数据 + 状态机跨轮续命），
+# 仅保留本地运行不入库；f1_web/ 非四轮入口，仍不入库。
 f1_web/f1_live.json
 f1_web/f1_state.json
-f1/f1_live.json
-f1/f1_state.json
-f1/f1_live_intraday.json
 
 # 数据源容灾状态机运行产物
 engine_f1/f1_source_state.json

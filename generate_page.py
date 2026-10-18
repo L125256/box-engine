@@ -8,13 +8,16 @@ import sys, os, json, importlib.util, random, datetime, shutil
 SEED = 42
 random.seed(SEED)
 
-BUILD_DIR   = "/tmp/web_build"
+# 自足性 WO：默认全部指向本仓库（全新机器 clone 即跑）；env 可覆盖回旧机路径
+_HERE      = os.path.dirname(os.path.abspath(__file__))
+BUILD_DIR   = os.environ.get("BOX_BUILD_DIR", "/tmp/web_build")
 OUT_DIR     = os.path.join(BUILD_DIR, "out")
-CACHE_DIR   = "/tmp/box_cache"
-ENG_DIR     = "/tmp/eng_wt_rc"
-POOL_FILE   = "/tmp/eng_wt/cleaned_pool.json"
-DELIVER_DIR = "/workspace/box_web"
-REPO_DIR    = "/workspace/repo_ready"
+CACHE_DIR   = os.environ.get("BOX_CACHE_DIR", "/tmp/box_cache")
+ENG_DIR     = os.environ.get("BOX_ENG_DIR", os.path.join(_HERE, "engine_snapshot"))
+POOL_FILE   = os.environ.get("BOX_POOL", os.path.join(_HERE, "engine_snapshot", "cleaned_pool.json"))
+REFRESH_PY  = os.environ.get("BOX_REFRESH_PY", os.path.join(_HERE, "research", "wtc", "refresh_cache.py"))
+DELIVER_DIR = os.environ.get("BOX_DELIVER_DIR", _HERE)   # 交付目录=仓库根（Pages 由 git push 送达）
+REPO_DIR    = os.environ.get("BOX_REPO_DIR", _HERE)
 MAIN_WINDOW = "2025-06-01"
 RECENT_DAYS = 30
 
@@ -36,8 +39,9 @@ def load_module(name, path):
 
 
 def step1_refresh_cache():
-    """复用 /tmp/wtc/refresh_cache.py 逻辑：32 线程拉最新日线，失败保留旧缓存。"""
-    rc = load_module("refresh_cache", "/tmp/wtc/refresh_cache.py")
+    """刷新行情缓存：复用 refresh_cache.py（默认仓库内 research/wtc/，env 可指旧机 /tmp/wtc 版），
+    32 线程拉最新日线，失败保留旧缓存。"""
+    rc = load_module("refresh_cache", REFRESH_PY)
     rc.main()
 
 
@@ -289,9 +293,11 @@ def main():
     print('[4/4] 交付复制 → %s 与 %s' % (DELIVER_DIR, REPO_DIR), flush=True)
     for dst in (DELIVER_DIR, REPO_DIR):
         os.makedirs(dst, exist_ok=True)
-        shutil.copy2(hp, os.path.join(dst, 'index.html'))
-        shutil.copy2(jp, os.path.join(dst, 'box_live.json'))
-        shutil.copy2(os.path.abspath(__file__), os.path.join(dst, 'generate_page.py'))
+        for src in (hp, jp, os.path.abspath(__file__)):
+            d = os.path.join(dst, os.path.basename(src))
+            if os.path.abspath(src) == os.path.abspath(d):
+                continue                      # 同文件（脚本已在仓库根运行）不复制
+            shutil.copy2(src, d)
     for k, v in runs.items():
         print(f"{k}: 卡片 {len(v['cards'])} 张 · 近30日 {v['stats']['total']} 笔 胜{v['stats']['wins']} 均值 {v['stats']['mean']}% · 主窗 {v['main_stats']}")
     print('一致性断言（影子扫描 vs 引擎交易键集合）= PASS；抽样 top/bot 核对 = PASS')

@@ -55,8 +55,11 @@ import pandas as pd
 SEED = 42
 np.random.seed(SEED)
 
-CACHE = '/tmp/box_cache'
-CLEANED_POOL = '/tmp/eng_wt/cleaned_pool.json'
+# 路径（自足性 WO：env 可覆盖，全新机器/CI 用 F1_CACHE/F1_POOL 指仓库内基线；
+# 缺省保持本机原值，旧 cron 不受影响）
+CACHE = os.environ.get('F1_CACHE', '/tmp/box_cache')
+CLEANED_POOL = os.environ.get('F1_POOL', '/tmp/eng_wt/cleaned_pool.json')
+OUT_JSON_DEFAULT = os.environ.get('F1_OUT_JSON', '')
 
 TOP_N = 5
 SLOTS = [0.025, 0.015, 0.010, 0.005]   # 仓位档位表（单票），起步档=0.025 → 12.5% 敞口
@@ -697,13 +700,14 @@ def _emit_frozen(out_json, src_state):
     return frozen
 
 
-def run_snapshot(out_json='/workspace/f1_web/f1_live_intraday.json', cache=CACHE,
-                 round_id='20:30'):
+def run_snapshot(out_json=None, cache=CACHE, round_id='20:30'):
     """只读盘中快照（WO-R13-03）。
     做：① 当前持仓浮动盈亏（含止损距离/逼近提示）② 熔断预演（**只用已落定日K**）
         ③ 崩市中位跌幅预估（部分K，标注「预估·未落定」）
     不做：不写 f1_state.json、不覆盖 f1_live.json 任何判定字段、不出 top5 建议、
           不做周调仓锚定与任何调仓决策。"""
+    if out_json is None:
+        out_json = OUT_JSON_DEFAULT or '/workspace/f1_web/f1_live_intraday.json'
     data = load_data(cache)
     syms = build_pool(data)
     F = build_factors(data)
@@ -792,8 +796,10 @@ def engine_sha256(path=None):
     return hashlib.sha256(open(path, 'rb').read()).hexdigest()
 
 
-def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE, allow_intraday=False,
+def run_live(out_json=None, cache=CACHE, allow_intraday=False,
              source_probe=True):
+    if out_json is None:
+        out_json = OUT_JSON_DEFAULT or '/workspace/f1_web/f1_live.json'
     # WO-R13-04：先做主源健康检查并推进状态机；DEGRADED → 冻结信号，直接返回冻结负载。
     # R14 Q-1（方案 A）：改走 DS.run_round——RECOVERING/将入 RECOVERING 的健康探测轮
     # 自动执行主备一致性验收，通过即自动切回 NORMAL（不再依赖人工触发）。
@@ -900,9 +906,12 @@ def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE, allow_intra
 # ---------------------------------------------------------------- CLI
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'live'
+    cli_out = None
+    if '--out' in sys.argv:
+        cli_out = sys.argv[sys.argv.index('--out') + 1]
     if mode == 'live':
         try:
-            out = run_live(allow_intraday='--allow-intraday' in sys.argv)
+            out = run_live(out_json=cli_out, allow_intraday='--allow-intraday' in sys.argv)
         except RuntimeError as e:                      # WO-R13-03 guard 拒绝判定
             print(f'live REFUSED: {e}')
             print('说明：日K 于 00:00 UTC（北京 08:00）落定；请在落定后重跑判定轮，'
@@ -921,7 +930,7 @@ def main():
         if rnd not in INTRADAY_ROUNDS or rnd == 'DECIDE':
             print(f'未知轮次 {rnd}；可选：20:30 / 00:30 / 04:30')
             sys.exit(2)
-        out = run_snapshot(round_id=rnd)
+        out = run_snapshot(out_json=cli_out, round_id=rnd)
         sn = out['snapshot']
         print(f"snapshot ok(只读): round={rnd} asof_settled={out['meta']['asof_settled']} "
               f"intraday_bar={sn['intraday_bar']['date']}(intraday={sn['intraday_bar']['intraday']}) "

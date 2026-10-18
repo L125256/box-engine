@@ -6,13 +6,18 @@
 import sys, os, json, time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-sys.path.insert(0, "/root/.codebuddy/artifact/kx-combo")
+# 自足性 WO：默认用仓库内 lib/kx_client.py；env KX_CLIENT_DIR 可指旧机目录
+_KX_DIR = os.environ.get('KX_CLIENT_DIR') or os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), '..', '..', 'lib')
+sys.path.insert(0, os.path.normpath(_KX_DIR))
 from kx_client import KxClient
 
-CACHE_DIR = "/tmp/box_cache"
-REPORT = "/tmp/wtc/refresh_report.json"
+_REPO = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+CACHE_DIR = os.environ.get('BOX_CACHE_DIR', '/tmp/box_cache')
+REPORT = os.environ.get('BOX_REFRESH_REPORT', '/tmp/wtc/refresh_report.json')
+POOL_FILE = os.environ.get('BOX_POOL', os.path.join(_REPO, 'engine_snapshot', 'cleaned_pool.json'))
 EXCLUDE_SPARSE = ['BSPUSDT', 'FWDIUSDT', 'BBXUSDT', 'BITOUSDT', 'STRCUSDT']
-WORKERS = 32
+WORKERS = int(os.environ.get('BOX_WORKERS', '32'))
 
 
 def build_pool():
@@ -24,7 +29,7 @@ def build_pool():
         print(f'[warn] 存档面板读取失败({e})，仅用清洗池', flush=True)
     pool -= set(EXCLUDE_SPARSE)
     try:
-        cp = json.load(open('/tmp/eng_wt/cleaned_pool.json'))
+        cp = json.load(open(POOL_FILE))
         pool |= {x['tkr'] for x in cp['kept']}
     except Exception as e:
         print(f'[warn] cleaned_pool 读取失败({e})', flush=True)
