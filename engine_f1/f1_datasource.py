@@ -129,18 +129,36 @@ def _jsonp_unwrap(text):
     return t
 
 
+def _scalar_timeout(timeout):
+    """W-2 修复：urlopen 的 timeout 必须是标量秒数（int/float）。
+    (conn, read) 二元组合并为标量 conn+read（urllib 不支持分别设连/读超时）；
+    非法类型直接抛 ValueError（编程类，禁止静默）。"""
+    if isinstance(timeout, (tuple, list)):
+        if len(timeout) != 2 or not all(isinstance(x, (int, float)) for x in timeout):
+            raise ValueError(f'timeout 须为数字或 (conn, read) 二元组，收到 {timeout!r}')
+        return float(sum(timeout))
+    if not isinstance(timeout, (int, float)):
+        raise ValueError(f'timeout 须为数字或 (conn, read) 二元组，收到 {timeout!r}')
+    return float(timeout)
+
+
 def fetch_sina_daily(symbols, timeout=(CONN_TIMEOUT_SEC, READ_TIMEOUT_SEC),
                      referer=SINA_REFERER, _opener=_urlopen):
     """新浪日K（**只读**）。symbol=小写基础代码；返回 [{'symbol','date','open','high',
     'low','close','volume', 'source':'sina'}]。
-    **硬约束**：len(symbols) > MAX_PROXY_SYMBOLS 直接抛错——禁止 144 全量拉取。"""
+    **硬约束**：len(symbols) > MAX_PROXY_SYMBOLS 直接抛错——禁止 144 全量拉取。
+    **异常分类（W-2 修复）**：网络类（URLError/HTTPError/timeout/ConnectionError）
+    捕获→计入失败统计+事件日志（禁静默 0 行）；编程类（TypeError/KeyError/
+    AttributeError 等）一律上抛。timeout 传 (conn, read) 二元组自动标量化。"""
     if not symbols:
         return []
     if len(symbols) > MAX_PROXY_SYMBOLS:
         raise ValueError(
             f'拒绝拉取 {len(symbols)} 只：新浪为无 SLA 内部接口，'
             f'单轮上限 {MAX_PROXY_SYMBOLS} 只（top-5 持仓 + ≤2 只 idx 代理），禁止全量。')
-    out = []
+    import urllib.error
+    tmo = _scalar_timeout(timeout)          # W-2：tuple 直传 urlopen 曾 TypeError 被吞
+    out, net_fail, last_err = [], 0, ''
     for sym in symbols:
         q = base_symbol(sym)
         url = f'{SINA_ENDPOINT}?symbol={q}&___qn=3'
@@ -151,11 +169,15 @@ def fetch_sina_daily(symbols, timeout=(CONN_TIMEOUT_SEC, READ_TIMEOUT_SEC),
                 'Referer': referer,
                 'User-Agent': 'Mozilla/5.0 (f1-signal-engine; failover-probe)',
             })
-            raw = _opener(req, timeout).read().decode('utf-8', 'ignore')
+            raw = _opener(req, tmo).read().decode('utf-8', 'ignore')
             payload = json.loads(_jsonp_unwrap(raw))
             rows = payload if isinstance(payload, list) else (
                 (payload or {}).get('result', {}).get('data', {}).get('data')
                 or (payload or {}).get('data') or [])
+            if not rows:
+                # 新浪显式错误/空 payload（如 {"__ERROR":3}）：按网络类失败显式记录，禁静默
+                raise urllib.error.URLError(
+                    f'新浪无有效数据 payload={str(payload)[:80]}')
             for r in rows:
                 try:
                     out.append({'symbol': q,
@@ -167,10 +189,25 @@ def fetch_sina_daily(symbols, timeout=(CONN_TIMEOUT_SEC, READ_TIMEOUT_SEC),
                                 'volume': float(r.get('v')),
                                 'source': 'sina'})
                 except (TypeError, ValueError):
+                    # 外部数据 schema 脏行：显式留痕后跳过（非静默；编程类错误不在此层）
+                    log_event('SINA_ROW_SKIP', symbol=q, row=str(r)[:120])
                     continue
-        except Exception as e:
-            log_event('SINA_FETCH_FAIL', symbol=q, error=str(e)[:200])
+        except (urllib.error.URLError, urllib.error.HTTPError,
+                TimeoutError, ConnectionError, OSError) as e:
+            net_fail += 1
+            last_err = str(e)[:160]
+            log_event('SINA_FETCH_FAIL', symbol=q, cls='network',
+                      timeout=tmo, error=str(e)[:200])
             continue
+        # 编程类异常（TypeError/KeyError/AttributeError 等）不捕获 → 上抛（W-2 纪律）
+    if net_fail:
+        log_event('SINA_FETCH_STATS', ok_symbols=len(symbols) - net_fail,
+                  net_fail=net_fail, total=len(symbols))
+        if not out:
+            # 禁静默 0 行：备源全部失败必须显式上抛（带上下文），调用方按不可得处理
+            raise urllib.error.URLError(
+                f'新浪备源 {len(symbols)} 只全部拉取失败（每只已单独记 SINA_FETCH_FAIL；'
+                f'最后错误：{last_err}）')
     return out
 
 
