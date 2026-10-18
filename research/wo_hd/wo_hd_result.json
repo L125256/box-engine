@@ -1,0 +1,760 @@
+{
+ "meta": {
+  "workorder": "H-D 复活工单：T2 vol20 状态门（首席终裁立项，判据预注册未烧毁）",
+  "spec": "/tmp/trade9_specs/DNEG_SPEC.md D4-H-D + DNEG_VERDICT.md 首席条5/激进风险席/保守风险席条款",
+  "preregistered_gate": "dneg_engine.py 文档头开工冻结：T2=池等权20日已实现波动率；阈值=realA p80；OFF=vol20>阈值；后段OFF命中率≥80% 且 realA 误伤率≤20%",
+  "gate_semantics": "OFF=停开新仓（pause：跳过开仓与换仓卖出，存量仓止损/崩市/BUG-04 照常；非清仓）",
+  "seed": 42,
+  "data": "/tmp/box_cache",
+  "engine_lineage": "research/wo_dneg/dneg_engine.py（D0 对拍 maxdiff=0 权威谱系）",
+  "parallel": "Pool(32)，10 run",
+  "wall_secs": 19.8,
+  "thresholds_ann_vol_pct": {
+   "old131": 103.59,
+   "full144": 122.67
+  },
+  "d0_selfcheck": [
+   {
+    "pname": "old131",
+    "arm": "d0_check",
+    "d0_maxdiff": 0.0,
+    "d0_fees_absdiff": 0.0,
+    "secs": 18.8
+   },
+   {
+    "pname": "full144",
+    "arm": "d0_check",
+    "d0_maxdiff": 0.0,
+    "d0_fees_absdiff": 0.0,
+    "secs": 18.9
+   }
+  ],
+  "burn_note": "本单未触碰已烧毁止损参数（无止损/-12%/trailing）；判据一次成活禁调参"
+ },
+ "gate_diag": {
+  "old131": {
+   "vol20_def": "池等权 idx 日收益 20 日滚动 std(ddof=1)×sqrt(252) 年化",
+   "threshold_ann_vol_pct": 103.59,
+   "threshold_def": "realA(2025-06-02~2026-03-31) 段 p80，仅 realA 数据估计",
+   "realA": {
+    "off_days": 46,
+    "off_share_pct": 20.18,
+    "off_episodes": 5,
+    "flips": 9,
+    "off_hit_rate_pct": 67.39,
+    "n_days": 228
+   },
+   "realB": {
+    "off_days": 60,
+    "off_share_pct": 98.36,
+    "off_episodes": 2,
+    "flips": 2,
+    "off_hit_rate_pct": 46.67,
+    "n_days": 61
+   },
+   "realC": {
+    "off_days": 49,
+    "off_share_pct": 35.25,
+    "off_episodes": 3,
+    "flips": 5,
+    "off_hit_rate_pct": 55.1,
+    "n_days": 139
+   },
+   "holdout": {
+    "off_days": 109,
+    "off_share_pct": 54.5,
+    "off_episodes": 4,
+    "flips": 7,
+    "off_hit_rate_pct": 50.46,
+    "n_days": 200
+   },
+   "full": {
+    "off_days": 171,
+    "off_share_pct": 22.29,
+    "off_episodes": 9,
+    "flips": 18,
+    "off_hit_rate_pct": 53.22,
+    "n_days": 767
+   }
+  },
+  "full144": {
+   "vol20_def": "池等权 idx 日收益 20 日滚动 std(ddof=1)×sqrt(252) 年化",
+   "threshold_ann_vol_pct": 122.67,
+   "threshold_def": "realA(2025-06-02~2026-03-31) 段 p80，仅 realA 数据估计",
+   "realA": {
+    "off_days": 46,
+    "off_share_pct": 20.18,
+    "off_episodes": 3,
+    "flips": 6,
+    "off_hit_rate_pct": 60.87,
+    "n_days": 228
+   },
+   "realB": {
+    "off_days": 51,
+    "off_share_pct": 83.61,
+    "off_episodes": 1,
+    "flips": 1,
+    "off_hit_rate_pct": 50.98,
+    "n_days": 61
+   },
+   "realC": {
+    "off_days": 37,
+    "off_share_pct": 26.62,
+    "off_episodes": 2,
+    "flips": 3,
+    "off_hit_rate_pct": 59.46,
+    "n_days": 139
+   },
+   "holdout": {
+    "off_days": 88,
+    "off_share_pct": 44.0,
+    "off_episodes": 2,
+    "flips": 4,
+    "off_hit_rate_pct": 54.55,
+    "n_days": 200
+   },
+   "full": {
+    "off_days": 148,
+    "off_share_pct": 19.3,
+    "off_episodes": 6,
+    "flips": 12,
+    "off_hit_rate_pct": 53.38,
+    "n_days": 767
+   }
+  }
+ },
+ "eight_col_table": {
+  "old131|base": {
+   "realA": {
+    "annualized_pct": 115.5,
+    "mdd_pct": -15.61,
+    "weekly_winrate_pct": 67.44,
+    "weekly_winrate_active_pct": 67.44,
+    "cash_weeks": 0,
+    "turnover_ann_x": 41.55,
+    "fee_drag_ann_pp": -4.37,
+    "fat_tail_sum_pp": 166.12,
+    "stop_trades_n": 52,
+    "stop_realized_pp": -18.42,
+    "stop_gap_loss_pp": 9.13,
+    "total_return_pct": 88.67,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 1683.02,
+    "mdd_pct": -16.36,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 42.4,
+    "fee_drag_ann_pp": -6.49,
+    "fat_tail_sum_pp": 129.06,
+    "stop_trades_n": 7,
+    "stop_realized_pp": -2.05,
+    "stop_gap_loss_pp": 0.31,
+    "total_return_pct": 60.52,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -49.31,
+    "mdd_pct": -23.09,
+    "weekly_winrate_pct": 52.63,
+    "weekly_winrate_active_pct": 52.63,
+    "cash_weeks": 0,
+    "turnover_ann_x": 31.13,
+    "fee_drag_ann_pp": -2.13,
+    "fat_tail_sum_pp": 22.21,
+    "stop_trades_n": 38,
+    "stop_realized_pp": -57.88,
+    "stop_gap_loss_pp": 10.77,
+    "total_return_pct": -22.64,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": 45.51,
+    "mdd_pct": -31.15,
+    "weekly_winrate_pct": 60.71,
+    "weekly_winrate_active_pct": 60.71,
+    "cash_weeks": 0,
+    "turnover_ann_x": 47.01,
+    "fee_drag_ann_pp": -4.3,
+    "fat_tail_sum_pp": 151.27,
+    "stop_trades_n": 45,
+    "stop_realized_pp": -59.93,
+    "stop_gap_loss_pp": 11.07,
+    "total_return_pct": 22.67,
+    "n_days": 200
+   }
+  },
+  "old131|gate_pause": {
+   "realA": {
+    "annualized_pct": 152.38,
+    "mdd_pct": -15.82,
+    "weekly_winrate_pct": 69.77,
+    "weekly_winrate_active_pct": 69.77,
+    "cash_weeks": 0,
+    "turnover_ann_x": 33.67,
+    "fee_drag_ann_pp": -4.94,
+    "fat_tail_sum_pp": 176.19,
+    "stop_trades_n": 46,
+    "stop_realized_pp": -15.66,
+    "stop_gap_loss_pp": 4.64,
+    "total_return_pct": 114.99,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 134.36,
+    "mdd_pct": -2.57,
+    "weekly_winrate_pct": 62.5,
+    "weekly_winrate_active_pct": 62.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 0.56,
+    "fee_drag_ann_pp": -1.76,
+    "fat_tail_sum_pp": 0,
+    "stop_trades_n": 1,
+    "stop_realized_pp": 3.59,
+    "stop_gap_loss_pp": 0.0,
+    "total_return_pct": 15.02,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -27.17,
+    "mdd_pct": -11.29,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 66.67,
+    "cash_weeks": 7,
+    "turnover_ann_x": 20.89,
+    "fee_drag_ann_pp": -1.7,
+    "fat_tail_sum_pp": 51.92,
+    "stop_trades_n": 18,
+    "stop_realized_pp": -28.48,
+    "stop_gap_loss_pp": 5.7,
+    "total_return_pct": -11.29,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": 8.69,
+    "mdd_pct": -11.29,
+    "weekly_winrate_pct": 46.43,
+    "weekly_winrate_active_pct": 61.9,
+    "cash_weeks": 7,
+    "turnover_ann_x": 17.26,
+    "fee_drag_ann_pp": -1.92,
+    "fat_tail_sum_pp": 51.92,
+    "stop_trades_n": 19,
+    "stop_realized_pp": -24.89,
+    "stop_gap_loss_pp": 5.7,
+    "total_return_pct": 4.65,
+    "n_days": 200
+   }
+  },
+  "old131|gate_pause_lag": {
+   "realA": {
+    "annualized_pct": 149.33,
+    "mdd_pct": -15.82,
+    "weekly_winrate_pct": 69.77,
+    "weekly_winrate_active_pct": 69.77,
+    "cash_weeks": 0,
+    "turnover_ann_x": 34.72,
+    "fee_drag_ann_pp": -4.86,
+    "fat_tail_sum_pp": 176.19,
+    "stop_trades_n": 46,
+    "stop_realized_pp": -15.45,
+    "stop_gap_loss_pp": 4.64,
+    "total_return_pct": 112.84,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 136.29,
+    "mdd_pct": -2.59,
+    "weekly_winrate_pct": 62.5,
+    "weekly_winrate_active_pct": 62.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 0.57,
+    "fee_drag_ann_pp": -1.78,
+    "fat_tail_sum_pp": 0,
+    "stop_trades_n": 1,
+    "stop_realized_pp": 3.59,
+    "stop_gap_loss_pp": 0.0,
+    "total_return_pct": 15.17,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -31.09,
+    "mdd_pct": -13.12,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 61.54,
+    "cash_weeks": 6,
+    "turnover_ann_x": 21.98,
+    "fee_drag_ann_pp": -1.76,
+    "fat_tail_sum_pp": 51.37,
+    "stop_trades_n": 20,
+    "stop_realized_pp": -29.14,
+    "stop_gap_loss_pp": 5.54,
+    "total_return_pct": -13.12,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": 4.91,
+    "mdd_pct": -13.12,
+    "weekly_winrate_pct": 46.43,
+    "weekly_winrate_active_pct": 59.09,
+    "cash_weeks": 6,
+    "turnover_ann_x": 18.18,
+    "fee_drag_ann_pp": -1.98,
+    "fat_tail_sum_pp": 51.37,
+    "stop_trades_n": 21,
+    "stop_realized_pp": -25.56,
+    "stop_gap_loss_pp": 5.54,
+    "total_return_pct": 2.64,
+    "n_days": 200
+   }
+  },
+  "old131|gate_liq": {
+   "realA": {
+    "annualized_pct": 170.76,
+    "mdd_pct": -11.15,
+    "weekly_winrate_pct": 67.44,
+    "weekly_winrate_active_pct": 74.36,
+    "cash_weeks": 4,
+    "turnover_ann_x": 34.99,
+    "fee_drag_ann_pp": -3.44,
+    "fat_tail_sum_pp": 185.96,
+    "stop_trades_n": 41,
+    "stop_realized_pp": -12.74,
+    "stop_gap_loss_pp": 9.79,
+    "total_return_pct": 127.86,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 0.0,
+    "mdd_pct": 0.0,
+    "weekly_winrate_pct": 0.0,
+    "weekly_winrate_active_pct": NaN,
+    "cash_weeks": 8,
+    "turnover_ann_x": 0.0,
+    "fee_drag_ann_pp": 0.0,
+    "fat_tail_sum_pp": 0,
+    "stop_trades_n": 0,
+    "stop_realized_pp": 0.0,
+    "stop_gap_loss_pp": 0.0,
+    "total_return_pct": 0.0,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -18.01,
+    "mdd_pct": -10.89,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 66.67,
+    "cash_weeks": 7,
+    "turnover_ann_x": 21.25,
+    "fee_drag_ann_pp": -1.71,
+    "fat_tail_sum_pp": 18.05,
+    "stop_trades_n": 18,
+    "stop_realized_pp": -27.25,
+    "stop_gap_loss_pp": 5.46,
+    "total_return_pct": -7.23,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": -12.87,
+    "mdd_pct": -10.89,
+    "weekly_winrate_pct": 28.57,
+    "weekly_winrate_active_pct": 66.67,
+    "cash_weeks": 16,
+    "turnover_ann_x": 14.73,
+    "fee_drag_ann_pp": -1.19,
+    "fat_tail_sum_pp": 18.05,
+    "stop_trades_n": 18,
+    "stop_realized_pp": -27.25,
+    "stop_gap_loss_pp": 5.46,
+    "total_return_pct": -7.23,
+    "n_days": 200
+   }
+  },
+  "full144|base": {
+   "realA": {
+    "annualized_pct": 114.35,
+    "mdd_pct": -15.21,
+    "weekly_winrate_pct": 67.44,
+    "weekly_winrate_active_pct": 67.44,
+    "cash_weeks": 0,
+    "turnover_ann_x": 41.64,
+    "fee_drag_ann_pp": -4.39,
+    "fat_tail_sum_pp": 168.21,
+    "stop_trades_n": 54,
+    "stop_realized_pp": -15.03,
+    "stop_gap_loss_pp": 9.1,
+    "total_return_pct": 87.83,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 3528.54,
+    "mdd_pct": -18.46,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 39.86,
+    "fee_drag_ann_pp": -7.42,
+    "fat_tail_sum_pp": 152.04,
+    "stop_trades_n": 5,
+    "stop_realized_pp": -2.29,
+    "stop_gap_loss_pp": 0.31,
+    "total_return_pct": 80.39,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -56.31,
+    "mdd_pct": -27.72,
+    "weekly_winrate_pct": 36.84,
+    "weekly_winrate_active_pct": 36.84,
+    "cash_weeks": 0,
+    "turnover_ann_x": 34.11,
+    "fee_drag_ann_pp": -1.48,
+    "fat_tail_sum_pp": 32.4,
+    "stop_trades_n": 45,
+    "stop_realized_pp": -74.18,
+    "stop_gap_loss_pp": 13.27,
+    "total_return_pct": -26.87,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": 63.77,
+    "mdd_pct": -33.55,
+    "weekly_winrate_pct": 50.0,
+    "weekly_winrate_active_pct": 50.0,
+    "cash_weeks": 0,
+    "turnover_ann_x": 54.34,
+    "fee_drag_ann_pp": -4.07,
+    "fat_tail_sum_pp": 184.44,
+    "stop_trades_n": 50,
+    "stop_realized_pp": -76.47,
+    "stop_gap_loss_pp": 13.58,
+    "total_return_pct": 30.84,
+    "n_days": 200
+   }
+  },
+  "full144|gate_pause": {
+   "realA": {
+    "annualized_pct": 164.91,
+    "mdd_pct": -17.58,
+    "weekly_winrate_pct": 72.09,
+    "weekly_winrate_active_pct": 72.09,
+    "cash_weeks": 0,
+    "turnover_ann_x": 33.06,
+    "fee_drag_ann_pp": -5.3,
+    "fat_tail_sum_pp": 180.77,
+    "stop_trades_n": 44,
+    "stop_realized_pp": -14.76,
+    "stop_gap_loss_pp": 4.53,
+    "total_return_pct": 123.79,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 5833.41,
+    "mdd_pct": -7.42,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 4.8,
+    "fee_drag_ann_pp": -10.49,
+    "fat_tail_sum_pp": 2.62,
+    "stop_trades_n": 2,
+    "stop_realized_pp": 1.98,
+    "stop_gap_loss_pp": 0.33,
+    "total_return_pct": 95.57,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -15.53,
+    "mdd_pct": -24.19,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 53.33,
+    "cash_weeks": 4,
+    "turnover_ann_x": 28.5,
+    "fee_drag_ann_pp": -2.26,
+    "fat_tail_sum_pp": 288.12,
+    "stop_trades_n": 22,
+    "stop_realized_pp": -67.13,
+    "stop_gap_loss_pp": 11.53,
+    "total_return_pct": -6.18,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": 239.06,
+    "mdd_pct": -24.19,
+    "weekly_winrate_pct": 57.14,
+    "weekly_winrate_active_pct": 66.67,
+    "cash_weeks": 4,
+    "turnover_ann_x": 42.42,
+    "fee_drag_ann_pp": -6.41,
+    "fat_tail_sum_pp": 290.74,
+    "stop_trades_n": 24,
+    "stop_realized_pp": -65.15,
+    "stop_gap_loss_pp": 11.86,
+    "total_return_pct": 94.5,
+    "n_days": 200
+   }
+  },
+  "full144|gate_pause_lag": {
+   "realA": {
+    "annualized_pct": 145.38,
+    "mdd_pct": -15.82,
+    "weekly_winrate_pct": 69.77,
+    "weekly_winrate_active_pct": 69.77,
+    "cash_weeks": 0,
+    "turnover_ann_x": 36.04,
+    "fee_drag_ann_pp": -4.8,
+    "fat_tail_sum_pp": 178.25,
+    "stop_trades_n": 49,
+    "stop_realized_pp": -15.76,
+    "stop_gap_loss_pp": 4.65,
+    "total_return_pct": 110.05,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 5826.91,
+    "mdd_pct": -7.42,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 4.83,
+    "fee_drag_ann_pp": -10.49,
+    "fat_tail_sum_pp": 2.52,
+    "stop_trades_n": 2,
+    "stop_realized_pp": 1.94,
+    "stop_gap_loss_pp": 0.31,
+    "total_return_pct": 95.53,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -24.27,
+    "mdd_pct": -27.26,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 50.0,
+    "cash_weeks": 3,
+    "turnover_ann_x": 29.62,
+    "fee_drag_ann_pp": -2.13,
+    "fat_tail_sum_pp": 269.17,
+    "stop_trades_n": 27,
+    "stop_realized_pp": -76.47,
+    "stop_gap_loss_pp": 12.39,
+    "total_return_pct": -9.97,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": 214.23,
+    "mdd_pct": -27.26,
+    "weekly_winrate_pct": 57.14,
+    "weekly_winrate_active_pct": 64.0,
+    "cash_weeks": 3,
+    "turnover_ann_x": 44.03,
+    "fee_drag_ann_pp": -6.22,
+    "fat_tail_sum_pp": 271.69,
+    "stop_trades_n": 29,
+    "stop_realized_pp": -74.54,
+    "stop_gap_loss_pp": 12.7,
+    "total_return_pct": 86.6,
+    "n_days": 200
+   }
+  },
+  "full144|gate_liq": {
+   "realA": {
+    "annualized_pct": 178.41,
+    "mdd_pct": -11.03,
+    "weekly_winrate_pct": 67.44,
+    "weekly_winrate_active_pct": 76.32,
+    "cash_weeks": 5,
+    "turnover_ann_x": 34.4,
+    "fee_drag_ann_pp": -3.21,
+    "fat_tail_sum_pp": 188.25,
+    "stop_trades_n": 42,
+    "stop_realized_pp": -15.01,
+    "stop_gap_loss_pp": 4.53,
+    "total_return_pct": 133.17,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 224.89,
+    "mdd_pct": -0.04,
+    "weekly_winrate_pct": 25.0,
+    "weekly_winrate_active_pct": 100.0,
+    "cash_weeks": 6,
+    "turnover_ann_x": 9.29,
+    "fee_drag_ann_pp": -0.71,
+    "fat_tail_sum_pp": 52.48,
+    "stop_trades_n": 2,
+    "stop_realized_pp": -0.58,
+    "stop_gap_loss_pp": 0.35,
+    "total_return_pct": 21.36,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -29.85,
+    "mdd_pct": -13.5,
+    "weekly_winrate_pct": 36.84,
+    "weekly_winrate_active_pct": 50.0,
+    "cash_weeks": 5,
+    "turnover_ann_x": 24.46,
+    "fee_drag_ann_pp": -1.77,
+    "fat_tail_sum_pp": 17.3,
+    "stop_trades_n": 22,
+    "stop_realized_pp": -38.49,
+    "stop_gap_loss_pp": 6.61,
+    "total_return_pct": -12.54,
+    "n_days": 139
+   },
+   "holdout": {
+    "annualized_pct": 11.56,
+    "mdd_pct": -13.5,
+    "weekly_winrate_pct": 32.14,
+    "weekly_winrate_active_pct": 56.25,
+    "cash_weeks": 12,
+    "turnover_ann_x": 23.38,
+    "fee_drag_ann_pp": -1.71,
+    "fat_tail_sum_pp": 69.78,
+    "stop_trades_n": 24,
+    "stop_realized_pp": -39.06,
+    "stop_gap_loss_pp": 6.96,
+    "total_return_pct": 6.14,
+    "n_days": 200
+   }
+  }
+ },
+ "avoid_fat_ledger": {
+  "old131": {
+   "realA": {
+    "fat_tail_concession_pp": -10.07,
+    "avoided_stop_pp": 2.76,
+    "avoided_stop_n": 6,
+    "avoided_stop_amount_share_pct": 14.98,
+    "avoided_stop_count_share_pct": 11.54,
+    "lag_variant_avoided_stop_pp": 2.97,
+    "lag_variant_avoided_stop_n": 6
+   },
+   "realB": {
+    "fat_tail_concession_pp": 129.06,
+    "avoided_stop_pp": 5.64,
+    "avoided_stop_n": 6,
+    "avoided_stop_amount_share_pct": 275.12,
+    "avoided_stop_count_share_pct": 85.71,
+    "lag_variant_avoided_stop_pp": 5.64,
+    "lag_variant_avoided_stop_n": 6
+   },
+   "realC": {
+    "fat_tail_concession_pp": -29.71,
+    "avoided_stop_pp": 29.4,
+    "avoided_stop_n": 20,
+    "avoided_stop_amount_share_pct": 50.79,
+    "avoided_stop_count_share_pct": 52.63,
+    "lag_variant_avoided_stop_pp": 28.74,
+    "lag_variant_avoided_stop_n": 18
+   },
+   "holdout": {
+    "fat_tail_concession_pp": 99.35,
+    "avoided_stop_pp": 35.04,
+    "avoided_stop_n": 26,
+    "avoided_stop_amount_share_pct": 58.47,
+    "avoided_stop_count_share_pct": 57.78,
+    "lag_variant_avoided_stop_pp": 34.37,
+    "lag_variant_avoided_stop_n": 24
+   }
+  },
+  "full144": {
+   "realA": {
+    "fat_tail_concession_pp": -12.56,
+    "avoided_stop_pp": 0.27,
+    "avoided_stop_n": 10,
+    "avoided_stop_amount_share_pct": 1.8,
+    "avoided_stop_count_share_pct": 18.52,
+    "lag_variant_avoided_stop_pp": -0.73,
+    "lag_variant_avoided_stop_n": 5
+   },
+   "realB": {
+    "fat_tail_concession_pp": 149.42,
+    "avoided_stop_pp": 4.27,
+    "avoided_stop_n": 3,
+    "avoided_stop_amount_share_pct": 186.46,
+    "avoided_stop_count_share_pct": 60.0,
+    "lag_variant_avoided_stop_pp": 4.23,
+    "lag_variant_avoided_stop_n": 3
+   },
+   "realC": {
+    "fat_tail_concession_pp": -255.72,
+    "avoided_stop_pp": 7.05,
+    "avoided_stop_n": 23,
+    "avoided_stop_amount_share_pct": 9.5,
+    "avoided_stop_count_share_pct": 51.11,
+    "lag_variant_avoided_stop_pp": -2.29,
+    "lag_variant_avoided_stop_n": 18
+   },
+   "holdout": {
+    "fat_tail_concession_pp": -106.3,
+    "avoided_stop_pp": 11.32,
+    "avoided_stop_n": 26,
+    "avoided_stop_amount_share_pct": 14.8,
+    "avoided_stop_count_share_pct": 52.0,
+    "lag_variant_avoided_stop_pp": 1.93,
+    "lag_variant_avoided_stop_n": 21
+   }
+  }
+ },
+ "criteria": {
+  "old131": {
+   "C1_realC_off_hit_rate_ge80": {
+    "value": 55.1,
+    "pass": false,
+    "criterion": "预注册：OFF 日中 F1 净日收益<0 占比 ≥80%（realC 伴行口径）"
+   },
+   "C1_holdout_off_hit_rate_ge80_伴行": {
+    "value": 50.46,
+    "pass": false,
+    "criterion": "后段混合口径伴行呈报（不替代 realC 口径）"
+   },
+   "C2_realA_false_trigger_le20": {
+    "value": 20.18,
+    "off_days": 46,
+    "off_episodes": 5,
+    "pass": false,
+    "criterion": "预注册：realA OFF 日占比 ≤20%"
+   },
+   "C3_realC_avoid_grinding_majority": {
+    "value": {
+     "amount_share_pct": 50.79,
+     "count_share_pct": 52.63
+    },
+    "pass": true,
+    "criterion": "工单：避开止损绞肉主体（避损金额与笔数占比均≥50%，操作性定义显式声明）"
+   },
+   "OVERALL": "FAIL"
+  },
+  "full144": {
+   "C1_realC_off_hit_rate_ge80": {
+    "value": 59.46,
+    "pass": false,
+    "criterion": "预注册：OFF 日中 F1 净日收益<0 占比 ≥80%（realC 伴行口径）"
+   },
+   "C1_holdout_off_hit_rate_ge80_伴行": {
+    "value": 54.55,
+    "pass": false,
+    "criterion": "后段混合口径伴行呈报（不替代 realC 口径）"
+   },
+   "C2_realA_false_trigger_le20": {
+    "value": 20.18,
+    "off_days": 46,
+    "off_episodes": 3,
+    "pass": false,
+    "criterion": "预注册：realA OFF 日占比 ≤20%"
+   },
+   "C3_realC_avoid_grinding_majority": {
+    "value": {
+     "amount_share_pct": 9.5,
+     "count_share_pct": 51.11
+    },
+    "pass": false,
+    "criterion": "工单：避开止损绞肉主体（避损金额与笔数占比均≥50%，操作性定义显式声明）"
+   },
+   "OVERALL": "FAIL"
+  }
+ }
+}
