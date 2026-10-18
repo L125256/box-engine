@@ -1,0 +1,1388 @@
+{
+ "ledger": "资费覆盖分级台账（USERWORD_VERDICT §八 定死判据）",
+ "built_at": "2026-10-19 03:22:26",
+ "fee_drift_upper_pp_per_year": 43.8,
+ "upper_basis": "常数 0.03%/bar×日历日年化 10.95pp×(5-1) 漂移档（估计上限非保证）",
+ "batch": "B0-初始",
+ "recalc_history": [],
+ "domain": "适用域=成本用途变体（b 单 82 可运行行） ONLY；168 个信号用途变体（fu/c1 族）不适用利润垫分级（USERWORD §五-1）",
+ "grade_counts": {
+  "带资费可跑": 24,
+  "冻结挂账": 58
+ },
+ "full_exempt_count": 0,
+ "rows": [
+  {
+   "id": "vol30",
+   "vars": {
+    "vol": 30
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.135,
+   "cushion_x_holdout_side": 8.473,
+   "cushion_x_min_both": 4.135,
+   "cushion_x_avoid_caliber": 3.389,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 254.1389,
+   "holdout_avoid_pp": 124.1048,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol30",
+   "vars": {
+    "vol": 30
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.198,
+   "cushion_x_holdout_side": 8.346,
+   "cushion_x_min_both": 2.198,
+   "cushion_x_avoid_caliber": 1.768,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 132.5703,
+   "holdout_avoid_pp": 119.1801,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol40",
+   "vars": {
+    "vol": 40
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.607,
+   "cushion_x_holdout_side": 8.545,
+   "cushion_x_min_both": 3.607,
+   "cushion_x_avoid_caliber": 2.937,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 220.2312,
+   "holdout_avoid_pp": 124.9333,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40",
+   "vars": {
+    "vol": 40
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.429,
+   "cushion_x_holdout_side": 8.141,
+   "cushion_x_min_both": 3.429,
+   "cushion_x_avoid_caliber": 2.804,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 210.2401,
+   "holdout_avoid_pp": 116.8431,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol50",
+   "vars": {
+    "vol": 50
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.06,
+   "cushion_x_holdout_side": 3.593,
+   "cushion_x_min_both": 1.06,
+   "cushion_x_avoid_caliber": 0.831,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 62.3334,
+   "holdout_avoid_pp": 61.3744,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50",
+   "vars": {
+    "vol": 50
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.749,
+   "cushion_x_holdout_side": 2.939,
+   "cushion_x_min_both": 0.749,
+   "cushion_x_avoid_caliber": 0.589,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 44.1961,
+   "holdout_avoid_pp": 49.5849,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60",
+   "vars": {
+    "vol": 60
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.648,
+   "cushion_x_holdout_side": 2.745,
+   "cushion_x_min_both": 1.648,
+   "cushion_x_avoid_caliber": 1.305,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 97.8843,
+   "holdout_avoid_pp": 48.5736,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60",
+   "vars": {
+    "vol": 60
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.767,
+   "cushion_x_holdout_side": 2.587,
+   "cushion_x_min_both": 0.767,
+   "cushion_x_avoid_caliber": 0.604,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 45.2683,
+   "holdout_avoid_pp": 44.276,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70",
+   "vars": {
+    "vol": 70
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.136,
+   "cushion_x_holdout_side": 3.324,
+   "cushion_x_min_both": 2.136,
+   "cushion_x_avoid_caliber": 1.638,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 127.7948,
+   "holdout_avoid_pp": 57.3937,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70",
+   "vars": {
+    "vol": 70
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.692,
+   "cushion_x_holdout_side": 2.577,
+   "cushion_x_min_both": 1.692,
+   "cushion_x_avoid_caliber": 1.259,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 101.3243,
+   "holdout_avoid_pp": 44.1257,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80",
+   "vars": {
+    "vol": 80
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.109,
+   "cushion_x_holdout_side": -0.769,
+   "cushion_x_min_both": -0.769,
+   "cushion_x_avoid_caliber": -0.479,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -6.2947,
+   "holdout_avoid_pp": -16.7936,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80",
+   "vars": {
+    "vol": 80
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.021,
+   "cushion_x_holdout_side": 3.886,
+   "cushion_x_min_both": 3.021,
+   "cushion_x_avoid_caliber": 1.805,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 184.2668,
+   "holdout_avoid_pp": 63.2609,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "br20",
+   "vars": {
+    "breadth": 20
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.928,
+   "cushion_x_holdout_side": -1.624,
+   "cushion_x_min_both": -1.624,
+   "cushion_x_avoid_caliber": -1.102,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -52.5169,
+   "holdout_avoid_pp": -38.6275,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br20",
+   "vars": {
+    "breadth": 20
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -1.166,
+   "cushion_x_holdout_side": -2.006,
+   "cushion_x_min_both": -2.006,
+   "cushion_x_avoid_caliber": -1.316,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -66.3116,
+   "holdout_avoid_pp": -46.0984,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br30",
+   "vars": {
+    "breadth": 30
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.437,
+   "cushion_x_holdout_side": -1.13,
+   "cushion_x_min_both": -1.13,
+   "cushion_x_avoid_caliber": -0.728,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -24.9961,
+   "holdout_avoid_pp": -25.5016,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br30",
+   "vars": {
+    "breadth": 30
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.802,
+   "cushion_x_holdout_side": -1.643,
+   "cushion_x_min_both": -1.643,
+   "cushion_x_avoid_caliber": -1.038,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -45.9597,
+   "holdout_avoid_pp": -36.3655,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br40",
+   "vars": {
+    "breadth": 40
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.612,
+   "cushion_x_holdout_side": -1.076,
+   "cushion_x_min_both": -1.076,
+   "cushion_x_avoid_caliber": -0.69,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -34.8869,
+   "holdout_avoid_pp": -24.1716,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br40",
+   "vars": {
+    "breadth": 40
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.241,
+   "cushion_x_holdout_side": -0.91,
+   "cushion_x_min_both": -0.91,
+   "cushion_x_avoid_caliber": -0.54,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -13.9474,
+   "holdout_avoid_pp": -18.9045,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br50",
+   "vars": {
+    "breadth": 50
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.053,
+   "cushion_x_holdout_side": -0.642,
+   "cushion_x_min_both": -0.642,
+   "cushion_x_avoid_caliber": -0.396,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -3.0436,
+   "holdout_avoid_pp": -13.8732,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br50",
+   "vars": {
+    "breadth": 50
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.494,
+   "cushion_x_holdout_side": 1.851,
+   "cushion_x_min_both": 1.494,
+   "cushion_x_avoid_caliber": 0.933,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 89.1876,
+   "holdout_avoid_pp": 32.7051,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br60",
+   "vars": {
+    "breadth": 60
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.723,
+   "cushion_x_holdout_side": 3.278,
+   "cushion_x_min_both": 2.723,
+   "cushion_x_avoid_caliber": 1.618,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 164.2818,
+   "holdout_avoid_pp": 56.7115,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "br60",
+   "vars": {
+    "breadth": 60
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.233,
+   "cushion_x_holdout_side": 1.604,
+   "cushion_x_min_both": 1.604,
+   "cushion_x_avoid_caliber": 0.818,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 197.777,
+   "holdout_avoid_pp": 28.6729,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol30+br20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.135,
+   "cushion_x_holdout_side": 8.473,
+   "cushion_x_min_both": 4.135,
+   "cushion_x_avoid_caliber": 3.389,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 254.1389,
+   "holdout_avoid_pp": 124.1048,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol30+br20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.198,
+   "cushion_x_holdout_side": 8.346,
+   "cushion_x_min_both": 2.198,
+   "cushion_x_avoid_caliber": 1.768,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 132.5703,
+   "holdout_avoid_pp": 119.1801,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol30+br30",
+   "vars": {
+    "vol": 30,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.135,
+   "cushion_x_holdout_side": 8.473,
+   "cushion_x_min_both": 4.135,
+   "cushion_x_avoid_caliber": 3.389,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 254.1389,
+   "holdout_avoid_pp": 124.1048,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol30+br30",
+   "vars": {
+    "vol": 30,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.198,
+   "cushion_x_holdout_side": 8.346,
+   "cushion_x_min_both": 2.198,
+   "cushion_x_avoid_caliber": 1.768,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 132.5703,
+   "holdout_avoid_pp": 119.1801,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol30+br40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.135,
+   "cushion_x_holdout_side": 8.473,
+   "cushion_x_min_both": 4.135,
+   "cushion_x_avoid_caliber": 3.389,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 254.1389,
+   "holdout_avoid_pp": 124.1048,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol30+br40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.198,
+   "cushion_x_holdout_side": 8.346,
+   "cushion_x_min_both": 2.198,
+   "cushion_x_avoid_caliber": 1.768,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 132.5703,
+   "holdout_avoid_pp": 119.1801,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol30+br50",
+   "vars": {
+    "vol": 30,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.135,
+   "cushion_x_holdout_side": 8.473,
+   "cushion_x_min_both": 4.135,
+   "cushion_x_avoid_caliber": 3.389,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 254.1389,
+   "holdout_avoid_pp": 124.1048,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol30+br50",
+   "vars": {
+    "vol": 30,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.198,
+   "cushion_x_holdout_side": 8.346,
+   "cushion_x_min_both": 2.198,
+   "cushion_x_avoid_caliber": 1.768,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 132.5703,
+   "holdout_avoid_pp": 119.1801,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol30+br60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.219,
+   "cushion_x_holdout_side": 8.473,
+   "cushion_x_min_both": 4.219,
+   "cushion_x_avoid_caliber": 3.462,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 259.5653,
+   "holdout_avoid_pp": 124.1078,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol30+br60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.213,
+   "cushion_x_holdout_side": 8.346,
+   "cushion_x_min_both": 3.213,
+   "cushion_x_avoid_caliber": 2.62,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 196.4528,
+   "holdout_avoid_pp": 119.1801,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.607,
+   "cushion_x_holdout_side": 8.545,
+   "cushion_x_min_both": 3.607,
+   "cushion_x_avoid_caliber": 2.937,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 220.2312,
+   "holdout_avoid_pp": 124.9333,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.429,
+   "cushion_x_holdout_side": 8.141,
+   "cushion_x_min_both": 3.429,
+   "cushion_x_avoid_caliber": 2.804,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 210.2401,
+   "holdout_avoid_pp": 116.8431,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br30",
+   "vars": {
+    "vol": 40,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.607,
+   "cushion_x_holdout_side": 8.545,
+   "cushion_x_min_both": 3.607,
+   "cushion_x_avoid_caliber": 2.937,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 220.2312,
+   "holdout_avoid_pp": 124.9333,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br30",
+   "vars": {
+    "vol": 40,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.429,
+   "cushion_x_holdout_side": 8.141,
+   "cushion_x_min_both": 3.429,
+   "cushion_x_avoid_caliber": 2.804,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 210.2401,
+   "holdout_avoid_pp": 116.8431,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.607,
+   "cushion_x_holdout_side": 8.545,
+   "cushion_x_min_both": 3.607,
+   "cushion_x_avoid_caliber": 2.937,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 220.2312,
+   "holdout_avoid_pp": 124.9333,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.429,
+   "cushion_x_holdout_side": 8.141,
+   "cushion_x_min_both": 3.429,
+   "cushion_x_avoid_caliber": 2.804,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 210.2401,
+   "holdout_avoid_pp": 116.8431,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br50",
+   "vars": {
+    "vol": 40,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.607,
+   "cushion_x_holdout_side": 8.545,
+   "cushion_x_min_both": 3.607,
+   "cushion_x_avoid_caliber": 2.937,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 220.2312,
+   "holdout_avoid_pp": 124.9333,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br50",
+   "vars": {
+    "vol": 40,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.746,
+   "cushion_x_holdout_side": 8.143,
+   "cushion_x_min_both": 3.746,
+   "cushion_x_avoid_caliber": 3.076,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 230.632,
+   "holdout_avoid_pp": 116.8588,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.175,
+   "cushion_x_holdout_side": 8.547,
+   "cushion_x_min_both": 4.175,
+   "cushion_x_avoid_caliber": 3.424,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 256.7506,
+   "holdout_avoid_pp": 124.9478,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol40+br60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.809,
+   "cushion_x_holdout_side": 8.235,
+   "cushion_x_min_both": 3.809,
+   "cushion_x_avoid_caliber": 3.129,
+   "avoid_intersection_priority": true,
+   "full_avoid_pp": 234.6485,
+   "holdout_avoid_pp": 117.9178,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol50+br20",
+   "vars": {
+    "vol": 50,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.06,
+   "cushion_x_holdout_side": 3.593,
+   "cushion_x_min_both": 1.06,
+   "cushion_x_avoid_caliber": 0.831,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 62.3334,
+   "holdout_avoid_pp": 61.3744,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br20",
+   "vars": {
+    "vol": 50,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.749,
+   "cushion_x_holdout_side": 2.939,
+   "cushion_x_min_both": 0.749,
+   "cushion_x_avoid_caliber": 0.589,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 44.1961,
+   "holdout_avoid_pp": 49.5849,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br30",
+   "vars": {
+    "vol": 50,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.06,
+   "cushion_x_holdout_side": 3.593,
+   "cushion_x_min_both": 1.06,
+   "cushion_x_avoid_caliber": 0.831,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 62.3334,
+   "holdout_avoid_pp": 61.3744,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br30",
+   "vars": {
+    "vol": 50,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.749,
+   "cushion_x_holdout_side": 2.939,
+   "cushion_x_min_both": 0.749,
+   "cushion_x_avoid_caliber": 0.589,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 44.1961,
+   "holdout_avoid_pp": 49.5849,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br40",
+   "vars": {
+    "vol": 50,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.06,
+   "cushion_x_holdout_side": 3.593,
+   "cushion_x_min_both": 1.06,
+   "cushion_x_avoid_caliber": 0.831,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 62.3334,
+   "holdout_avoid_pp": 61.3744,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br40",
+   "vars": {
+    "vol": 50,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.749,
+   "cushion_x_holdout_side": 2.939,
+   "cushion_x_min_both": 0.749,
+   "cushion_x_avoid_caliber": 0.589,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 44.1961,
+   "holdout_avoid_pp": 49.5849,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br50",
+   "vars": {
+    "vol": 50,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.06,
+   "cushion_x_holdout_side": 3.593,
+   "cushion_x_min_both": 1.06,
+   "cushion_x_avoid_caliber": 0.831,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 62.3334,
+   "holdout_avoid_pp": 61.3744,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br50",
+   "vars": {
+    "vol": 50,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.042,
+   "cushion_x_holdout_side": 3.193,
+   "cushion_x_min_both": 1.042,
+   "cushion_x_avoid_caliber": 0.824,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 61.7664,
+   "holdout_avoid_pp": 53.342,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br60",
+   "vars": {
+    "vol": 50,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.991,
+   "cushion_x_holdout_side": 3.242,
+   "cushion_x_min_both": 1.991,
+   "cushion_x_avoid_caliber": 1.585,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 118.829,
+   "holdout_avoid_pp": 56.1596,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol50+br60",
+   "vars": {
+    "vol": 50,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -1.536,
+   "cushion_x_holdout_side": -1.331,
+   "cushion_x_min_both": -1.536,
+   "cushion_x_avoid_caliber": -1.156,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -86.6864,
+   "holdout_avoid_pp": -28.6114,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br20",
+   "vars": {
+    "vol": 60,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.648,
+   "cushion_x_holdout_side": 2.745,
+   "cushion_x_min_both": 1.648,
+   "cushion_x_avoid_caliber": 1.305,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 97.8843,
+   "holdout_avoid_pp": 48.5736,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br20",
+   "vars": {
+    "vol": 60,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.767,
+   "cushion_x_holdout_side": 2.587,
+   "cushion_x_min_both": 0.767,
+   "cushion_x_avoid_caliber": 0.604,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 45.2683,
+   "holdout_avoid_pp": 44.276,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br30",
+   "vars": {
+    "vol": 60,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.648,
+   "cushion_x_holdout_side": 2.745,
+   "cushion_x_min_both": 1.648,
+   "cushion_x_avoid_caliber": 1.305,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 97.8843,
+   "holdout_avoid_pp": 48.5736,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br30",
+   "vars": {
+    "vol": 60,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.767,
+   "cushion_x_holdout_side": 2.587,
+   "cushion_x_min_both": 0.767,
+   "cushion_x_avoid_caliber": 0.604,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 45.2683,
+   "holdout_avoid_pp": 44.276,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br40",
+   "vars": {
+    "vol": 60,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.648,
+   "cushion_x_holdout_side": 2.745,
+   "cushion_x_min_both": 1.648,
+   "cushion_x_avoid_caliber": 1.305,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 97.8843,
+   "holdout_avoid_pp": 48.5736,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br40",
+   "vars": {
+    "vol": 60,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.767,
+   "cushion_x_holdout_side": 2.587,
+   "cushion_x_min_both": 0.767,
+   "cushion_x_avoid_caliber": 0.604,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 45.2683,
+   "holdout_avoid_pp": 44.276,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br50",
+   "vars": {
+    "vol": 60,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.784,
+   "cushion_x_holdout_side": 3.029,
+   "cushion_x_min_both": 1.784,
+   "cushion_x_avoid_caliber": 1.415,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 106.139,
+   "holdout_avoid_pp": 52.953,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br50",
+   "vars": {
+    "vol": 60,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.103,
+   "cushion_x_holdout_side": 2.88,
+   "cushion_x_min_both": 1.103,
+   "cushion_x_avoid_caliber": 0.873,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 65.4748,
+   "holdout_avoid_pp": 48.7093,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol60+br60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 4.049,
+   "cushion_x_holdout_side": 3.589,
+   "cushion_x_min_both": 3.589,
+   "cushion_x_avoid_caliber": 1.75,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 248.6001,
+   "holdout_avoid_pp": 61.3168,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol60+br60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 0.545,
+   "cushion_x_holdout_side": 0.444,
+   "cushion_x_min_both": 0.444,
+   "cushion_x_avoid_caliber": 0.24,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 32.0412,
+   "holdout_avoid_pp": 8.4261,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br20",
+   "vars": {
+    "vol": 70,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.136,
+   "cushion_x_holdout_side": 3.324,
+   "cushion_x_min_both": 2.136,
+   "cushion_x_avoid_caliber": 1.638,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 127.7948,
+   "holdout_avoid_pp": 57.3937,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br20",
+   "vars": {
+    "vol": 70,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.692,
+   "cushion_x_holdout_side": 2.577,
+   "cushion_x_min_both": 1.692,
+   "cushion_x_avoid_caliber": 1.259,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 101.3243,
+   "holdout_avoid_pp": 44.1257,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br30",
+   "vars": {
+    "vol": 70,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.136,
+   "cushion_x_holdout_side": 3.324,
+   "cushion_x_min_both": 2.136,
+   "cushion_x_avoid_caliber": 1.638,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 127.7948,
+   "holdout_avoid_pp": 57.3937,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br30",
+   "vars": {
+    "vol": 70,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.692,
+   "cushion_x_holdout_side": 2.577,
+   "cushion_x_min_both": 1.692,
+   "cushion_x_avoid_caliber": 1.259,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 101.3243,
+   "holdout_avoid_pp": 44.1257,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br40",
+   "vars": {
+    "vol": 70,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.832,
+   "cushion_x_holdout_side": 3.305,
+   "cushion_x_min_both": 1.832,
+   "cushion_x_avoid_caliber": 1.455,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 109.1176,
+   "holdout_avoid_pp": 57.1039,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br40",
+   "vars": {
+    "vol": 70,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.398,
+   "cushion_x_holdout_side": 2.559,
+   "cushion_x_min_both": 1.398,
+   "cushion_x_avoid_caliber": 1.111,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 83.3109,
+   "holdout_avoid_pp": 43.8448,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br50",
+   "vars": {
+    "vol": 70,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.777,
+   "cushion_x_holdout_side": 3.097,
+   "cushion_x_min_both": 1.777,
+   "cushion_x_avoid_caliber": 1.41,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 105.7515,
+   "holdout_avoid_pp": 53.9721,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br50",
+   "vars": {
+    "vol": 70,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.885,
+   "cushion_x_holdout_side": 2.639,
+   "cushion_x_min_both": 1.885,
+   "cushion_x_avoid_caliber": 1.286,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 113.1799,
+   "holdout_avoid_pp": 45.0699,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.708,
+   "cushion_x_holdout_side": 3.278,
+   "cushion_x_min_both": 2.708,
+   "cushion_x_avoid_caliber": 1.618,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 163.3676,
+   "holdout_avoid_pp": 56.7115,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol70+br60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.233,
+   "cushion_x_holdout_side": 1.604,
+   "cushion_x_min_both": 1.604,
+   "cushion_x_avoid_caliber": 0.818,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 197.777,
+   "holdout_avoid_pp": 28.6729,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  },
+  {
+   "id": "vol80+br20",
+   "vars": {
+    "vol": 80,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.101,
+   "cushion_x_holdout_side": -0.642,
+   "cushion_x_min_both": -0.642,
+   "cushion_x_avoid_caliber": -0.396,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -5.8248,
+   "holdout_avoid_pp": -13.879,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br20",
+   "vars": {
+    "vol": 80,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.469,
+   "cushion_x_holdout_side": 2.193,
+   "cushion_x_min_both": 1.469,
+   "cushion_x_avoid_caliber": 1.089,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 87.6888,
+   "holdout_avoid_pp": 38.1613,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br30",
+   "vars": {
+    "vol": 80,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.097,
+   "cushion_x_holdout_side": -0.65,
+   "cushion_x_min_both": -0.65,
+   "cushion_x_avoid_caliber": -0.401,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -5.5987,
+   "holdout_avoid_pp": -14.0621,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br30",
+   "vars": {
+    "vol": 80,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.415,
+   "cushion_x_holdout_side": 2.057,
+   "cushion_x_min_both": 1.415,
+   "cushion_x_avoid_caliber": 1.028,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 84.3827,
+   "holdout_avoid_pp": 36.0163,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br40",
+   "vars": {
+    "vol": 80,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": -0.29,
+   "cushion_x_holdout_side": -0.588,
+   "cushion_x_min_both": -0.588,
+   "cushion_x_avoid_caliber": -0.361,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": -16.6296,
+   "holdout_avoid_pp": -12.6575,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br40",
+   "vars": {
+    "vol": 80,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.235,
+   "cushion_x_holdout_side": 2.187,
+   "cushion_x_min_both": 1.235,
+   "cushion_x_avoid_caliber": 0.979,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 73.4148,
+   "holdout_avoid_pp": 38.0802,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br50",
+   "vars": {
+    "vol": 80,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.407,
+   "cushion_x_holdout_side": 2.301,
+   "cushion_x_min_both": 1.407,
+   "cushion_x_avoid_caliber": 1.11,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 83.2223,
+   "holdout_avoid_pp": 41.5495,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br50",
+   "vars": {
+    "vol": 80,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 1.494,
+   "cushion_x_holdout_side": 1.851,
+   "cushion_x_min_both": 1.494,
+   "cushion_x_avoid_caliber": 0.933,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 89.1876,
+   "holdout_avoid_pp": 32.7051,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "grade": "冻结挂账",
+   "cushion_x_full_side": 2.723,
+   "cushion_x_holdout_side": 3.278,
+   "cushion_x_min_both": 2.723,
+   "cushion_x_avoid_caliber": 1.618,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 164.2818,
+   "holdout_avoid_pp": 56.7115,
+   "disposition": "维持挂账，等真实费率或影子标定后重算"
+  },
+  {
+   "id": "vol80+br60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "grade": "带资费可跑",
+   "cushion_x_full_side": 3.233,
+   "cushion_x_holdout_side": 1.604,
+   "cushion_x_min_both": 1.604,
+   "cushion_x_avoid_caliber": 0.818,
+   "avoid_intersection_priority": false,
+   "full_avoid_pp": 197.777,
+   "holdout_avoid_pp": 28.6729,
+   "disposition": "带常数资费继续跑；G4 对应子面解锁；部署另走评审"
+  }
+ ]
+}

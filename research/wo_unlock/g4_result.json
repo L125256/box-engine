@@ -1,0 +1,1225 @@
+{
+ "stage": "g4_unlock_subplane",
+ "ts": "2026-10-19 03:19:21",
+ "spec": "USERWORD_VERDICT.md §八（冻结）+ UG-1..UG-6（本文件头注，先冻结后运行）",
+ "d0": {
+  "gate": "D0 解锁面预对拍",
+  "anchors": [
+   {
+    "anchor": "vol30+br60@old131",
+    "maxdiff": 0.0,
+    "pass": true
+   },
+   {
+    "anchor": "vol40@full144",
+    "maxdiff": 0.0,
+    "pass": true
+   }
+  ],
+  "pass": true
+ },
+ "unlock_face": {
+  "rows_total": 82,
+  "thick_3x": 24,
+  "frozen": 58,
+  "avoid_caliber_9": 9,
+  "intersection_9": 9,
+  "replica_note": "24/58 与终裁分级表逐位复现；avoid 口径 9 行复现；严格双窗取小为 21 行（3 行 HOLDOUT 侧垫薄），终裁定版口径=FULL 长窗侧（UG-3 如实登记）"
+ },
+ "criteria": "PB-7/PB-8/PB-9 承继（FDR(BH q=0.10) ∧ 双窗 avoid>0 ∧ 双窗 mdd_red≥10%）",
+ "fee_stress": {
+  "FEE_SIDE": 0.00075,
+  "FUNDING": 0.00045
+ },
+ "fdr_family": {
+  "old131_m": 13,
+  "full144_m": 11,
+  "note": "解锁面家族内按池 BH；非上轮 m=41 全平面（承继判线不重复计费）"
+ },
+ "n_fdr_reject": 16,
+ "n_selected": 7,
+ "selected": [
+  "vol30+br60@full144",
+  "vol40@full144",
+  "vol40+br20@full144",
+  "vol40+br30@full144",
+  "vol40+br40@full144",
+  "vol70+br60@full144",
+  "vol80+br60@full144"
+ ],
+ "rows": [
+  {
+   "id": "br60",
+   "vars": {
+    "breadth": 60
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.233,
+    "x_holdout_side": 1.604,
+    "x_min_both": 1.604,
+    "x_avoid_caliber": 0.818,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 332.4015,
+     "mdd_pct": -20.68,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 197.777,
+    "mdd_red_pct": 39.99
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 57.2843,
+     "mdd_pct": -20.68,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 28.6729,
+    "mdd_red_pct": 39.99
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30",
+   "vars": {
+    "vol": 30
+   },
+   "pname": "old131",
+   "priority": true,
+   "grade": {
+    "x_full_side": 4.135,
+    "x_holdout_side": 8.473,
+    "x_min_both": 4.135,
+    "x_avoid_caliber": 3.389,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 98,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "priority": true,
+   "grade": {
+    "x_full_side": 4.135,
+    "x_holdout_side": 8.473,
+    "x_min_both": 4.135,
+    "x_avoid_caliber": 3.389,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 103,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol30+br30",
+   "vars": {
+    "vol": 30,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "priority": true,
+   "grade": {
+    "x_full_side": 4.135,
+    "x_holdout_side": 8.473,
+    "x_min_both": 4.135,
+    "x_avoid_caliber": 3.389,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 104,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "priority": true,
+   "grade": {
+    "x_full_side": 4.135,
+    "x_holdout_side": 8.473,
+    "x_min_both": 4.135,
+    "x_avoid_caliber": 3.389,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 105,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol30+br50",
+   "vars": {
+    "vol": 30,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "priority": true,
+   "grade": {
+    "x_full_side": 4.135,
+    "x_holdout_side": 8.473,
+    "x_min_both": 4.135,
+    "x_avoid_caliber": 3.389,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 110,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol30+br60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.213,
+    "x_holdout_side": 8.346,
+    "x_min_both": 3.213,
+    "x_avoid_caliber": 2.62,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 123,
+   "FULL": {
+    "gated": {
+     "ret_pp": 331.0773,
+     "mdd_pct": -30.46,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 196.4528,
+    "mdd_red_pct": 11.61
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 147.7915,
+     "mdd_pct": -30.46,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 119.1801,
+    "mdd_red_pct": 11.61
+   },
+   "p_full_avoid_gt0": 0.071,
+   "fdr_reject_full": true,
+   "selected": true
+  },
+  {
+   "id": "vol30+br60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "priority": true,
+   "grade": {
+    "x_full_side": 4.219,
+    "x_holdout_side": 8.473,
+    "x_min_both": 4.219,
+    "x_avoid_caliber": 3.462,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 380.4064,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 259.5653,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.629,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1078,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.03,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40",
+   "vars": {
+    "vol": 40
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.429,
+    "x_holdout_side": 8.141,
+    "x_min_both": 3.429,
+    "x_avoid_caliber": 2.804,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 82,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": true,
+   "selected": true
+  },
+  {
+   "id": "vol40",
+   "vars": {
+    "vol": 40
+   },
+   "pname": "old131",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.607,
+    "x_holdout_side": 8.545,
+    "x_min_both": 3.607,
+    "x_avoid_caliber": 2.937,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 82,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol40+br20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.429,
+    "x_holdout_side": 8.141,
+    "x_min_both": 3.429,
+    "x_avoid_caliber": 2.804,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 89,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": true,
+   "selected": true
+  },
+  {
+   "id": "vol40+br20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.607,
+    "x_holdout_side": 8.545,
+    "x_min_both": 3.607,
+    "x_avoid_caliber": 2.937,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 89,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol40+br30",
+   "vars": {
+    "vol": 40,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.429,
+    "x_holdout_side": 8.141,
+    "x_min_both": 3.429,
+    "x_avoid_caliber": 2.804,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 91,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": true,
+   "selected": true
+  },
+  {
+   "id": "vol40+br30",
+   "vars": {
+    "vol": 40,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.607,
+    "x_holdout_side": 8.545,
+    "x_min_both": 3.607,
+    "x_avoid_caliber": 2.937,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 91,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol40+br40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.429,
+    "x_holdout_side": 8.141,
+    "x_min_both": 3.429,
+    "x_avoid_caliber": 2.804,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 94,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": true,
+   "selected": true
+  },
+  {
+   "id": "vol40+br40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.607,
+    "x_holdout_side": 8.545,
+    "x_min_both": 3.607,
+    "x_avoid_caliber": 2.937,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 92,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol40+br50",
+   "vars": {
+    "vol": 40,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "priority": true,
+   "grade": {
+    "x_full_side": 3.746,
+    "x_holdout_side": 8.143,
+    "x_min_both": 3.746,
+    "x_avoid_caliber": 3.076,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 100,
+   "FULL": {
+    "gated": {
+     "ret_pp": 365.2565,
+     "mdd_pct": -30.31,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 230.632,
+    "mdd_red_pct": 12.04
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4702,
+     "mdd_pct": -30.31,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8588,
+    "mdd_red_pct": 12.04
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br50",
+   "vars": {
+    "vol": 40,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.607,
+    "x_holdout_side": 8.545,
+    "x_min_both": 3.607,
+    "x_avoid_caliber": 2.937,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 98,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol40+br60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "priority": true,
+   "grade": {
+    "x_full_side": 3.809,
+    "x_holdout_side": 8.235,
+    "x_min_both": 3.809,
+    "x_avoid_caliber": 3.129,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 120,
+   "FULL": {
+    "gated": {
+     "ret_pp": 369.273,
+     "mdd_pct": -30.37,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 234.6485,
+    "mdd_red_pct": 11.87
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 146.5292,
+     "mdd_pct": -30.37,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 117.9178,
+    "mdd_red_pct": 11.87
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "priority": true,
+   "grade": {
+    "x_full_side": 4.175,
+    "x_holdout_side": 8.547,
+    "x_min_both": 4.175,
+    "x_avoid_caliber": 3.424,
+    "grade": "带资费可跑",
+    "priority": true
+   },
+   "n_gate_off_weeks_fresh": 106,
+   "FULL": {
+    "gated": {
+     "ret_pp": 377.5917,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 256.7506,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.469,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9478,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.035,
+   "fdr_reject_full": true,
+   "selected": false
+  },
+  {
+   "id": "vol60+br60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "priority": false,
+   "grade": {
+    "x_full_side": 4.049,
+    "x_holdout_side": 3.589,
+    "x_min_both": 3.589,
+    "x_avoid_caliber": 1.75,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 98,
+   "FULL": {
+    "gated": {
+     "ret_pp": 369.4412,
+     "mdd_pct": -27.14,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 248.6001,
+    "mdd_red_pct": 15.53
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.838,
+     "mdd_pct": -27.14,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 61.3168,
+    "mdd_red_pct": 15.53
+   },
+   "p_full_avoid_gt0": 0.012,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.233,
+    "x_holdout_side": 1.604,
+    "x_min_both": 1.604,
+    "x_avoid_caliber": 0.818,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 332.4015,
+     "mdd_pct": -20.68,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 197.777,
+    "mdd_red_pct": 39.99
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 57.2843,
+     "mdd_pct": -20.68,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 28.6729,
+    "mdd_red_pct": 39.99
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": true,
+   "selected": true
+  },
+  {
+   "id": "vol80",
+   "vars": {
+    "vol": 80
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.021,
+    "x_holdout_side": 3.886,
+    "x_min_both": 3.021,
+    "x_avoid_caliber": 1.805,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 23,
+   "FULL": {
+    "gated": {
+     "ret_pp": 318.8913,
+     "mdd_pct": -24.92,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 184.2668,
+    "mdd_red_pct": 27.68
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 91.8723,
+     "mdd_pct": -24.92,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 63.2609,
+    "mdd_red_pct": 27.68
+   },
+   "p_full_avoid_gt0": 0.022,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "priority": false,
+   "grade": {
+    "x_full_side": 3.233,
+    "x_holdout_side": 1.604,
+    "x_min_both": 1.604,
+    "x_avoid_caliber": 0.818,
+    "grade": "带资费可跑",
+    "priority": false
+   },
+   "n_gate_off_weeks_fresh": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 332.4015,
+     "mdd_pct": -20.68,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 197.777,
+    "mdd_red_pct": 39.99
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 57.2843,
+     "mdd_pct": -20.68,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 28.6729,
+    "mdd_red_pct": 39.99
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": true,
+   "selected": true
+  }
+ ],
+ "verdict": "解锁面 24 行按原判据全跑：FDR 幸存 16，入选 7；avoid 口径交集 9 行全部 priority 标注",
+ "wall_secs": 78.0
+}

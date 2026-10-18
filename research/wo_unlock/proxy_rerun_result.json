@@ -1,0 +1,4977 @@
+{
+ "stage": "proxy_rerun",
+ "ts": "2026-10-19 03:21:20",
+ "spec": "USERWORD_VERDICT.md §七/§八（冻结）+ PR-1..PR-6（本文件头注，先冻结后运行）",
+ "conclusion_type": "PROXY / 方向性 / 标定前不触发（三标注全程携带）",
+ "shadow_layer": {
+  "source": "wo_w1/raw/shadow_cme_basis_raw_*.json（已落库影子层）",
+  "series_days": 1,
+  "last_day": "2026-10-19",
+  "last_basis_pct": 0.3721,
+  "calibration_min_days": 20,
+  "calibration_status": "未标定",
+  "light": "未定（仅记录）——无标定基线，禁反推费率数字（W1 终裁①）",
+  "ledger_isolation": "影子层，禁入 funding 账本（FUNDING=0.0003 常数不动）"
+ },
+ "d0_parity": [
+  {
+   "pname": "old131",
+   "sample_config": "fu20",
+   "n_gate_off": 0,
+   "curve_maxdiff": 0.0,
+   "pass": true
+  },
+  {
+   "pname": "full144",
+   "sample_config": "fu60",
+   "n_gate_off": 0,
+   "curve_maxdiff": 0.0,
+   "pass": true
+  }
+ ],
+ "variant_total": 168,
+ "rows_total": 336,
+ "rows_run_live": 4,
+ "rows_registered_by_parity": 332,
+ "trigger_condition": "影子序列≥20 交易日标定 ∧ 同向率≥60%（<60% 自动降级仅记录）",
+ "directional_conclusion": "①168 个信号用途变体已全部装配为基差分位代理门（语义=PB-4 逐字：基差 60 日滚动分位>阈值→OFF，防挤仓方向不变）；②当前影子序列 1/20 交易日，灯位未定、门激活 0 次、无任何变体产生 OFF 判定——方向性读数=中性无信息，不构成放行或判死；③历史回测补史不可行（禁逐 bar 回测输入+序列起点晚于回测窗），fu 配置的前向影子监测随 wo_w1 每日落库自动积累，满 20 交易日自动标定并出首个方向性分位",
+ "rows": [
+  {
+   "id": "fu20",
+   "vars": {
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "fu20",
+   "vars": {
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "fu40",
+   "vars": {
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "fu40",
+   "vars": {
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "fu60",
+   "vars": {
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "fu60",
+   "vars": {
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "fu80",
+   "vars": {
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "fu80",
+   "vars": {
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu20",
+   "vars": {
+    "vol": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu20",
+   "vars": {
+    "vol": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu40",
+   "vars": {
+    "vol": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu40",
+   "vars": {
+    "vol": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu60",
+   "vars": {
+    "vol": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu60",
+   "vars": {
+    "vol": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu80",
+   "vars": {
+    "vol": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+fu80",
+   "vars": {
+    "vol": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu20",
+   "vars": {
+    "vol": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu20",
+   "vars": {
+    "vol": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu40",
+   "vars": {
+    "vol": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu40",
+   "vars": {
+    "vol": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu60",
+   "vars": {
+    "vol": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu60",
+   "vars": {
+    "vol": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu80",
+   "vars": {
+    "vol": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+fu80",
+   "vars": {
+    "vol": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu20",
+   "vars": {
+    "vol": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu20",
+   "vars": {
+    "vol": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu40",
+   "vars": {
+    "vol": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu40",
+   "vars": {
+    "vol": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu60",
+   "vars": {
+    "vol": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu60",
+   "vars": {
+    "vol": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu80",
+   "vars": {
+    "vol": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+fu80",
+   "vars": {
+    "vol": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu20",
+   "vars": {
+    "vol": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu20",
+   "vars": {
+    "vol": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu40",
+   "vars": {
+    "vol": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu40",
+   "vars": {
+    "vol": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu60",
+   "vars": {
+    "vol": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu60",
+   "vars": {
+    "vol": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu80",
+   "vars": {
+    "vol": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+fu80",
+   "vars": {
+    "vol": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu20",
+   "vars": {
+    "vol": 70,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu20",
+   "vars": {
+    "vol": 70,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu40",
+   "vars": {
+    "vol": 70,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu40",
+   "vars": {
+    "vol": 70,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu60",
+   "vars": {
+    "vol": 70,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu60",
+   "vars": {
+    "vol": 70,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu80",
+   "vars": {
+    "vol": 70,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+fu80",
+   "vars": {
+    "vol": 70,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu20",
+   "vars": {
+    "vol": 80,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu20",
+   "vars": {
+    "vol": 80,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu40",
+   "vars": {
+    "vol": 80,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu40",
+   "vars": {
+    "vol": 80,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu60",
+   "vars": {
+    "vol": 80,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu60",
+   "vars": {
+    "vol": 80,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu80",
+   "vars": {
+    "vol": 80,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+fu80",
+   "vars": {
+    "vol": 80,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu20",
+   "vars": {
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu20",
+   "vars": {
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu40",
+   "vars": {
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu40",
+   "vars": {
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu60",
+   "vars": {
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu60",
+   "vars": {
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu80",
+   "vars": {
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br20+fu80",
+   "vars": {
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu20",
+   "vars": {
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu20",
+   "vars": {
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu40",
+   "vars": {
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu40",
+   "vars": {
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu60",
+   "vars": {
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu60",
+   "vars": {
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu80",
+   "vars": {
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br30+fu80",
+   "vars": {
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu20",
+   "vars": {
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu20",
+   "vars": {
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu40",
+   "vars": {
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu40",
+   "vars": {
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu60",
+   "vars": {
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu60",
+   "vars": {
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu80",
+   "vars": {
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br40+fu80",
+   "vars": {
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu20",
+   "vars": {
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu20",
+   "vars": {
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu40",
+   "vars": {
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu40",
+   "vars": {
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu60",
+   "vars": {
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu60",
+   "vars": {
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu80",
+   "vars": {
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br50+fu80",
+   "vars": {
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu20",
+   "vars": {
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu20",
+   "vars": {
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu40",
+   "vars": {
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu40",
+   "vars": {
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu60",
+   "vars": {
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu60",
+   "vars": {
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu80",
+   "vars": {
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "br60+fu80",
+   "vars": {
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br20+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br30+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br40+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br50+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol30+br60+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br20+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br30+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br40+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br50+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol40+br60+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br20+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br30+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br40+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br50+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol50+br60+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br20+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br30+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br40+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br50+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol60+br60+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br20+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br30+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br40+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br50+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol70+br60+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br20+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br30+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br40+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br50+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 20
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 40
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 60
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "old131",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  },
+  {
+   "id": "vol80+br60+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 80
+   },
+   "pname": "full144",
+   "caliber": "PROXY（CME 基差 60 日滚动分位替代费率分位，PR-2）",
+   "status": "PROXY_ARMED_NOT_TRIGGERABLE",
+   "gate_activations": 0,
+   "avoid_pp": 0.0,
+   "evidence": "影子序列 N=1 日（起点 2026-10-19），历史窗分位不可算→ 门全 False；门臂≡base（每池实跑抽检 maxdiff=0）；影子层禁逐 bar 回测输入（W1 终裁④），历史段结构性不可补",
+   "trigger": false
+  }
+ ],
+ "wall_secs": 20.3
+}

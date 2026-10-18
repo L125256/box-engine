@@ -915,6 +915,15 @@ def main():
               f"breaker={bk['light']} action={bk['action']} "
               f"tier={st['tier_idx']} freeze_left={st['freeze_days_left']}"
               + (f"(至{st['freeze_until_date']})" if st['freeze_until_date'] else ''))
+        # WO-UNLOCK 三合一前瞻判读管线（F6 生死 + S3×D1 前瞻复评 + B1 部署评审 并窗）：
+        # 判定轮数据落盘后自动执行；只读+旁路落盘，不改引擎语义（异常不阻断判定轮）。
+        try:
+            import subprocess
+            subprocess.run([sys.executable,
+                            '/workspace/repo_ready/research/wo_unlock/forward_readout.py',
+                            '--auto'], timeout=1800, check=False)
+        except Exception as _fe:  # 挂接旁路：任何异常只登记，不影响 live 输出
+            print(f'forward_readout 挂接异常（不阻断）: {_fe}')
     elif mode == 'snapshot':
         # WO-R13-03 只读盘中快照：--round {20:30|00:30|04:30}
         rnd = sys.argv[sys.argv.index('--round') + 1] if '--round' in sys.argv else '20:30'
