@@ -156,12 +156,14 @@ def step2_engine_scan():
 
 
 def step3_verify_sample(pool, out_runs):
-    """抽 3 只锁定箱体：独立用缓存原始 bars 复核 top/bot（=锁定窗口 max(high)/min(low)）。"""
+    """抽样核对（自足性 WO 修订）：不再硬编码票名（会随日期漂移导致全新机器断言失败），
+    改为从当前「箱体锁定」卡中按 tkr 字典序确定性抽最多 3 只，独立用缓存原始 bars
+    复核 top/bot（=锁定窗口 max(high)/min(low)）。"""
+    locked = sorted([c for c in out_runs['baseline']['cards'] if c['mode'] == '箱体锁定'],
+                    key=lambda c: c['tkr'])
     checks = []
-    for t in ('AAPLUSDT', 'AVGOUSDT', 'BTCUSDT'):
-        c = next((c for c in out_runs['baseline']['cards'] if c['tkr'] == t and c['mode'] == '箱体锁定'), None)
-        if not c:
-            continue
+    for c in locked[:3]:
+        t = c['tkr']
         bars = pool[t]
         N = RUNS['baseline']['params']['N']
         w = bars[c['li'] - N + 1:c['li'] + 1]
@@ -169,7 +171,9 @@ def step3_verify_sample(pool, out_runs):
         bot_chk = round(min(x['low'] for x in w), 4)
         checks.append(dict(tkr=t, card_top=c['top'], raw_top=top_chk, card_bot=c['bot'], raw_bot=bot_chk,
                            ok=(abs(top_chk - c['top']) < 1e-6 and abs(bot_chk - c['bot']) < 1e-6)))
-    assert all(c['ok'] for c in checks) and checks, "抽样核对失败"
+    assert all(c['ok'] for c in checks), "抽样核对失败"
+    if not checks:
+        print('[warn] 当日无箱体锁定卡，抽样核对空转（页面仍渲染）', flush=True)
     return checks
 
 

@@ -11,19 +11,40 @@
 | `generate_page.py` | 一键生成器：32线程刷缓存 → 跑引擎（冻结基线 N20/k6.0/m2/e0.2 + Top1 N15/k7.5/m2/e0.3 两组）→ 渲染 HTML+JSON，幂等 |
 | `README.md` | 本说明 |
 
-## 每日自动刷新（本机）
+## 自动化架构（GitHub Actions 四轮接管，2026-10-18 起）
+
+每日刷新由 `.github/workflows/daily_refresh.yml` 承接（本机 cron 已退役）。四轮时间表：
+
+| 北京时间 | UTC cron | 轮次 | 动作 |
+|---|---|---|---|
+| 20:30 | `30 12 * * *` | 快照轮 | `f1_signal.py snapshot`：只读盘中快照（禁写状态、禁出 top5），更新 `f1/f1_live_intraday.json` |
+| 00:30 | `30 16 * * *` | 快照轮 | 同上（round 00:30） |
+| 04:30 | `30 20 * * *` | 快照轮 | 同上（round 04:30） |
+| 08:30 | `30 0 * * *` | 判定轮 | `f1_signal.py live`：完整日K、写 `f1_state.json`、出 top5、熔断判定 + `generate_page.py` 箱体页 |
+
+- 北京 = UTC+8，无夏令时（DST），偏移全年恒定。
+- 快照轮只读：不写 `f1_state.json`、不覆盖 `f1_live.json` 判定字段、不做调仓决策。
+- 美股休市日（周末/假日）快照轮拉不到新盘中数据属**正常**，生成器退回最近落定 K 并标注 `intraday=False`。
+- 手动触发：Actions → Run workflow，`mode` ∈ {snapshot, decision, auto}（auto=按当前 UTC 就近判定）。
+- `f1_state.json` / `f1_source_state.json` 随 git 提交：状态机跨轮续命（CI 每轮取上一轮状态）。
+- 数据源容灾状态机（f1_datasource.py 主备源 + 降级冻结）在判定轮内自动运行，事件见 `f1_source_events.log`（不入库）。
+- 详细设计与演进记录见晨报 id 12762479。
+
+### 失败报警（三层）
+
+1. **job 失败邮件**：任何步骤失败 → GitHub 默认向仓库 watcher/作者发失败通知邮件；
+2. **push 重试后显式失败**：push 失败重试 3 次（间隔 60s），三连败步骤显式 `exit 1` 触发第 1 层；
+3. **金丝雀验证**：手动触发时 `fail_test=true`，最后一步故意 `exit 1` —— 一次性验证失败邮件能真发出（平时恒跳过）。
+
+### 手动复现（调试用）
 
 ```bash
-PYTHONHASHSEED=42 python3 generate_page.py
+PYTHONHASHSEED=42 BOX_CACHE_DIR=/tmp/box_cache python3 research/wtc/refresh_cache.py   # 拉行情
+PYTHONHASHSEED=42 F1_CACHE=/tmp/box_cache python3 f1/f1_signal.py live --out f1/f1_live.json
+PYTHONHASHSEED=42 BOX_CACHE_DIR=/tmp/box_cache python3 generate_page.py                # 箱体页
 ```
 
-流程：复用 `/tmp/wtc/refresh_cache.py` 逻辑 32 线程拉最新日线（失败保留旧缓存）→ import 本机权威引擎 `/tmp/eng_wt_rc/eng_final.py`（只复用不修改）→ 影子状态机输出当前箱体卡片（与引擎交易键集合全量断言一致）→ 抽样独立复核 top/bot → 渲染并覆盖本目录 `index.html` / `box_live.json`。
-
-配合 cron 每日收盘后运行（示例）：
-
-```cron
-30 21 * * 1-5  cd /workspace/box_web && PYTHONHASHSEED=42 python3 generate_page.py >> /tmp/box_web_cron.log 2>&1
-```
+路径均可用环境变量覆盖（`F1_CACHE`/`F1_POOL`/`F1_OUT_JSON`/`BOX_CACHE_DIR`/`BOX_POOL`/`BOX_ENG_DIR` 等），缺省值即仓库内基线（`engine_snapshot/`），全新机器 clone + `pip install -r requirements.txt` 即可跑通。
 
 ## GitHub Pages 部署步骤
 
@@ -47,7 +68,7 @@ PYTHONHASHSEED=42 python3 generate_page.py
 
 ## 更新线上数据
 
-本机每日跑完 `generate_page.py` 后 `git commit + push` 即可，页面 fetch `box_live.json?ts=时间戳` 不缓存，刷新即最新。
+由 GitHub Actions 四轮自动 `commit + push`（见「自动化架构」）；本机人工调试跑完后同样 `git commit + push` 即可，页面 fetch `box_live.json?ts=时间戳` 不缓存，刷新即最新。
 
 ## 口径与诚实声明
 

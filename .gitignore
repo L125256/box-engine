@@ -12,9 +12,12 @@ f1_web/f1_live.json
 f1_web/f1_state.json
 
 # 数据源容灾状态机运行产物
+# （f1/f1_source_state.json 例外：CI 四轮接管后为跨轮续命载体，随 git 持久化）
 engine_f1/f1_source_state.json
 engine_f1/f1_source_events.log
 engine_f1/f1_guard.log
+f1/f1_source_events.log
+f1/f1_guard.log
 
 # 检测/演练重跑产物（取证值随每次运行变化，最新一次见本地或 CI 日志）
 engine_f1/checks_result.json
