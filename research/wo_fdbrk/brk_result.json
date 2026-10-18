@@ -1,0 +1,1332 @@
+{
+ "workorder": "brk-cond（规格二：放量突破信号条件化）",
+ "spec": "TRADE9-SPEC-FDBRK-v1.0 §2",
+ "generated": "2026-10-18 23:37 UTC",
+ "d0": {
+  "snapshot_ver": "snapshot_20261019",
+  "snapshot_md5": "33c8b9ec54d17537c3b7f1f6d8d47463",
+  "md5_ok": true,
+  "pool_n": 144,
+  "fd_anchor": {
+   "n": 673,
+   "sum_r": 723.64,
+   "thick_n": 118,
+   "thick_sum": 2019.76
+  },
+  "anchor_ok": true,
+  "scan_ref_maxdiff": 0.0,
+  "reused": [
+   "load_pool",
+   "build_idx_bull",
+   "scan",
+   "collect",
+   "atrs"
+  ]
+ },
+ "xval_volratio": {
+  "sample": [
+   "AAOIUSDT",
+   "AAPLUSDT",
+   "ADBEUSDT"
+  ],
+  "n_dates": 3,
+  "maxdiff": 0.0,
+  "ok": true,
+  "caliber": "brk=C>=H.rolling(20).max().shift(1); vr=V/V.rolling(20).mean()（R3 run_screen.py 逐字）"
+ },
+ "fee_gate": {
+  "proxies": {
+   "vol20": {
+    "mean_ic": 0.0069,
+    "n_days": 460,
+    "pass_": false
+   },
+   "energy": {
+    "mean_ic": -0.0082,
+    "n_days": 461,
+    "pass_": false
+   }
+  },
+  "chosen": null,
+  "survive": false,
+  "direction": null,
+  "note": "box_cache 无逐日资金费（C10 先例可得性检查）；PROXY IC 前段不达 0.02 即剔除禁换源"
+ },
+ "gates": {
+  "surviving": [
+   "idx",
+   "breadth",
+   "f6"
+  ],
+  "breadth_rule": "breadth_above_ma50>=0.40（HA_SPEC C9 移交）",
+  "f6_rule": "池内 20 日滚动平均两两相关 <= realA p50(0.1864) 低相关态放行；窗前态未定义不放行；衰减态只记录不放行"
+ },
+ "base_grid": [
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "R2",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 246,
+    "median": 3.9614,
+    "win_pct": 52.44,
+    "mean": 4.1484,
+    "pf": 2.3031,
+    "sum_r": 1020.52,
+    "thick": {
+     "r_ge": 6,
+     "n": 112,
+     "sum_r": 1731.13
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "R2",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 263,
+    "median": 1.9922,
+    "win_pct": 53.61,
+    "mean": 3.2352,
+    "pf": 2.2646,
+    "sum_r": 850.86,
+    "thick": {
+     "r_ge": 6,
+     "n": 91,
+     "sum_r": 1351.76
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "R3",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 232,
+    "median": -2.3507,
+    "win_pct": 47.41,
+    "mean": 5.0054,
+    "pf": 2.3889,
+    "sum_r": 1161.25,
+    "thick": {
+     "r_ge": 6,
+     "n": 103,
+     "sum_r": 1972.13
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "R3",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 250,
+    "median": -0.0624,
+    "win_pct": 50.0,
+    "mean": 4.3833,
+    "pf": 2.6137,
+    "sum_r": 1095.83,
+    "thick": {
+     "r_ge": 6,
+     "n": 92,
+     "sum_r": 1656.2
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "A2",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 263,
+    "median": 4.4231,
+    "win_pct": 59.32,
+    "mean": 2.8197,
+    "pf": 2.0306,
+    "sum_r": 741.58,
+    "thick": {
+     "r_ge": 6,
+     "n": 102,
+     "sum_r": 1215.76
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "A2",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 266,
+    "median": 3.8958,
+    "win_pct": 54.14,
+    "mean": 2.8338,
+    "pf": 2.2478,
+    "sum_r": 753.78,
+    "thick": {
+     "r_ge": 6,
+     "n": 95,
+     "sum_r": 1130.47
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "A3",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 246,
+    "median": 3.9614,
+    "win_pct": 52.44,
+    "mean": 4.1484,
+    "pf": 2.3031,
+    "sum_r": 1020.52,
+    "thick": {
+     "r_ge": 6,
+     "n": 112,
+     "sum_r": 1731.13
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "close",
+    "tp_mode": "A3",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 249,
+    "median": -0.3319,
+    "win_pct": 49.8,
+    "mean": 4.253,
+    "pf": 2.6279,
+    "sum_r": 1059.0,
+    "thick": {
+     "r_ge": 6,
+     "n": 109,
+     "sum_r": 1641.26
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "R2",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 241,
+    "median": 5.3795,
+    "win_pct": 55.19,
+    "mean": 5.2561,
+    "pf": 2.7857,
+    "sum_r": 1266.73,
+    "thick": {
+     "r_ge": 6,
+     "n": 115,
+     "sum_r": 1892.85
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "R2",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 236,
+    "median": 1.8506,
+    "win_pct": 52.12,
+    "mean": 4.4715,
+    "pf": 2.5688,
+    "sum_r": 1055.26,
+    "thick": {
+     "r_ge": 6,
+     "n": 93,
+     "sum_r": 1623.37
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "R3",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 227,
+    "median": -0.3767,
+    "win_pct": 49.78,
+    "mean": 6.1483,
+    "pf": 2.8934,
+    "sum_r": 1395.67,
+    "thick": {
+     "r_ge": 6,
+     "n": 104,
+     "sum_r": 2106.2
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "R3",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 224,
+    "median": -0.5432,
+    "win_pct": 49.11,
+    "mean": 5.5159,
+    "pf": 2.7487,
+    "sum_r": 1235.57,
+    "thick": {
+     "r_ge": 6,
+     "n": 86,
+     "sum_r": 1852.82
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "A2",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 257,
+    "median": 4.6875,
+    "win_pct": 59.92,
+    "mean": 3.6066,
+    "pf": 2.3837,
+    "sum_r": 926.91,
+    "thick": {
+     "r_ge": 6,
+     "n": 103,
+     "sum_r": 1366.58
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "A2",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 248,
+    "median": 3.8498,
+    "win_pct": 56.05,
+    "mean": 3.3178,
+    "pf": 2.311,
+    "sum_r": 822.81,
+    "thick": {
+     "r_ge": 6,
+     "n": 93,
+     "sum_r": 1245.59
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "A3",
+    "stop_mode": "atr",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 241,
+    "median": 5.3795,
+    "win_pct": 55.19,
+    "mean": 5.2561,
+    "pf": 2.7857,
+    "sum_r": 1266.73,
+    "thick": {
+     "r_ge": 6,
+     "n": 115,
+     "sum_r": 1892.85
+    }
+   }
+  },
+  {
+   "cfg": {
+    "entry": "next_open",
+    "tp_mode": "A3",
+    "stop_mode": "low",
+    "hardcap": 30
+   },
+   "sel": {
+    "n": 231,
+    "median": 4.5469,
+    "win_pct": 51.52,
+    "mean": 4.8555,
+    "pf": 2.6871,
+    "sum_r": 1121.63,
+    "thick": {
+     "r_ge": 6,
+     "n": 105,
+     "sum_r": 1718.71
+    }
+   }
+  }
+ ],
+ "frozen_base": {
+  "cfg": {
+   "entry": "next_open",
+   "tp_mode": "R3",
+   "stop_mode": "atr",
+   "hardcap": 30
+  },
+  "sel": {
+   "n": 227,
+   "median": -0.3767,
+   "win_pct": 49.78,
+   "mean": 6.1483,
+   "pf": 2.8934,
+   "sum_r": 1395.67,
+   "thick": {
+    "r_ge": 6,
+    "n": 104,
+    "sum_r": 2106.2
+   }
+  }
+ },
+ "gate_event_study_sel": {
+  "idx": {
+   "fwd5": {
+    "n": 910,
+    "mean": 0.020575,
+    "ci": [
+     -0.019746,
+     0.036708
+    ],
+    "p": 0.047,
+    "pass_": false
+   },
+   "fwd20": {
+    "n": 878,
+    "mean": 0.074518,
+    "ci": [
+     0.047873,
+     0.109204
+    ],
+    "p": 0.002,
+    "pass_": true
+   }
+  },
+  "breadth": {
+   "fwd5": {
+    "n": 1331,
+    "mean": 0.019001,
+    "ci": [
+     0.014742,
+     0.035728
+    ],
+    "p": 0.004,
+    "pass_": true
+   },
+   "fwd20": {
+    "n": 1299,
+    "mean": 0.080898,
+    "ci": [
+     0.052056,
+     0.116843
+    ],
+    "p": 0.001,
+    "pass_": true
+   }
+  },
+  "f6": {
+   "fwd5": {
+    "n": 376,
+    "mean": 0.039815,
+    "ci": [
+     0.000879,
+     0.053353
+    ],
+    "p": 0.023,
+    "pass_": false
+   },
+   "fwd20": {
+    "n": 359,
+    "mean": 0.111803,
+    "ci": [
+     0.024838,
+     0.127809
+    ],
+    "p": 0.0,
+    "pass_": false
+   }
+  },
+  "idx+breadth": {
+   "fwd5": {
+    "n": 823,
+    "mean": 0.022171,
+    "ci": [
+     0.01453,
+     0.041018
+    ],
+    "p": 0.006,
+    "pass_": true
+   },
+   "fwd20": {
+    "n": 791,
+    "mean": 0.077289,
+    "ci": [
+     0.028137,
+     0.110688
+    ],
+    "p": 0.0,
+    "pass_": true
+   }
+  },
+  "idx+f6": {
+   "fwd5": {
+    "n": 367,
+    "mean": 0.041755,
+    "ci": [
+     0.00989,
+     0.055511
+    ],
+    "p": 0.01,
+    "pass_": false
+   },
+   "fwd20": {
+    "n": 350,
+    "mean": 0.112249,
+    "ci": [
+     0.024014,
+     0.127332
+    ],
+    "p": 0.0,
+    "pass_": false
+   }
+  },
+  "breadth+f6": {
+   "fwd5": {
+    "n": 376,
+    "mean": 0.039815,
+    "ci": [
+     0.000879,
+     0.053353
+    ],
+    "p": 0.023,
+    "pass_": false
+   },
+   "fwd20": {
+    "n": 359,
+    "mean": 0.111803,
+    "ci": [
+     0.024838,
+     0.127809
+    ],
+    "p": 0.0,
+    "pass_": false
+   }
+  },
+  "idx+breadth+f6": {
+   "fwd5": {
+    "n": 367,
+    "mean": 0.041755,
+    "ci": [
+     0.00989,
+     0.055511
+    ],
+    "p": 0.01,
+    "pass_": false
+   },
+   "fwd20": {
+    "n": 350,
+    "mean": 0.112249,
+    "ci": [
+     0.024014,
+     0.127332
+    ],
+    "p": 0.0,
+    "pass_": false
+   }
+  }
+ },
+ "fdr": {
+  "q": 0.1,
+  "fwd5": {
+   "idx": true,
+   "breadth": true,
+   "f6": true,
+   "idx+breadth": true,
+   "idx+f6": true,
+   "breadth+f6": true,
+   "idx+breadth+f6": true
+  },
+  "fwd20": {
+   "idx": true,
+   "breadth": true,
+   "f6": true,
+   "idx+breadth": true,
+   "idx+f6": true,
+   "breadth+f6": true,
+   "idx+breadth+f6": true
+  }
+ },
+ "gate_backtest_sel": {
+  "idx": {
+   "n": 428,
+   "median": 0.2587,
+   "win_pct": 50.0,
+   "mean": 6.5543,
+   "pf": 2.8918,
+   "sum_r": 2805.24,
+   "thick": {
+    "r_ge": 6,
+    "n": 199,
+    "sum_r": 4240.29
+   }
+  },
+  "breadth": {
+   "n": 337,
+   "median": -0.3767,
+   "win_pct": 49.85,
+   "mean": 6.1729,
+   "pf": 2.8291,
+   "sum_r": 2080.27,
+   "thick": {
+    "r_ge": 6,
+    "n": 156,
+    "sum_r": 3177.95
+   }
+  },
+  "f6": {
+   "n": 231,
+   "median": 0.7708,
+   "win_pct": 50.22,
+   "mean": 6.1188,
+   "pf": 2.8592,
+   "sum_r": 1413.43,
+   "thick": {
+    "r_ge": 6,
+    "n": 107,
+    "sum_r": 2147.07
+   }
+  },
+  "idx+breadth": {
+   "n": 327,
+   "median": -2.1355,
+   "win_pct": 48.32,
+   "mean": 5.5969,
+   "pf": 2.5793,
+   "sum_r": 1830.2,
+   "thick": {
+    "r_ge": 6,
+    "n": 147,
+    "sum_r": 2954.09
+   }
+  },
+  "idx+f6": {
+   "n": 227,
+   "median": -0.3767,
+   "win_pct": 49.78,
+   "mean": 6.1483,
+   "pf": 2.8934,
+   "sum_r": 1395.67,
+   "thick": {
+    "r_ge": 6,
+    "n": 104,
+    "sum_r": 2106.2
+   }
+  },
+  "breadth+f6": {
+   "n": 231,
+   "median": 0.7708,
+   "win_pct": 50.22,
+   "mean": 6.1188,
+   "pf": 2.8592,
+   "sum_r": 1413.43,
+   "thick": {
+    "r_ge": 6,
+    "n": 107,
+    "sum_r": 2147.07
+   }
+  },
+  "idx+breadth+f6": {
+   "n": 227,
+   "median": -0.3767,
+   "win_pct": 49.78,
+   "mean": 6.1483,
+   "pf": 2.8934,
+   "sum_r": 1395.67,
+   "thick": {
+    "r_ge": 6,
+    "n": 104,
+    "sum_r": 2106.2
+   }
+  }
+ },
+ "gate_pick": "breadth",
+ "final": {
+  "cfg": {
+   "entry": "next_open",
+   "tp_mode": "R3",
+   "stop_mode": "atr",
+   "hardcap": 30
+  },
+  "gates": "breadth",
+  "main": {
+   "n": 449,
+   "median": -3.0382,
+   "win_pct": 43.65,
+   "mean": 4.0307,
+   "pf": 2.0663,
+   "sum_r": 1809.77,
+   "thick": {
+    "r_ge": 6,
+    "n": 174,
+    "sum_r": 3435.5
+   }
+  },
+  "yearly": {
+   "2024": {
+    "n": 279,
+    "mean": 2.4531,
+    "sum_r": 684.42
+   },
+   "2025": {
+    "n": 405,
+    "mean": 5.4936,
+    "sum_r": 2224.91
+   },
+   "2026": {
+    "n": 176,
+    "mean": -0.2684,
+    "sum_r": -47.25
+   }
+  },
+  "flip": true,
+  "segments": {
+   "realA": {
+    "n": 337,
+    "sum_r": 2080.27
+   },
+   "realB": {
+    "n": 411,
+    "sum_r": 1052.31
+   },
+   "realC": {
+    "n": 112,
+    "sum_r": -270.5
+   }
+  },
+  "event_study": {
+   "fwd5": {
+    "n": 1511,
+    "mean": 0.016642,
+    "ci": [
+     0.000979,
+     0.027598
+    ],
+    "p": 0.014,
+    "pass_": true
+   },
+   "fwd20": {
+    "n": 1424,
+    "mean": 0.071872,
+    "ci": [
+     -0.000725,
+     0.094894
+    ],
+    "p": 0.026,
+    "pass_": false
+   }
+  }
+ },
+ "loto": {
+  "fails": [],
+  "n_tasks": 144
+ },
+ "bootstrap": {
+  "reps": 1000,
+  "mean_block": 10,
+  "seed": 42,
+  "q05_sum_r": -158.98,
+  "p_le0": 0.166,
+  "pass_": false
+ },
+ "overlap_with_fd": {
+  "brk_events": 449,
+  "fd_events": 673,
+  "overlap_events": 6,
+  "overlap_ratio": 0.0134,
+  "fd_side": 6,
+  "rho_weekly_fwd5": 0.1263,
+  "n_weeks": 41,
+  "verdict": "独立票",
+  "rule": "≥30% 或 ρ≥0.6 同质合并；15–30% 部分同质 0.5 折扣；<15% 独立票"
+ },
+ "r9": {
+  "1_窗20": {
+   "n": 337,
+   "median": -0.3767,
+   "win_pct": 49.85,
+   "mean": 6.1729,
+   "pf": 2.8291,
+   "sum_r": 2080.27,
+   "thick": {
+    "r_ge": 6,
+    "n": 156,
+    "sum_r": 3177.95
+   }
+  },
+  "1_窗55": {
+   "n": 278,
+   "median": 1.6571,
+   "win_pct": 51.8,
+   "mean": 6.1652,
+   "pf": 2.8153,
+   "sum_r": 1713.92,
+   "thick": {
+    "r_ge": 6,
+    "n": 130,
+    "sum_r": 2622.2
+   }
+  },
+  "2_量比1.2": {
+   "n": 467,
+   "median": -2.591,
+   "win_pct": 46.9,
+   "mean": 4.9821,
+   "pf": 2.411,
+   "sum_r": 2326.65,
+   "thick": {
+    "r_ge": 6,
+    "n": 194,
+    "sum_r": 3895.57
+   }
+  },
+  "2_量比1.5": {
+   "n": 337,
+   "median": -0.3767,
+   "win_pct": 49.85,
+   "mean": 6.1729,
+   "pf": 2.8291,
+   "sum_r": 2080.27,
+   "thick": {
+    "r_ge": 6,
+    "n": 156,
+    "sum_r": 3177.95
+   }
+  },
+  "2_量比2.0": {
+   "n": 202,
+   "median": -0.498,
+   "win_pct": 49.5,
+   "mean": 5.7683,
+   "pf": 2.598,
+   "sum_r": 1165.2,
+   "thick": {
+    "r_ge": 6,
+    "n": 91,
+    "sum_r": 1869.31
+   }
+  },
+  "3_入场时点": {
+   "close": {
+    "n": 232,
+    "median": -2.3507,
+    "win_pct": 47.41,
+    "mean": 5.0054,
+    "pf": 2.3889,
+    "sum_r": 1161.25,
+    "thick": {
+     "r_ge": 6,
+     "n": 103,
+     "sum_r": 1972.13
+    }
+   },
+   "next_open": {
+    "n": 227,
+    "median": -0.3767,
+    "win_pct": 49.78,
+    "mean": 6.1483,
+    "pf": 2.8934,
+    "sum_r": 1395.67,
+    "thick": {
+     "r_ge": 6,
+     "n": 104,
+     "sum_r": 2106.2
+    }
+   }
+  },
+  "4_门组合15": {
+   "idx": {
+    "fwd5": {
+     "n": 910,
+     "mean": 0.020575,
+     "ci": [
+      -0.019746,
+      0.036708
+     ],
+     "p": 0.047,
+     "pass_": false
+    },
+    "fwd20": {
+     "n": 878,
+     "mean": 0.074518,
+     "ci": [
+      0.047873,
+      0.109204
+     ],
+     "p": 0.002,
+     "pass_": true
+    },
+    "fdr5": true,
+    "fdr20": true,
+    "bt": {
+     "n": 428,
+     "mean": 6.5543,
+     "pf": 2.8918,
+     "win_pct": 50.0,
+     "sum_r": 2805.24
+    }
+   },
+   "breadth": {
+    "fwd5": {
+     "n": 1331,
+     "mean": 0.019001,
+     "ci": [
+      0.014742,
+      0.035728
+     ],
+     "p": 0.004,
+     "pass_": true
+    },
+    "fwd20": {
+     "n": 1299,
+     "mean": 0.080898,
+     "ci": [
+      0.052056,
+      0.116843
+     ],
+     "p": 0.001,
+     "pass_": true
+    },
+    "fdr5": true,
+    "fdr20": true,
+    "bt": {
+     "n": 337,
+     "mean": 6.1729,
+     "pf": 2.8291,
+     "win_pct": 49.85,
+     "sum_r": 2080.27
+    }
+   },
+   "f6": {
+    "fwd5": {
+     "n": 376,
+     "mean": 0.039815,
+     "ci": [
+      0.000879,
+      0.053353
+     ],
+     "p": 0.023,
+     "pass_": false
+    },
+    "fwd20": {
+     "n": 359,
+     "mean": 0.111803,
+     "ci": [
+      0.024838,
+      0.127809
+     ],
+     "p": 0.0,
+     "pass_": false
+    },
+    "fdr5": true,
+    "fdr20": true,
+    "bt": {
+     "n": 231,
+     "mean": 6.1188,
+     "pf": 2.8592,
+     "win_pct": 50.22,
+     "sum_r": 1413.43
+    }
+   },
+   "idx+breadth": {
+    "fwd5": {
+     "n": 823,
+     "mean": 0.022171,
+     "ci": [
+      0.01453,
+      0.041018
+     ],
+     "p": 0.006,
+     "pass_": true
+    },
+    "fwd20": {
+     "n": 791,
+     "mean": 0.077289,
+     "ci": [
+      0.028137,
+      0.110688
+     ],
+     "p": 0.0,
+     "pass_": true
+    },
+    "fdr5": true,
+    "fdr20": true,
+    "bt": {
+     "n": 327,
+     "mean": 5.5969,
+     "pf": 2.5793,
+     "win_pct": 48.32,
+     "sum_r": 1830.2
+    }
+   },
+   "idx+f6": {
+    "fwd5": {
+     "n": 367,
+     "mean": 0.041755,
+     "ci": [
+      0.00989,
+      0.055511
+     ],
+     "p": 0.01,
+     "pass_": false
+    },
+    "fwd20": {
+     "n": 350,
+     "mean": 0.112249,
+     "ci": [
+      0.024014,
+      0.127332
+     ],
+     "p": 0.0,
+     "pass_": false
+    },
+    "fdr5": true,
+    "fdr20": true,
+    "bt": {
+     "n": 227,
+     "mean": 6.1483,
+     "pf": 2.8934,
+     "win_pct": 49.78,
+     "sum_r": 1395.67
+    }
+   },
+   "breadth+f6": {
+    "fwd5": {
+     "n": 376,
+     "mean": 0.039815,
+     "ci": [
+      0.000879,
+      0.053353
+     ],
+     "p": 0.023,
+     "pass_": false
+    },
+    "fwd20": {
+     "n": 359,
+     "mean": 0.111803,
+     "ci": [
+      0.024838,
+      0.127809
+     ],
+     "p": 0.0,
+     "pass_": false
+    },
+    "fdr5": true,
+    "fdr20": true,
+    "bt": {
+     "n": 231,
+     "mean": 6.1188,
+     "pf": 2.8592,
+     "win_pct": 50.22,
+     "sum_r": 1413.43
+    }
+   },
+   "idx+breadth+f6": {
+    "fwd5": {
+     "n": 367,
+     "mean": 0.041755,
+     "ci": [
+      0.00989,
+      0.055511
+     ],
+     "p": 0.01,
+     "pass_": false
+    },
+    "fwd20": {
+     "n": 350,
+     "mean": 0.112249,
+     "ci": [
+      0.024014,
+      0.127332
+     ],
+     "p": 0.0,
+     "pass_": false
+    },
+    "fdr5": true,
+    "fdr20": true,
+    "bt": {
+     "n": 227,
+     "mean": 6.1483,
+     "pf": 2.8934,
+     "win_pct": 49.78,
+     "sum_r": 1395.67
+    }
+   }
+  },
+  "5_TP网格": {
+   "R2": {
+    "n": 241,
+    "median": 5.3795,
+    "win_pct": 55.19,
+    "mean": 5.2561,
+    "pf": 2.7857,
+    "sum_r": 1266.73,
+    "thick": {
+     "r_ge": 6,
+     "n": 115,
+     "sum_r": 1892.85
+    }
+   },
+   "R3": {
+    "n": 227,
+    "median": -0.3767,
+    "win_pct": 49.78,
+    "mean": 6.1483,
+    "pf": 2.8934,
+    "sum_r": 1395.67,
+    "thick": {
+     "r_ge": 6,
+     "n": 104,
+     "sum_r": 2106.2
+    }
+   },
+   "A2": {
+    "n": 257,
+    "median": 4.6875,
+    "win_pct": 59.92,
+    "mean": 3.6066,
+    "pf": 2.3837,
+    "sum_r": 926.91,
+    "thick": {
+     "r_ge": 6,
+     "n": 103,
+     "sum_r": 1366.58
+    }
+   },
+   "A3": {
+    "n": 241,
+    "median": 5.3795,
+    "win_pct": 55.19,
+    "mean": 5.2561,
+    "pf": 2.7857,
+    "sum_r": 1266.73,
+    "thick": {
+     "r_ge": 6,
+     "n": 115,
+     "sum_r": 1892.85
+    }
+   }
+  },
+  "6_止损双臂": {
+   "atr": {
+    "n": 227,
+    "median": -0.3767,
+    "win_pct": 49.78,
+    "mean": 6.1483,
+    "pf": 2.8934,
+    "sum_r": 1395.67,
+    "thick": {
+     "r_ge": 6,
+     "n": 104,
+     "sum_r": 2106.2
+    }
+   },
+   "low": {
+    "n": 224,
+    "median": -0.5432,
+    "win_pct": 49.11,
+    "mean": 5.5159,
+    "pf": 2.7487,
+    "sum_r": 1235.57,
+    "thick": {
+     "r_ge": 6,
+     "n": 86,
+     "sum_r": 1852.82
+    }
+   }
+  },
+  "7_空头镜像": {
+   "n": 2534,
+   "archive": "n>=300 需另评"
+  },
+  "8_回踩确认": {
+   "n": 212,
+   "median": -2.3882,
+   "win_pct": 47.17,
+   "mean": 4.7997,
+   "pf": 2.1594,
+   "sum_r": 1017.55,
+   "thick": {
+    "r_ge": 6,
+    "n": 92,
+    "sum_r": 1869.79
+   }
+  },
+  "9_硬顶移除": {
+   "n": 331,
+   "median": -2.6717,
+   "win_pct": 46.83,
+   "mean": 5.9199,
+   "pf": 2.5707,
+   "sum_r": 1959.47,
+   "thick": {
+    "r_ge": 6,
+    "n": 152,
+    "sum_r": 3191.84
+   }
+  },
+  "10_冲突规则": {
+   "ignore": {
+    "brk_kept": 314,
+    "brk_dropped": 23,
+    "brk_sum_r": 2018.74,
+    "fd_sum_r": 820.74,
+    "total": 2839.47
+   },
+   "switch": {
+    "brk_kept": 337,
+    "brk_dropped": 0,
+    "brk_sum_r": 2080.27,
+    "fd_sum_r": 833.16,
+    "total": 2913.43
+   }
+  }
+ },
+ "r9_all_ran": true,
+ "judgment": {
+  "item1_事件研究": {
+   "fwd5": {
+    "n": 1511,
+    "mean": 0.016642,
+    "ci": [
+     0.000979,
+     0.027598
+    ],
+    "p": 0.014,
+    "pass_": true
+   },
+   "fwd20": {
+    "n": 1424,
+    "mean": 0.071872,
+    "ci": [
+     -0.000725,
+     0.094894
+    ],
+    "p": 0.026,
+    "pass_": false
+   },
+   "pass_": false
+  },
+  "item2_主窗六元组": {
+   "n": 449,
+   "median": -3.0382,
+   "win_pct": 43.65,
+   "mean": 4.0307,
+   "pf": 2.0663,
+   "sum_r": 1809.77,
+   "pass_": false
+  },
+  "item3_分年分段": {
+   "years": {
+    "2024": {
+     "n": 279,
+     "mean": 2.4531,
+     "sum_r": 684.42
+    },
+    "2025": {
+     "n": 405,
+     "mean": 5.4936,
+     "sum_r": 2224.91
+    },
+    "2026": {
+     "n": 176,
+     "mean": -0.2684,
+     "sum_r": -47.25
+    }
+   },
+   "flip": true,
+   "segments": {
+    "realA": {
+     "n": 337,
+     "sum_r": 2080.27
+    },
+    "realB": {
+     "n": 411,
+     "sum_r": 1052.31
+    },
+    "realC": {
+     "n": 112,
+     "sum_r": -270.5
+    }
+   },
+   "pass_": false,
+   "note": "realC 终验一次已执行，验后即烧"
+  },
+  "item4_LOTO_bootstrap": {
+   "loto_fails": 0,
+   "boot": {
+    "reps": 1000,
+    "mean_block": 10,
+    "seed": 42,
+    "q05_sum_r": -158.98,
+    "p_le0": 0.166,
+    "pass_": false
+   },
+   "pass_": false
+  },
+  "item5_否决线": {
+   "thick_r6": {
+    "r_ge": 6,
+    "n": 174,
+    "sum_r": 3435.5
+   },
+   "mean": 4.0307,
+   "flip": true,
+   "veto": true,
+   "rule": "厚利桶 r>=6 不得为负贡献 且 mean>=0 且 分年不翻脸——任一触发即死"
+  }
+ },
+ "verdict": "brk-cond 票判死（判据未全过/否决线触发）",
+ "runtime_sec": 153.6,
+ "realC_note": "realC（2026-06-01→2026-10-18）仅本终验一次触碰，验后即烧"
+}

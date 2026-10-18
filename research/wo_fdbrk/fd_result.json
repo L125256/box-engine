@@ -1,0 +1,681 @@
+{
+ "workorder": "fd-indep（规格一：FD 腿独立验证）",
+ "spec": "TRADE9-SPEC-FDBRK-v1.0 §1",
+ "generated": "2026-10-18 23:30 UTC",
+ "d0": {
+  "snapshot_ver": "snapshot_20261019",
+  "snapshot_md5": "33c8b9ec54d17537c3b7f1f6d8d47463",
+  "md5_ok": true,
+  "pool_n": 144,
+  "fd_anchor": {
+   "n": 673,
+   "sum_r": 723.64,
+   "thick_n": 118,
+   "thick_sum": 2019.76
+  },
+  "anchor_ok": true,
+  "scan_ref_maxdiff": 0.0,
+  "reused": [
+   "load_pool",
+   "build_idx_bull",
+   "scan",
+   "collect",
+   "atrs"
+  ]
+ },
+ "frozen_params": {
+  "P25": 8.9135,
+  "P50": 13.4814,
+  "Rm": 3.0,
+  "Rm_raw": 3.2216,
+  "catr": 3.5669,
+  "derive_from": {
+   "n_fd": 880,
+   "rule": "P=fd 入场日回撤 P25 分位；Rm=中位(H−ep)/(ep−eff) 取整 0.5；catr=止盈单 (xc−ep)/ATR14 中位；全部仅用 et<=2026-05-31"
+  }
+ },
+ "selection_table": [
+  {
+   "cfg": {
+    "variant": "A",
+    "N": 15,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E1",
+    "anti": "cooldown"
+   },
+   "sel": {
+    "n": 843,
+    "median": -2.3609,
+    "win_pct": 37.01,
+    "mean": 1.4878,
+    "pf": 1.5123,
+    "sum_r": 1254.18,
+    "thick": {
+     "r_ge": 8,
+     "n": 173,
+     "sum_r": 3044.16
+    }
+   }
+  },
+  {
+   "cfg": {
+    "variant": "A",
+    "N": 15,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E2",
+    "anti": "cooldown"
+   },
+   "sel": {
+    "n": 833,
+    "median": -2.4703,
+    "win_pct": 34.09,
+    "mean": 1.8864,
+    "pf": 1.6346,
+    "sum_r": 1571.33,
+    "thick": {
+     "r_ge": 8,
+     "n": 204,
+     "sum_r": 3620.72
+    }
+   }
+  },
+  {
+   "cfg": {
+    "variant": "A",
+    "N": 15,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E1",
+    "anti": "refresh"
+   },
+   "sel": {
+    "n": 1293,
+    "median": -2.3309,
+    "win_pct": 36.89,
+    "mean": 1.4955,
+    "pf": 1.5055,
+    "sum_r": 1933.74,
+    "thick": {
+     "r_ge": 8,
+     "n": 281,
+     "sum_r": 4810.12
+    }
+   }
+  },
+  {
+   "cfg": {
+    "variant": "A",
+    "N": 15,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E2",
+    "anti": "refresh"
+   },
+   "sel": {
+    "n": 1249,
+    "median": -2.4976,
+    "win_pct": 32.91,
+    "mean": 1.9144,
+    "pf": 1.6214,
+    "sum_r": 2391.09,
+    "thick": {
+     "r_ge": 8,
+     "n": 300,
+     "sum_r": 5669.52
+    }
+   }
+  },
+  {
+   "cfg": {
+    "variant": "B",
+    "P": 8.913492212422602,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E1",
+    "anti": "cooldown",
+    "shadow": true
+   },
+   "sel": {
+    "n": 248,
+    "median": -0.5068,
+    "win_pct": 42.34,
+    "mean": -0.0382,
+    "pf": 0.9701,
+    "sum_r": -9.46,
+    "thick": {
+     "r_ge": 8,
+     "n": 2,
+     "sum_r": 22.81
+    }
+   }
+  },
+  {
+   "cfg": {
+    "variant": "B",
+    "P": 8.913492212422602,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E2",
+    "anti": "cooldown",
+    "shadow": true
+   },
+   "sel": {
+    "n": 248,
+    "median": -0.8941,
+    "win_pct": 18.95,
+    "mean": 2.0557,
+    "pf": 2.2961,
+    "sum_r": 509.82,
+    "thick": {
+     "r_ge": 8,
+     "n": 43,
+     "sum_r": 877.01
+    }
+   }
+  },
+  {
+   "cfg": {
+    "variant": "B",
+    "P": 13.48140245380923,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E1",
+    "anti": "cooldown",
+    "shadow": true
+   },
+   "sel": {
+    "n": 150,
+    "median": -0.4915,
+    "win_pct": 41.33,
+    "mean": 0.5368,
+    "pf": 1.5157,
+    "sum_r": 80.52,
+    "thick": {
+     "r_ge": 8,
+     "n": 6,
+     "sum_r": 56.54
+    }
+   }
+  },
+  {
+   "cfg": {
+    "variant": "B",
+    "P": 13.48140245380923,
+    "Rm": 3.0,
+    "catr": 3.5669,
+    "exit_mode": "E2",
+    "anti": "cooldown",
+    "shadow": true
+   },
+   "sel": {
+    "n": 150,
+    "median": -1.0018,
+    "win_pct": 17.33,
+    "mean": 3.0213,
+    "pf": 2.8787,
+    "sum_r": 453.19,
+    "thick": {
+     "r_ge": 8,
+     "n": 26,
+     "sum_r": 694.42
+    }
+   }
+  }
+ ],
+ "frozen_arm": {
+  "variant": "A",
+  "N": 15,
+  "Rm": 3.0,
+  "catr": 3.5669,
+  "exit_mode": "E2",
+  "anti": "refresh"
+ },
+ "frozen_arm_sel": {
+  "n": 1249,
+  "median": -2.4976,
+  "win_pct": 32.91,
+  "mean": 1.9144,
+  "pf": 1.6214,
+  "sum_r": 2391.09,
+  "thick": {
+   "r_ge": 8,
+   "n": 300,
+   "sum_r": 5669.52
+  }
+ },
+ "final": {
+  "cfg": {
+   "variant": "A",
+   "N": 15,
+   "Rm": 3.0,
+   "catr": 3.5669,
+   "exit_mode": "E2",
+   "anti": "refresh"
+  },
+  "main": {
+   "n": 1802,
+   "median": -2.675,
+   "win_pct": 30.69,
+   "mean": 1.1798,
+   "pf": 1.3661,
+   "sum_r": 2125.96,
+   "thick": {
+    "r_ge": 8,
+    "n": 382,
+    "sum_r": 7122.3
+   }
+  },
+  "full_n": 2755,
+  "yearly": {
+   "2024": {
+    "n": 631,
+    "mean": 2.5395,
+    "sum_r": 1602.41
+   },
+   "2025": {
+    "n": 1113,
+    "mean": 1.8857,
+    "sum_r": 2098.74
+   },
+   "2026": {
+    "n": 1011,
+    "mean": 0.6526,
+    "sum_r": 659.77
+   }
+  },
+  "flip": false,
+  "segments": {
+   "realA": {
+    "n": 1249,
+    "sum_r": 2391.09
+   },
+   "realB": {
+    "n": 946,
+    "sum_r": 2273.37
+   },
+   "realC": {
+    "n": 553,
+    "sum_r": -265.13
+   }
+  }
+ },
+ "overlap": {
+  "date_level": 0.6716,
+  "r_sum_level": 0.5613,
+  "matched_orig": 452,
+  "orig_total": 673,
+  "indep_side": 0.283,
+  "verdict": "fd 近亲信号（降级）"
+ },
+ "loto": {
+  "fails": [],
+  "n_tasks": 144,
+  "thick_contributors": 127,
+  "thick_fails": []
+ },
+ "bootstrap": {
+  "reps": 1000,
+  "mean_block": 10,
+  "seed": 42,
+  "q05_sum_r": -219.54,
+  "p_le0": 0.182,
+  "pass_": false
+ },
+ "r9": {
+  "1_A_两臂": {
+   "A|E1|cooldown|P=None": {
+    "n": 843,
+    "median": -2.3609,
+    "win_pct": 37.01,
+    "mean": 1.4878,
+    "pf": 1.5123,
+    "sum_r": 1254.18,
+    "thick": {
+     "r_ge": 8,
+     "n": 173,
+     "sum_r": 3044.16
+    }
+   },
+   "A|E2|cooldown|P=None": {
+    "n": 833,
+    "median": -2.4703,
+    "win_pct": 34.09,
+    "mean": 1.8864,
+    "pf": 1.6346,
+    "sum_r": 1571.33,
+    "thick": {
+     "r_ge": 8,
+     "n": 204,
+     "sum_r": 3620.72
+    }
+   },
+   "A|E1|refresh|P=None": {
+    "n": 1293,
+    "median": -2.3309,
+    "win_pct": 36.89,
+    "mean": 1.4955,
+    "pf": 1.5055,
+    "sum_r": 1933.74,
+    "thick": {
+     "r_ge": 8,
+     "n": 281,
+     "sum_r": 4810.12
+    }
+   },
+   "A|E2|refresh|P=None": {
+    "n": 1249,
+    "median": -2.4976,
+    "win_pct": 32.91,
+    "mean": 1.9144,
+    "pf": 1.6214,
+    "sum_r": 2391.09,
+    "thick": {
+     "r_ge": 8,
+     "n": 300,
+     "sum_r": 5669.52
+    }
+   }
+  },
+  "2_B_P25_vs_P50": {
+   "B|E1|cooldown|P=8.913492212422602": {
+    "n": 248,
+    "median": -0.5068,
+    "win_pct": 42.34,
+    "mean": -0.0382,
+    "pf": 0.9701,
+    "sum_r": -9.46,
+    "thick": {
+     "r_ge": 8,
+     "n": 2,
+     "sum_r": 22.81
+    }
+   },
+   "B|E2|cooldown|P=8.913492212422602": {
+    "n": 248,
+    "median": -0.8941,
+    "win_pct": 18.95,
+    "mean": 2.0557,
+    "pf": 2.2961,
+    "sum_r": 509.82,
+    "thick": {
+     "r_ge": 8,
+     "n": 43,
+     "sum_r": 877.01
+    }
+   },
+   "B|E1|cooldown|P=13.48140245380923": {
+    "n": 150,
+    "median": -0.4915,
+    "win_pct": 41.33,
+    "mean": 0.5368,
+    "pf": 1.5157,
+    "sum_r": 80.52,
+    "thick": {
+     "r_ge": 8,
+     "n": 6,
+     "sum_r": 56.54
+    }
+   },
+   "B|E2|cooldown|P=13.48140245380923": {
+    "n": 150,
+    "median": -1.0018,
+    "win_pct": 17.33,
+    "mean": 3.0213,
+    "pf": 2.8787,
+    "sum_r": 453.19,
+    "thick": {
+     "r_ge": 8,
+     "n": 26,
+     "sum_r": 694.42
+    }
+   }
+  },
+  "3_N20敏感性": {
+   "n": 1064,
+   "median": -2.6158,
+   "win_pct": 32.14,
+   "mean": 1.346,
+   "pf": 1.4198,
+   "sum_r": 1432.1,
+   "thick": {
+    "r_ge": 8,
+    "n": 241,
+    "sum_r": 4304.45
+   }
+  },
+  "4_下影条件_A臂不适用_B参考_开": {
+   "n": 248,
+   "median": -0.8941,
+   "win_pct": 18.95,
+   "mean": 2.0557,
+   "pf": 2.2961,
+   "sum_r": 509.82,
+   "thick": {
+    "r_ge": 8,
+    "n": 43,
+    "sum_r": 877.01
+   }
+  },
+  "4_下影条件_A臂不适用_B参考_关": {
+   "n": 287,
+   "median": -0.7289,
+   "win_pct": 22.65,
+   "mean": 3.0129,
+   "pf": 3.5514,
+   "sum_r": 864.7,
+   "thick": {
+    "r_ge": 8,
+    "n": 58,
+    "sum_r": 1172.42
+   }
+  },
+  "5_E1_Rm-0.5": {
+   "n": 1326,
+   "median": -2.216,
+   "win_pct": 38.91,
+   "mean": 1.2234,
+   "pf": 1.424,
+   "sum_r": 1622.19,
+   "thick": {
+    "r_ge": 8,
+    "n": 273,
+    "sum_r": 4309.89
+   }
+  },
+  "5_E1_Rm+0.5": {
+   "n": 1271,
+   "median": -2.4084,
+   "win_pct": 35.72,
+   "mean": 1.745,
+   "pf": 1.5814,
+   "sum_r": 2217.87,
+   "thick": {
+    "r_ge": 8,
+    "n": 288,
+    "sum_r": 5245.89
+   }
+  },
+  "6_E2_catr-20%": {
+   "n": 1287,
+   "median": -2.4026,
+   "win_pct": 35.2,
+   "mean": 1.5065,
+   "pf": 1.5018,
+   "sum_r": 1938.84,
+   "thick": {
+    "r_ge": 8,
+    "n": 291,
+    "sum_r": 4915.06
+   }
+  },
+  "6_E2_catr+20%": {
+   "n": 1227,
+   "median": -2.5372,
+   "win_pct": 31.54,
+   "mean": 2.2535,
+   "pf": 1.7211,
+   "sum_r": 2765.08,
+   "thick": {
+    "r_ge": 8,
+    "n": 290,
+    "sum_r": 6115.51
+   }
+  },
+  "7_弱牛带": {
+   "n": 1608,
+   "median": -2.5967,
+   "win_pct": 32.59,
+   "mean": 1.9419,
+   "pf": 1.609,
+   "sum_r": 3122.6,
+   "thick": {
+    "r_ge": 8,
+    "n": 383,
+    "sum_r": 7550.32
+   }
+  },
+  "8_反向空头fd": {
+   "n_truncated": 3354,
+   "archive": "n>=300 需另评"
+  },
+  "9_硬顶20": {
+   "n": 1331,
+   "median": -2.242,
+   "win_pct": 35.09,
+   "mean": 1.7705,
+   "pf": 1.6211,
+   "sum_r": 2356.57,
+   "thick": {
+    "r_ge": 8,
+    "n": 297,
+    "sum_r": 5439.74
+   }
+  },
+  "9_硬顶45": {
+   "n": 1215,
+   "median": -2.5953,
+   "win_pct": 32.1,
+   "mean": 1.9684,
+   "pf": 1.6126,
+   "sum_r": 2391.56,
+   "thick": {
+    "r_ge": 8,
+    "n": 302,
+    "sum_r": 5808.81
+   }
+  },
+  "10_优先级翻转": {
+   "fd优先": {
+    "n": 1155,
+    "median": -2.1983,
+    "win_pct": 40.26,
+    "mean": 2.9122,
+    "pf": 1.874,
+    "sum_r": 3363.57,
+    "thick": {
+     "r_ge": 8,
+     "n": 346,
+     "sum_r": 6572.23
+    }
+   },
+   "bk优先": {
+    "n": 1155,
+    "median": -2.206,
+    "win_pct": 40.17,
+    "mean": 2.8896,
+    "pf": 1.8654,
+    "sum_r": 3337.51,
+    "thick": {
+     "r_ge": 8,
+     "n": 345,
+     "sum_r": 6554.09
+    }
+   }
+  }
+ },
+ "r9_all_ran": true,
+ "judgment": {
+  "item1_重合度": {
+   "date_level": 0.6716,
+   "r_sum_level": 0.5613,
+   "matched_orig": 452,
+   "orig_total": 673,
+   "indep_side": 0.283,
+   "verdict": "fd 近亲信号（降级）",
+   "pass_": true
+  },
+  "item2_主窗": {
+   "n": 1802,
+   "mean": 1.1798,
+   "pf": 1.3661,
+   "pass_": true
+  },
+  "item3_厚利桶": {
+   "anchor": 118,
+   "threshold_n": 94.4,
+   "threshold_sum": 1500,
+   "r_ge": 8,
+   "n": 382,
+   "sum_r": 7122.3,
+   "pass_": true
+  },
+  "item4_分年不翻脸": {
+   "years": {
+    "2024": {
+     "n": 631,
+     "mean": 2.5395,
+     "sum_r": 1602.41
+    },
+    "2025": {
+     "n": 1113,
+     "mean": 1.8857,
+     "sum_r": 2098.74
+    },
+    "2026": {
+     "n": 1011,
+     "mean": 0.6526,
+     "sum_r": 659.77
+    }
+   },
+   "flip": false,
+   "pass_": true
+  },
+  "item5_分段": {
+   "realA": {
+    "n": 1249,
+    "sum_r": 2391.09
+   },
+   "realB": {
+    "n": 946,
+    "sum_r": 2273.37
+   },
+   "realC": {
+    "n": 553,
+    "sum_r": -265.13
+   },
+   "pass_": false,
+   "note": "realC 终验一次已执行，验后即烧"
+  },
+  "item6_LOTO_bootstrap": {
+   "loto_fails": 0,
+   "loto_min_mean": 0.9142,
+   "thick_loto_fails": 0,
+   "thick_tkrs": 127,
+   "boot": {
+    "reps": 1000,
+    "mean_block": 10,
+    "seed": 42,
+    "q05_sum_r": -219.54,
+    "p_le0": 0.182,
+    "pass_": false
+   },
+   "pass_": false
+  }
+ },
+ "veto_line": [],
+ "verdict": "fd 近亲新信号：判据未全过，判死",
+ "runtime_sec": 134.7,
+ "realC_note": "realC（2026-06-01→2026-10-18）仅本终验一次触碰，验后即烧，禁二次以任何口径重碰"
+}
