@@ -1,0 +1,1702 @@
+{
+ "_lineage": {
+  "source": "kxiandaoyan",
+  "path": "/api/symbols",
+  "fetched_at": "2026-10-18T16:39:24Z",
+  "bar_date_convention": "北京日期+盘后延伸+周日合成bar",
+  "raw_snapshot": "raw/dy_symbols_241.json"
+ },
+ "data": {
+  "market": "futures",
+  "total": 241,
+  "items": [
+   {
+    "symbol": "AAOIUSDT",
+    "base_asset": "AAOI",
+    "name": "应用光电（光模块/数据中心）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AAPLUSDT",
+    "base_asset": "AAPL",
+    "name": "苹果（消费电子+服务生态）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ACNUSDT",
+    "base_asset": "ACN",
+    "name": "ACN",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ADBEUSDT",
+    "base_asset": "ADBE",
+    "name": "Adobe（创意软件PS/PR/AI工具）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AGPUUSDT",
+    "base_asset": "AGPU",
+    "name": "AGPU",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AKAMUSDT",
+    "base_asset": "AKAM",
+    "name": "AKAM",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ALABUSDT",
+    "base_asset": "ALAB",
+    "name": "Astera Labs（数据中心PCIe连接芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AMATUSDT",
+    "base_asset": "AMAT",
+    "name": "应用材料（半导体制造设备）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AMCUSDT",
+    "base_asset": "AMC",
+    "name": "AMC",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AMDUSDT",
+    "base_asset": "AMD",
+    "name": "AMD（CPU/GPU处理器）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AMZNUSDT",
+    "base_asset": "AMZN",
+    "name": "亚马逊（全球电商+AWS云服务）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ANETUSDT",
+    "base_asset": "ANET",
+    "name": "ANET",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ANTHROPICUSDT",
+    "base_asset": "ANTHROPIC",
+    "name": "Anthropic（Claude AI，未上市）",
+    "underlying_type": "PREMARKET",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "APLDUSDT",
+    "base_asset": "APLD",
+    "name": "APLD",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "APPUSDT",
+    "base_asset": "APP",
+    "name": "AppLovin（移动广告/游戏发行）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ARMUSDT",
+    "base_asset": "ARM",
+    "name": "ARM控股（芯片指令集架构授权）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ASMLUSDT",
+    "base_asset": "ASML",
+    "name": "ASML（光刻机/EUV设备垄断）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ASTSUSDT",
+    "base_asset": "ASTS",
+    "name": "AST SpaceMobile（卫星直连手机）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AVGOUSDT",
+    "base_asset": "AVGO",
+    "name": "博通（网络/无线半导体+基础设施）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "AXTIUSDT",
+    "base_asset": "AXTI",
+    "name": "AXT（半导体砷化镓衬底）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BABAUSDT",
+    "base_asset": "BABA",
+    "name": "阿里巴巴（电商/云计算/蚂蚁集团）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BBXUSDT",
+    "base_asset": "BBX",
+    "name": "BBX/蓝色控股（金融控股）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BEUSDT",
+    "base_asset": "BE",
+    "name": "Bloom Energy（固体氧化物燃料电池）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BITOUSDT",
+    "base_asset": "BITO",
+    "name": "比特币期货ETF（ProShares）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BMNRUSDT",
+    "base_asset": "BMNR",
+    "name": "Biominers（生物数据/AI制药）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BNBUSDT",
+    "base_asset": "BNB",
+    "name": "币安币（交易所平台币/BNB Chain）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BNCUSDT",
+    "base_asset": "BNC",
+    "name": "BNC/区块链节点服务",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BOTUSDT",
+    "base_asset": "BOT",
+    "name": "Groupon/团购（本地生活优惠）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BRKBUSDT",
+    "base_asset": "BRKB",
+    "name": "伯克希尔/巴菲特（控股投资公司）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BSPUSDT",
+    "base_asset": "BSP",
+    "name": "BSP/区块链服务",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BTCUSDT",
+    "base_asset": "BTC",
+    "name": "比特币",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BWETUSDT",
+    "base_asset": "BWET",
+    "name": "BWET",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BXUSDT",
+    "base_asset": "BX",
+    "name": "黑石/Blackstone（私募股权基金）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BYDUSDT",
+    "base_asset": "BYD",
+    "name": "比亚迪股份H股（新能源车/电池）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "BZUSDT",
+    "base_asset": "BZ",
+    "name": "Benzinga（金融资讯/数据）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CATUSDT",
+    "base_asset": "CAT",
+    "name": "卡特彼勒（工程机械/挖掘机龙头）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CBRSUSDT",
+    "base_asset": "CBRS",
+    "name": "CABR/中建材（水泥/建材）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CIENUSDT",
+    "base_asset": "CIEN",
+    "name": "Ciena（光网络设备）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CLUSDT",
+    "base_asset": "CL",
+    "name": "WTI原油（美国原油期货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "COHRUSDT",
+    "base_asset": "COHR",
+    "name": "相干/Coherent（激光/光通信）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "COINUSDT",
+    "base_asset": "COIN",
+    "name": "Coinbase（加密货币交易所）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "COPPERUSDT",
+    "base_asset": "COPPER",
+    "name": "铜（工业金属/现货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "COSTUSDT",
+    "base_asset": "COST",
+    "name": "好市多/Costco（会员制仓储超市）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CRCLUSDT",
+    "base_asset": "CRCL",
+    "name": "Circle（USDC稳定币发行商）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CRDOUSDT",
+    "base_asset": "CRDO",
+    "name": "Credo Technology（高速连接芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CRMUSDT",
+    "base_asset": "CRM",
+    "name": "Salesforce（CRM客户关系云）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CRMLUSDT",
+    "base_asset": "CRML",
+    "name": "CRML",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CRWDUSDT",
+    "base_asset": "CRWD",
+    "name": "CrowdStrike（云安全/EDR）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CRWVUSDT",
+    "base_asset": "CRWV",
+    "name": "Cruise Automation（通用自动驾驶子公司）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CSCOUSDT",
+    "base_asset": "CSCO",
+    "name": "思科（网络设备/路由器）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CSOPSAMSUNG2LUSDT",
+    "base_asset": "CSOPSAMSUNG2L",
+    "name": "南方两倍三星（CSOP杠杆ETP）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CSOPSKHYNIX2LUSDT",
+    "base_asset": "CSOPSKHYNIX2L",
+    "name": "南方两倍海力士（CSOP杠杆ETP）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CVNAUSDT",
+    "base_asset": "CVNA",
+    "name": "CVNA",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CXMTUSDT",
+    "base_asset": "CXMT",
+    "name": "长鑫科技（DRAM存储芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "CYPHUSDT",
+    "base_asset": "CYPH",
+    "name": "CYPH",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DDOGUSDT",
+    "base_asset": "DDOG",
+    "name": "Datadog（云监控/可观测性平台）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DELLUSDT",
+    "base_asset": "DELL",
+    "name": "戴尔科技（PC/服务器/AI算力）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DISUSDT",
+    "base_asset": "DIS",
+    "name": "迪士尼（影视+主题乐园+流媒体）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DJTUSDT",
+    "base_asset": "DJT",
+    "name": "特朗普媒体DJT（Truth Social母公司）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DKNGUSDT",
+    "base_asset": "DKNG",
+    "name": "DraftKings（体育博彩/梦幻体育）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DOGEUSDT",
+    "base_asset": "DOGE",
+    "name": "狗狗币（支付/打赏/Meme龙头）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DRAMUSDT",
+    "base_asset": "DRAM",
+    "name": "DRAM内存指数（存储芯片现货）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "DXY",
+    "base_asset": "DXY",
+    "name": "美元指数",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "EBAYUSDT",
+    "base_asset": "EBAY",
+    "name": "eBay（二手C2C电商）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ETHUSDT",
+    "base_asset": "ETH",
+    "name": "以太坊",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "EWJUSDT",
+    "base_asset": "EWJ",
+    "name": "iShares MSCI日本ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "EWTUSDT",
+    "base_asset": "EWT",
+    "name": "iShares MSCI台湾ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "EWYUSDT",
+    "base_asset": "EWY",
+    "name": "iShares MSCI韩国ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "EWZUSDT",
+    "base_asset": "EWZ",
+    "name": "iShares MSCI巴西ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "FLEXUSDT",
+    "base_asset": "FLEX",
+    "name": "伟创力/Flex（电子代工制造）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "FLNCUSDT",
+    "base_asset": "FLNC",
+    "name": "Fluence（储能系统/电网电池）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "FWDIUSDT",
+    "base_asset": "FWDI",
+    "name": "FWDI（前沿AI指数）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GDXUSDT",
+    "base_asset": "GDX",
+    "name": "金矿股ETF（VanEck）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GEVUSDT",
+    "base_asset": "GEV",
+    "name": "GE Vernova（GE能源/燃气轮机+风电）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GIGADEVUSDT",
+    "base_asset": "GIGADEV",
+    "name": "兆易创新H股（存储芯片设计）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GLWUSDT",
+    "base_asset": "GLW",
+    "name": "康宁（玻璃/光纤/特种材料）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GMEUSDT",
+    "base_asset": "GME",
+    "name": "游戏驿站（游戏零售/ meme股）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GOOGLUSDT",
+    "base_asset": "GOOGL",
+    "name": "谷歌/Alphabet（搜索+YouTube+AI）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GPROUSDT",
+    "base_asset": "GPRO",
+    "name": "GoPro（运动相机）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GSUSDT",
+    "base_asset": "GS",
+    "name": "高盛（投行/证券龙头）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "GTLBUSDT",
+    "base_asset": "GTLB",
+    "name": "GitLab（DevOps代码托管CI/CD）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HANMIUSDT",
+    "base_asset": "HANMI",
+    "name": "韩美半导体（半导体设备）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HDUSDT",
+    "base_asset": "HD",
+    "name": "家得宝（家居建材零售）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HIMSUSDT",
+    "base_asset": "HIMS",
+    "name": "Hims&Hers（在线医疗/远程诊疗）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HK0625USDT",
+    "base_asset": "HK0625",
+    "name": "希音SHEIN（跨境电商快时尚）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HK0992USDT",
+    "base_asset": "HK0992",
+    "name": "联想集团（PC/AI服务器）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HOODUSDT",
+    "base_asset": "HOOD",
+    "name": "Robinhood（零佣金券商App）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HPEUSDT",
+    "base_asset": "HPE",
+    "name": "慧与/HPE（企业服务器/存储/网络）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HS300",
+    "base_asset": "HS300",
+    "name": "沪深300",
+    "underlying_type": "INDEX",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HSI",
+    "base_asset": "HSI",
+    "name": "恒生指数",
+    "underlying_type": "INDEX",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HUTUSDT",
+    "base_asset": "HUT",
+    "name": "HUT",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HYPEUSDT",
+    "base_asset": "HYPE",
+    "name": "Hyperliquid（去中心化永续合约）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "HYUNDAIUSDT",
+    "base_asset": "HYUNDAI",
+    "name": "现代汽车（韩国车企/电动车）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "IBMUSDT",
+    "base_asset": "IBM",
+    "name": "IBM（企业IT+混合云+AI咨询）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "INTCUSDT",
+    "base_asset": "INTC",
+    "name": "英特尔（CPU处理器+晶圆代工）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "INTWUSDT",
+    "base_asset": "INTW",
+    "name": "Intel资本（英特尔风投部门）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "IONQUSDT",
+    "base_asset": "IONQ",
+    "name": "IonQ（离子阱量子计算）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "IRENUSDT",
+    "base_asset": "IREN",
+    "name": "IREN（比特币挖矿+AI算力）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "IWMUSDT",
+    "base_asset": "IWM",
+    "name": "iShares罗素2000小盘股ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "JPMUSDT",
+    "base_asset": "JPM",
+    "name": "摩根大通（全球最大投行）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "KLACUSDT",
+    "base_asset": "KLAC",
+    "name": "科磊/半导体检测设备",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "KOUSDT",
+    "base_asset": "KO",
+    "name": "可口可乐（饮料巨头）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "KODEX200USDT",
+    "base_asset": "KODEX200",
+    "name": "KODEX 200指数ETF（韩国）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "KORUUSDT",
+    "base_asset": "KORU",
+    "name": "Direxion三倍做多韩国ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "KSTRUSDT",
+    "base_asset": "KSTR",
+    "name": "KraneShares韩国科技ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "KUAISHOUUSDT",
+    "base_asset": "KUAISHOU",
+    "name": "快手（短视频）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "LC0",
+    "base_asset": "LC",
+    "name": "碳酸锂（国内期货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "LGELECTRONICSUSDT",
+    "base_asset": "LGELECTRONICS",
+    "name": "LG电子（家电/显示）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "LH0",
+    "base_asset": "LH",
+    "name": "生猪（国内期货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "LITEUSDT",
+    "base_asset": "LITE",
+    "name": "Lumentum（光通信/激光器）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "LLYUSDT",
+    "base_asset": "LLY",
+    "name": "礼来（减肥药/GLP-1+糖尿病）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "LRCXUSDT",
+    "base_asset": "LRCX",
+    "name": "拉姆研究（刻蚀设备/半导体）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "LYTEUSDT",
+    "base_asset": "LYTE",
+    "name": "光子与光学ETF（Roundhill）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "M0",
+    "base_asset": "M",
+    "name": "豆粕（国内期货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MARAUSDT",
+    "base_asset": "MARA",
+    "name": "MARA Holdings（比特币挖矿上市矿企）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MCDUSDT",
+    "base_asset": "MCD",
+    "name": "MCD",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MDBUSDT",
+    "base_asset": "MDB",
+    "name": "MongoDB（NoSQL文档数据库）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MEITUANUSDT",
+    "base_asset": "MEITUAN",
+    "name": "美团（外卖/本地生活）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "METAUSDT",
+    "base_asset": "META",
+    "name": "Meta/Facebook（社交网络+VR/AR）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MINIMAXUSDT",
+    "base_asset": "MINIMAX",
+    "name": "MiniMax（AI大模型/海螺AI）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MOONSHOTUSDT",
+    "base_asset": "MOONSHOT",
+    "name": "MOONSHOT",
+    "underlying_type": "PREMARKET",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MPUSDT",
+    "base_asset": "MP",
+    "name": "MP",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MRKUSDT",
+    "base_asset": "MRK",
+    "name": "默克制药（Keytruda肿瘤药龙头）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MRNAUSDT",
+    "base_asset": "MRNA",
+    "name": "莫德纳Moderna（mRNA疫苗/生物制药）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MRVLUSDT",
+    "base_asset": "MRVL",
+    "name": "Marvell（存储/网络芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MSFTUSDT",
+    "base_asset": "MSFT",
+    "name": "微软（Windows+Azure云计算）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MSTRUSDT",
+    "base_asset": "MSTR",
+    "name": "MicroStrategy（比特币持仓+BI软件）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MSTUUSDT",
+    "base_asset": "MSTU",
+    "name": "MSTU",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MUUSDT",
+    "base_asset": "MU",
+    "name": "美光（DRAM/NAND存储芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MUUUSDT",
+    "base_asset": "MUU",
+    "name": "美光（DRAM/NAND存储芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "MVLLUSDT",
+    "base_asset": "MVLL",
+    "name": "MicroStrategy 2x（MSTR杠杆ETF）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NATGASUSDT",
+    "base_asset": "NATGAS",
+    "name": "天然气（亨利港现货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NAVERUSDT",
+    "base_asset": "NAVER",
+    "name": "Naver（韩国搜索/Line母公司）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NBISUSDT",
+    "base_asset": "NBIS",
+    "name": "NbIS（AI算力/ Nebius）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NETUSDT",
+    "base_asset": "NET",
+    "name": "Cloudflare（CDN/云安全）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NFLXUSDT",
+    "base_asset": "NFLX",
+    "name": "奈飞/Netflix（流媒体视频）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NKEUSDT",
+    "base_asset": "NKE",
+    "name": "NKE",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NOKUSDT",
+    "base_asset": "NOK",
+    "name": "诺基亚（5G通信设备/网络）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NOWUSDT",
+    "base_asset": "NOW",
+    "name": "ServiceNow（企业IT工作流云）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NVDAUSDT",
+    "base_asset": "NVDA",
+    "name": "英伟达（GPU/AI算力芯片龙头）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NVDLUSDT",
+    "base_asset": "NVDL",
+    "name": "英伟达2倍做多ETF（GraniteShares）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "NVOUSDT",
+    "base_asset": "NVO",
+    "name": "诺和诺德（减肥神药司美格鲁肽）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "OKLOUSDT",
+    "base_asset": "OKLO",
+    "name": "OKLO",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ONDSUSDT",
+    "base_asset": "ONDS",
+    "name": "Onds/分布式存储",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "OPUSDT",
+    "base_asset": "OP",
+    "name": "Optimism",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "OPENAIUSDT",
+    "base_asset": "OPENAI",
+    "name": "OpenAI（ChatGPT，未上市）",
+    "underlying_type": "PREMARKET",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ORCLUSDT",
+    "base_asset": "ORCL",
+    "name": "甲骨文（企业数据库+云服务）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "OURAUSDT",
+    "base_asset": "OURA",
+    "name": "OURA",
+    "underlying_type": "PREMARKET",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "PANWUSDT",
+    "base_asset": "PANW",
+    "name": "Palo Alto（网络安全/防火墙）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "PATHUSDT",
+    "base_asset": "PATH",
+    "name": "PATH",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "PAYPUSDT",
+    "base_asset": "PAYP",
+    "name": "PayPal（在线支付，合约版）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "PDDUSDT",
+    "base_asset": "PDD",
+    "name": "拼多多PDD（Temu跨境电商+主站）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "PENGUSDT",
+    "base_asset": "PENG",
+    "name": "Penguin/冰山冷鲜（冷链物流）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "PLTRUSDT",
+    "base_asset": "PLTR",
+    "name": "Palantir（政府/企业大数据分析）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "POPMARTUSDT",
+    "base_asset": "POPMART",
+    "name": "泡泡玛特（潮玩盲盒）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "PYPLUSDT",
+    "base_asset": "PYPL",
+    "name": "PayPal（在线支付）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "QCOMUSDT",
+    "base_asset": "QCOM",
+    "name": "高通（手机基带/骁龙芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "QNTXUSDT",
+    "base_asset": "QNTX",
+    "name": "Qentelli（IT咨询/数字化）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "QQQUSDT",
+    "base_asset": "QQQ",
+    "name": "Invesco纳斯达克100指数ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "RAMUSDT",
+    "base_asset": "RAM",
+    "name": "DRAM 2倍做多ETP（Roundhill T-REX）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "RB0",
+    "base_asset": "RB",
+    "name": "螺纹钢（国内期货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "RDDTUSDT",
+    "base_asset": "RDDT",
+    "name": "Reddit（美国兴趣社区论坛）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "RDWUSDT",
+    "base_asset": "RDW",
+    "name": "RDW",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "RIVNUSDT",
+    "base_asset": "RIVN",
+    "name": "Rivian（电动皮卡/SUV）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "RKLBUSDT",
+    "base_asset": "RKLB",
+    "name": "Rocket Lab（小型商业火箭发射）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "RUMUSDT",
+    "base_asset": "RUM",
+    "name": "RUM",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SAMSUNGUSDT",
+    "base_asset": "SAMSUNG",
+    "name": "三星电子（韩国半导体/电子）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SAMSUNGEMUSDT",
+    "base_asset": "SAMSUNGEM",
+    "name": "三星电子（韩国半导体/电子龙头）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SECZUSDT",
+    "base_asset": "SECZ",
+    "name": "SECZ",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SHAZUSDT",
+    "base_asset": "SHAZ",
+    "name": "Shazam/音乐识别",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SHINDEX",
+    "base_asset": "SHINDEX",
+    "name": "上证指数",
+    "underlying_type": "INDEX",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SHOPUSDT",
+    "base_asset": "SHOP",
+    "name": "Shopify（独立站电商平台）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SKDDUSDT",
+    "base_asset": "SKDD",
+    "name": "海力士2倍做空ETP（GraniteShares）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SKHYUSDT",
+    "base_asset": "SKHY",
+    "name": "SK海力士（韩国存储芯片）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SKHYNIXUSDT",
+    "base_asset": "SKHYNIX",
+    "name": "SK海力士（HBM存储/韩国）",
+    "underlying_type": "KR_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SKUUUSDT",
+    "base_asset": "SKUU",
+    "name": "海力士2倍做多ETP（GraniteShares）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SMCIUSDT",
+    "base_asset": "SMCI",
+    "name": "超微电脑SMCI（AI服务器/数据中心）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SMHUSDT",
+    "base_asset": "SMH",
+    "name": "半导体ETF（VanEck）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SNDKUSDT",
+    "base_asset": "SNDK",
+    "name": "SanDisk（NAND闪存存储）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SNOWUSDT",
+    "base_asset": "SNOW",
+    "name": "Snowflake（云数据仓库）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SNPSUSDT",
+    "base_asset": "SNPS",
+    "name": "SNPS",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SNXXUSDT",
+    "base_asset": "SNXX",
+    "name": "索尼（游戏PS/影视/电子）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SOFIUSDT",
+    "base_asset": "SOFI",
+    "name": "SoFi（个人金融/学生贷款）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SOLUSDT",
+    "base_asset": "SOL",
+    "name": "Solana（高性能公链/低Gas）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SONYUSDT",
+    "base_asset": "SONY",
+    "name": "索尼（游戏PS/影视/电子）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SOXLUSDT",
+    "base_asset": "SOXL",
+    "name": "Direxion三倍做多半导体ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SOXSUSDT",
+    "base_asset": "SOXS",
+    "name": "Direxion三倍做空半导体ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SPCXUSDT",
+    "base_asset": "SPCX",
+    "name": "SpaceX（马斯克航天公司，未上市代币）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SPYUSDT",
+    "base_asset": "SPY",
+    "name": "SPDR标普500指数ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SQQQUSDT",
+    "base_asset": "SQQQ",
+    "name": "ProShares三倍做空纳指ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "STRCUSDT",
+    "base_asset": "STRC",
+    "name": "Sarcos/机器人（工业外骨骼机器人）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "STXXUSDT",
+    "base_asset": "STXX",
+    "name": "希捷科技Seagate（HDD硬盘/AI存储）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "SUIUSDT",
+    "base_asset": "SUI",
+    "name": "Sui（高性能公链/Move生态）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TA0",
+    "base_asset": "TA",
+    "name": "PTA（国内期货）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TBTUSDT",
+    "base_asset": "TBT",
+    "name": "20年美债3倍做空（Direxion）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TEAMUSDT",
+    "base_asset": "TEAM",
+    "name": "Atlassian（Jira/Confluence协作软件）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TEMUSDT",
+    "base_asset": "TEM",
+    "name": "Tempus AI（AI精准医疗/基因诊断）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TENCENTUSDT",
+    "base_asset": "TENCENT",
+    "name": "腾讯控股（微信/游戏/投资）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TERUSDT",
+    "base_asset": "TER",
+    "name": "泰瑞达（半导体测试设备）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TMFUSDT",
+    "base_asset": "TMF",
+    "name": "20年美债3倍做多（Direxion）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TQQQUSDT",
+    "base_asset": "TQQQ",
+    "name": "ProShares三倍做多纳指ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TRXUSDT",
+    "base_asset": "TRX",
+    "name": "波场TRON（公链/高频转账）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TSLAUSDT",
+    "base_asset": "TSLA",
+    "name": "特斯拉（电动车+自动驾驶+FSD）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TSLLUSDT",
+    "base_asset": "TSLL",
+    "name": "特斯拉2倍做多ETF（Direxion）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TSMUSDT",
+    "base_asset": "TSM",
+    "name": "台积电（全球最大芯片代工厂）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TTWOUSDT",
+    "base_asset": "TTWO",
+    "name": "Take-Two（GTA游戏开发商）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TWSTUSDT",
+    "base_asset": "TWST",
+    "name": "TWST",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TXNUSDT",
+    "base_asset": "TXN",
+    "name": "德州仪器（模拟/嵌入式半导体）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "TZAUSDT",
+    "base_asset": "TZA",
+    "name": "Direxion三倍做空罗素2000小盘ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "UBERUSDT",
+    "base_asset": "UBER",
+    "name": "优步（网约车/外卖配送）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "UNHUSDT",
+    "base_asset": "UNH",
+    "name": "UNH",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "UNITREEUSDT",
+    "base_asset": "UNITREE",
+    "name": "宇树科技（人形机器人）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "URNMUSDT",
+    "base_asset": "URNM",
+    "name": "ETFMG铀矿/核能ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "USARUSDT",
+    "base_asset": "USAR",
+    "name": "美国稀土（关键矿物/稀土开采）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "USDBRLUSDT",
+    "base_asset": "USDBRL",
+    "name": "USDBRL",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "USDEXUSDT",
+    "base_asset": "USDEX",
+    "name": "USDEX",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "UVXYUSDT",
+    "base_asset": "UVXY",
+    "name": "ProShares波动率VIX ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "VUSDT",
+    "base_asset": "V",
+    "name": "Visa（全球信用卡支付网络）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "VIX",
+    "base_asset": "VIX",
+    "name": "VIX恐慌指数",
+    "underlying_type": "INDEX",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "VKTXUSDT",
+    "base_asset": "VKTX",
+    "name": "VKTX",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "VRTUSDT",
+    "base_asset": "VRT",
+    "name": "Vertiv（数据中心电源/制冷）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "VSTUSDT",
+    "base_asset": "VST",
+    "name": "Vistra Energy（美国电力/能源）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "WDCUSDT",
+    "base_asset": "WDC",
+    "name": "西部数据（硬盘/SSD存储）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "WENUSDT",
+    "base_asset": "WEN",
+    "name": "温蒂汉堡（快餐连锁）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "WLDUSDT",
+    "base_asset": "WLD",
+    "name": "Worldcoin",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "WMTUSDT",
+    "base_asset": "WMT",
+    "name": "沃尔玛（全球最大零售商）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XAGUSDT",
+    "base_asset": "XAG",
+    "name": "白银（现货贵金属/工业）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XAUUSDT",
+    "base_asset": "XAU",
+    "name": "黄金（伦敦金/现货贵金属）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XBIUSDT",
+    "base_asset": "XBI",
+    "name": "SPDR生物科技ETF",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XLEUSDT",
+    "base_asset": "XLE",
+    "name": "能源板块ETF（石油/天然气）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XMRUSDT",
+    "base_asset": "XMR",
+    "name": "门罗币",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XOMUSDT",
+    "base_asset": "XOM",
+    "name": "XOM",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XPDUSDT",
+    "base_asset": "XPD",
+    "name": "钯金（催化转换器/贵金属）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XPTUSDT",
+    "base_asset": "XPT",
+    "name": "铂金（首饰/工业贵金属）",
+    "underlying_type": "COMMODITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "XRPUSDT",
+    "base_asset": "XRP",
+    "name": "瑞波币（跨境支付/Ripple）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ZCSHUSDT",
+    "base_asset": "ZCSH",
+    "name": "ZCSH",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ZECUSDT",
+    "base_asset": "ZEC",
+    "name": "Zcash（隐私币/零知识证明）",
+    "underlying_type": "CRYPTO",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ZHIPUUSDT",
+    "base_asset": "ZHIPU",
+    "name": "智谱AI（GLM大模型/清华系）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ZHONGJIUSDT",
+    "base_asset": "ZHONGJI",
+    "name": "中际旭创H股（AI光模块龙头）",
+    "underlying_type": "HK_EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ZMUSDT",
+    "base_asset": "ZM",
+    "name": "Zoom（视频会议软件）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   },
+   {
+    "symbol": "ZSUSDT",
+    "base_asset": "ZS",
+    "name": "Zscaler（零信任云安全）",
+    "underlying_type": "EQUITY",
+    "status": "TRADING"
+   }
+  ]
+ }
+}

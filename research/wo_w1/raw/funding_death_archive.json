@@ -1,0 +1,53 @@
+{
+ "_doc": "W1 funding 数据源判死归档（规格八-1 终裁冻结；R9 合规判死，判死≠报废）",
+ "archived_at": "2026-10-18T16:45:33Z",
+ "verdict": "funding 字段双源全无 => 判死；funding 列维持 0.03%/bar 常数记账（FUNDING=0.0003 @ engine_f1/f1_signal.py:68，未改动）",
+ "exhaustion_evidence": {
+  "probe_rerun": "raw/w1_probe_rerun.json（本轮复现，fetched_at=2026-10-18T16:37:28Z）",
+  "probe_baseline": "/tmp/trade9_specs/w1_probe_raw.json（规格冻结轮 2026-10-19 00:2x 北京）",
+  "dy_paths_probed": 38,
+  "dy_404_count": 32,
+  "dy_200_spa_html_fallback": [
+   "https://www.kxiandaoyan.com/funding",
+   "https://www.kxiandaoyan.com/openapi/v1/funding",
+   "https://www.kxiandaoyan.com/swagger.json"
+  ],
+  "dy_alive_json": [
+   "https://www.kxiandaoyan.com/api/signals",
+   "https://www.kxiandaoyan.com/api/kline/MVLLUSDT",
+   "https://www.kxiandaoyan.com/api/symbols"
+  ],
+  "dy_funding_variants_covered": [
+   "funding",
+   "fundingRate",
+   "funding_rate",
+   "fundingRates",
+   "funding/history",
+   "fundingRate/history",
+   "funding_history",
+   "markPrice",
+   "premiumIndex",
+   "v1/funding",
+   "openapi/v1/funding",
+   "swagger.json",
+   "api/docs"
+  ],
+  "sina_endpoints_probed": 20,
+  "sina_funding_or_overnight_rate_fields": "无（全部产品线：美股现货/期权/场外/财报/期货x5/外汇x3/利率x4/A股 实测无 funding/隔夜利率字段）",
+  "sina_empty_200": [
+   "https://hq.sinajs.cn/list=usAAPL_OQ",
+   "https://hq.sinajs.cn/list=op_aapl",
+   "https://hq.sinajs.cn/list=of_gb_aapl",
+   "https://hq.sinajs.cn/list=bt_aapl",
+   "https://hq.sinajs.cn/list=SHIBOR",
+   "https://hq.sinajs.cn/list=sofr",
+   "https://hq.sinajs.cn/list=hl_usd"
+  ],
+  "total_probed": 58
+ },
+ "revival_conditions": [
+  "① 境外交易所 API（Binance/Bybit 等）在可达环境实测通过（云端沙箱实测后才可启用，本轮未启用不计入判死依据）",
+  "② 导演站新增 funding 端点——由心跳/全量探测自动发现（tools/w1_probe_rerun.py 每次会话 57 路径复跑 + tools/w1_heartbeat.py 每次会话 3 端点心跳）"
+ ],
+ "ledger_discipline": "任何代理字段（CME 基差/USDCNH）只进影子层，禁入 funding 账本；同向率<60% 代理线降级仅记录"
+}

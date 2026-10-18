@@ -1,0 +1,142 @@
+{
+ "run_date_utc": "2026-10-19",
+ "rotation_index": 0,
+ "trio": [
+  "BTCUSDT",
+  "AAPLUSDT",
+  "AAOIUSDT"
+ ],
+ "xval": [
+  {
+   "dy_symbol": "BTCUSDT",
+   "sina_symbol": "hf_BTC",
+   "anchor_bar_date": "2026-10-17",
+   "anchor_close": 81455.9,
+   "sina_close": 81759.0,
+   "sina_quote_time": "06:48:28",
+   "sina_date_label": "2026-10-17",
+   "offset_trials": [
+    {
+     "offset_days": 0,
+     "dy_bar_date": "2026-10-17",
+     "dy_close": 81455.9,
+     "dev_pct": -0.371
+    },
+    {
+     "offset_days": 1,
+     "dy_bar_date": "2026-10-16",
+     "dy_close": 81578.3,
+     "dev_pct": -0.221
+    }
+   ],
+   "chosen": {
+    "offset_days": 1,
+    "dy_bar_date": "2026-10-16",
+    "dy_close": 81578.3,
+    "dev_pct": -0.221
+   },
+   "tier": "CRYPTO",
+   "tolerance_pct": 1.5,
+   "verdict": "PASS"
+  },
+  {
+   "dy_symbol": "AAPLUSDT",
+   "sina_symbol": "gb_aapl",
+   "anchor_bar_date": "2026-10-17",
+   "anchor_close": 343.54,
+   "sina_close": 343.46,
+   "sina_quote_time": "2026-10-17 07:59:51",
+   "sina_date_label": "2026-10-17",
+   "offset_trials": [
+    {
+     "offset_days": 0,
+     "dy_bar_date": "2026-10-17",
+     "dy_close": 343.54,
+     "dev_pct": 0.023
+    },
+    {
+     "offset_days": 1,
+     "dy_bar_date": "2026-10-16",
+     "dy_close": 343.34,
+     "dev_pct": -0.035
+    }
+   ],
+   "chosen": {
+    "offset_days": 0,
+    "dy_bar_date": "2026-10-17",
+    "dy_close": 343.54,
+    "dev_pct": 0.023
+   },
+   "tier": "EQUITY_HI",
+   "tolerance_pct": 1.0,
+   "verdict": "PASS"
+  },
+  {
+   "dy_symbol": "AAOIUSDT",
+   "sina_symbol": "gb_aaoi",
+   "anchor_bar_date": "2026-10-17",
+   "anchor_close": 74.12,
+   "sina_close": 75.57,
+   "sina_quote_time": "2026-10-17 09:30:11",
+   "sina_date_label": "2026-10-17",
+   "offset_trials": [
+    {
+     "offset_days": 0,
+     "dy_bar_date": "2026-10-17",
+     "dy_close": 74.12,
+     "dev_pct": -1.919
+    },
+    {
+     "offset_days": 1,
+     "dy_bar_date": "2026-10-16",
+     "dy_close": 75.7,
+     "dev_pct": 0.172
+    }
+   ],
+   "chosen": {
+    "offset_days": 1,
+    "dy_bar_date": "2026-10-16",
+    "dy_close": 75.7,
+    "dev_pct": 0.172
+   },
+   "tier": "EQUITY_LO",
+   "tolerance_pct": 1.0,
+   "verdict": "PASS"
+  }
+ ],
+ "alarms": [],
+ "funding_ledger": {
+  "status": "常数记账不变",
+  "value_per_bar": 0.0003,
+  "note": "FUNDING=0.0003 @ engine_f1/f1_signal.py:68 未改动；代理字段禁入"
+ },
+ "shadow_backfill": {
+  "_lineage_rule": "{source,path,fetched_at,raw_snapshot} 四元组强制；sina 加 headers_required；dy 加 bar_date_convention",
+  "fetched_at": "2026-10-18T16:44:07Z",
+  "rows": [
+   {
+    "shadow_field": "cme_basis_pct",
+    "value": 0.372,
+    "asof_date": "2026-10-19",
+    "source": "sina+kxiandaoyan",
+    "path": "hq.sinajs.cn/list=hf_BTC + /api/kline/BTCUSDT",
+    "fetched_at": "2026-10-18T16:44:07Z",
+    "raw_snapshot": "raw/shadow_cme_basis_raw_2026-10-19.json",
+    "headers_required": "full-UA+Referer+Accept(sina)",
+    "bar_date_convention": "北京日期+盘后延伸+周日合成bar(dy)",
+    "ledger_isolation": "影子层，禁入 funding 账本"
+   },
+   {
+    "shadow_field": "usdcnh_close",
+    "value": 6.685,
+    "asof_date": "2026-10-17",
+    "source": "sina",
+    "path": "hq.sinajs.cn/list=fx_susdcnh",
+    "fetched_at": "2026-10-18T16:44:07Z",
+    "raw_snapshot": "raw/shadow_usdcnh_raw_2026-10-19.json",
+    "headers_required": "full-UA+Referer+Accept(sina)",
+    "ledger_isolation": "影子层，禁入 funding 账本"
+   }
+  ]
+ }
+}

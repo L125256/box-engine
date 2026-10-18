@@ -1,0 +1,78 @@
+{
+  "work_order": "W1_资金费数据源",
+  "spec": {"file": "/tmp/trade9_specs/W1_SPEC.md", "version": "1.0", "frozen": "2026-10-19", "R8_pool": 32},
+  "executed_at_utc": "2026-10-18T16:30:00Z~2026-10-18T16:45:00Z",
+  "1_探测复现": {
+    "dy_paths_probed": 38,
+    "sina_endpoints_probed": 20,
+    "total": 58,
+    "pool": 32,
+    "headers": "完整 UA + Referer: https://finance.sina.com.cn/ (+ Accept: */* 为 gb_* 必需，本轮实证)",
+    "dy_matrix": {
+      "200_json": ["/api/signals", "/api/kline/{SYMBOL}", "/api/symbols"],
+      "200_spa_html_兜底": ["/funding", "/openapi/v1/funding", "/swagger.json"],
+      "404": "其余 32 路径（funding×8 拼写变体、markPrice/premiumIndex、OI/多空比/income/exchangeInfo、v1/klines 变体、markets/status/version/index/quote/rate/docs/api/history）",
+      "口径变更": "/api/positions 基准轮 TLS 超时，本轮复测 404"
+    },
+    "sina_matrix": {
+      "200_有数据": ["gb_aapl", "hf_CL", "hf_GC", "hf_BTC", "hf_SI", "hf_CAD", "fx_susdcnh", "fx_seurusd", "fx_susdjpy", "DINIW", "s_sh000001", "gb_$ndx"],
+      "200_空串": ["usAAPL_OQ", "op_aapl", "of_gb_aapl", "bt_aapl", "SHIBOR", "sofr", "hl_usd"],
+      "404": ["chyyshb.html"],
+      "反爬实证": "Pool(32) 并发突发下 hq.sinajs.cn 部分请求 403（基准轮为 gb_$ndx/bt_aapl，本轮为 gb_aapl/hf_CL/hf_GC/hf_BTC/fx_susdcnh）；串行降频+Accept 头后 4/5 恢复，gb_* 需完整 UA+Referer+Accept:*/* 三件套"
+    },
+    "对拍结论": "与规格预判全量一致（导演站 3 活端点+funding 全链 404；新浪全线无 funding/隔夜利率字段）；差异仅 ①规格文字写 37 导演路径、实际冻结清单 38 条（规格表内 404×34+200×3+超时×1=38，与其冻结留痕 w1_probe_raw.json 一致）②/api/positions 由超时改判 404 ③新浪 403 为并发限频非端点死亡",
+    "funding_field_found": false
+  },
+  "2_新端点入库": {
+    "endpoint": "/api/symbols",
+    "lineage": {"source": "kxiandaoyan", "path": "/api/symbols", "fetched_at": "2026-10-18T16:36:00Z", "raw_snapshot": "raw/dy_symbols_241.json", "bar_date_convention": "北京日期+盘后延伸+周日合成bar"},
+    "total": 241,
+    "underlying_type": {"EQUITY": 185, "COMMODITY": 14, "CRYPTO": 13, "HK_EQUITY": 13, "KR_EQUITY": 8, "PREMARKET": 4, "INDEX": 4},
+    "字典漂移预警": "规格冻结口径『240 EQUITY 代币合约+BTCUSDT』与现抓 7 分域不符——字典已扩容（COMMODITY/HK/KR/INDEX 等 56 只非美股域），池构建应以现抓字典为准并逐会话心跳核对 total",
+    "reconcile_vs_144_pool": {"pool_kept": 144, "缺失(池有/字典无)": 0, "新增(字典有/池无)": 97, "明细": "raw/symbols_reconcile.json", "新增代表": ["BTCUSDT", "ETHUSDT", "XAUUSDT", "SAMSUNGUSDT", "TENCENTUSDT", "OPENAIUSDT", "HSI", "VIX", "DXY", "KODEX200USDT"]}
+  },
+  "3_校验流水线": {
+    "tool": "tools/w1_xval_pipeline.py（常设件，每日 1 CRYPTO+1 高量 EQUITY+1 低量 EQUITY 轮换）",
+    "first_batch": ["BTCUSDT", "AAPLUSDT", "AAOIUSDT"],
+    "alignment_rule": "最近同步快照 + 日期标签偏移探测（0/+1/-1 天取最小偏差）；禁逐日硬对齐；禁用导演站周日合成 bar（周日 bar 自动跳锚）",
+    "tolerance_pct": {"default": 1.0, "CRYPTO": 1.5},
+    "alarm_logic": "超差→口径复查（偏移探测已内建）→仍超差→ALARM_FREEZE_SOURCE 报警+冻结该源当日数据标记",
+    "run_2026-10-19_北京": [
+      {"tier": "CRYPTO", "pair": "BTCUSDT vs hf_BTC", "chosen": {"offset_days": 1, "dy_bar": "2026-10-16", "dev_pct": -0.221}, "tol": 1.5, "verdict": "PASS"},
+      {"tier": "EQUITY_HI", "pair": "AAPLUSDT vs gb_aapl", "chosen": {"offset_days": 0, "dy_bar": "2026-10-17", "dev_pct": 0.023}, "tol": 1.0, "verdict": "PASS"},
+      {"tier": "EQUITY_LO", "pair": "AAOIUSDT vs gb_aaoi", "chosen": {"offset_days": 1, "dy_bar": "2026-10-16", "dev_pct": 0.172}, "tol": 1.0, "verdict": "PASS"}
+    ],
+    "alarms": [],
+    "轮换池缺口登记": ["hf_ETH", "hf_SOL", "gb_hanmi", "gb_mvizy 实测 200 空串→CRYPTO 线轮换退化为固定 BTCUSDT；缺口仅登记不判死（R9 穷举后另议）"]
+  },
+  "4_影子回填": {
+    "funding_ledger": "维持 0.03%/bar 常数记账（FUNDING=0.0003 @ engine_f1/f1_signal.py:68），本轮零改动；代理字段禁入账本",
+    "shadow_rows": [
+      {"shadow_field": "cme_basis_pct", "value": 0.372, "asof_date": "2026-10-19", "source": "sina+kxiandaoyan", "path": "hq.sinajs.cn/list=hf_BTC + /api/kline/BTCUSDT", "fetched_at": "2026-10-18T16:44:07Z", "raw_snapshot": "raw/shadow_cme_basis_raw_2026-10-19.json", "headers_required": "full-UA+Referer+Accept(sina)", "bar_date_convention": "北京日期+盘后延伸+周日合成bar(dy)"},
+      {"shadow_field": "usdcnh_close", "value": 6.685, "asof_date": "2026-10-17", "source": "sina", "path": "hq.sinajs.cn/list=fx_susdcnh", "fetched_at": "2026-10-18T16:44:07Z", "raw_snapshot": "raw/shadow_usdcnh_raw_2026-10-19.json", "headers_required": "full-UA+Referer+Accept(sina)"}
+    ],
+    "血缘合规": "四元组 {source,path,fetched_at,raw_snapshot} 全齐；sina 追加 headers_required；dy 追加 bar_date_convention"
+  },
+  "5_判死归档与心跳件": {
+    "death_archive": "raw/funding_death_archive.json（57+1 探测证据全列+复活条件 2 条）",
+    "revival_conditions": ["境外 API 可达环境实测通过", "导演站新增 funding 端点（探测自动发现）"],
+    "heartbeat_tool": "tools/w1_heartbeat.py（常设件：每会话 3 端点 dy /api/symbols、sina gb_aapl、sina hf_BTC，追加 raw/w1_heartbeat_log.jsonl，exit code 反映健康）",
+    "heartbeat_first_run": "2026-10-18T16:45:04Z all_ok=true（dy total=241 / gb_aapl 200 / hf_BTC 200）",
+    "full_probe_tool": "tools/w1_probe_rerun.py（57+1 路径复跑，Pool(32)）"
+  },
+  "artifacts": [
+    "W1_REPORT.md",
+    "raw/w1_probe_rerun.json",
+    "raw/w1_sina_retry.json",
+    "raw/dy_symbols_241.json",
+    "raw/symbols_reconcile.json",
+    "raw/w1_xval_run_2026-10-19.json",
+    "raw/shadow_cme_basis_raw_2026-10-19.json",
+    "raw/shadow_usdcnh_raw_2026-10-19.json",
+    "raw/funding_death_archive.json",
+    "raw/w1_heartbeat_log.jsonl",
+    "tools/w1_probe_rerun.py",
+    "tools/w1_xval_pipeline.py",
+    "tools/w1_heartbeat.py"
+  ]
+}

@@ -1,0 +1,302 @@
+{
+ "fetched_at": "2026-10-18T16:37:28Z",
+ "pool": 32,
+ "dy_path_count": 38,
+ "sina_endpoint_count": 20,
+ "dy": [
+  {
+   "url": "https://www.kxiandaoyan.com/api/signals",
+   "status": 200,
+   "ct": "application/json",
+   "len": 600,
+   "head": "{\"market\":\"futures\",\"period\":\"1d\",\"total\":241,\"sort\":\"symbol\",\"order\":\"asc\",\"items\":[{\"symbol\":\"AAOIUSDT\",\"base_asset\":\"AAOI\",\"name\":\"搴旂敤鍏夌數锛堝厜妯″潡/鏁版嵁涓�蹇冿級\",\"underlying_type\":\"EQUITY\",\"standalone\":false,\"latest_price\":73.78,\"change_pct\":-0.46,\"is_new"
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/kline/MVLLUSDT",
+   "status": 200,
+   "ct": "application/json",
+   "len": 600,
+   "head": "{\"code\":\"MVLLUSDT\",\"name\":\"MicroStrategy 2x锛圡STR鏉犳潌ETF锛�\",\"underlying_type\":\"EQUITY\",\"market\":\"futures\",\"period\":\"1d\",\"bars\":[{\"time\":\"2025-03-07\",\"open\":7.8367,\"high\":8.1267,\"low\":7.5783,\"close\":7.9899,\"volume\":1507.0},{\"time\":\"2025-03-10\",\"open\":7."
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/funding",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/fundingRate",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/funding_rate",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/fundingRates",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/funding/history",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/fundingRate/history",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/funding_history",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/markPrice",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/premiumIndex",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/ticker",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/ticker/24hr",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/depth",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/trades",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/openInterest",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/oi",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/longShortRatio",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/interestHistory",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/income",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/exchangeInfo",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/symbols",
+   "status": 200,
+   "ct": "application/json",
+   "len": 600,
+   "head": "{\"market\":\"futures\",\"total\":241,\"items\":[{\"symbol\":\"AAOIUSDT\",\"base_asset\":\"AAOI\",\"name\":\"搴旂敤鍏夌數锛堝厜妯″潡/鏁版嵁涓�蹇冿級\",\"underlying_type\":\"EQUITY\",\"status\":\"TRADING\"},{\"symbol\":\"AAPLUSDT\",\"base_asset\":\"AAPL\",\"name\":\"鑻规灉锛堟秷璐圭數瀛�+鏈嶅姟鐢熸�侊級\",\"underlying_type\":\""
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/markets",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/status",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/version",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/index",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/v1/funding",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/v1/kline/BTCUSDT",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/klines/BTCUSDT",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/quote",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/rate",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/funding",
+   "status": 200,
+   "ct": "text/html",
+   "len": 600,
+   "head": "<!DOCTYPE html> <html lang=\"zh-CN\"> <head>   <meta charset=\"UTF-8\" />   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />   <meta name=\"theme-color\" content=\"#0d1117\" />    <!-- ============ 鍩虹�� SEO ============ -->   <title>甯"
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/openapi/v1/funding",
+   "status": 200,
+   "ct": "text/html",
+   "len": 600,
+   "head": "<!DOCTYPE html> <html lang=\"zh-CN\"> <head>   <meta charset=\"UTF-8\" />   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />   <meta name=\"theme-color\" content=\"#0d1117\" />    <!-- ============ 鍩虹�� SEO ============ -->   <title>甯"
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/swagger.json",
+   "status": 200,
+   "ct": "text/html",
+   "len": 600,
+   "head": "<!DOCTYPE html> <html lang=\"zh-CN\"> <head>   <meta charset=\"UTF-8\" />   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />   <meta name=\"theme-color\" content=\"#0d1117\" />    <!-- ============ 鍩虹�� SEO ============ -->   <title>甯"
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/docs",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/positions",
+   "status": 404
+  },
+  {
+   "url": "https://www.kxiandaoyan.com/api/history",
+   "status": 404
+  }
+ ],
+ "sina": [
+  {
+   "url": "https://hq.sinajs.cn/list=gb_aapl",
+   "status": 403
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=usAAPL_OQ",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 25,
+   "head": "var hq_str_usAAPL_OQ=\"\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=hf_CL",
+   "status": 403
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=hf_GC",
+   "status": 403
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=hf_BTC",
+   "status": 403
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=hf_SI",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 107,
+   "head": "var hq_str_hf_SI=\"57.125,,57.130,57.140,58.140,57.035,04:59:58,57.156,57.635,0,8,3,2026-10-17,纽约白银,0\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=fx_susdcnh",
+   "status": 403
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=fx_seurusd",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 177,
+   "head": "var hq_str_fx_seurusd=\"04:59:37,1.123900,1.124000,1.123900,63,1.121800,1.126900,1.120600,1.123900,欧元兑美元即期汇率,0.190000,0.002100,0.005616,,1.207800,1.111400,,2026-10-17\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=DINIW",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 117,
+   "head": "var hq_str_DINIW=\"04:59:00,101.7827,101.7827,101.9743,5108,101.9956,102.0866,101.5758,101.7827,美元指数,2026-10-17\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=gb_$ndx",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 291,
+   "head": "var hq_str_gb_$ndx=\"纳斯达克100,29187.5487,-2.50,2026-10-17 05:30:00,-748.0460,29797.0967,29822.9137,29073.2858,31361.3691,22841.4180,1467756800,1127980284,0,0.00,--,0.00,0.00,0.00,0.00,0,0,0.0000,0.00,0.00,,Oct 16 05:16PM EDT,29935.5947,0,1,2026,0.0000,"
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=op_aapl",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 23,
+   "head": "var hq_str_op_aapl=\"\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=of_gb_aapl",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 26,
+   "head": "var hq_str_of_gb_aapl=\"\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=bt_aapl",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 23,
+   "head": "var hq_str_bt_aapl=\"\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=SHIBOR",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 22,
+   "head": "var hq_str_SHIBOR=\"\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=sofr",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 20,
+   "head": "var hq_str_sofr=\"\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=hl_usd",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 22,
+   "head": "var hq_str_hl_usd=\"\"; "
+  },
+  {
+   "url": "https://money.finance.sina.com.cn/ftp/chyyshb.html",
+   "status": 404
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=s_sh000001",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 73,
+   "head": "var hq_str_s_sh000001=\"上证指数,3716.2842,8.8082,0.24,4726321,73247519\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=hf_CAD",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 129,
+   "head": "var hq_str_hf_CAD=\"14353.965,,14359.000,14364.000,14509.500,14298.000,01:59:34,14407.500,14320.000,0,1,1,2026-10-17,伦铜,18778\"; "
+  },
+  {
+   "url": "https://hq.sinajs.cn/list=fx_susdjpy",
+   "status": 200,
+   "ct": "application/javascript; charset=GB18030",
+   "len": 197,
+   "head": "var hq_str_fx_susdjpy=\"04:59:56,157.990000,158.040000,157.990000,6600,157.980000,158.330000,157.670000,157.990000,美元兑日元即期汇率,0.010000,0.010000,0.004178,,163.980000,152.100000,,2026-10-17\"; "
+  }
+ ]
+}
