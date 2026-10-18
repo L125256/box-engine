@@ -1,0 +1,46 @@
+{
+ "spec": "DNEG 冻结规格",
+ "seed": 42,
+ "d0": {
+  "gate": "D0",
+  "authority": "/workspace/repo_ready/engine_f1/f1_backtest_v2.py",
+  "data": "engine_snapshot 快照（与/tmp/box_cache md5 全等，176/176）",
+  "comparisons": {
+   "old131_ungated": {
+    "curve_maxdiff": 0.0,
+    "fees_absdiff": 0.0,
+    "days": 767,
+    "pass": true
+   },
+   "old131_gated": {
+    "curve_maxdiff": 0.0,
+    "fees_absdiff": 0.0,
+    "days": 767,
+    "pass": true
+   },
+   "full144_ungated": {
+    "curve_maxdiff": 0.0,
+    "fees_absdiff": 0.0,
+    "days": 767,
+    "pass": true
+   },
+   "full144_gated": {
+    "curve_maxdiff": 0.0,
+    "fees_absdiff": 0.0,
+    "days": 767,
+    "pass": true
+   }
+  },
+  "maxdiff_all_zero": true
+ },
+ "d1_G1": {
+  "old131": true,
+  "full144": true
+ },
+ "triggers": {
+  "H_A_swap_factor": false,
+  "H_B_lower_frequency": false,
+  "H_C_stop_structure": true,
+  "H_D_state_gate": false
+ }
+}

@@ -1,0 +1,103 @@
+{
+ "meta": {
+  "triggers_frozen": "H-A: D2判死>=1且判活>=1；H-B: 费拖累后段占比>=30%；H-C: 止损绞肉占比>=30%；H-D: D3判策略特有",
+  "burn_ledger": "反事实参数跑过即烧窗，不得复用为上线判据窗",
+  "HD_preregistered": "T2=池等权20日已实现波动率（开工冻结）；阈值=realA 80分位；OFF=vol20>阈值；命中率=后段OFF日中F1净日收益<0占比>=80%；误伤=realA OFF日占比<=20%"
+ },
+ "triggers": {
+  "H_A_swap_factor": false,
+  "H_B_lower_frequency": false,
+  "H_C_stop_structure": true,
+  "H_D_state_gate": false
+ },
+ "dead_factors": [],
+ "alive_factors": [],
+ "runs": [
+  {
+   "kind": "nostop",
+   "pool": "old131",
+   "param": "None",
+   "holdout_ann": 28.32,
+   "holdout_total_pp": 14.55,
+   "holdout_fee_drag_ann_pp": 25.56,
+   "realA_ann": 168.07,
+   "realC_ann": -57.78,
+   "realC_total_pp": -27.81
+  },
+  {
+   "kind": "nostop",
+   "pool": "full144",
+   "param": "None",
+   "holdout_ann": 64.63,
+   "holdout_total_pp": 31.21,
+   "holdout_fee_drag_ann_pp": 28.36,
+   "realA_ann": 167.57,
+   "realC_ann": -59.13,
+   "realC_total_pp": -28.69
+  },
+  {
+   "kind": "stop12",
+   "pool": "old131",
+   "param": "-0.12",
+   "holdout_ann": 37.54,
+   "holdout_total_pp": 18.97,
+   "holdout_fee_drag_ann_pp": 19.55,
+   "realA_ann": 124.73,
+   "realC_ann": -50.46,
+   "realC_total_pp": -23.31
+  },
+  {
+   "kind": "stop12",
+   "pool": "full144",
+   "param": "-0.12",
+   "holdout_ann": 60.14,
+   "holdout_total_pp": 29.25,
+   "holdout_fee_drag_ann_pp": 21.18,
+   "realA_ann": 130.67,
+   "realC_ann": -55.61,
+   "realC_total_pp": -26.43
+  },
+  {
+   "kind": "trail12",
+   "pool": "old131",
+   "param": "0.12",
+   "holdout_ann": 0.06,
+   "holdout_total_pp": 0.03,
+   "holdout_fee_drag_ann_pp": 5.23,
+   "realA_ann": 38.4,
+   "realC_ann": -35.1,
+   "realC_total_pp": -15.07
+  },
+  {
+   "kind": "trail12",
+   "pool": "full144",
+   "param": "0.12",
+   "holdout_ann": 14.0,
+   "holdout_total_pp": 7.4,
+   "holdout_fee_drag_ann_pp": 5.72,
+   "realA_ann": 43.38,
+   "realC_ann": -34.17,
+   "realC_total_pp": -14.61
+  }
+ ],
+ "H_C_verdict": {
+  "old131": {
+   "base_total_pp": 22.67,
+   "nostop_total_pp": 14.55,
+   "stop12_total_pp": 18.97,
+   "trail12_total_pp": 0.03,
+   "nostop_improve_pp": -8.12,
+   "nostop_improve_ge10pp": false,
+   "nostop_realC_total_pp": -27.81
+  },
+  "full144": {
+   "base_total_pp": 30.84,
+   "nostop_total_pp": 31.21,
+   "stop12_total_pp": 29.25,
+   "trail12_total_pp": 7.4,
+   "nostop_improve_pp": 0.37,
+   "nostop_improve_ge10pp": false,
+   "nostop_realC_total_pp": -28.69
+  }
+ }
+}

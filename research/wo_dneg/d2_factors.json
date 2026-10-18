@@ -1,0 +1,321 @@
+{
+ "meta": {
+  "method": "信号日(每周首个交易日)横截面 Spearman rank IC vs 前向5交易日收益；日块 stationary bootstrap(平均块长10) 1000次 CI，seed=42",
+  "criteria_frozen": "dead: 前段IC>=+0.03且后段IC<=0；alive: 同号且|后段|>=0.5|前段|；其余待定（只报CI）；死/活须CI不跨0",
+  "segments": "realA/后段 强制两层，realB/realC 分开报"
+ },
+ "ic_table": {
+  "old131": {
+   "ma20_slope": {
+    "realA": {
+     "mean": 0.0522,
+     "icir": 0.1966,
+     "n_days": 42,
+     "ci_low": -0.0216,
+     "ci_high": 0.1077
+    },
+    "holdout": {
+     "mean": 0.0114,
+     "icir": 0.037,
+     "n_days": 28,
+     "ci_low": -0.0525,
+     "ci_high": 0.0722
+    },
+    "realB": {
+     "mean": 0.122,
+     "icir": 0.2773,
+     "n_days": 8,
+     "ci_low": -0.019,
+     "ci_high": 0.2616
+    },
+    "realC": {
+     "mean": -0.0329,
+     "icir": -0.1393,
+     "n_days": 20,
+     "ci_low": -0.0856,
+     "ci_high": 0.0209
+    }
+   },
+   "obv_slope20": {
+    "realA": {
+     "mean": 0.0457,
+     "icir": 0.218,
+     "n_days": 42,
+     "ci_low": 0.0151,
+     "ci_high": 0.0746
+    },
+    "holdout": {
+     "mean": 0.0671,
+     "icir": 0.2632,
+     "n_days": 28,
+     "ci_low": -0.0188,
+     "ci_high": 0.1459
+    },
+    "realB": {
+     "mean": 0.2398,
+     "icir": 0.6967,
+     "n_days": 8,
+     "ci_low": 0.1357,
+     "ci_high": 0.3421
+    },
+    "realC": {
+     "mean": -0.0019,
+     "icir": -0.0108,
+     "n_days": 20,
+     "ci_low": -0.05,
+     "ci_high": 0.0453
+    }
+   },
+   "dist_52w_high": {
+    "realA": {
+     "mean": 0.0435,
+     "icir": 0.1871,
+     "n_days": 42,
+     "ci_low": -0.013,
+     "ci_high": 0.0974
+    },
+    "holdout": {
+     "mean": 0.056,
+     "icir": 0.1878,
+     "n_days": 28,
+     "ci_low": -0.0255,
+     "ci_high": 0.1302
+    },
+    "realB": {
+     "mean": 0.1269,
+     "icir": 0.27,
+     "n_days": 8,
+     "ci_low": -0.023,
+     "ci_high": 0.268
+    },
+    "realC": {
+     "mean": 0.0277,
+     "icir": 0.1349,
+     "n_days": 20,
+     "ci_low": -0.0553,
+     "ci_high": 0.109
+    }
+   },
+   "mom_1m": {
+    "realA": {
+     "mean": 0.0641,
+     "icir": 0.2644,
+     "n_days": 42,
+     "ci_low": 0.0095,
+     "ci_high": 0.1084
+    },
+    "holdout": {
+     "mean": 0.018,
+     "icir": 0.0573,
+     "n_days": 28,
+     "ci_low": -0.0475,
+     "ci_high": 0.0742
+    },
+    "realB": {
+     "mean": 0.1067,
+     "icir": 0.2416,
+     "n_days": 8,
+     "ci_low": -0.0341,
+     "ci_high": 0.2491
+    },
+    "realC": {
+     "mean": -0.0174,
+     "icir": -0.0687,
+     "n_days": 20,
+     "ci_low": -0.0772,
+     "ci_high": 0.0417
+    }
+   }
+  },
+  "full144": {
+   "ma20_slope": {
+    "realA": {
+     "mean": 0.0696,
+     "icir": 0.2826,
+     "n_days": 42,
+     "ci_low": 0.0175,
+     "ci_high": 0.1115
+    },
+    "holdout": {
+     "mean": 0.0265,
+     "icir": 0.0898,
+     "n_days": 28,
+     "ci_low": -0.042,
+     "ci_high": 0.0889
+    },
+    "realB": {
+     "mean": 0.1381,
+     "icir": 0.3369,
+     "n_days": 8,
+     "ci_low": 0.0189,
+     "ci_high": 0.2558
+    },
+    "realC": {
+     "mean": -0.0182,
+     "icir": -0.0779,
+     "n_days": 20,
+     "ci_low": -0.0718,
+     "ci_high": 0.0382
+    }
+   },
+   "obv_slope20": {
+    "realA": {
+     "mean": 0.0547,
+     "icir": 0.2994,
+     "n_days": 42,
+     "ci_low": 0.024,
+     "ci_high": 0.0842
+    },
+    "holdout": {
+     "mean": 0.0754,
+     "icir": 0.2808,
+     "n_days": 28,
+     "ci_low": -0.0131,
+     "ci_high": 0.1549
+    },
+    "realB": {
+     "mean": 0.2453,
+     "icir": 0.6518,
+     "n_days": 8,
+     "ci_low": 0.1375,
+     "ci_high": 0.3523
+    },
+    "realC": {
+     "mean": 0.0075,
+     "icir": 0.041,
+     "n_days": 20,
+     "ci_low": -0.0486,
+     "ci_high": 0.0575
+    }
+   },
+   "dist_52w_high": {
+    "realA": {
+     "mean": 0.0312,
+     "icir": 0.1186,
+     "n_days": 42,
+     "ci_low": -0.0447,
+     "ci_high": 0.104
+    },
+    "holdout": {
+     "mean": 0.0753,
+     "icir": 0.2585,
+     "n_days": 28,
+     "ci_low": -0.0158,
+     "ci_high": 0.1597
+    },
+    "realB": {
+     "mean": 0.1722,
+     "icir": 0.3947,
+     "n_days": 8,
+     "ci_low": 0.0553,
+     "ci_high": 0.2891
+    },
+    "realC": {
+     "mean": 0.0365,
+     "icir": 0.1725,
+     "n_days": 20,
+     "ci_low": -0.0514,
+     "ci_high": 0.1248
+    }
+   },
+   "mom_1m": {
+    "realA": {
+     "mean": 0.0824,
+     "icir": 0.3785,
+     "n_days": 42,
+     "ci_low": 0.0399,
+     "ci_high": 0.1226
+    },
+    "holdout": {
+     "mean": 0.0349,
+     "icir": 0.1148,
+     "n_days": 28,
+     "ci_low": -0.034,
+     "ci_high": 0.0987
+    },
+    "realB": {
+     "mean": 0.1333,
+     "icir": 0.3343,
+     "n_days": 8,
+     "ci_low": 0.0096,
+     "ci_high": 0.2564
+    },
+    "realC": {
+     "mean": -0.0045,
+     "icir": -0.0176,
+     "n_days": 20,
+     "ci_low": -0.0732,
+     "ci_high": 0.0604
+    }
+   }
+  }
+ },
+ "verdict": {
+  "old131": {
+   "ma20_slope": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": false,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   },
+   "obv_slope20": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": true,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   },
+   "dist_52w_high": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": true,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   },
+   "mom_1m": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": false,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   }
+  },
+  "full144": {
+   "ma20_slope": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": false,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   },
+   "obv_slope20": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": true,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   },
+   "dist_52w_high": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": true,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   },
+   "mom_1m": {
+    "verdict": "pending",
+    "raw_dead": false,
+    "raw_alive": false,
+    "ci_note": "dead需前段CI>0且后段CI<0；alive需后段CI不跨0（开工注记，冻结）"
+   }
+  }
+ },
+ "top5_minus_ew_spread_pp": {
+  "old131": {
+   "realA": 4.1598,
+   "holdout": -1.435,
+   "realB": 2.54,
+   "realC": -2.4287
+  },
+  "full144": {
+   "realA": 3.9504,
+   "holdout": -2.7033,
+   "realB": -4.6978,
+   "realC": -2.4041
+  }
+ }
+}

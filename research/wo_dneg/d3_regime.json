@@ -1,0 +1,141 @@
+{
+ "meta": {
+  "arm2": "同引擎同费(ungated base 口径)、目标名单=池内随机5票，seeds=42..541(500)×双池",
+  "criteria_frozen": "后段F1净年化<随机带p5→策略特有；p25~p75→池底色同亏；>p75→复查口径",
+  "burn_note": "随机带1000 run 为诊断分布，非上线判据窗"
+ },
+ "arm1_pool_ew": {
+  "old131": {
+   "realA": {
+    "annualized_pct": 64.07,
+    "total_return_pct": 50.59,
+    "mdd_pct": -12.78
+   },
+   "holdout": {
+    "annualized_pct": 79.74,
+    "total_return_pct": 37.64,
+    "mdd_pct": -17.08
+   },
+   "realB": {
+    "annualized_pct": 965.68,
+    "total_return_pct": 47.51,
+    "mdd_pct": -3.61
+   },
+   "realC": {
+    "annualized_pct": -18.54,
+    "total_return_pct": -7.46,
+    "mdd_pct": -17.08
+   },
+   "holdout_monthly_pct": {
+    "2026-05-31": 21.67,
+    "2026-06-30": 1.35,
+    "2026-07-31": -11.67,
+    "2026-08-31": 9.66,
+    "2026-09-30": 3.6,
+    "2026-10-31": -8.26
+   }
+  },
+  "full144": {
+   "realA": {
+    "annualized_pct": 78.14,
+    "total_return_pct": 61.19,
+    "mdd_pct": -13.17
+   },
+   "holdout": {
+    "annualized_pct": 77.97,
+    "total_return_pct": 36.9,
+    "mdd_pct": -17.68
+   },
+   "realB": {
+    "annualized_pct": 1002.07,
+    "total_return_pct": 48.32,
+    "mdd_pct": -3.82
+   },
+   "realC": {
+    "annualized_pct": -19.23,
+    "total_return_pct": -7.75,
+    "mdd_pct": -17.68
+   },
+   "holdout_monthly_pct": {
+    "2026-05-31": 22.64,
+    "2026-06-30": 1.04,
+    "2026-07-31": -12.63,
+    "2026-08-31": 10.69,
+    "2026-09-30": 4.21,
+    "2026-10-31": -9.36
+   }
+  }
+ },
+ "arm2_random_band": {
+  "old131": {
+   "n_runs": 500,
+   "holdout_ann_percentiles": {
+    "5": -18.28,
+    "25": -1.4,
+    "50": 11.47,
+    "75": 28.43,
+    "95": 60.05
+   },
+   "realC_ann_percentiles": {
+    "5": -47.62,
+    "25": -36.65,
+    "50": -25.89,
+    "75": -14.39,
+    "95": 9.1
+   },
+   "f1_holdout_ann": 45.51,
+   "f1_holdout_total_pp": 22.67,
+   "f1_realC_ann": -49.31,
+   "f1_realC_total_pp": -22.64,
+   "verdict_holdout": "above_p75（>p75 深负不成立，复查口径）"
+  },
+  "full144": {
+   "n_runs": 500,
+   "holdout_ann_percentiles": {
+    "5": -17.93,
+    "25": -2.52,
+    "50": 10.62,
+    "75": 26.07,
+    "95": 50.25
+   },
+   "realC_ann_percentiles": {
+    "5": -47.75,
+    "25": -36.93,
+    "50": -27.18,
+    "75": -14.47,
+    "95": 5.09
+   },
+   "f1_holdout_ann": 63.77,
+   "f1_holdout_total_pp": 30.84,
+   "f1_realC_ann": -56.31,
+   "f1_realC_total_pp": -26.87,
+   "verdict_holdout": "above_p75（>p75 深负不成立，复查口径）"
+  }
+ },
+ "arm1_f1_base": {
+  "old131": {
+   "holdout": {
+    "annualized_pct": 45.51,
+    "total_return_pct": 22.67,
+    "yrs": 0.54
+   },
+   "realA": {
+    "annualized_pct": 115.5,
+    "total_return_pct": 88.67,
+    "yrs": 0.83
+   }
+  },
+  "full144": {
+   "holdout": {
+    "annualized_pct": 63.77,
+    "total_return_pct": 30.84,
+    "yrs": 0.54
+   },
+   "realA": {
+    "annualized_pct": 114.35,
+    "total_return_pct": 87.83,
+    "yrs": 0.83
+   }
+  }
+ }
+}
