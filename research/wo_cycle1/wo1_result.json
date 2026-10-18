@@ -1,0 +1,2189 @@
+{
+ "generated": "2026-10-18 12:07 UTC",
+ "workorder": "WO1 cap3 补检（R6-1b）· 冻结规格 v1.0",
+ "seed": 42,
+ "pool": "old131（工单引用数字口径）",
+ "param_space": "仅 cap3（A confirm=2 不变 + B entry_cap=3，已批档位 {2,3,4} 内）；对照臂 cap2 同套",
+ "lineage": "引擎逐行复制 /tmp/r6_1/ab_validation.py（r5_3 ← eng_w2_f1 谱系），仅新增 cap3 档/训练回吐侧对称检验/换段复验，不改口径",
+ "parallel": {
+  "workers": 32,
+  "mode": "multiprocessing fork Pool",
+  "split": "LOTO 逐笔封禁重跑按 (sym,date) 切片；bootstrap 1000 次重抽索引由主进程单流 seed=42 预生成后按迭代切片分发；子任务纯函数化、按序回收=串行等价",
+  "fast_engine": "回测上下文（行情矩阵/idx/MA50/崩市中位/周信号目标表）与 ban/cap 无关，一次构建全任务复用；启动时与原引擎逐位等价断言（curve/fees/buys/sells 全等）",
+  "runtime_sec": 18.6,
+  "fix_note": "修复 block_bootstrap 行参错位（rb 原误取 cap_pct 使统计恒为 0）；统计口径不变：月块有放回重抽 cap−base 年化差"
+ },
+ "baseline_check": {
+  "data_state": "engine_snapshot/box_cache_snapshot.tar.gz（2026-10-17 10:28 UTC 快照，末根 2026-10-17，全局首根 2024-01-24）——与 WO4 权威基线 bit-exact 同源（R5-0 逐笔复现通过）",
+  "base_train_vs_r5_3_base": {
+   "anchor": "r5_3 turnover_scan runs.base.old131.train（同引擎族可复现锚）",
+   "detail": {
+    "annualized": {
+     "run": 39.24,
+     "ref": 39.24,
+     "match": true
+    },
+    "mdd_pct": {
+     "run": -16.21,
+     "ref": -16.21,
+     "match": true
+    },
+    "turnover_ann_x": {
+     "run": 31.78,
+     "ref": 31.78,
+     "match": true
+    },
+    "fee_drag_ann_pct": {
+     "run": 5.49,
+     "ref": 5.49,
+     "match": true
+    },
+    "total_return_pct": {
+     "run": 105.94,
+     "ref": 105.94,
+     "match": true
+    }
+   },
+   "all_match": true
+  },
+  "cap2_holdout_vs_r5_3_ab": {
+   "anchor": "r5_3 turnover_scan runs.AB_confirm2_cap2.old131.holdout",
+   "detail": {
+    "annualized": {
+     "run": 77.48,
+     "ref": 77.62,
+     "match": false
+    },
+    "mdd_pct": {
+     "run": -16.3,
+     "ref": -16.3,
+     "match": true
+    },
+    "turnover_ann_x": {
+     "run": 69.59,
+     "ref": 69.59,
+     "match": true
+    },
+    "fee_drag_ann_pct": {
+     "run": 14.57,
+     "ref": 14.57,
+     "match": true
+    }
+   },
+   "all_match": false
+  },
+  "f1_anchor_retired": {
+   "reason": "/tmp/eng_w2_f1/f1_results.json+engine 于 2026-10-18 04:07/05:12 UTC 被外部重生成（引擎加入 BUG-04「当日止损票禁当日买回」，train annualized 39.24→36.38），旧工件本地不可恢复；R6-1（10-17）同一校验为 PASS 可证脚本冻结时点锚本成立。谱系锚改对 r5_3 同族（r6_1 谱系声明一致），f1 工件漂移如实登记"
+  },
+  "r5_3_residual_gap": "cap2 holdout annualized 77.48 vs 77.62：r5_3 跑于 10-17 06:45 UTC，其 10-17 forming bar 在权威基线（03:26 UTC）之后被修订，该 bar 值本地不可恢复（WO4 同款漂移）；mdd -16.3 bit 一致，年化差=forming bar 修订效应",
+  "drift_root_cause": "冻结后共享工件被刷新：box_cache 滚动窗（09:54 UTC）+ f1 工件重生成（04:07 UTC）+ forming bar 修订；非代码/口径差异（引擎与 r6_1 逐字 diff=0，仅注释与死参数）"
+ },
+ "provenance": {
+  "real_window": ">=2025-06-01（WO1 规格出身分界）；留出窗 2026-04→10 全段属真实窗、单独达标",
+  "annotation": "真实窗成绩引用强制伴行标注：末 5 个月（2026-06→10）真实深负（−48.8/−55.9pp/年）"
+ },
+ "results": {
+  "cap3": {
+   "windows": {
+    "train": {
+     "annualized": 23.5,
+     "mdd_pct": -16.35,
+     "turnover_ann_x": 17.38,
+     "fee_drag_ann_pct": 3.64,
+     "total_return_pct": 58.5
+    },
+    "holdout": {
+     "annualized": 77.48,
+     "mdd_pct": -16.3,
+     "turnover_ann_x": 69.59,
+     "fee_drag_ann_pct": 14.57,
+     "total_return_pct": 36.69
+    },
+    "base_train": {
+     "annualized": 39.24,
+     "mdd_pct": -16.21,
+     "turnover_ann_x": 31.78,
+     "fee_drag_ann_pct": 5.49,
+     "total_return_pct": 105.94
+    },
+    "base_holdout": {
+     "annualized": 47.77,
+     "mdd_pct": -29.41,
+     "turnover_ann_x": 127.3,
+     "fee_drag_ann_pct": 21.97,
+     "total_return_pct": 23.71
+    }
+   },
+   "adv_holdout_pp": 29.71,
+   "giveup_train_pp": 47.44,
+   "monthly_holdout": [
+    {
+     "month": "2026-04",
+     "cap_pct": 27.77,
+     "base_pct": 39.13,
+     "diff_pct": -11.37
+    },
+    {
+     "month": "2026-05",
+     "cap_pct": 18.14,
+     "base_pct": 0.74,
+     "diff_pct": 17.4
+    },
+    {
+     "month": "2026-06",
+     "cap_pct": -6.1,
+     "base_pct": 0.28,
+     "diff_pct": -6.38
+    },
+    {
+     "month": "2026-07",
+     "cap_pct": 0.0,
+     "base_pct": 0.0,
+     "diff_pct": 0.0
+    },
+    {
+     "month": "2026-08",
+     "cap_pct": 0.6,
+     "base_pct": -4.9,
+     "diff_pct": 5.5
+    },
+    {
+     "month": "2026-09",
+     "cap_pct": -3.15,
+     "base_pct": -5.86,
+     "diff_pct": 2.72
+    }
+   ],
+   "lmo_holdout": [
+    {
+     "excl": "2026-04",
+     "adv_cum_pct": 17.64
+    },
+    {
+     "excl": "2026-05",
+     "adv_cum_pct": -8.01
+    },
+    {
+     "excl": "2026-06",
+     "adv_cum_pct": 21.59
+    },
+    {
+     "excl": "2026-07",
+     "adv_cum_pct": 12.27
+    },
+    {
+     "excl": "2026-08",
+     "adv_cum_pct": 4.96
+    },
+    {
+     "excl": "2026-09",
+     "adv_cum_pct": 8.93
+    }
+   ],
+   "bootstrap": {
+    "n": 1000,
+    "seed": 42,
+    "mean_adv_pp": 23.53,
+    "p5_pp": -133.0,
+    "p95_pp": 174.42,
+    "p_adv_gt0": 0.639
+   },
+   "loto_holdout": {
+    "adv_full_pp": 29.71,
+    "n_banned": 30,
+    "rows": [
+     {
+      "sym": "MVLLUSDT",
+      "date": "2026-04-07",
+      "contrib_pp": -19.55
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2026-05-05",
+      "contrib_pp": -29.0
+     },
+     {
+      "sym": "TEAMUSDT",
+      "date": "2026-08-18",
+      "contrib_pp": -45.24
+     },
+     {
+      "sym": "INTCUSDT",
+      "date": "2026-04-28",
+      "contrib_pp": -48.23
+     },
+     {
+      "sym": "CIENUSDT",
+      "date": "2026-04-07",
+      "contrib_pp": -48.53
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2026-09-29",
+      "contrib_pp": -49.25
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2026-04-28",
+      "contrib_pp": -49.52
+     },
+     {
+      "sym": "INTWUSDT",
+      "date": "2026-04-14",
+      "contrib_pp": -50.51
+     },
+     {
+      "sym": "SOXLUSDT",
+      "date": "2026-04-21",
+      "contrib_pp": -51.75
+     },
+     {
+      "sym": "AMDUSDT",
+      "date": "2026-09-29",
+      "contrib_pp": -51.75
+     },
+     {
+      "sym": "INTCUSDT",
+      "date": "2026-04-14",
+      "contrib_pp": -51.78
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2026-09-22",
+      "contrib_pp": -51.83
+     },
+     {
+      "sym": "CRWDUSDT",
+      "date": "2026-06-16",
+      "contrib_pp": -52.73
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2026-04-21",
+      "contrib_pp": -53.85
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2026-05-05",
+      "contrib_pp": -54.03
+     },
+     {
+      "sym": "FLNCUSDT",
+      "date": "2026-05-26",
+      "contrib_pp": -54.49
+     },
+     {
+      "sym": "MVLLUSDT",
+      "date": "2026-06-16",
+      "contrib_pp": -54.49
+     },
+     {
+      "sym": "INTWUSDT",
+      "date": "2026-09-22",
+      "contrib_pp": -54.52
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2026-06-23",
+      "contrib_pp": -54.54
+     },
+     {
+      "sym": "MVLLUSDT",
+      "date": "2026-06-23",
+      "contrib_pp": -54.54
+     },
+     {
+      "sym": "PENGUSDT",
+      "date": "2026-10-13",
+      "contrib_pp": -54.54
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2026-05-26",
+      "contrib_pp": -54.55
+     },
+     {
+      "sym": "SOXLUSDT",
+      "date": "2026-10-06",
+      "contrib_pp": -54.55
+     },
+     {
+      "sym": "SHOPUSDT",
+      "date": "2026-10-13",
+      "contrib_pp": -54.55
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2026-09-08",
+      "contrib_pp": -54.56
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2026-10-06",
+      "contrib_pp": -54.61
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2026-05-12",
+      "contrib_pp": -54.7
+     },
+     {
+      "sym": "FLEXUSDT",
+      "date": "2026-05-12",
+      "contrib_pp": -54.7
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2026-09-08",
+      "contrib_pp": -56.02
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2026-08-18",
+      "contrib_pp": -57.13
+     }
+    ],
+    "top_trade_share": null,
+    "top_trade": {
+     "sym": "MVLLUSDT",
+     "date": "2026-04-07",
+     "contrib_pp": -19.55
+    }
+   },
+   "g1_mvllusdt": {
+    "banned": [
+     "MVLLUSDT",
+     "2026-04-07"
+    ],
+    "mvllusdt_in_buys": true,
+    "note": null,
+    "adv_after_pp": 1.49,
+    "pass": false
+   },
+   "loto_train_giveup": {
+    "giveup_full_pp": 47.44,
+    "n_banned": 103,
+    "rows": [
+     {
+      "sym": "INTWUSDT",
+      "date": "2025-09-30",
+      "contrib_pp": 13.26
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-08-26",
+      "contrib_pp": 12.18
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-12-09",
+      "contrib_pp": 10.24
+     },
+     {
+      "sym": "IONQUSDT",
+      "date": "2024-11-12",
+      "contrib_pp": 9.6
+     },
+     {
+      "sym": "USARUSDT",
+      "date": "2025-10-07",
+      "contrib_pp": 9.13
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2025-06-17",
+      "contrib_pp": 8.97
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-07-01",
+      "contrib_pp": 8.69
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-09-30",
+      "contrib_pp": 8.64
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-11-04",
+      "contrib_pp": 8.64
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-09-04",
+      "contrib_pp": 8.62
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2025-12-30",
+      "contrib_pp": 8.28
+     },
+     {
+      "sym": "SNDKUSDT",
+      "date": "2025-09-09",
+      "contrib_pp": 8.24
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-09-09",
+      "contrib_pp": 8.08
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2024-11-19",
+      "contrib_pp": 7.53
+     },
+     {
+      "sym": "COHRUSDT",
+      "date": "2024-09-04",
+      "contrib_pp": 7.01
+     },
+     {
+      "sym": "SNDKUSDT",
+      "date": "2026-01-13",
+      "contrib_pp": 6.84
+     },
+     {
+      "sym": "ALABUSDT",
+      "date": "2025-08-05",
+      "contrib_pp": 6.5
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-12-30",
+      "contrib_pp": 6.31
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-09-16",
+      "contrib_pp": 6.14
+     },
+     {
+      "sym": "HOODUSDT",
+      "date": "2025-01-28",
+      "contrib_pp": 6.03
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2026-01-06",
+      "contrib_pp": 5.73
+     },
+     {
+      "sym": "VSTUSDT",
+      "date": "2024-03-12",
+      "contrib_pp": 5.61
+     },
+     {
+      "sym": "CRWVUSDT",
+      "date": "2025-06-17",
+      "contrib_pp": 5.58
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2025-07-08",
+      "contrib_pp": 5.58
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2024-11-19",
+      "contrib_pp": 5.35
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2025-08-26",
+      "contrib_pp": 5.14
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2026-01-27",
+      "contrib_pp": 5.0
+     },
+     {
+      "sym": "SOFIUSDT",
+      "date": "2025-07-08",
+      "contrib_pp": 4.91
+     },
+     {
+      "sym": "PLTRUSDT",
+      "date": "2025-02-11",
+      "contrib_pp": 4.86
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2025-07-15",
+      "contrib_pp": 4.75
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2024-03-19",
+      "contrib_pp": 4.73
+     },
+     {
+      "sym": "TEMUSDT",
+      "date": "2025-01-28",
+      "contrib_pp": 4.71
+     },
+     {
+      "sym": "COHRUSDT",
+      "date": "2025-12-16",
+      "contrib_pp": 4.61
+     },
+     {
+      "sym": "WMTUSDT",
+      "date": "2024-09-10",
+      "contrib_pp": 4.36
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-12-10",
+      "contrib_pp": 4.29
+     },
+     {
+      "sym": "BABAUSDT",
+      "date": "2025-02-19",
+      "contrib_pp": 4.28
+     },
+     {
+      "sym": "GDXUSDT",
+      "date": "2024-04-02",
+      "contrib_pp": 4.14
+     },
+     {
+      "sym": "HIMSUSDT",
+      "date": "2025-02-04",
+      "contrib_pp": 4.12
+     },
+     {
+      "sym": "METAUSDT",
+      "date": "2025-02-04",
+      "contrib_pp": 4.02
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-10-28",
+      "contrib_pp": 3.88
+     },
+     {
+      "sym": "GDXUSDT",
+      "date": "2024-03-19",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2024-12-31",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "NETUSDT",
+      "date": "2025-02-11",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-06-24",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-07-01",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "COINUSDT",
+      "date": "2025-07-15",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-09-16",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-09-23",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "AMDUSDT",
+      "date": "2025-10-28",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2025-11-04",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "SNDKUSDT",
+      "date": "2025-11-11",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "DELLUSDT",
+      "date": "2026-03-24",
+      "contrib_pp": 3.82
+     },
+     {
+      "sym": "CATUSDT",
+      "date": "2024-04-02",
+      "contrib_pp": 3.79
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2025-06-24",
+      "contrib_pp": 3.78
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2025-12-23",
+      "contrib_pp": 3.74
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2025-12-23",
+      "contrib_pp": 3.69
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2024-12-24",
+      "contrib_pp": 3.66
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2025-07-29",
+      "contrib_pp": 3.52
+     },
+     {
+      "sym": "VUSDT",
+      "date": "2024-09-10",
+      "contrib_pp": 3.46
+     },
+     {
+      "sym": "APPUSDT",
+      "date": "2024-11-12",
+      "contrib_pp": 3.41
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2024-08-06",
+      "contrib_pp": 3.37
+     },
+     {
+      "sym": "AVGOUSDT",
+      "date": "2024-12-24",
+      "contrib_pp": 3.11
+     },
+     {
+      "sym": "VRTUSDT",
+      "date": "2024-03-26",
+      "contrib_pp": 3.06
+     },
+     {
+      "sym": "GTLBUSDT",
+      "date": "2024-03-05",
+      "contrib_pp": 3.03
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2026-01-13",
+      "contrib_pp": 2.68
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2026-01-21",
+      "contrib_pp": 2.62
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-09-03",
+      "contrib_pp": 2.61
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-09-03",
+      "contrib_pp": 2.61
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2025-12-16",
+      "contrib_pp": 2.61
+     },
+     {
+      "sym": "USARUSDT",
+      "date": "2026-01-27",
+      "contrib_pp": 2.6
+     },
+     {
+      "sym": "IONQUSDT",
+      "date": "2025-09-23",
+      "contrib_pp": 2.59
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2024-03-12",
+      "contrib_pp": 2.57
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-11-26",
+      "contrib_pp": 2.55
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-12-03",
+      "contrib_pp": 2.54
+     },
+     {
+      "sym": "NBISUSDT",
+      "date": "2024-12-10",
+      "contrib_pp": 2.54
+     },
+     {
+      "sym": "MVLLUSDT",
+      "date": "2025-10-07",
+      "contrib_pp": 2.54
+     },
+     {
+      "sym": "MARAUSDT",
+      "date": "2024-03-05",
+      "contrib_pp": 2.53
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2024-07-30",
+      "contrib_pp": 2.53
+     },
+     {
+      "sym": "TZAUSDT",
+      "date": "2025-04-08",
+      "contrib_pp": 2.53
+     },
+     {
+      "sym": "SOXSUSDT",
+      "date": "2025-04-08",
+      "contrib_pp": 2.53
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2026-03-24",
+      "contrib_pp": 2.53
+     },
+     {
+      "sym": "APPUSDT",
+      "date": "2024-03-26",
+      "contrib_pp": 2.52
+     },
+     {
+      "sym": "TEMUSDT",
+      "date": "2024-07-30",
+      "contrib_pp": 2.52
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-07-22",
+      "contrib_pp": 2.52
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2024-12-17",
+      "contrib_pp": 2.51
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2024-12-17",
+      "contrib_pp": 2.51
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-10-21",
+      "contrib_pp": 2.51
+     },
+     {
+      "sym": "SQQQUSDT",
+      "date": "2024-08-13",
+      "contrib_pp": 2.47
+     },
+     {
+      "sym": "IONQUSDT",
+      "date": "2024-12-31",
+      "contrib_pp": 2.47
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-10-14",
+      "contrib_pp": 2.46
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2025-10-14",
+      "contrib_pp": 2.45
+     },
+     {
+      "sym": "LITEUSDT",
+      "date": "2025-11-11",
+      "contrib_pp": 2.43
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-07-29",
+      "contrib_pp": 2.34
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2025-08-19",
+      "contrib_pp": 2.31
+     },
+     {
+      "sym": "SOXSUSDT",
+      "date": "2024-08-13",
+      "contrib_pp": 2.12
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-08-12",
+      "contrib_pp": 1.94
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2025-10-21",
+      "contrib_pp": 1.94
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-08-19",
+      "contrib_pp": 1.81
+     },
+     {
+      "sym": "LITEUSDT",
+      "date": "2025-12-09",
+      "contrib_pp": 1.57
+     },
+     {
+      "sym": "RDDTUSDT",
+      "date": "2025-08-12",
+      "contrib_pp": 1.56
+     },
+     {
+      "sym": "INTWUSDT",
+      "date": "2026-01-21",
+      "contrib_pp": 1.39
+     },
+     {
+      "sym": "UVXYUSDT",
+      "date": "2024-08-06",
+      "contrib_pp": -0.67
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-08-05",
+      "contrib_pp": -4.53
+     }
+    ],
+    "top_trade_share": 0.03,
+    "top_trade": {
+     "sym": "INTWUSDT",
+     "date": "2025-09-30",
+     "contrib_pp": 13.26
+    }
+   },
+   "lmo_train": [
+    {
+     "excl": "2024-02",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-03",
+     "giveup_cum_pct": 52.63
+    },
+    {
+     "excl": "2024-04",
+     "giveup_cum_pct": 47.6
+    },
+    {
+     "excl": "2024-05",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-06",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-07",
+     "giveup_cum_pct": 54.65
+    },
+    {
+     "excl": "2024-08",
+     "giveup_cum_pct": 52.88
+    },
+    {
+     "excl": "2024-09",
+     "giveup_cum_pct": 52.5
+    },
+    {
+     "excl": "2024-10",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-11",
+     "giveup_cum_pct": 41.41
+    },
+    {
+     "excl": "2024-12",
+     "giveup_cum_pct": 57.63
+    },
+    {
+     "excl": "2025-01",
+     "giveup_cum_pct": 42.14
+    },
+    {
+     "excl": "2025-02",
+     "giveup_cum_pct": 48.84
+    },
+    {
+     "excl": "2025-03",
+     "giveup_cum_pct": 51.27
+    },
+    {
+     "excl": "2025-04",
+     "giveup_cum_pct": 56.43
+    },
+    {
+     "excl": "2025-05",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2025-06",
+     "giveup_cum_pct": 45.36
+    },
+    {
+     "excl": "2025-07",
+     "giveup_cum_pct": 47.68
+    },
+    {
+     "excl": "2025-08",
+     "giveup_cum_pct": 51.48
+    },
+    {
+     "excl": "2025-09",
+     "giveup_cum_pct": 39.64
+    },
+    {
+     "excl": "2025-10",
+     "giveup_cum_pct": 43.88
+    },
+    {
+     "excl": "2025-11",
+     "giveup_cum_pct": 47.48
+    },
+    {
+     "excl": "2025-12",
+     "giveup_cum_pct": 54.7
+    },
+    {
+     "excl": "2026-01",
+     "giveup_cum_pct": 44.83
+    },
+    {
+     "excl": "2026-02",
+     "giveup_cum_pct": 36.18
+    }
+   ],
+   "resegment": {
+    "window": "2026-06-01→今（真实窗）",
+    "adv_pp": 4.99,
+    "loto": {
+     "adv_full_pp": 4.99,
+     "n_banned": 16,
+     "rows": [
+      {
+       "sym": "TEAMUSDT",
+       "date": "2026-08-18",
+       "contrib_pp": 42.6
+      },
+      {
+       "sym": "MRNAUSDT",
+       "date": "2026-09-29",
+       "contrib_pp": 40.53
+      },
+      {
+       "sym": "AMDUSDT",
+       "date": "2026-09-29",
+       "contrib_pp": 39.23
+      },
+      {
+       "sym": "GPROUSDT",
+       "date": "2026-09-22",
+       "contrib_pp": 39.18
+      },
+      {
+       "sym": "CRWDUSDT",
+       "date": "2026-06-16",
+       "contrib_pp": 38.72
+      },
+      {
+       "sym": "MVLLUSDT",
+       "date": "2026-06-16",
+       "contrib_pp": 37.79
+      },
+      {
+       "sym": "INTWUSDT",
+       "date": "2026-09-22",
+       "contrib_pp": 37.78
+      },
+      {
+       "sym": "MUUUSDT",
+       "date": "2026-06-23",
+       "contrib_pp": 37.76
+      },
+      {
+       "sym": "MVLLUSDT",
+       "date": "2026-06-23",
+       "contrib_pp": 37.76
+      },
+      {
+       "sym": "SOXLUSDT",
+       "date": "2026-10-06",
+       "contrib_pp": 37.76
+      },
+      {
+       "sym": "PENGUSDT",
+       "date": "2026-10-13",
+       "contrib_pp": 37.76
+      },
+      {
+       "sym": "SHOPUSDT",
+       "date": "2026-10-13",
+       "contrib_pp": 37.76
+      },
+      {
+       "sym": "MRNAUSDT",
+       "date": "2026-09-08",
+       "contrib_pp": 37.75
+      },
+      {
+       "sym": "CRDOUSDT",
+       "date": "2026-10-06",
+       "contrib_pp": 37.73
+      },
+      {
+       "sym": "GPROUSDT",
+       "date": "2026-09-08",
+       "contrib_pp": 36.99
+      },
+      {
+       "sym": "AXTIUSDT",
+       "date": "2026-08-18",
+       "contrib_pp": 36.4
+      }
+     ],
+     "top_trade_share": 0.069,
+     "top_trade": {
+      "sym": "TEAMUSDT",
+      "date": "2026-08-18",
+      "contrib_pp": 42.6
+     }
+    },
+    "g1_caliber": {
+     "banned": [
+      "TEAMUSDT",
+      "2026-08-18"
+     ],
+     "adv_after_pp": -5.81,
+     "pass": false
+    }
+   },
+   "judgments": {
+    "G1": {
+     "banned": [
+      "MVLLUSDT",
+      "2026-04-07"
+     ],
+     "mvllusdt_in_buys": true,
+     "note": null,
+     "adv_after_pp": 1.49,
+     "pass": false
+    },
+    "G2": {
+     "p_adv_gt0": 0.639,
+     "p5_pp": -133.0,
+     "pass": false
+    },
+    "G3": {
+     "top_trade_share": null,
+     "pass": false
+    },
+    "G4": {
+     "adv_reseg_pp": 4.99,
+     "direction_positive": true,
+     "g1_caliber_reseg": {
+      "banned": [
+       "TEAMUSDT",
+       "2026-08-18"
+      ],
+      "adv_after_pp": -5.81,
+      "pass": false
+     },
+     "pass": false
+    },
+    "G5": {
+     "top_trade_share_train": 0.03,
+     "pass": true
+    }
+   },
+   "all_pass": false
+  },
+  "cap2": {
+   "windows": {
+    "train": {
+     "annualized": 23.5,
+     "mdd_pct": -16.35,
+     "turnover_ann_x": 17.38,
+     "fee_drag_ann_pct": 3.64,
+     "total_return_pct": 58.5
+    },
+    "holdout": {
+     "annualized": 77.48,
+     "mdd_pct": -16.3,
+     "turnover_ann_x": 69.59,
+     "fee_drag_ann_pct": 14.57,
+     "total_return_pct": 36.69
+    },
+    "base_train": {
+     "annualized": 39.24,
+     "mdd_pct": -16.21,
+     "turnover_ann_x": 31.78,
+     "fee_drag_ann_pct": 5.49,
+     "total_return_pct": 105.94
+    },
+    "base_holdout": {
+     "annualized": 47.77,
+     "mdd_pct": -29.41,
+     "turnover_ann_x": 127.3,
+     "fee_drag_ann_pct": 21.97,
+     "total_return_pct": 23.71
+    }
+   },
+   "adv_holdout_pp": 29.71,
+   "giveup_train_pp": 47.44,
+   "monthly_holdout": [
+    {
+     "month": "2026-04",
+     "cap_pct": 27.77,
+     "base_pct": 39.13,
+     "diff_pct": -11.37
+    },
+    {
+     "month": "2026-05",
+     "cap_pct": 18.14,
+     "base_pct": 0.74,
+     "diff_pct": 17.4
+    },
+    {
+     "month": "2026-06",
+     "cap_pct": -6.1,
+     "base_pct": 0.28,
+     "diff_pct": -6.38
+    },
+    {
+     "month": "2026-07",
+     "cap_pct": 0.0,
+     "base_pct": 0.0,
+     "diff_pct": 0.0
+    },
+    {
+     "month": "2026-08",
+     "cap_pct": 0.6,
+     "base_pct": -4.9,
+     "diff_pct": 5.5
+    },
+    {
+     "month": "2026-09",
+     "cap_pct": -3.15,
+     "base_pct": -5.86,
+     "diff_pct": 2.72
+    }
+   ],
+   "lmo_holdout": [
+    {
+     "excl": "2026-04",
+     "adv_cum_pct": 17.64
+    },
+    {
+     "excl": "2026-05",
+     "adv_cum_pct": -8.01
+    },
+    {
+     "excl": "2026-06",
+     "adv_cum_pct": 21.59
+    },
+    {
+     "excl": "2026-07",
+     "adv_cum_pct": 12.27
+    },
+    {
+     "excl": "2026-08",
+     "adv_cum_pct": 4.96
+    },
+    {
+     "excl": "2026-09",
+     "adv_cum_pct": 8.93
+    }
+   ],
+   "bootstrap": {
+    "n": 1000,
+    "seed": 42,
+    "mean_adv_pp": 23.53,
+    "p5_pp": -133.0,
+    "p95_pp": 174.42,
+    "p_adv_gt0": 0.639
+   },
+   "loto_holdout": {
+    "adv_full_pp": 29.71,
+    "n_banned": 30,
+    "rows": [
+     {
+      "sym": "MVLLUSDT",
+      "date": "2026-04-07",
+      "contrib_pp": -22.52
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2026-05-05",
+      "contrib_pp": -28.06
+     },
+     {
+      "sym": "SOXLUSDT",
+      "date": "2026-04-21",
+      "contrib_pp": -41.14
+     },
+     {
+      "sym": "TEAMUSDT",
+      "date": "2026-08-18",
+      "contrib_pp": -41.46
+     },
+     {
+      "sym": "INTCUSDT",
+      "date": "2026-04-28",
+      "contrib_pp": -44.34
+     },
+     {
+      "sym": "CIENUSDT",
+      "date": "2026-04-07",
+      "contrib_pp": -44.5
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2026-09-29",
+      "contrib_pp": -45.32
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2026-04-28",
+      "contrib_pp": -45.6
+     },
+     {
+      "sym": "INTWUSDT",
+      "date": "2026-04-14",
+      "contrib_pp": -47.3
+     },
+     {
+      "sym": "INTCUSDT",
+      "date": "2026-04-14",
+      "contrib_pp": -47.8
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2026-09-22",
+      "contrib_pp": -47.84
+     },
+     {
+      "sym": "CRWDUSDT",
+      "date": "2026-06-16",
+      "contrib_pp": -48.72
+     },
+     {
+      "sym": "AMDUSDT",
+      "date": "2026-09-29",
+      "contrib_pp": -49.09
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2026-04-21",
+      "contrib_pp": -49.82
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2026-05-05",
+      "contrib_pp": -50.0
+     },
+     {
+      "sym": "FLNCUSDT",
+      "date": "2026-05-26",
+      "contrib_pp": -50.44
+     },
+     {
+      "sym": "MVLLUSDT",
+      "date": "2026-06-16",
+      "contrib_pp": -50.45
+     },
+     {
+      "sym": "INTWUSDT",
+      "date": "2026-09-22",
+      "contrib_pp": -50.46
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2026-06-23",
+      "contrib_pp": -50.47
+     },
+     {
+      "sym": "MVLLUSDT",
+      "date": "2026-06-23",
+      "contrib_pp": -50.47
+     },
+     {
+      "sym": "PENGUSDT",
+      "date": "2026-10-13",
+      "contrib_pp": -50.47
+     },
+     {
+      "sym": "SOXLUSDT",
+      "date": "2026-10-06",
+      "contrib_pp": -50.48
+     },
+     {
+      "sym": "SHOPUSDT",
+      "date": "2026-10-13",
+      "contrib_pp": -50.48
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2026-05-26",
+      "contrib_pp": -50.49
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2026-09-08",
+      "contrib_pp": -50.49
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2026-10-06",
+      "contrib_pp": -50.54
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2026-05-12",
+      "contrib_pp": -50.65
+     },
+     {
+      "sym": "FLEXUSDT",
+      "date": "2026-05-12",
+      "contrib_pp": -50.65
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2026-09-08",
+      "contrib_pp": -51.9
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2026-08-18",
+      "contrib_pp": -52.97
+     }
+    ],
+    "top_trade_share": null,
+    "top_trade": {
+     "sym": "MVLLUSDT",
+     "date": "2026-04-07",
+     "contrib_pp": -22.52
+    }
+   },
+   "g1_mvllusdt": {
+    "banned": [
+     "MVLLUSDT",
+     "2026-04-07"
+    ],
+    "mvllusdt_in_buys": true,
+    "note": null,
+    "adv_after_pp": 4.46,
+    "pass": false
+   },
+   "loto_train_giveup": {
+    "giveup_full_pp": 47.44,
+    "n_banned": 103,
+    "rows": [
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-12-09",
+      "contrib_pp": 11.68
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-08-26",
+      "contrib_pp": 8.83
+     },
+     {
+      "sym": "SNDKUSDT",
+      "date": "2025-09-09",
+      "contrib_pp": 6.83
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-09-09",
+      "contrib_pp": 6.65
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-09-16",
+      "contrib_pp": 6.36
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2025-08-26",
+      "contrib_pp": 6.09
+     },
+     {
+      "sym": "IONQUSDT",
+      "date": "2024-11-12",
+      "contrib_pp": 5.92
+     },
+     {
+      "sym": "INTWUSDT",
+      "date": "2025-09-30",
+      "contrib_pp": 5.6
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-09-30",
+      "contrib_pp": 5.29
+     },
+     {
+      "sym": "ALABUSDT",
+      "date": "2025-08-05",
+      "contrib_pp": 4.74
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2025-12-30",
+      "contrib_pp": 4.58
+     },
+     {
+      "sym": "APPUSDT",
+      "date": "2024-11-12",
+      "contrib_pp": 4.57
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2025-12-23",
+      "contrib_pp": 4.52
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2025-12-23",
+      "contrib_pp": 4.52
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-07-01",
+      "contrib_pp": 4.37
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2024-11-19",
+      "contrib_pp": 3.78
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-11-04",
+      "contrib_pp": 3.52
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2025-06-17",
+      "contrib_pp": 2.74
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-12-30",
+      "contrib_pp": 2.56
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2024-11-19",
+      "contrib_pp": 2.26
+     },
+     {
+      "sym": "SOFIUSDT",
+      "date": "2025-07-08",
+      "contrib_pp": 2.09
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2026-01-06",
+      "contrib_pp": 2.07
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-09-16",
+      "contrib_pp": 2.02
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2025-07-29",
+      "contrib_pp": 1.76
+     },
+     {
+      "sym": "HOODUSDT",
+      "date": "2025-01-28",
+      "contrib_pp": 1.7
+     },
+     {
+      "sym": "VSTUSDT",
+      "date": "2024-03-12",
+      "contrib_pp": 1.62
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2026-01-27",
+      "contrib_pp": 1.21
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-09-04",
+      "contrib_pp": 1.14
+     },
+     {
+      "sym": "PLTRUSDT",
+      "date": "2025-02-11",
+      "contrib_pp": 1.06
+     },
+     {
+      "sym": "RKLBUSDT",
+      "date": "2025-07-15",
+      "contrib_pp": 0.95
+     },
+     {
+      "sym": "COINUSDT",
+      "date": "2025-07-15",
+      "contrib_pp": 0.94
+     },
+     {
+      "sym": "COHRUSDT",
+      "date": "2025-12-16",
+      "contrib_pp": 0.82
+     },
+     {
+      "sym": "SNDKUSDT",
+      "date": "2026-01-13",
+      "contrib_pp": 0.64
+     },
+     {
+      "sym": "WMTUSDT",
+      "date": "2024-09-10",
+      "contrib_pp": 0.57
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2025-07-08",
+      "contrib_pp": 0.52
+     },
+     {
+      "sym": "CRWVUSDT",
+      "date": "2025-06-17",
+      "contrib_pp": 0.5
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-12-10",
+      "contrib_pp": 0.49
+     },
+     {
+      "sym": "GDXUSDT",
+      "date": "2024-03-19",
+      "contrib_pp": 0.47
+     },
+     {
+      "sym": "BABAUSDT",
+      "date": "2025-02-19",
+      "contrib_pp": 0.46
+     },
+     {
+      "sym": "TEMUSDT",
+      "date": "2025-01-28",
+      "contrib_pp": 0.39
+     },
+     {
+      "sym": "USARUSDT",
+      "date": "2025-10-07",
+      "contrib_pp": 0.37
+     },
+     {
+      "sym": "GDXUSDT",
+      "date": "2024-04-02",
+      "contrib_pp": 0.34
+     },
+     {
+      "sym": "HIMSUSDT",
+      "date": "2025-02-04",
+      "contrib_pp": 0.32
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2024-12-31",
+      "contrib_pp": 0.3
+     },
+     {
+      "sym": "METAUSDT",
+      "date": "2025-02-04",
+      "contrib_pp": 0.21
+     },
+     {
+      "sym": "NETUSDT",
+      "date": "2025-02-11",
+      "contrib_pp": 0.08
+     },
+     {
+      "sym": "DELLUSDT",
+      "date": "2026-03-24",
+      "contrib_pp": 0.01
+     },
+     {
+      "sym": "CATUSDT",
+      "date": "2024-04-02",
+      "contrib_pp": -0.03
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2024-08-06",
+      "contrib_pp": -0.22
+     },
+     {
+      "sym": "VUSDT",
+      "date": "2024-09-10",
+      "contrib_pp": -0.37
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2024-03-19",
+      "contrib_pp": -0.39
+     },
+     {
+      "sym": "RDDTUSDT",
+      "date": "2025-08-12",
+      "contrib_pp": -0.45
+     },
+     {
+      "sym": "COHRUSDT",
+      "date": "2024-09-04",
+      "contrib_pp": -0.55
+     },
+     {
+      "sym": "AMDUSDT",
+      "date": "2025-10-28",
+      "contrib_pp": -0.58
+     },
+     {
+      "sym": "GTLBUSDT",
+      "date": "2024-03-05",
+      "contrib_pp": -0.79
+     },
+     {
+      "sym": "VRTUSDT",
+      "date": "2024-03-26",
+      "contrib_pp": -0.81
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2026-01-13",
+      "contrib_pp": -1.17
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2026-01-21",
+      "contrib_pp": -1.22
+     },
+     {
+      "sym": "IONQUSDT",
+      "date": "2025-09-23",
+      "contrib_pp": -1.23
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-09-23",
+      "contrib_pp": -1.23
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2025-12-16",
+      "contrib_pp": -1.23
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2025-09-03",
+      "contrib_pp": -1.24
+     },
+     {
+      "sym": "IRENUSDT",
+      "date": "2025-09-03",
+      "contrib_pp": -1.24
+     },
+     {
+      "sym": "USARUSDT",
+      "date": "2026-01-27",
+      "contrib_pp": -1.24
+     },
+     {
+      "sym": "MRNAUSDT",
+      "date": "2024-03-12",
+      "contrib_pp": -1.28
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-11-26",
+      "contrib_pp": -1.28
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-07-01",
+      "contrib_pp": -1.28
+     },
+     {
+      "sym": "MARAUSDT",
+      "date": "2024-03-05",
+      "contrib_pp": -1.3
+     },
+     {
+      "sym": "MVLLUSDT",
+      "date": "2025-10-07",
+      "contrib_pp": -1.3
+     },
+     {
+      "sym": "AXTIUSDT",
+      "date": "2026-03-24",
+      "contrib_pp": -1.3
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2024-07-30",
+      "contrib_pp": -1.31
+     },
+     {
+      "sym": "TEMUSDT",
+      "date": "2024-07-30",
+      "contrib_pp": -1.31
+     },
+     {
+      "sym": "AAOIUSDT",
+      "date": "2024-12-03",
+      "contrib_pp": -1.31
+     },
+     {
+      "sym": "NBISUSDT",
+      "date": "2024-12-10",
+      "contrib_pp": -1.31
+     },
+     {
+      "sym": "TZAUSDT",
+      "date": "2025-04-08",
+      "contrib_pp": -1.31
+     },
+     {
+      "sym": "SOXSUSDT",
+      "date": "2025-04-08",
+      "contrib_pp": -1.31
+     },
+     {
+      "sym": "APPUSDT",
+      "date": "2024-03-26",
+      "contrib_pp": -1.32
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2024-12-17",
+      "contrib_pp": -1.32
+     },
+     {
+      "sym": "CRDOUSDT",
+      "date": "2024-12-17",
+      "contrib_pp": -1.32
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-07-22",
+      "contrib_pp": -1.32
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2025-11-04",
+      "contrib_pp": -1.32
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-06-24",
+      "contrib_pp": -1.34
+     },
+     {
+      "sym": "KORUUSDT",
+      "date": "2025-06-24",
+      "contrib_pp": -1.34
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-10-21",
+      "contrib_pp": -1.34
+     },
+     {
+      "sym": "SQQQUSDT",
+      "date": "2024-08-13",
+      "contrib_pp": -1.36
+     },
+     {
+      "sym": "IONQUSDT",
+      "date": "2024-12-31",
+      "contrib_pp": -1.36
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-10-14",
+      "contrib_pp": -1.39
+     },
+     {
+      "sym": "SNDKUSDT",
+      "date": "2025-11-11",
+      "contrib_pp": -1.39
+     },
+     {
+      "sym": "LITEUSDT",
+      "date": "2025-11-11",
+      "contrib_pp": -1.39
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2025-10-14",
+      "contrib_pp": -1.4
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2024-12-24",
+      "contrib_pp": -1.42
+     },
+     {
+      "sym": "MUUUSDT",
+      "date": "2025-10-28",
+      "contrib_pp": -1.47
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-07-29",
+      "contrib_pp": -1.5
+     },
+     {
+      "sym": "BEUSDT",
+      "date": "2025-08-19",
+      "contrib_pp": -1.52
+     },
+     {
+      "sym": "SOXSUSDT",
+      "date": "2024-08-13",
+      "contrib_pp": -1.72
+     },
+     {
+      "sym": "ONDSUSDT",
+      "date": "2025-08-12",
+      "contrib_pp": -1.91
+     },
+     {
+      "sym": "ASTSUSDT",
+      "date": "2025-10-21",
+      "contrib_pp": -1.93
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-08-19",
+      "contrib_pp": -2.03
+     },
+     {
+      "sym": "AVGOUSDT",
+      "date": "2024-12-24",
+      "contrib_pp": -2.08
+     },
+     {
+      "sym": "INTWUSDT",
+      "date": "2026-01-21",
+      "contrib_pp": -2.49
+     },
+     {
+      "sym": "LITEUSDT",
+      "date": "2025-12-09",
+      "contrib_pp": -2.58
+     },
+     {
+      "sym": "UVXYUSDT",
+      "date": "2024-08-06",
+      "contrib_pp": -4.56
+     },
+     {
+      "sym": "GPROUSDT",
+      "date": "2025-08-05",
+      "contrib_pp": -5.5
+     }
+    ],
+    "top_trade_share": 0.091,
+    "top_trade": {
+     "sym": "AXTIUSDT",
+     "date": "2025-12-09",
+     "contrib_pp": 11.68
+    }
+   },
+   "lmo_train": [
+    {
+     "excl": "2024-02",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-03",
+     "giveup_cum_pct": 52.63
+    },
+    {
+     "excl": "2024-04",
+     "giveup_cum_pct": 47.6
+    },
+    {
+     "excl": "2024-05",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-06",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-07",
+     "giveup_cum_pct": 54.65
+    },
+    {
+     "excl": "2024-08",
+     "giveup_cum_pct": 52.88
+    },
+    {
+     "excl": "2024-09",
+     "giveup_cum_pct": 52.5
+    },
+    {
+     "excl": "2024-10",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2024-11",
+     "giveup_cum_pct": 41.41
+    },
+    {
+     "excl": "2024-12",
+     "giveup_cum_pct": 57.63
+    },
+    {
+     "excl": "2025-01",
+     "giveup_cum_pct": 42.14
+    },
+    {
+     "excl": "2025-02",
+     "giveup_cum_pct": 48.84
+    },
+    {
+     "excl": "2025-03",
+     "giveup_cum_pct": 51.27
+    },
+    {
+     "excl": "2025-04",
+     "giveup_cum_pct": 56.43
+    },
+    {
+     "excl": "2025-05",
+     "giveup_cum_pct": 52.37
+    },
+    {
+     "excl": "2025-06",
+     "giveup_cum_pct": 45.36
+    },
+    {
+     "excl": "2025-07",
+     "giveup_cum_pct": 47.68
+    },
+    {
+     "excl": "2025-08",
+     "giveup_cum_pct": 51.48
+    },
+    {
+     "excl": "2025-09",
+     "giveup_cum_pct": 39.64
+    },
+    {
+     "excl": "2025-10",
+     "giveup_cum_pct": 43.88
+    },
+    {
+     "excl": "2025-11",
+     "giveup_cum_pct": 47.48
+    },
+    {
+     "excl": "2025-12",
+     "giveup_cum_pct": 54.7
+    },
+    {
+     "excl": "2026-01",
+     "giveup_cum_pct": 44.83
+    },
+    {
+     "excl": "2026-02",
+     "giveup_cum_pct": 36.18
+    }
+   ],
+   "resegment": {
+    "window": "2026-06-01→今（真实窗）",
+    "adv_pp": 4.99,
+    "loto": {
+     "adv_full_pp": 4.99,
+     "n_banned": 16,
+     "rows": [
+      {
+       "sym": "TEAMUSDT",
+       "date": "2026-08-18",
+       "contrib_pp": 35.52
+      },
+      {
+       "sym": "MRNAUSDT",
+       "date": "2026-09-29",
+       "contrib_pp": 33.25
+      },
+      {
+       "sym": "GPROUSDT",
+       "date": "2026-09-22",
+       "contrib_pp": 31.75
+      },
+      {
+       "sym": "CRWDUSDT",
+       "date": "2026-06-16",
+       "contrib_pp": 31.23
+      },
+      {
+       "sym": "AMDUSDT",
+       "date": "2026-09-29",
+       "contrib_pp": 31.01
+      },
+      {
+       "sym": "MVLLUSDT",
+       "date": "2026-06-16",
+       "contrib_pp": 30.2
+      },
+      {
+       "sym": "MUUUSDT",
+       "date": "2026-06-23",
+       "contrib_pp": 30.19
+      },
+      {
+       "sym": "MVLLUSDT",
+       "date": "2026-06-23",
+       "contrib_pp": 30.19
+      },
+      {
+       "sym": "INTWUSDT",
+       "date": "2026-09-22",
+       "contrib_pp": 30.19
+      },
+      {
+       "sym": "PENGUSDT",
+       "date": "2026-10-13",
+       "contrib_pp": 30.19
+      },
+      {
+       "sym": "SOXLUSDT",
+       "date": "2026-10-06",
+       "contrib_pp": 30.18
+      },
+      {
+       "sym": "SHOPUSDT",
+       "date": "2026-10-13",
+       "contrib_pp": 30.18
+      },
+      {
+       "sym": "MRNAUSDT",
+       "date": "2026-09-08",
+       "contrib_pp": 30.17
+      },
+      {
+       "sym": "CRDOUSDT",
+       "date": "2026-10-06",
+       "contrib_pp": 30.14
+      },
+      {
+       "sym": "GPROUSDT",
+       "date": "2026-09-08",
+       "contrib_pp": 29.33
+      },
+      {
+       "sym": "AXTIUSDT",
+       "date": "2026-08-18",
+       "contrib_pp": 28.69
+      }
+     ],
+     "top_trade_share": 0.072,
+     "top_trade": {
+      "sym": "TEAMUSDT",
+      "date": "2026-08-18",
+      "contrib_pp": 35.52
+     }
+    },
+    "g1_caliber": {
+     "banned": [
+      "TEAMUSDT",
+      "2026-08-18"
+     ],
+     "adv_after_pp": 1.27,
+     "pass": false
+    }
+   },
+   "judgments": {
+    "G1": {
+     "banned": [
+      "MVLLUSDT",
+      "2026-04-07"
+     ],
+     "mvllusdt_in_buys": true,
+     "note": null,
+     "adv_after_pp": 4.46,
+     "pass": false
+    },
+    "G2": {
+     "p_adv_gt0": 0.639,
+     "p5_pp": -133.0,
+     "pass": false
+    },
+    "G3": {
+     "top_trade_share": null,
+     "pass": false
+    },
+    "G4": {
+     "adv_reseg_pp": 4.99,
+     "direction_positive": true,
+     "g1_caliber_reseg": {
+      "banned": [
+       "TEAMUSDT",
+       "2026-08-18"
+      ],
+      "adv_after_pp": 1.27,
+      "pass": false
+     },
+     "pass": false
+    },
+    "G5": {
+     "top_trade_share_train": 0.091,
+     "pass": true
+    }
+   },
+   "all_pass": false
+  }
+ },
+ "fail_action": "任一 G 不达→cap3 退回污染名单，收益主张撤回，治理属性按风险轨另验；对照臂 cap2 同表呈报、同套判定、对称降权",
+ "revival": "未被污染的新评估段出现且重新走本规格全套；全过也只是候选，放行另裁"
+}

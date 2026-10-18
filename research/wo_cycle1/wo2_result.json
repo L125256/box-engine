@@ -1,0 +1,276 @@
+{
+ "generated": "2026-10-18 11:14 UTC",
+ "workorder": "WO2 R11 资金费回填 + 成本可交易性 · 冻结规格 v1.0",
+ "seed": 42,
+ "p1_probe": {
+  "base": "https://www.kxiandaoyan.com/api",
+  "note": "仅探测记录，不改任何代码逻辑（冻结条款）；探测时点见 generated",
+  "results": [
+   {
+    "path": "/funding",
+    "params": {
+     "market": "futures",
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/fundingRate",
+    "params": {
+     "market": "futures",
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/funding_rate",
+    "params": {
+     "market": "futures",
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/fundingRates",
+    "params": {
+     "market": "futures"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/funding/history",
+    "params": {
+     "market": "futures",
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/fundingRate/history",
+    "params": {
+     "market": "futures",
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/funding_history",
+    "params": {
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/markPrice",
+    "params": {
+     "market": "futures",
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/premiumIndex",
+    "params": {
+     "market": "futures",
+     "symbol": "MVLLUSDT"
+    },
+    "status": 404,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":\"Not Found\"}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/kline/MVLLUSDT",
+    "params": {
+     "market": "futures",
+     "period": "8h",
+     "limit": 50
+    },
+    "status": 422,
+    "content_type": "application/json",
+    "body_head": "{\"detail\":[{\"type\":\"string_pattern_mismatch\",\"loc\":[\"query\",\"period\"],\"msg\":\"String should match pattern '^(1m|5m|15m|1d|4h|1h|1w|1M|1Y)$'\",\"input\":\"8h\",\"ctx\":{\"pattern\":\"^(1m|5m|15m|1d|4h|1h|1w|1M|1Y)$\"}}]}",
+    "mentions_funding": false
+   },
+   {
+    "path": "/signals",
+    "params": {
+     "market": "futures",
+     "period": "1d",
+     "page": 1,
+     "size": 3
+    },
+    "status": 200,
+    "content_type": "application/json",
+    "body_head": "{\"market\":\"futures\",\"period\":\"1d\",\"total\":241,\"sort\":\"symbol\",\"order\":\"asc\",\"items\":[{\"symbol\":\"AAOIUSDT\",\"base_asset\":\"AAOI\",\"name\":\"应用光电（光模块/数据中心）\",\"underlying_type\":\"EQUITY\",\"standalone\":false,\"latest_price\":74.12,\"change_pct\":0.0,\"is_new\":false,\"ai_signal\":\"sell\",\"ai_up\":40,\"ai_down\":60,\"vertex_",
+    "mentions_funding": false
+   }
+  ],
+  "conclusion": "无 funding 历史 endpoint（200 响应均无 funding 字段指纹）→ 缺口登记：回填判 P1 无接口，维持 0.03%/bar 常数记账，回填挂起等新数据源，不影响②③影子先行（冻结降级条款）"
+ },
+ "p2_p3_rejected": {
+  "P2": "反推路线否决（资金费不可由K线/价格反推，设计推断）——禁伪回填",
+  "P3": "新浪备源否决用于 funding（美元现货价、无费率字段、无 SLA）——仅价格抽查"
+ },
+ "gap_register": {
+  "item": "funding rate 历史（144 标的 × 8h × 2025-06→今）",
+  "status": "缺口——导演站无接口（见 p1_probe），本地 box_cache 仅 OHLCV",
+  "rule": "「不可计算≠证伪」；复活条件=新数据源出现",
+  "coverage": "0%（真实窗）→ 若按回填判据口径记 FAIL，但不报废，降级影子计算+缺口登记"
+ },
+ "shadow": {
+  "old131": {
+   "window": "2025-06-02~2026-10-18 (>=2025-06 真实窗)",
+   "i_turn": {
+    "def": "0.05%×池20日均换手(EMA,t=20)年化 pp/年；只用T日及之前数据",
+    "line_pp_ann": 4.5625,
+    "mean": 3.69,
+    "max": 9.48,
+    "n_days_over_line": 103
+   },
+   "label": {
+    "def": "未来20日交易费pp/日均值 > 窗口中位数 = 高成本 regime",
+    "median_pp_day": 0.0094,
+    "n_valid": 408,
+    "n_high": 202
+   },
+   "auc_i_turn": 0.7749,
+   "i_fund": {
+    "status": "不可计算（无 funding 数据源；P2 反推/P3 新浪均被冻结条款否决；0.03%/bar 常数记账下滚动分位恒为常数，无判别力，不作伪计算）"
+   },
+   "hits_2026_03": [
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06",
+    "2026-03-07",
+    "2026-03-10"
+   ],
+   "pre_hits_ge5td_before_0401": [
+    {
+     "date": "2026-03-03",
+     "trading_days_before_0401": 29,
+     "i_turn_pp": 5.35
+    },
+    {
+     "date": "2026-03-04",
+     "trading_days_before_0401": 28,
+     "i_turn_pp": 5.2
+    },
+    {
+     "date": "2026-03-05",
+     "trading_days_before_0401": 27,
+     "i_turn_pp": 5.74
+    },
+    {
+     "date": "2026-03-06",
+     "trading_days_before_0401": 26,
+     "i_turn_pp": 5.19
+    },
+    {
+     "date": "2026-03-07",
+     "trading_days_before_0401": 25,
+     "i_turn_pp": 4.7
+    },
+    {
+     "date": "2026-03-10",
+     "trading_days_before_0401": 22,
+     "i_turn_pp": 4.89
+    }
+   ],
+   "n_pre_hits": 6
+  },
+  "full144": {
+   "window": "2025-06-02~2026-10-18 (>=2025-06 真实窗)",
+   "i_turn": {
+    "def": "0.05%×池20日均换手(EMA,t=20)年化 pp/年；只用T日及之前数据",
+    "line_pp_ann": 4.5625,
+    "mean": 4.0,
+    "max": 10.69,
+    "n_days_over_line": 130
+   },
+   "label": {
+    "def": "未来20日交易费pp/日均值 > 窗口中位数 = 高成本 regime",
+    "median_pp_day": 0.0094,
+    "n_valid": 408,
+    "n_high": 203
+   },
+   "auc_i_turn": 0.7585,
+   "i_fund": {
+    "status": "不可计算（无 funding 数据源；P2 反推/P3 新浪均被冻结条款否决；0.03%/bar 常数记账下滚动分位恒为常数，无判别力，不作伪计算）"
+   },
+   "hits_2026_03": [
+    "2026-03-03",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-06",
+    "2026-03-07",
+    "2026-03-10"
+   ],
+   "pre_hits_ge5td_before_0401": [
+    {
+     "date": "2026-03-03",
+     "trading_days_before_0401": 29,
+     "i_turn_pp": 5.31
+    },
+    {
+     "date": "2026-03-04",
+     "trading_days_before_0401": 28,
+     "i_turn_pp": 5.16
+    },
+    {
+     "date": "2026-03-05",
+     "trading_days_before_0401": 27,
+     "i_turn_pp": 5.7
+    },
+    {
+     "date": "2026-03-06",
+     "trading_days_before_0401": 26,
+     "i_turn_pp": 5.15
+    },
+    {
+     "date": "2026-03-07",
+     "trading_days_before_0401": 25,
+     "i_turn_pp": 4.66
+    },
+    {
+     "date": "2026-03-10",
+     "trading_days_before_0401": 22,
+     "i_turn_pp": 4.85
+    }
+   ],
+   "n_pre_hits": 6
+  }
+ },
+ "validation": {
+  "design": "标签=未来20日成本 regime 高/低（交易费 pp/日 中位切）；打分=I_turn；回放 2025-06→今双池分列；资金费侧因缺口仅常数记账，成本标签为影子口径（仅交易费）",
+  "verdict": "PASS（AUC 达标）",
+  "auc_pass": true,
+  "hit_pass": true,
+  "limitation": "单事件验证（2026-04 成本跳升仅一次）属【假设→打折】级，结论禁过度宣称"
+ },
+ "fail_action": "回填覆盖<80%真实窗 → 判 FAIL 不报废，降级影子计算+缺口登记；复活=新数据源"
+}
