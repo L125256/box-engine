@@ -130,3 +130,32 @@ PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py replay --
 ```bash
 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live
 ```
+
+## 七、新浪备源暂停用工单（2026-10-19 · 用户令：导演站稳定，新浪持续卡顿）
+
+**改动最小化（单开关，无夹带）**：`f1_datasource.py` 新增 env 开关 `SINA_BACKUP_ENABLED`（缺省=停用）。
+
+- **停用=主源单源模式**：主源失败→直接 DEGRADED+冻结信号；不尝试新浪、零新浪网络请求
+  （`fetch_sina_daily` 在任何网络调用前 RuntimeError 硬拒；Q-1 自动一致性验收跳过；
+  心跳 `w1_heartbeat.py` sina 探测项同步停用）。降级判据=仅主源健康；
+  恢复判据=主源连续 2 周期健康（原一致性验收仅在备源数据可得时执行）。
+- **开关开=行为与现状完全一致**（向后兼容）；`drill` 演练内置开关开。
+- 新浪 adapter 代码保留不删（暂停用，恢复开关即用）；恢复条件=用户令或网络环境改善后实测通过。
+- `f1_signal.py`：`f1_live.json`/`f1_live_intraday.json` 冻结与判定负载落盘血缘标注
+  `meta.source.data_source`（=「主源单源模式」）与 `meta.source.backup`（开关状态）。
+
+**自测（/tmp/sina_off/selftest_sina_off.py，7/7 PASS）**：
+
+| 组 | 用例 | 结果 |
+|---|---|---|
+| A 开关关 | SO1 adapter 零网络硬拒；SO2 主源故障×2→DEGRADED+冻结（网络探针=0、事件日志 SINA_*=0、自动验收调用=0）；SO2b DEGRADE 事件标注主源单源模式；SO3 主源恢复×2→直接 NORMAL；SO4 心跳 sina 探测项过滤 | 全 PASS |
+| B 开关开 | drill 回归现状全链 11/11 all_pass | PASS |
+| C 对账红线 | f1_signal.replay vs f1_backtest_v2.run_backtest 逐日持仓全窗 diff=0 + 曲线 max_abs_diff<1e-9 | PASS |
+
+**数据重产（HEAD 引擎）**：判定轮 asof=2026-10-17（已落定数据重产：剔除当日未落定部分K，
+guard 自然通过；UTC 2026-10-18 21:18 时 10-18 bar 尚未落定，直接 live 被 guard 正确拒绝）。
+重产=f1_live.json（NORMAL·主源单源模式血缘标注）+ f1_live_intraday.json + f1_state.json，
+f1/ 归档与 f1_web/ 镜像同步。与改前冻结负载对账：top5 成员不变（EWZ/SHOP/V/EBAY/GME）、
+结论不变（空仓观望·green·tier0）、monthly_accounts/breakers 差异均为同 asof 数据修订漂移
+（台账口径 §七 公示口径：gate idx 相对差 −0.69%，与上轮终裁复算 218.5703 逐位一致）。
+commit 不 push。

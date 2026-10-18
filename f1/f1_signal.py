@@ -704,10 +704,22 @@ def _emit_frozen(out_json, src_state):
     prev = json.load(open(out_json))
     frozen = json.loads(json.dumps(prev))      # 深拷贝，判定字段逐位不动
     meta = frozen.setdefault('meta', {})
+    # 血缘标注（用户令 2026-10-19）：新浪备源开关状态随冻结负载落盘
+    try:
+        import f1_datasource as _DSf
+        _sina_on_f = _DSf.sina_backup_enabled()
+    except Exception:
+        _sina_on_f = False
     meta['source'] = {'primary': 'kxiandaoyan', 'state': src_state.get('state'),
                       'asof': (frozen.get('signal') or {}).get('asof'),
-                      'label': '降级冻结（备源抽查参考·不构成新推荐）',
-                      'mode': '判定轮（冻结）', 'banner': src_state.get('banner')}
+                      'label': '降级冻结（备源抽查参考·不构成新推荐）'
+                               if _sina_on_f else
+                               '降级冻结（新浪备源停用·主源单源模式，不构成新推荐）',
+                      'mode': '判定轮（冻结）', 'banner': src_state.get('banner'),
+                      'backup': ('sina（启用）' if _sina_on_f else
+                                 'sina（停用·SINA_BACKUP_ENABLED 未开启）'),
+                      'data_source': ('主源+新浪备源容灾' if _sina_on_f
+                                      else '主源单源模式')}
     meta['data_source'] = '降级冻结'
     sig = frozen.get('signal') or {}
     sig['frozen_by_source_failover'] = True
@@ -768,6 +780,12 @@ def run_snapshot(out_json=None, cache=CACHE, round_id='20:30'):
     med_last = float(med.iloc[-1]) if np.isfinite(med.iloc[-1]) else float('nan')
 
     meta_round = INTRADAY_ROUNDS.get(round_id, INTRADAY_ROUNDS['20:30'])
+    # 血缘标注（用户令 2026-10-19）：数据源模式随快照落盘
+    try:
+        import f1_datasource as _DSs
+        _sina_on_s = _DSs.sina_backup_enabled()
+    except Exception:
+        _sina_on_s = False
     push = push_plan('INTRADAY', str(asof_settled.date()), round_id,
                      last_push=st.get('last_push'))
     out = {
@@ -775,6 +793,7 @@ def run_snapshot(out_json=None, cache=CACHE, round_id='20:30'):
                  'seed': SEED, 'generated': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
                  'mode': 'intraday_snapshot', 'operable': False,
+                 'data_source': ('主源+新浪备源容灾' if _sina_on_s else '主源单源模式'),
                  'round_id': round_id, 'round_tz': meta_round['tz'],
                  'round_semantic': meta_round['semantic'], 'dst_note': DST_NOTE,
                  'asof_settled': str(asof_settled.date()),
@@ -925,6 +944,16 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True
                  else '降级冻结（备源抽查参考·不构成新推荐）',
         'mode': '判定轮',
     }
+    # 血缘标注（用户令 2026-10-19）：新浪备源开关状态与数据源模式落盘，页面/审计可溯源
+    try:
+        import f1_datasource as _DS
+        _sina_on = _DS.sina_backup_enabled()
+    except Exception:
+        _sina_on = False
+    out['meta']['source']['backup'] = ('sina（启用）' if _sina_on else
+                                       'sina（停用·SINA_BACKUP_ENABLED 未开启）')
+    out['meta']['source']['data_source'] = ('主源+新浪备源容灾' if _sina_on
+                                            else '主源单源模式')
     os.makedirs(os.path.dirname(out_json), exist_ok=True)
     tmp = out_json + '.tmp'
     with open(tmp, 'w') as f:

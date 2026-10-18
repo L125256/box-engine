@@ -19,6 +19,14 @@ WO-R13-04 · 数据源容灾（主源 kxiandaoyan / 备源 新浪 只读）
   不通过→留 RECOVERING，下一健康轮自动重试；期间主源**又连续 2 周期失败**
   →显式回退 DEGRADED 并冻结新信号（Q-2）。
 
+【新浪备源开关（用户令 2026-10-19）】SINA_BACKUP_ENABLED env，默认停用（false）。
+- 停用 = **主源单源模式**：主源失败→直接 DEGRADED+冻结信号；不尝试新浪、不发任何
+  新浪请求（fetch_sina_daily 硬拒、自动验收跳过、心跳探测项同步停用）；
+  降级判据=仅主源健康；恢复判据=主源连续 2 周期健康（一致性验收仅在备源数据可得时执行）。
+- 启用（SINA_BACKUP_ENABLED=1）= 行为与本注释以上描述完全一致（向后兼容）。
+- 新浪 adapter 代码保留不删（暂停用，恢复开关即用）；恢复条件=用户令或网络环境
+  改善后实测通过。
+
 所有事件写 `f1_source_events.log`（JSONL，append-only），状态落盘 `f1_source_state.json`。
 
 复现：
@@ -63,6 +71,16 @@ SINA_SERVICE = 'US_MinKService.getDailyK'
 SINA_REFERER = 'https://finance.sina.com.cn'
 SINA_SLA_NOTE = ('无官方 SLA：内部灰色接口，无文档、无限流承诺、字段可随时变更；'
                  '仅作降级期抽查核对与人工止损参考，不得用于信号重建')
+
+# ---------------- 新浪备源开关（用户令 2026-10-19：默认停用，主源单源模式）
+SINA_BACKUP_ENV = 'SINA_BACKUP_ENABLED'
+
+
+def sina_backup_enabled():
+    """新浪备源开关：env SINA_BACKUP_ENABLED ∈ {'1','true','yes','on'}（不区分大小写）
+    时启用；缺省/其余值=停用。停用=主源单源模式：不发任何新浪请求（零网络调用），
+    降级判据=仅主源健康，恢复判据=主源连续 2 周期健康（一致性验收仅在备源数据可得时执行）。"""
+    return os.environ.get(SINA_BACKUP_ENV, '').strip().lower() in ('1', 'true', 'yes', 'on')
 
 URLLIB = None
 
@@ -146,12 +164,19 @@ def fetch_sina_daily(symbols, timeout=(CONN_TIMEOUT_SEC, READ_TIMEOUT_SEC),
                      referer=SINA_REFERER, _opener=_urlopen):
     """新浪日K（**只读**）。symbol=小写基础代码；返回 [{'symbol','date','open','high',
     'low','close','volume', 'source':'sina'}]。
+    【暂停用 2026-10-19（用户令：导演站稳定，新浪持续卡顿）】SINA_BACKUP_ENABLED
+    未开启时本函数在**任何网络调用之前**直接抛 RuntimeError——开关关闭期间零新浪请求；
+    代码保留不删，恢复开关即用（恢复条件=用户令或网络环境改善后实测通过）。
     **硬约束**：len(symbols) > MAX_PROXY_SYMBOLS 直接抛错——禁止 144 全量拉取。
     **异常分类（W-2 修复）**：网络类（URLError/HTTPError/timeout/ConnectionError）
     捕获→计入失败统计+事件日志（禁静默 0 行）；编程类（TypeError/KeyError/
     AttributeError 等）一律上抛。timeout 传 (conn, read) 二元组自动标量化。"""
     if not symbols:
         return []
+    if not sina_backup_enabled():
+        raise RuntimeError(
+            '新浪备源已暂停用（SINA_BACKUP_ENABLED 未开启；用户令 2026-10-19）。'
+            '停用期禁止发出任何新浪请求；恢复开关（SINA_BACKUP_ENABLED=1）即用。')
     if len(symbols) > MAX_PROXY_SYMBOLS:
         raise ValueError(
             f'拒绝拉取 {len(symbols)} 只：新浪为无 SLA 内部接口，'
@@ -343,19 +368,32 @@ def transition(state, round_ok, consistency=None, now=None):
                          consistency=consistency, at=now_s)
 
     ev = None
+    sina_on = sina_backup_enabled()
     if prev == 'NORMAL':
         if state['consec_fail'] >= FAIL_PERIODS_TO_DEGRADE:
             state['state'] = 'DEGRADED'
             state['degraded_since'] = now_s
-            ev = log_event('DEGRADE', reason='主源连续 2 周期失败 → 判死降级',
+            ev = log_event('DEGRADE', reason='主源连续 2 周期失败 → 判死降级'
+                           + ('' if sina_on else '（主源单源模式：新浪备源停用，直接冻结）'),
                            consec_fail=state['consec_fail'], at=now_s)
     elif prev == 'DEGRADED':
         if state['consec_ok'] >= OK_PERIODS_TO_RECOVER:
-            state['state'] = 'RECOVERING'
-            ev = log_event('RECOVERING', reason='主源连续 2 周期健康 → 待一致性验收',
-                           consec_ok=state['consec_ok'], at=now_s)
-            if consistency is not None:      # Q-1：进 RECOVERING 同轮自动验收
-                ev = _apply_acceptance('进 RECOVERING 同轮·')
+            if not sina_on:
+                # 主源单源模式（新浪停用）：无备源数据可做一致性验收，
+                # 恢复判据=主源连续 2 周期健康 → 直接 NORMAL（不再经过 RECOVERING）
+                state['state'] = 'NORMAL'
+                state['pending_manual'] = False
+                state['degraded_since'] = None
+                ev = log_event('RECOVERED',
+                               reason='主源连续 2 周期健康 → 恢复'
+                                      '（主源单源模式：新浪备源停用，一致性验收不适用）',
+                               at=now_s)
+            else:
+                state['state'] = 'RECOVERING'
+                ev = log_event('RECOVERING', reason='主源连续 2 周期健康 → 待一致性验收',
+                               consec_ok=state['consec_ok'], at=now_s)
+                if consistency is not None:      # Q-1：进 RECOVERING 同轮自动验收
+                    ev = _apply_acceptance('进 RECOVERING 同轮·')
     elif prev == 'RECOVERING':
         if state['consec_fail'] >= FAIL_PERIODS_TO_DEGRADE:
             # Q-2（WO-R14）：验收重试中主源又连续 2 周期失败 → 显式回退 DEGRADED 并冻结新信号
@@ -366,6 +404,16 @@ def transition(state, round_ok, consistency=None, now=None):
                            reason='RECOVERING 期主源又连续 2 周期失败 → '
                                   '显式回退 DEGRADED 并冻结新信号',
                            consec_fail=state['consec_fail'], at=now_s)
+        elif not sina_on:
+            # 停用期遗留的 RECOVERING 旧态（开关切换前残留）：主源连续 2 周期健康即恢复
+            if state['consec_ok'] >= OK_PERIODS_TO_RECOVER:
+                state['state'] = 'NORMAL'
+                state['pending_manual'] = False
+                state['degraded_since'] = None
+                ev = log_event('RECOVERED',
+                               reason='主源连续 2 周期健康 → 恢复'
+                                      '（主源单源模式：新浪备源停用，一致性验收不适用）',
+                               at=now_s)
         elif consistency is None:
             pass                      # 尚未验收：维持待验收（下一健康轮自动重试）
         else:
@@ -477,6 +525,9 @@ def source_banner(state):
     """页面/推送用的一句话说人话标注（多头席要求）。"""
     st = state.get('state', 'NORMAL')
     if st == 'DEGRADED':
+        if not sina_backup_enabled():
+            return ('主源故障：信号冻结至 ' + str(state.get('frozen_asof') or state.get('last_ok')) +
+                    '；新浪备源已停用（主源单源模式），仅冻结展示，不构成新推荐。')
         return ('主源故障：信号冻结至 ' + str(state.get('frozen_asof') or state.get('last_ok')) +
                 '，以下为备源（新浪）抽查参考，不构成新推荐。')
     if st == 'RECOVERING':
@@ -537,7 +588,8 @@ def run_round(round_id='DECIDE', symbols=None, cache='/tmp/box_cache',
     rr = check_round(symbols=symbols, cache=cache, expect_date=expect_date,
                      sleep_fn=sleep_fn)
     cons = consistency
-    if cons is None and auto_accept and rr['ok']:
+    if cons is None and auto_accept and rr['ok'] and sina_backup_enabled():
+        # Q-1 自动验收需拉新浪数据；新浪停用（主源单源模式）时跳过——不发任何新浪请求
         prev_state = stt.get('state', 'NORMAL')
         entering = (prev_state == 'DEGRADED'
                     and int(stt.get('consec_ok', 0)) + 1 >= OK_PERIODS_TO_RECOVER)
@@ -569,6 +621,7 @@ def main():
         print(json.dumps({'state': st.get('state'), 'consec_fail': st.get('consec_fail'),
                           'consec_ok': st.get('consec_ok'), 'frozen_asof': st.get('frozen_asof'),
                           'pending_manual': st.get('pending_manual'),
+                          'sina_backup_enabled': sina_backup_enabled(),
                           'banner': source_banner(st), 'sla_note': SINA_SLA_NOTE},
                          ensure_ascii=False, indent=1))
     elif mode == 'check':
@@ -587,6 +640,9 @@ def main():
         import f1_signal as fs          # 仅演练用：走真实 _emit_frozen 路径（审计 DR2 修复）
         _reset()
         checks, trace = [], []
+        # 演练=备源启用全链回归（开关开=与现状行为完全一致）；新浪停用链路由
+        # 专项自测覆盖（用户令 2026-10-19：drill 11/11 口径不变）。
+        os.environ['SINA_BACKUP_ENABLED'] = '1'
         os.environ['F1_ACCEPT_FORCE'] = 'none'   # 演练轮次统一关自动验收，显式控制验收注入
 
         os.environ['F1_PRIMARY_FAIL'] = '1'
@@ -714,6 +770,7 @@ def main():
         with open(os.path.join(HERE, 'r13_failover_drill.json'), 'w') as f:
             json.dump(payload, f, ensure_ascii=False, indent=1, default=str)
         os.environ.pop('F1_ACCEPT_FORCE', None)
+        os.environ.pop('SINA_BACKUP_ENABLED', None)
         return 0 if n_pass == len(checks) else 1
     else:
         print(__doc__)

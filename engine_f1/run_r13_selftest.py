@@ -209,6 +209,10 @@ rec('R14', '多轮时刻表可注册（20:30/00:30/04:30 只读 + 判定轮）',
 
 # ================================================================ WO-R13-04
 print('== WO-R13-04 数据源容灾（人造故障切换演练）==', flush=True)
+# 本组自测覆盖的是「备源启用全链」（含一致性验收/白名单 adapter 语义），
+# 固定 SINA_BACKUP_ENABLED=1（开关开=与现状行为完全一致）；
+# 新浪停用（主源单源模式）链路由 sina_off 专项自测覆盖（用户令 2026-10-19）。
+os.environ['SINA_BACKUP_ENABLED'] = '1'
 os.environ['F1_ACCEPT_FORCE'] = 'none'   # 显式传 consistency 的既有用例不受自动验收影响
 DS._reset()
 os.environ['F1_PRIMARY_FAIL'] = '1'
@@ -343,6 +347,7 @@ rec('R23', 'Q-2 回退：RECOVERING 期主源又连续 2 周期失败 → 显式
 DS._reset()
 os.environ['F1_PRIMARY_FAIL'] = '0'
 os.environ.pop('F1_ACCEPT_FORCE', None)
+os.environ.pop('SINA_BACKUP_ENABLED', None)
 DS.run_round(round_id='POST-DRILL-RESET')
 DS.run_round(round_id='POST-DRILL-RESET2')
 DS._reset()

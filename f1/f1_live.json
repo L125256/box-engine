@@ -2,8 +2,8 @@
  "meta": {
   "workorder": "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
   "seed": 42,
-  "generated": "2026-10-18 13:17:20",
-  "engine_sha256": "1a8271e4801dc8e380a22abfb1440caf572f0e32d873bccdf788ca8894490bfc",
+  "generated": "2026-10-19 05:20:27",
+  "engine_sha256": "262bf3a4c3e5d054b8bf3d63c15a3f34add0c46fae8b8e4dce736448d39f86d5",
   "pool_n": 144,
   "caliber": "V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar",
   "tier_table_pct_per_stock": [
@@ -52,60 +52,60 @@
   },
   "calib_note": "熔断阈值=R13 重标定（现行 12.5% 敞口口径：单票 2.5%×5 票）。旧阈值 −32%/−20pp/21.7pp 属满仓时代口径，在本敞口下数学不可达，已废。若未来人工升敞口，须按敞口比例重标定（升档=新工单）。",
   "cb3_baseline_60d": 9.07,
-  "cb3_baseline_recomputed": 9.07,
+  "cb3_baseline_recomputed": 9.08,
   "cb3_baseline_drift_alert": false,
   "replay": {
-   "start": "2024-01-24",
+   "start": "2024-01-25",
    "end": "2026-10-17",
-   "eq_net": 1.2641,
-   "eq_gross": 1.2859,
+   "eq_net": 1.2653,
+   "eq_gross": 1.2871,
    "stop_events_total": 104
   },
   "source": {
    "primary": "kxiandaoyan",
-   "state": "RECOVERING",
+   "state": "NORMAL",
    "asof": "2026-10-17",
-   "label": "降级冻结（备源抽查参考·不构成新推荐）",
-   "mode": "判定轮（冻结）",
-   "banner": "主源已恢复健康，正在做一致性验收（自动重试，不依赖人工触发）；验收通过前不出新信号。"
-  },
-  "data_source": "降级冻结"
+   "label": "主源",
+   "mode": "判定轮",
+   "backup": "sina（停用·SINA_BACKUP_ENABLED 未开启）",
+   "data_source": "主源单源模式"
+  }
  },
  "signal": {
   "asof": "2026-10-17",
   "is_signal_day": false,
   "signal_rule": "每周首个交易日收盘出信号，次日开盘成交；本表为最新横截面评分参考",
   "gate": {
-   "idx": 220.0968,
-   "ma50": 236.4119,
+   "idx": 218.5703,
+   "ma50": 236.3814,
    "on_holdcash": true,
    "status": "red"
   },
   "crash_check": {
-   "pool_med_ret": 0.0024,
+   "pool_med_ret": -0.0029,
    "line": -0.05,
    "triggered": false
   },
   "top5": [
    {
     "sym": "EWZUSDT",
-    "score": 1.824
+    "score": 1.8538
    },
    {
     "sym": "SHOPUSDT",
-    "score": 1.7646
+    "score": 1.7707
    },
    {
     "sym": "VUSDT",
-    "score": 1.6558
+    "score": 1.6513
    },
    {
     "sym": "EBAYUSDT",
-    "score": 1.5891
+    "score": 1.5551
    },
    {
     "sym": "GMEUSDT",
-    "score": 1.5061
+    "score": 1.519
    }
   ],
   "slot_per_stock_pct": 2.5,
@@ -113,9 +113,7 @@
   "tier_idx": 0,
   "freeze_until_date": null,
   "freeze_days_left": 0,
-  "frozen": false,
-  "frozen_by_source_failover": true,
-  "operable": false
+  "frozen": false
  },
  "state": {
   "tier_idx": 0,
@@ -164,7 +162,7 @@
     "light": "green",
     "action": "正常",
     "detail": {
-     "fee_60d": 0.001615,
+     "fee_60d": 0.001617,
      "fee_ann_pct": 0.0068,
      "line_ann_pct": 0.04,
      "red_ann_pct": 0.04,
@@ -194,7 +192,7 @@
    "month": "2026-01",
    "gross_pct": 6.28,
    "net_pct": 6.17,
-   "fee_pct": 0.118,
+   "fee_pct": 0.119,
    "pool_pct": 138.98,
    "concede_pct": 132.71
   },
@@ -267,8 +265,8 @@
    "gross_pct": -0.27,
    "net_pct": -0.33,
    "fee_pct": 0.064,
-   "pool_pct": -8.64,
-   "concede_pct": -8.37
+   "pool_pct": -9.28,
+   "concede_pct": -9.01
   }
  ],
  "fee_curve": [
@@ -282,7 +280,7 @@
   },
   {
    "month": "2026-01",
-   "fee_pct": 0.118
+   "fee_pct": 0.119
   },
   {
    "month": "2026-02",
@@ -410,9 +408,5 @@
    "regime闸=idx<MA50清仓持币",
    "CB3基准=9.07（v1 冻结快照，重算值仅对账）"
   ]
- },
- "writes": {
-  "f1_state.json": false,
-  "recomputed": false
  }
 }

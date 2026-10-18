@@ -4,6 +4,8 @@
 - 顺带充当 funding 复活哨兵：导演站若新增 funding 端点，由每次会话的 57 路径全量探测（w1_probe_rerun.py）发现；
   心跳发现 /api/symbols 不可达即视为导演站心跳告警。
 - 产出追加写入 raw/w1_heartbeat_log.jsonl（每行含 fetched_at + 血缘）。
+- 【新浪探测项停用（用户令 2026-10-19）】env SINA_BACKUP_ENABLED 未开启时，
+  2 个 sina 端点探测项整体跳过——不发任何新浪请求；恢复开关（=1）即恢复 3 端点全检。
 用法: python3 w1_heartbeat.py
 """
 import json, ssl, time, urllib.request, urllib.error, os
@@ -13,7 +15,9 @@ RAW = os.path.join(HERE, '..', 'raw')
 ctx = ssl.create_default_context(); ctx.check_hostname = False; ctx.verify_mode = ssl.CERT_NONE
 UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
       'Referer': 'https://finance.sina.com.cn/', 'Accept': '*/*', 'Accept-Language': 'zh-CN,zh;q=0.9'}
-CHECKS = [
+# 与引擎 f1_datasource.sina_backup_enabled() 同口径：新浪备源停用（默认）时心跳不发新浪请求
+_SINA_ON = os.environ.get('SINA_BACKUP_ENABLED', '').strip().lower() in ('1', 'true', 'yes', 'on')
+CHECKS_ALL = [
     {'name': 'dy_symbols', 'url': 'https://www.kxiandaoyan.com/api/symbols', 'expect': 'total==241(基线2026-10-19)',
      'source': 'kxiandaoyan', 'bar_date_convention': '北京日期+盘后延伸+周日合成bar'},
     {'name': 'sina_gb_aapl', 'url': 'https://hq.sinajs.cn/list=gb_aapl', 'expect': 'status=200 且字段非空',
@@ -21,6 +25,7 @@ CHECKS = [
     {'name': 'sina_hf_BTC', 'url': 'https://hq.sinajs.cn/list=hf_BTC', 'expect': 'status=200 且字段非空',
      'source': 'sina', 'headers_required': 'full-UA+Referer+Accept'},
 ]
+CHECKS = [c for c in CHECKS_ALL if _SINA_ON or c['source'] != 'sina']
 
 
 def check(c):

@@ -949,6 +949,10 @@ rec('I6', '多轮时刻表可注册（20:30/00:30/04:30 只读 + 判定轮）',
 print('== R13 J 组：数据源容灾 ==', flush=True)
 sys.path.insert(0, HERE)
 import f1_datasource as DS                                # noqa: E402
+# J 组覆盖「备源启用全链」（一致性验收/RECOVERING/白名单 adapter 语义），
+# 固定 SINA_BACKUP_ENABLED=1（开关开=与现状行为完全一致）；停用链路由 sina_off
+# 专项自测覆盖（用户令 2026-10-19）。
+os.environ['SINA_BACKUP_ENABLED'] = '1'
 # R14 Q-1：run_round 现内置自动验收；J 组用例走显式 consistency 传参，统一关闭自动取数
 os.environ['F1_ACCEPT_FORCE'] = 'none'
 
@@ -1022,6 +1026,7 @@ rec('J7', '降级期任何输出带 asof + source 标注',
 
 # ================================================================ 汇总
 os.environ.pop('F1_ACCEPT_FORCE', None)
+os.environ.pop('SINA_BACKUP_ENABLED', None)
 DS._reset()
 n_pass = sum(1 for r in RES if r['pass'])
 summary = {'total': len(RES), 'pass': n_pass, 'fail': len(RES) - n_pass,

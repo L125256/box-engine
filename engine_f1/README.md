@@ -14,7 +14,7 @@ F1 base 裸奔四因子带闸版的上线信号引擎。与权威回测 `/tmp/en
 | 文件 | 说明 |
 |---|---|
 | `f1_signal.py` | 信号引擎：周度信号（四因子 z-score 等权 → top-5 + 单票 2.5% 目标仓）+ 每日熔断监控（CB1/CB2 双账/CB3/费线，状态灯+建议动作）+ 月度三本账（毛/费/让渡）+ `snapshot` 只读盘中旁路（R13） |
-| `f1_datasource.py` | 数据源容灾：主源健康检查、NORMAL/DEGRADED/RECOVERING 状态机、新浪只读 adapter（白名单 ≤6 只/轮）、一致性验收切回、事件日志（R13） |
+| `f1_datasource.py` | 数据源容灾：主源健康检查、NORMAL/DEGRADED/RECOVERING 状态机、新浪只读 adapter（白名单 ≤6 只/轮）、一致性验收切回、事件日志（R13）。**新浪备源暂停用（用户令 2026-10-19，见下「容灾架构注记」）** |
 | `replay_breakers_r13.py` | R13 重标定后真实段回放触发统计 → `breaker_stats_r13.json`（R13） |
 | `run_r13_selftest.py` | R13 四工单专项自测（R1-R21）→ `r13_selftest_result.json`（R13） |
 | `sync_archive.py` | 归档目录 `repo_ready/f1` 逐文件 sha256 对齐（R13） |
@@ -61,6 +61,19 @@ PYTHONHASHSEED=42 python3 f1_signal.py replay --slot 0.10
 - **推送去重**：`push_plan()` 判定轮按 asof、盘中轮按 asof+轮次且不携带结论。
 - **数据源容灾**：`python3 f1_datasource.py {status|check|drill}`；
   故障注入 `F1_PRIMARY_FAIL=1`，演练加速 `F1_RETRY_SLEEP=0`。
+
+## 容灾架构注记（2026-10-19 · 新浪备源暂停用）
+
+- **开关**：env `SINA_BACKUP_ENABLED`，**缺省=停用**（用户令：导演站稳定，新浪持续卡顿）。
+- **停用=主源单源模式**：主源（导演站）失败→直接 DEGRADED+冻结信号；不尝试新浪、
+  不发任何新浪请求（`fetch_sina_daily` 网络调用前硬拒、自动一致性验收跳过、
+  心跳/复活哨兵 sina 探测项同步停用）。降级判据=仅主源健康；
+  恢复判据=主源连续 2 周期健康（原主备一致性验收仅在备源数据可得时执行）。
+- **开关开（`SINA_BACKUP_ENABLED=1`）=行为与现状完全一致**（向后兼容）；
+  `drill` 11/11 在开关开下回归全过。
+- **新浪 adapter 代码保留不删**（暂停用，恢复开关即用）；白名单 ≤6 只/轮、
+  144 全量硬拒等约束不变。
+- **恢复条件**：用户令，或网络环境改善后实测通过（新浪日K 可得+延迟可接受）再开开关。
 
 ## 口径备忘
 
