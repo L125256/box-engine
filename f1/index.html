@@ -35,7 +35,7 @@ summary{cursor:pointer;color:#58a6ff}
 <div class="tabs"><a class="on" href="index.html">📊 运行状态</a><a href="manual.html">📖 使用说明</a></div>
 <div class="meta" id="meta">加载中…</div>
 <div class="warnline">模拟数据·起步仓位 12.5%·请勿仅依赖本页决策</div>
-<div class="line">⏱ 本页有两个时间，别看混：判定区=每天早上更新一次（08:30 判定轮）；快照区=每轮都更新</div>
+<div class="line">⏱ 本页有两个时间，别看混：判定区=每天早上更新一次（09:25 判定轮）；快照区=每轮都更新</div>
 <div id="decision" class="decision d-hold">加载中…</div>
 <div class="stat" id="snapsec" style="display:none"><b>🕐 盘中快照（只读·不可操作）</b> <span class="badge" id="snapmeta"></span><div id="snap" style="margin-top:8px"></div></div>
 <div class="stat"><b>🧭 现在该做什么</b><div id="sig" style="margin-top:8px"></div></div>
@@ -59,7 +59,7 @@ function render(){
     ' · <span class="badge">仓位档：第'+((st.tier_idx||0)+1)+'档/共'+m.tier_table_pct_per_stock.length+'档（最重档=第1档）· 单票 '+s.slot_per_stock_pct+'% · 总上限 '+s.total_exposure_pct+'%</span>'+
     (T.CB1?'<span class="badge">熔断阈值：'+m.calib_epoch+' 重标定 · '+m.total_exposure_pct+'% 敞口口径</span>':'')+
     (frozen?'<span class="badge" style="border-color:#f59e0b;color:#f59e0b">🧊 冻结开新仓：剩 '+st.freeze_days_left+' 个交易日（至 '+st.freeze_until_date+'）</span>':'')+
-    '<span class="badge">判定数据：asof '+s.asof+'（每天 08:30 判定轮更新，一天只变一次）</span>'+
+    '<span class="badge">判定数据：asof '+s.asof+'（每天 09:25 判定轮更新，一天只变一次）</span>'+
     ' · <a href="manual.html">📖 怎么用这份页面？看使用说明</a>';
   /* ---- UI-01 决策条：聚合优先级 熔断红灯＞闸关闭＞正常持仓 ---- */
   const dec=document.getElementById('decision');

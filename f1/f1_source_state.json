@@ -1,21 +1,61 @@
 {
- "state": "NORMAL",
+ "state": "RECOVERING",
  "consec_fail": 0,
- "consec_ok": 2,
- "last_ok": "2026-10-18T06:14:21Z",
- "last_fail": null,
- "degraded_since": null,
+ "consec_ok": 4,
+ "last_ok": "2026-10-18T20:53:47Z",
+ "last_fail": "2026-10-18T10:23:02Z",
+ "degraded_since": "2026-10-18T10:23:02Z",
  "pending_manual": false,
- "frozen_asof": null,
+ "frozen_asof": "2026-10-17",
  "history": [
   {
-   "ts": "2026-10-18T06:13:47Z",
+   "ts": "2026-10-18T10:23:00Z",
    "from": "NORMAL",
+   "round_ok": false
+  },
+  {
+   "ts": "2026-10-18T10:23:00Z",
+   "from": "NORMAL",
+   "round_ok": false
+  },
+  {
+   "ts": "2026-10-18T10:23:01Z",
+   "from": "DEGRADED",
    "round_ok": true
   },
   {
-   "ts": "2026-10-18T06:14:21Z",
-   "from": "NORMAL",
+   "ts": "2026-10-18T10:23:02Z",
+   "from": "DEGRADED",
+   "round_ok": true
+  },
+  {
+   "ts": "2026-10-18T10:23:02Z",
+   "from": "RECOVERING",
+   "round_ok": false
+  },
+  {
+   "ts": "2026-10-18T10:23:02Z",
+   "from": "RECOVERING",
+   "round_ok": false
+  },
+  {
+   "ts": "2026-10-18T20:26:34Z",
+   "from": "DEGRADED",
+   "round_ok": true
+  },
+  {
+   "ts": "2026-10-18T20:27:26Z",
+   "from": "DEGRADED",
+   "round_ok": true
+  },
+  {
+   "ts": "2026-10-18T20:50:11Z",
+   "from": "RECOVERING",
+   "round_ok": true
+  },
+  {
+   "ts": "2026-10-18T20:53:47Z",
+   "from": "RECOVERING",
    "round_ok": true
   }
  ],

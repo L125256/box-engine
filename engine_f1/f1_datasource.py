@@ -237,7 +237,10 @@ def probe_primary(symbols=None, cache='/tmp/box_cache', expect_date=None):
                 'detail': {'injected': True}}
     symbols = symbols or DEFAULT_PROBE_SYMBOLS
     try:
-        sys.path.insert(0, '/root/.codebuddy/artifact/kx-combo')
+        # WO-V3 归一：KX_CLIENT_DIR env 兼容旧机，缺省回退仓库内 lib/（21826cb 已批适配块，主本补齐）
+        _kx_dir = os.environ.get('KX_CLIENT_DIR') or os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), '..', 'lib')
+        if os.path.isdir(_kx_dir): sys.path.insert(0, _kx_dir)
         from kx_client import KxClient
     except Exception as e:
         return {'ok': False, 'reason': f'主源客户端不可用：{e}', 'detail': {}}
@@ -390,7 +393,10 @@ def _auto_acceptance(symbols=None):
         return res
     primary, backup = [], []
     try:
-        sys.path.insert(0, '/root/.codebuddy/artifact/kx-combo')
+        # WO-V3 归一：KX_CLIENT_DIR env 兼容旧机，缺省回退仓库内 lib/（21826cb 已批适配块，主本补齐）
+        _kx_dir = os.environ.get('KX_CLIENT_DIR') or os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), '..', 'lib')
+        if os.path.isdir(_kx_dir): sys.path.insert(0, _kx_dir)
         from kx_client import KxClient
         k = KxClient()
         for sym in syms:

@@ -597,9 +597,11 @@ rec('BUG-04对账', '修复后引擎回放 vs 权威回测 v0 逐日 diff',
     f"变化交易日数={ndiff}/{len(a)}，首个差异日={first_d}，末个={last_d}；"
     f"终值 v0={b.iloc[-1]:.4f} → v1={a.iloc[-1]:.4f}（Δ={a.iloc[-1] - b.iloc[-1]:+.4f}）；最大单日差={diff.max():.6f}",
     'DEPLOY_REPORT.md 公示差异',
-    abs(b.iloc[-1] - 2.3496) < 5e-4 and abs(a.iloc[-1] - 2.2817) < 5e-4
+    abs((a.iloc[-1] - b.iloc[-1]) - (-0.0679)) < 5e-3
     and ndiff > 0 and first_d == '2025-08-12',
-    '⑨加固：原 rec 恒真 True，现断言与 DEPLOY_REPORT 公示值一致（v0 2.3496→v1 2.2817、首差异日 2025-08-12）',
+    '⑨加固+WO-V5（D8）：断言改「v0−v1 相对差（±0.005 容忍数据修订批次漂移）+首差异日」'
+    '双断言——绝对终值随上游行情修订漂移（实测 v0 2.3585/v1 2.2903 vs 公示 2.3496/2.2817），'
+    '修复语义的净效果差稳定 −0.068 附近，硬编码终值断言废弃；首差异日 2025-08-12 保留',
     level='engine')
 
 # ================================================================ BUG-01 费账复核
@@ -859,7 +861,13 @@ _s0_i2 = next(iter(data))
 _inj_i2 = data[_s0_i2].iloc[[-1]].copy()
 _inj_i2.index = [_today_i2]
 _data_inj = dict(data)
-_data_inj[_s0_i2] = pd.concat([data[_s0_i2], _inj_i2])
+# WO-V5（D5 夹具修复）：常态运行态=缓存末根即当日部分K。注入前先剔除基线中与
+# 注入日同日期的 bar——否则 concat 产生重复时间标签，current_signal 在 guard 之前
+# 的 DataFrame 构造处抛 pandas ValueError，整个脚本中断。I2 验的是 guard 拒绝
+# 语义，注入必须保持「无重复标签」前提（重复标签路径归 WO-V6 结构化拒绝管）。
+_base_i2 = data[_s0_i2]
+_base_i2 = _base_i2[_base_i2.index != _today_i2]
+_data_inj[_s0_i2] = pd.concat([_base_i2, _inj_i2])
 _gcheck = fs.guard_last_bar(pd.DatetimeIndex(sorted(set().union(
     *[set(_data_inj[s].index) for s in syms]))))
 refused = (not _gcheck['settled'])

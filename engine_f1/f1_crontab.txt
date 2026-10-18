@@ -4,7 +4,8 @@
 # 或改用 systemd timer（CrashRecovery 后更稳）。
 # 现行入口只有两种模式：f1_signal.py live（判定轮，唯一可操作）与
 #   f1_signal.py snapshot（只读盘中快照，--round 取 20:30 / 00:30 / 04:30 三轮）。
-#   main() 从未解析 --out 参数（R13 审计瑕疵#2），任何 live --out 写法均失效，禁止使用。
+#   main() 已解析 --out（WO-V3 归一后主本/副本一致；R13 审计瑕疵#2 已修），但 cron 固定
+#   路径写法无需 --out，保持现行命令不变。
 #
 # 任务1：WT-C 行情缓存刷新 + 影子双轨（已就绪入口）
 10 9 * * * /tmp/wtc/run_daily.sh >> /tmp/wtc/logs/cron.log 2>&1

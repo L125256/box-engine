@@ -55,9 +55,11 @@ import pandas as pd
 SEED = 42
 np.random.seed(SEED)
 
-# 路径（自足性 WO：env 可覆盖，全新机器/CI 用 F1_CACHE/F1_POOL 指仓库内基线；
+# 路径（WO-V3 三版本归一：env 可覆盖，全新机器/CI 用 F1_CACHE/F1_POOL 指仓库内基线；
 # 缺省保持本机原值，旧 cron 不受影响。B2：缺省路径不存在时回退仓库内基线
-# （engine_snapshot/cleaned_pool.json，env 优先），真 runner 无 /tmp/eng_wt 也能跑）
+# （engine_snapshot/cleaned_pool.json，env 优先），真 runner 无 /tmp/eng_wt 也能跑。
+# 溯源：该能力原属 21826cb 自足性WO，但当年只打了 f1/ 归档副本、未打主本，
+# 造成主本/副本 sha 分叉（D3 根因之一）；本单补齐主本，两副本归一。）
 _REPO_ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 CACHE = os.environ.get('F1_CACHE', '/tmp/box_cache')
 CLEANED_POOL = os.environ.get('F1_POOL', '/tmp/eng_wt/cleaned_pool.json')
@@ -564,8 +566,24 @@ def update_state(bk, cal, state, asof=None):
 
 
 # ---------------------------------------------------------------- 实时信号
+def check_data_integrity(data, syms):
+    """WO-V6（D6）：数据完整性 guard（前置）——在构造 DataFrame **之前**检查
+    重复时间标签等污染数据，结构化拒绝（RuntimeError，与 guard_last_bar 同语义，
+    上层 main() 按「拒绝判定」处理），不得让 pandas 原生异常绕过 guard 语义。"""
+    for s in syms:
+        idx = data[s].index
+        dup = idx[idx.duplicated()]
+        if len(dup):
+            _log_guard('REFUSE_DATA_INTEGRITY',
+                       {'sym': s, 'dup_count': int(len(dup)), 'dup_first': str(dup[0])})
+            raise RuntimeError(
+                f'拒绝判定：数据完整性检查失败——{s} 存在重复时间标签 {len(dup)} 个'
+                f'（首例 {dup[0]}），疑似污染数据，禁止进入判定')
+
+
 def current_signal(data, F, syms, tier_idx=0,
                    freeze_until_date=None, freeze_days_left=0, allow_intraday=False):
+    check_data_integrity(data, syms)     # WO-V6：guard 前置（DataFrame 构造前）
     cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
     close = pd.DataFrame({s: data[s]['close'] for s in syms}).reindex(cal)
     idx = close.mean(axis=1)
@@ -800,8 +818,7 @@ def engine_sha256(path=None):
     return hashlib.sha256(open(path, 'rb').read()).hexdigest()
 
 
-def run_live(out_json=None, cache=CACHE, allow_intraday=False,
-             source_probe=True):
+def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True):
     if out_json is None:
         out_json = OUT_JSON_DEFAULT or '/workspace/f1_web/f1_live.json'
     # WO-R13-04：先做主源健康检查并推进状态机；DEGRADED → 冻结信号，直接返回冻结负载。
@@ -820,10 +837,19 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False,
                 return _emit_frozen(out_json, src_state)
         except RuntimeError:
             raise
-        except Exception:
-            src_state = None
+        except Exception as e:
+            # WO-V4（D7 关闭）：探活通道任何非预期异常（R14 接线前该分支置 src_state=None
+            # 静默放行，降级保护可被 except Exception 绕过=D7 嫌疑路径）一律 fail-closed：
+            # 按「主源异常=DEGRADED」处理 → 冻结信号，禁止照常出可操作信号。
+            src_state = {'state': 'DEGRADED',
+                         'banner': f'探活异常（{type(e).__name__}）→ 按 DEGRADED 冻结处理（WO-V4 fail-closed）',
+                         'reason': f'source probe exception: {e!r}'}
+            _log_guard('SOURCE_PROBE_EXCEPTION', {'error': repr(e),
+                                                  'action': 'fail-closed DEGRADED'})
+            return _emit_frozen(out_json, src_state)
     data = load_data(cache)
     syms = build_pool(data)
+    check_data_integrity(data, syms)     # WO-V6：guard 前置（build_factors/replay 构造 DataFrame 前）
     F = build_factors(data)
     # WO-R13-03：入口先过 guard；未落定则拒绝判定（不写 f1_live.json、不写 f1_state.json）
     _cal0 = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
@@ -910,6 +936,7 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False,
 # ---------------------------------------------------------------- CLI
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'live'
+    # WO-V3 归一：--out CLI 解析（原 21826cb 只落地 f1/ 副本，主本补齐；crontab 注释同步更新）
     cli_out = None
     if '--out' in sys.argv:
         cli_out = sys.argv[sys.argv.index('--out') + 1]
@@ -928,6 +955,15 @@ def main():
               f"breaker={bk['light']} action={bk['action']} "
               f"tier={st['tier_idx']} freeze_left={st['freeze_days_left']}"
               + (f"(至{st['freeze_until_date']})" if st['freeze_until_date'] else ''))
+        # WO-UNLOCK 三合一前瞻判读管线（F6 生死 + S3×D1 前瞻复评 + B1 部署评审 并窗）：
+        # 判定轮数据落盘后自动执行；只读+旁路落盘，不改引擎语义（异常不阻断判定轮）。
+        try:
+            import subprocess
+            subprocess.run([sys.executable,
+                            '/workspace/repo_ready/research/wo_unlock/forward_readout.py',
+                            '--auto'], timeout=1800, check=False)
+        except Exception as _fe:  # 挂接旁路：任何异常只登记，不影响 live 输出
+            print(f'forward_readout 挂接异常（不阻断）: {_fe}')
     elif mode == 'snapshot':
         # WO-R13-03 只读盘中快照：--round {20:30|00:30|04:30}
         rnd = sys.argv[sys.argv.index('--round') + 1] if '--round' in sys.argv else '20:30'

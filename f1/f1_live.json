@@ -63,11 +63,13 @@
   },
   "source": {
    "primary": "kxiandaoyan",
-   "state": "NORMAL",
+   "state": "RECOVERING",
    "asof": "2026-10-17",
-   "label": "主源",
-   "mode": "判定轮"
-  }
+   "label": "降级冻结（备源抽查参考·不构成新推荐）",
+   "mode": "判定轮（冻结）",
+   "banner": "主源已恢复健康，正在做一致性验收（自动重试，不依赖人工触发）；验收通过前不出新信号。"
+  },
+  "data_source": "降级冻结"
  },
  "signal": {
   "asof": "2026-10-17",
@@ -111,7 +113,9 @@
   "tier_idx": 0,
   "freeze_until_date": null,
   "freeze_days_left": 0,
-  "frozen": false
+  "frozen": false,
+  "frozen_by_source_failover": true,
+  "operable": false
  },
  "state": {
   "tier_idx": 0,
@@ -406,5 +410,9 @@
    "regime闸=idx<MA50清仓持币",
    "CB3基准=9.07（v1 冻结快照，重算值仅对账）"
   ]
+ },
+ "writes": {
+  "f1_state.json": false,
+  "recomputed": false
  }
 }
