@@ -1,0 +1,788 @@
+{
+ "stage": "w3_gate_v2",
+ "ts": "2026-10-19 01:10:51",
+ "od": "PW3-1..PW3-10（见头注，冻结）",
+ "gate_config": "vol20>realA p80 → OFF pause（唯一冻结配置，禁面扫描）",
+ "fee_calibers": {
+  "stress(主判)": {
+   "FEE_SIDE": 0.00075,
+   "FUNDING": 0.00045
+  },
+  "default(谱系对拍)": {
+   "FEE_SIDE": 0.0005,
+   "FUNDING": 0.0003
+  }
+ },
+ "d0": {
+  "old131": {
+   "vs_dneg_engine_maxdiff": 0.0,
+   "vs_dneg_engine_fees_absdiff": 0.0,
+   "vs_wo_rescue_run_gate_maxdiff": 0.0,
+   "vs_wo_rescue_fees_absdiff": 0.0
+  },
+  "full144": {
+   "vs_dneg_engine_maxdiff": 0.0,
+   "vs_dneg_engine_fees_absdiff": 0.0,
+   "vs_wo_rescue_run_gate_maxdiff": 0.0,
+   "vs_wo_rescue_fees_absdiff": 0.0
+  }
+ },
+ "threshold_check_vs_wo_hd": {
+  "old131": {
+   "w2w3_thr_ann_pct": 103.59,
+   "wo_hd_thr_ann_pct": 103.59
+  },
+  "full144": {
+   "w2w3_thr_ann_pct": 122.67,
+   "wo_hd_thr_ann_pct": 122.67
+  }
+ },
+ "eight_col_stress": {
+  "old131|base": {
+   "realA": {
+    "annualized_pct": 110.02,
+    "mdd_pct": -15.95,
+    "weekly_winrate_pct": 65.12,
+    "weekly_winrate_active_pct": 65.12,
+    "cash_weeks": 0,
+    "turnover_ann_x": 41.08,
+    "fee_drag_ann_pp": 12.65,
+    "fat_tail_sum_pp": 158.41,
+    "stop_trades_n": 52,
+    "stop_realized_pp": -17.83,
+    "stop_gap_loss_pp": 8.73,
+    "total_return_pct": 84.7,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 1620.34,
+    "mdd_pct": -16.46,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 42.29,
+    "fee_drag_ann_pp": 16.07,
+    "fat_tail_sum_pp": 121.44,
+    "stop_trades_n": 7,
+    "stop_realized_pp": -1.92,
+    "stop_gap_loss_pp": 0.29,
+    "total_return_pct": 59.58,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -50.86,
+    "mdd_pct": -23.98,
+    "weekly_winrate_pct": 47.37,
+    "weekly_winrate_active_pct": 47.37,
+    "cash_weeks": 0,
+    "turnover_ann_x": 30.98,
+    "fee_drag_ann_pp": 7.83,
+    "fat_tail_sum_pp": 20.55,
+    "stop_trades_n": 38,
+    "stop_realized_pp": -54.49,
+    "stop_gap_loss_pp": 10.12,
+    "total_return_pct": -23.54,
+    "n_days": 139
+   }
+  },
+  "old131|gate": {
+   "realA": {
+    "annualized_pct": 146.26,
+    "mdd_pct": -15.95,
+    "weekly_winrate_pct": 67.44,
+    "weekly_winrate_active_pct": 67.44,
+    "cash_weeks": 0,
+    "turnover_ann_x": 33.35,
+    "fee_drag_ann_pp": 12.33,
+    "fat_tail_sum_pp": 167.86,
+    "stop_trades_n": 46,
+    "stop_realized_pp": -15.25,
+    "stop_gap_loss_pp": 4.46,
+    "total_return_pct": 110.68,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 132.8,
+    "mdd_pct": -2.59,
+    "weekly_winrate_pct": 62.5,
+    "weekly_winrate_active_pct": 62.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 0.56,
+    "fee_drag_ann_pp": 2.73,
+    "fat_tail_sum_pp": 0,
+    "stop_trades_n": 1,
+    "stop_realized_pp": 3.35,
+    "stop_gap_loss_pp": 0.0,
+    "total_return_pct": 14.89,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -28.65,
+    "mdd_pct": -11.97,
+    "weekly_winrate_pct": 36.84,
+    "weekly_winrate_active_pct": 58.33,
+    "cash_weeks": 7,
+    "turnover_ann_x": 20.82,
+    "fee_drag_ann_pp": 5.67,
+    "fat_tail_sum_pp": 48.7,
+    "stop_trades_n": 18,
+    "stop_realized_pp": -27.01,
+    "stop_gap_loss_pp": 5.4,
+    "total_return_pct": -11.97,
+    "n_days": 139
+   }
+  },
+  "full144|base": {
+   "realA": {
+    "annualized_pct": 108.87,
+    "mdd_pct": -15.66,
+    "weekly_winrate_pct": 65.12,
+    "weekly_winrate_active_pct": 65.12,
+    "cash_weeks": 0,
+    "turnover_ann_x": 41.18,
+    "fee_drag_ann_pp": 12.7,
+    "fat_tail_sum_pp": 160.42,
+    "stop_trades_n": 54,
+    "stop_realized_pp": -14.68,
+    "stop_gap_loss_pp": 8.7,
+    "total_return_pct": 83.86,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 3402.43,
+    "mdd_pct": -18.56,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 39.76,
+    "fee_drag_ann_pp": 17.07,
+    "fat_tail_sum_pp": 143.03,
+    "stop_trades_n": 5,
+    "stop_realized_pp": -2.13,
+    "stop_gap_loss_pp": 0.29,
+    "total_return_pct": 79.35,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -57.59,
+    "mdd_pct": -28.5,
+    "weekly_winrate_pct": 36.84,
+    "weekly_winrate_active_pct": 36.84,
+    "cash_weeks": 0,
+    "turnover_ann_x": 33.96,
+    "fee_drag_ann_pp": 7.3,
+    "fat_tail_sum_pp": 30.15,
+    "stop_trades_n": 45,
+    "stop_realized_pp": -69.69,
+    "stop_gap_loss_pp": 12.47,
+    "total_return_pct": -27.68,
+    "n_days": 139
+   }
+  },
+  "full144|gate": {
+   "realA": {
+    "annualized_pct": 158.37,
+    "mdd_pct": -17.72,
+    "weekly_winrate_pct": 69.77,
+    "weekly_winrate_active_pct": 69.77,
+    "cash_weeks": 0,
+    "turnover_ann_x": 32.76,
+    "fee_drag_ann_pp": 12.77,
+    "fat_tail_sum_pp": 172.01,
+    "stop_trades_n": 44,
+    "stop_realized_pp": -14.35,
+    "stop_gap_loss_pp": 4.35,
+    "total_return_pct": 119.21,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 5669.7,
+    "mdd_pct": -7.51,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 4.8,
+    "fee_drag_ann_pp": 16.45,
+    "fat_tail_sum_pp": 2.43,
+    "stop_trades_n": 2,
+    "stop_realized_pp": 1.82,
+    "stop_gap_loss_pp": 0.31,
+    "total_return_pct": 94.67,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -17.55,
+    "mdd_pct": -24.92,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 53.33,
+    "cash_weeks": 4,
+    "turnover_ann_x": 28.39,
+    "fee_drag_ann_pp": 7.64,
+    "fat_tail_sum_pp": 270.92,
+    "stop_trades_n": 22,
+    "stop_realized_pp": -63.35,
+    "stop_gap_loss_pp": 10.86,
+    "total_return_pct": -7.03,
+    "n_days": 139
+   }
+  }
+ },
+ "eight_col_default_lineage": {
+  "old131|base": {
+   "realA": {
+    "annualized_pct": 115.5,
+    "mdd_pct": -15.61,
+    "weekly_winrate_pct": 67.44,
+    "weekly_winrate_active_pct": 67.44,
+    "cash_weeks": 0,
+    "turnover_ann_x": 41.55,
+    "fee_drag_ann_pp": 8.53,
+    "fat_tail_sum_pp": 166.12,
+    "stop_trades_n": 52,
+    "stop_realized_pp": -18.42,
+    "stop_gap_loss_pp": 9.13,
+    "total_return_pct": 88.67,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 1683.02,
+    "mdd_pct": -16.36,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 42.4,
+    "fee_drag_ann_pp": 10.73,
+    "fat_tail_sum_pp": 129.06,
+    "stop_trades_n": 7,
+    "stop_realized_pp": -2.05,
+    "stop_gap_loss_pp": 0.31,
+    "total_return_pct": 60.52,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -49.31,
+    "mdd_pct": -23.09,
+    "weekly_winrate_pct": 52.63,
+    "weekly_winrate_active_pct": 52.63,
+    "cash_weeks": 0,
+    "turnover_ann_x": 31.13,
+    "fee_drag_ann_pp": 5.24,
+    "fat_tail_sum_pp": 22.21,
+    "stop_trades_n": 38,
+    "stop_realized_pp": -57.88,
+    "stop_gap_loss_pp": 10.77,
+    "total_return_pct": -22.64,
+    "n_days": 139
+   }
+  },
+  "old131|gate": {
+   "realA": {
+    "annualized_pct": 152.38,
+    "mdd_pct": -15.82,
+    "weekly_winrate_pct": 69.77,
+    "weekly_winrate_active_pct": 69.77,
+    "cash_weeks": 0,
+    "turnover_ann_x": 33.67,
+    "fee_drag_ann_pp": 8.3,
+    "fat_tail_sum_pp": 176.19,
+    "stop_trades_n": 46,
+    "stop_realized_pp": -15.66,
+    "stop_gap_loss_pp": 4.64,
+    "total_return_pct": 114.99,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 134.36,
+    "mdd_pct": -2.57,
+    "weekly_winrate_pct": 62.5,
+    "weekly_winrate_active_pct": 62.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 0.56,
+    "fee_drag_ann_pp": 1.82,
+    "fat_tail_sum_pp": 0,
+    "stop_trades_n": 1,
+    "stop_realized_pp": 3.59,
+    "stop_gap_loss_pp": 0.0,
+    "total_return_pct": 15.02,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -27.17,
+    "mdd_pct": -11.29,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 66.67,
+    "cash_weeks": 7,
+    "turnover_ann_x": 20.89,
+    "fee_drag_ann_pp": 3.79,
+    "fat_tail_sum_pp": 51.92,
+    "stop_trades_n": 18,
+    "stop_realized_pp": -28.48,
+    "stop_gap_loss_pp": 5.7,
+    "total_return_pct": -11.29,
+    "n_days": 139
+   }
+  },
+  "full144|base": {
+   "realA": {
+    "annualized_pct": 114.35,
+    "mdd_pct": -15.21,
+    "weekly_winrate_pct": 67.44,
+    "weekly_winrate_active_pct": 67.44,
+    "cash_weeks": 0,
+    "turnover_ann_x": 41.64,
+    "fee_drag_ann_pp": 8.56,
+    "fat_tail_sum_pp": 168.21,
+    "stop_trades_n": 54,
+    "stop_realized_pp": -15.03,
+    "stop_gap_loss_pp": 9.1,
+    "total_return_pct": 87.83,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 3528.54,
+    "mdd_pct": -18.46,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 39.86,
+    "fee_drag_ann_pp": 11.4,
+    "fat_tail_sum_pp": 152.04,
+    "stop_trades_n": 5,
+    "stop_realized_pp": -2.29,
+    "stop_gap_loss_pp": 0.31,
+    "total_return_pct": 80.39,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -56.31,
+    "mdd_pct": -27.72,
+    "weekly_winrate_pct": 36.84,
+    "weekly_winrate_active_pct": 36.84,
+    "cash_weeks": 0,
+    "turnover_ann_x": 34.11,
+    "fee_drag_ann_pp": 4.89,
+    "fat_tail_sum_pp": 32.4,
+    "stop_trades_n": 45,
+    "stop_realized_pp": -74.18,
+    "stop_gap_loss_pp": 13.27,
+    "total_return_pct": -26.87,
+    "n_days": 139
+   }
+  },
+  "full144|gate": {
+   "realA": {
+    "annualized_pct": 164.91,
+    "mdd_pct": -17.58,
+    "weekly_winrate_pct": 72.09,
+    "weekly_winrate_active_pct": 72.09,
+    "cash_weeks": 0,
+    "turnover_ann_x": 33.06,
+    "fee_drag_ann_pp": 8.6,
+    "fat_tail_sum_pp": 180.77,
+    "stop_trades_n": 44,
+    "stop_realized_pp": -14.76,
+    "stop_gap_loss_pp": 4.53,
+    "total_return_pct": 123.79,
+    "n_days": 228
+   },
+   "realB": {
+    "annualized_pct": 5833.41,
+    "mdd_pct": -7.42,
+    "weekly_winrate_pct": 87.5,
+    "weekly_winrate_active_pct": 87.5,
+    "cash_weeks": 0,
+    "turnover_ann_x": 4.8,
+    "fee_drag_ann_pp": 10.97,
+    "fat_tail_sum_pp": 2.62,
+    "stop_trades_n": 2,
+    "stop_realized_pp": 1.98,
+    "stop_gap_loss_pp": 0.33,
+    "total_return_pct": 95.57,
+    "n_days": 61
+   },
+   "realC": {
+    "annualized_pct": -15.53,
+    "mdd_pct": -24.19,
+    "weekly_winrate_pct": 42.11,
+    "weekly_winrate_active_pct": 53.33,
+    "cash_weeks": 4,
+    "turnover_ann_x": 28.5,
+    "fee_drag_ann_pp": 5.11,
+    "fat_tail_sum_pp": 288.12,
+    "stop_trades_n": 22,
+    "stop_realized_pp": -67.13,
+    "stop_gap_loss_pp": 11.53,
+    "total_return_pct": -6.18,
+    "n_days": 139
+   }
+  },
+  "old131|base|realA|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  },
+  "old131|base|realC|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  },
+  "old131|gate_pause|realA|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  },
+  "old131|gate_pause|realC|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  },
+  "full144|base|realA|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  },
+  "full144|base|realC|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  },
+  "full144|gate_pause|realA|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  },
+  "full144|gate_pause|realC|vs_wo_hd": {
+   "ann_absdiff": 0.0,
+   "mdd_absdiff": 0.0,
+   "within_0.01pp": true
+  }
+ },
+ "primary": {
+  "old131": {
+   "gate|FULL": {
+    "gated": {
+     "ret_pp": 114.5464,
+     "mdd_pct": -15.95,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -6.2947,
+    "mdd_red_pct": 50.36
+   },
+   "gate|HOLDOUT": {
+    "gated": {
+     "ret_pp": 3.7276,
+     "mdd_pct": -11.97,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -16.7936,
+    "mdd_red_pct": 62.75
+   },
+   "gate_lag|FULL": {
+    "gated": {
+     "ret_pp": 108.1847,
+     "mdd_pct": -15.96,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -12.6564,
+    "mdd_red_pct": 50.33
+   },
+   "gate_lag|HOLDOUT": {
+    "gated": {
+     "ret_pp": 1.6946,
+     "mdd_pct": -13.83,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -18.8266,
+    "mdd_red_pct": 56.96
+   },
+   "p_full_avoid_gt0": 0.517,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  "full144": {
+   "gate|FULL": {
+    "gated": {
+     "ret_pp": 318.8913,
+     "mdd_pct": -24.92,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 184.2668,
+    "mdd_red_pct": 27.68
+   },
+   "gate|HOLDOUT": {
+    "gated": {
+     "ret_pp": 91.8723,
+     "mdd_pct": -24.92,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 63.2609,
+    "mdd_red_pct": 27.68
+   },
+   "gate_lag|FULL": {
+    "gated": {
+     "ret_pp": 277.0198,
+     "mdd_pct": -27.98,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 142.3953,
+    "mdd_red_pct": 18.8
+   },
+   "gate_lag|HOLDOUT": {
+    "gated": {
+     "ret_pp": 84.0301,
+     "mdd_pct": -27.98,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 55.4187,
+    "mdd_red_pct": 18.8
+   },
+   "p_full_avoid_gt0": 0.022,
+   "fdr_reject_full": true,
+   "selected": true
+  }
+ },
+ "fdr": {
+  "method": "BH",
+  "q": 0.1,
+  "m": 4,
+  "family": "2 池 × {FULL,HOLDOUT} 单侧 p"
+ },
+ "T1_direction_blind": {
+  "old131": {
+   "realB": {
+    "n": 60,
+    "mean_pp": 0.7749,
+    "median_pp": 0.1028,
+    "std_pp": 3.328,
+    "p_lt0_pct": 48.33,
+    "ttest_two_sided": {
+     "t": 1.8037,
+     "p": 0.0764
+    },
+    "wilcoxon_two_sided_p": 0.0502,
+    "mean_significant_neg_5pct": false
+   },
+   "realC": {
+    "n": 49,
+    "mean_pp": -0.3556,
+    "median_pp": -0.0731,
+    "std_pp": 1.5233,
+    "p_lt0_pct": 55.1,
+    "ttest_two_sided": {
+     "t": -1.6339,
+     "p": 0.1088
+    },
+    "wilcoxon_two_sided_p": 0.2013,
+    "mean_significant_neg_5pct": false
+   },
+   "holdout": {
+    "n": 109,
+    "mean_pp": 0.2667,
+    "median_pp": -0.0045,
+    "std_pp": 2.7205,
+    "p_lt0_pct": 51.38,
+    "ttest_two_sided": {
+     "t": 1.0237,
+     "p": 0.3083
+    },
+    "wilcoxon_two_sided_p": 0.3733,
+    "mean_significant_neg_5pct": false
+   }
+  },
+  "full144": {
+   "realB": {
+    "n": 51,
+    "mean_pp": 0.9865,
+    "median_pp": -0.022,
+    "std_pp": 4.0887,
+    "p_lt0_pct": 50.98,
+    "ttest_two_sided": {
+     "t": 1.723,
+     "p": 0.0911
+    },
+    "wilcoxon_two_sided_p": 0.1175,
+    "mean_significant_neg_5pct": false
+   },
+   "realC": {
+    "n": 37,
+    "mean_pp": -0.4542,
+    "median_pp": -0.0052,
+    "std_pp": 1.5093,
+    "p_lt0_pct": 59.46,
+    "ttest_two_sided": {
+     "t": -1.8306,
+     "p": 0.0754
+    },
+    "wilcoxon_two_sided_p": 0.1357,
+    "mean_significant_neg_5pct": false
+   },
+   "holdout": {
+    "n": 88,
+    "mean_pp": 0.3807,
+    "median_pp": -0.0136,
+    "std_pp": 3.326,
+    "p_lt0_pct": 54.55,
+    "ttest_two_sided": {
+     "t": 1.0738,
+     "p": 0.2859
+    },
+    "wilcoxon_two_sided_p": 0.6143,
+    "mean_significant_neg_5pct": false
+   }
+  }
+ },
+ "T2_lag_robustness": {
+  "old131": {
+   "FULL": {
+    "gate_avoid_pp": -6.2947,
+    "lag_avoid_pp": -12.6564,
+    "gate_mdd_red": 50.36,
+    "lag_mdd_red": 50.33,
+    "avoid_sign_flip": false
+   },
+   "HOLDOUT": {
+    "gate_avoid_pp": -16.7936,
+    "lag_avoid_pp": -18.8266,
+    "gate_mdd_red": 62.75,
+    "lag_mdd_red": 56.96,
+    "avoid_sign_flip": false
+   },
+   "lag_robust": false
+  },
+  "full144": {
+   "FULL": {
+    "gate_avoid_pp": 184.2668,
+    "lag_avoid_pp": 142.3953,
+    "gate_mdd_red": 27.68,
+    "lag_mdd_red": 18.8,
+    "avoid_sign_flip": false
+   },
+   "HOLDOUT": {
+    "gate_avoid_pp": 63.2609,
+    "lag_avoid_pp": 55.4187,
+    "gate_mdd_red": 27.68,
+    "lag_mdd_red": 18.8,
+    "avoid_sign_flip": false
+   },
+   "lag_robust": true
+  }
+ },
+ "T3_realB_lock": {
+  "old131": {
+   "off_diag_realB": {
+    "off_days": 60,
+    "off_share_pct": 98.36,
+    "off_episodes": 2,
+    "flips": 2,
+    "off_hit_rate_pct": 48.33,
+    "n_days": 61
+   },
+   "base_realB": {
+    "ret_pp": 59.579,
+    "mdd_pct": -16.46,
+    "n_days": 61
+   },
+   "gate_realB": {
+    "ret_pp": 14.8909,
+    "mdd_pct": -2.59,
+    "n_days": 61
+   },
+   "missed_cost_pp": 44.6881,
+   "missed_cost_ann_pp": 272.0388,
+   "stop_ledger_realC": {
+    "base": {
+     "stop_n": 38,
+     "stop_pp": -54.49
+    },
+    "gate": {
+     "stop_n": 18,
+     "stop_pp": -27.01
+    },
+    "avoided_pp": -27.48,
+    "avoided_amt_pct": -50.43,
+    "avoided_n_pct": 52.63
+   }
+  },
+  "full144": {
+   "off_diag_realB": {
+    "off_days": 51,
+    "off_share_pct": 83.61,
+    "off_episodes": 1,
+    "flips": 1,
+    "off_hit_rate_pct": 50.98,
+    "n_days": 61
+   },
+   "base_realB": {
+    "ret_pp": 79.3475,
+    "mdd_pct": -18.56,
+    "n_days": 61
+   },
+   "gate_realB": {
+    "ret_pp": 94.6734,
+    "mdd_pct": -7.51,
+    "n_days": 61
+   },
+   "missed_cost_pp": -15.3259,
+   "missed_cost_ann_pp": -93.2964,
+   "stop_ledger_realC": {
+    "base": {
+     "stop_n": 45,
+     "stop_pp": -69.69
+    },
+    "gate": {
+     "stop_n": 22,
+     "stop_pp": -63.35
+    },
+    "avoided_pp": -6.34,
+    "avoided_amt_pct": -9.1,
+    "avoided_n_pct": 51.11
+   }
+  }
+ },
+ "selected": {
+  "old131": false,
+  "full144": true
+ },
+ "overall": "FAIL",
+ "wall_secs": 35.8
+}

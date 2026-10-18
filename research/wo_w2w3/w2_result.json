@@ -1,0 +1,462 @@
+{
+ "stage": "w2_rs_state_conditional",
+ "ts": "2026-10-19 01:08:43",
+ "od": "PW2-1..PW2-10（见头注，冻结）",
+ "factor_def": "RS20=个股20日收益−异池等权20日收益（144 池 old131/new13 互指）；主判=RS_momentum fwd20（RESCUE_VERDICT M1）",
+ "state_def": {
+  "vol": "full144 池等权 idx vol20>realA p80",
+  "breadth": "full144 breadth(<MA50 占比)<50.0%",
+  "states": [
+   "calm_broad",
+   "calm_narrow",
+   "hot_broad",
+   "hot_narrow"
+  ]
+ },
+ "pool_scope_note": "原 c4 IC 截面=全部加载标的(176 只)；本单收窄到严格 144 池（工单纪律），基线重算差异如实登记",
+ "windows": {
+  "extended": [
+   "2025-06-02",
+   "2026-10-17"
+  ],
+  "realA": [
+   "2025-06-02",
+   "2026-03-31"
+  ],
+  "realB": [
+   "2026-04-01",
+   "2026-05-31"
+  ],
+  "realC": [
+   "2026-06-01",
+   "2026-10-17"
+  ],
+  "holdout": [
+   "2026-04-01",
+   "2026-10-17"
+  ],
+  "extended_excl_realC": [
+   "2025-06-02",
+   "2026-05-31"
+  ]
+ },
+ "bare_upload_ban": "裸上禁令：所有结论条件化表述；未通过状态条件化前禁止任何仓位（RESCUE_VERDICT 空头席/首席终裁）",
+ "baseline_144pool": {
+  "extended": {
+   "ic": {
+    "ic_mean": 0.06041694552668073,
+    "t_stat": 4.905749549169886,
+    "n_days": 317
+   },
+   "fwd20_decile_pp_raw": 6.0061,
+   "fwd20_decile_pp_net": 5.9061,
+   "n_sig": 52,
+   "fwd5_decile_pp_raw": 1.32,
+   "fwd5_decile_pp_net": 1.22
+  },
+  "realA": {
+   "ic": {
+    "ic_mean": 0.1098176019193691,
+    "t_stat": 8.915604342951454,
+    "n_days": 165
+   },
+   "fwd20_decile_pp_raw": 11.6904,
+   "fwd20_decile_pp_net": 11.5904,
+   "n_sig": 29,
+   "fwd5_decile_pp_raw": 3.4272,
+   "fwd5_decile_pp_net": 3.3272
+  },
+  "realB": {
+   "ic": {
+    "ic_mean": 0.28608921493953066,
+    "t_stat": 11.699795631659372,
+    "n_days": 33
+   },
+   "fwd20_decile_pp_raw": 9.0345,
+   "fwd20_decile_pp_net": 8.9345,
+   "n_sig": 3,
+   "fwd5_decile_pp_raw": -1.6578,
+   "fwd5_decile_pp_net": -1.7578
+  },
+  "realC": {
+   "ic": {
+    "ic_mean": -0.07066114855245895,
+    "t_stat": -3.3284708125644333,
+    "n_days": 119
+   },
+   "fwd20_decile_pp_raw": -4.2469,
+   "fwd20_decile_pp_net": -4.3469,
+   "n_sig": 20,
+   "fwd5_decile_pp_raw": -1.2888,
+   "fwd5_decile_pp_net": -1.3888
+  },
+  "holdout": {
+   "ic": {
+    "ic_mean": 0.006791232995144047,
+    "t_stat": 0.32139488394485577,
+    "n_days": 152
+   },
+   "fwd20_decile_pp_raw": -1.2284,
+   "fwd20_decile_pp_net": -1.3284,
+   "n_sig": 23,
+   "fwd5_decile_pp_raw": -1.3369,
+   "fwd5_decile_pp_net": -1.4369
+  },
+  "extended_excl_realC": {
+   "ic": {
+    "ic_mean": 0.13919620408939604,
+    "t_stat": 11.626048099964885,
+    "n_days": 198
+   },
+   "fwd20_decile_pp_raw": 11.2879,
+   "fwd20_decile_pp_net": 11.1879,
+   "n_sig": 32,
+   "fwd5_decile_pp_raw": 2.9505,
+   "fwd5_decile_pp_net": 2.8505
+  }
+ },
+ "c4_lineage_check": {
+  "registered_c4_176cs": {
+   "t_extended": 4.776407291079294,
+   "n_extended": 317,
+   "t_realC": -3.4468609852514507,
+   "n_realC": 119,
+   "spread_net_f20": 1.3616
+  },
+  "recomputed_144cs": {
+   "t_extended": 4.905749549169886,
+   "n_extended": 317,
+   "t_realC": -3.3284708125644333,
+   "n_realC": 119,
+   "spread_net_f20": 5.9061
+  },
+  "spread_caliber_note": "原 c4 fwd5/fwd20 价差同为 1.4616pp=价差按单一 horizon 计算的技术保留①；本单逐 horizon 各算各的（PW2-5）"
+ },
+ "states": {
+  "calm_broad": {
+   "extended": {
+    "n_days": 170,
+    "n_sig": 26,
+    "ic": {
+     "ic_mean": 0.0914708248062143,
+     "t_stat": 5.751357823545496,
+     "n_days": 129
+    },
+    "fwd20_decile_pp_raw": 9.2069,
+    "fwd20_decile_pp_net": 9.1069,
+    "fwd5_decile_pp_raw": 2.5779,
+    "fwd5_decile_pp_net": 2.4779
+   },
+   "realA": {
+    "n_days": 137,
+    "n_sig": 22,
+    "ic": {
+     "ic_mean": 0.14170862711707613,
+     "t_stat": 11.061650101609569,
+     "n_days": 108
+    },
+    "fwd20_decile_pp_raw": 12.4912,
+    "fwd20_decile_pp_net": 12.3912,
+    "fwd5_decile_pp_raw": 4.5428,
+    "fwd5_decile_pp_net": 4.4428
+   },
+   "realB": {
+    "n_days": 0,
+    "n_sig": 0,
+    "status": "INSUFFICIENT_N"
+   },
+   "realC": {
+    "n_days": 33,
+    "n_sig": 4,
+    "ic": {
+     "ic_mean": -0.1668950156496466,
+     "t_stat": -4.394823808842675,
+     "n_days": 21
+    },
+    "spread_status": "INSUFFICIENT_N_SIG(<5)"
+   },
+   "holdout": {
+    "n_days": 33,
+    "n_sig": 4,
+    "ic": {
+     "ic_mean": -0.1668950156496466,
+     "t_stat": -4.394823808842675,
+     "n_days": 21
+    },
+    "spread_status": "INSUFFICIENT_N_SIG(<5)"
+   },
+   "extended_excl_realC": {
+    "n_days": 137,
+    "n_sig": 22,
+    "ic": {
+     "ic_mean": 0.14170862711707613,
+     "t_stat": 11.061650101609569,
+     "n_days": 108
+    },
+    "fwd20_decile_pp_raw": 12.4912,
+    "fwd20_decile_pp_net": 12.3912,
+    "fwd5_decile_pp_raw": 4.5428,
+    "fwd5_decile_pp_net": 4.4428
+   },
+   "judgment": "INSUFFICIENT_N（PW2-6 不判定）"
+  },
+  "calm_narrow": {
+   "extended": {
+    "n_days": 124,
+    "n_sig": 17,
+    "ic": {
+     "ic_mean": -0.0028631397217144645,
+     "t_stat": -0.13000979472272312,
+     "n_days": 100
+    },
+    "fwd20_decile_pp_raw": 2.4403,
+    "fwd20_decile_pp_net": 2.3403,
+    "fwd5_decile_pp_raw": 0.7395,
+    "fwd5_decile_pp_net": 0.6395
+   },
+   "realA": {
+    "n_days": 45,
+    "n_sig": 7,
+    "ic": {
+     "ic_mean": 0.09191820674831265,
+     "t_stat": 3.1237584967866345,
+     "n_days": 34
+    },
+    "fwd20_decile_pp_raw": 9.2877,
+    "fwd20_decile_pp_net": 9.1877,
+    "fwd5_decile_pp_raw": -0.079,
+    "fwd5_decile_pp_net": -0.179
+   },
+   "realB": {
+    "n_days": 10,
+    "n_sig": 1,
+    "status": "INSUFFICIENT_N"
+   },
+   "realC": {
+    "n_days": 69,
+    "n_sig": 10,
+    "ic": {
+     "ic_mean": -0.06334853159149587,
+     "t_stat": -2.1314233601070045,
+     "n_days": 61
+    },
+    "fwd20_decile_pp_raw": -3.5511,
+    "fwd20_decile_pp_net": -3.6511,
+    "fwd5_decile_pp_raw": 1.3124,
+    "fwd5_decile_pp_net": 1.2124
+   },
+   "holdout": {
+    "n_days": 79,
+    "n_sig": 10,
+    "ic": {
+     "ic_mean": -0.05168989396384964,
+     "t_stat": -1.8450365892359681,
+     "n_days": 66
+    },
+    "fwd20_decile_pp_raw": -3.5511,
+    "fwd20_decile_pp_net": -3.6511,
+    "fwd5_decile_pp_raw": 1.3124,
+    "fwd5_decile_pp_net": 1.2124
+   },
+   "extended_excl_realC": {
+    "n_days": 55,
+    "n_sig": 7,
+    "ic": {
+     "ic_mean": 0.09174221679255902,
+     "t_stat": 3.5386647695487286,
+     "n_days": 39
+    },
+    "fwd20_decile_pp_raw": 9.2877,
+    "fwd20_decile_pp_net": 9.1877,
+    "fwd5_decile_pp_raw": -0.079,
+    "fwd5_decile_pp_net": -0.179
+   },
+   "judgment": "FAIL（条件化判线不过：extended 费后价差=2.3403pp, realC 费后价差=-3.6511pp, realC IC mean=-0.06334853159149587）"
+  },
+  "hot_broad": {
+   "extended": {
+    "n_days": 0,
+    "n_sig": 0,
+    "status": "INSUFFICIENT_N"
+   },
+   "realA": {
+    "n_days": 0,
+    "n_sig": 0,
+    "status": "INSUFFICIENT_N"
+   },
+   "realB": {
+    "n_days": 0,
+    "n_sig": 0,
+    "status": "INSUFFICIENT_N"
+   },
+   "realC": {
+    "n_days": 0,
+    "n_sig": 0,
+    "status": "INSUFFICIENT_N"
+   },
+   "holdout": {
+    "n_days": 0,
+    "n_sig": 0,
+    "status": "INSUFFICIENT_N"
+   },
+   "extended_excl_realC": {
+    "n_days": 0,
+    "n_sig": 0,
+    "status": "INSUFFICIENT_N"
+   },
+   "judgment": "INSUFFICIENT_N（PW2-6 不判定）"
+  },
+  "hot_narrow": {
+   "extended": {
+    "n_days": 134,
+    "n_sig": 9,
+    "ic": {
+     "ic_mean": 0.08680396936508637,
+     "t_stat": 3.20122907900489,
+     "n_days": 88
+    },
+    "fwd20_decile_pp_raw": 3.8849,
+    "fwd20_decile_pp_net": 3.7849,
+    "fwd5_decile_pp_raw": -1.2175,
+    "fwd5_decile_pp_net": -1.3175
+   },
+   "realA": {
+    "n_days": 46,
+    "n_sig": null,
+    "ic": {
+     "ic_mean": -0.01347158440830223,
+     "t_stat": -0.34597735781054006,
+     "n_days": 23
+    },
+    "fwd20_decile_pp_raw": null,
+    "fwd20_decile_pp_net": null,
+    "fwd5_decile_pp_raw": null,
+    "fwd5_decile_pp_net": null
+   },
+   "realB": {
+    "n_days": 51,
+    "n_sig": 3,
+    "ic": {
+     "ic_mean": 0.3210077381263335,
+     "t_stat": 14.290380939579551,
+     "n_days": 28
+    },
+    "fwd20_decile_pp_raw": 9.0345,
+    "fwd20_decile_pp_net": 8.9345,
+    "fwd5_decile_pp_raw": -1.6578,
+    "fwd5_decile_pp_net": -1.7578
+   },
+   "realC": {
+    "n_days": 37,
+    "n_sig": 6,
+    "ic": {
+     "ic_mean": -0.02809786275726448,
+     "t_stat": -0.6874855502610916,
+     "n_days": 37
+    },
+    "fwd20_decile_pp_raw": -0.4064,
+    "fwd20_decile_pp_net": -0.5064,
+    "fwd5_decile_pp_raw": -0.9974,
+    "fwd5_decile_pp_net": -1.0974
+   },
+   "holdout": {
+    "n_days": 88,
+    "n_sig": 9,
+    "ic": {
+     "ic_mean": 0.12228608839259311,
+     "t_stat": 3.698015698861938,
+     "n_days": 65
+    },
+    "fwd20_decile_pp_raw": 3.8849,
+    "fwd20_decile_pp_net": 3.7849,
+    "fwd5_decile_pp_raw": -1.2175,
+    "fwd5_decile_pp_net": -1.3175
+   },
+   "extended_excl_realC": {
+    "n_days": 97,
+    "n_sig": 3,
+    "ic": {
+     "ic_mean": 0.17016412208130166,
+     "t_stat": 5.369116092953934,
+     "n_days": 51
+    },
+    "fwd20_decile_pp_raw": 9.0345,
+    "fwd20_decile_pp_net": 8.9345,
+    "fwd5_decile_pp_raw": -1.6578,
+    "fwd5_decile_pp_net": -1.7578
+   },
+   "judgment": "FAIL（条件化判线不过：extended 费后价差=3.7849pp, realC 费后价差=-0.5064pp, realC IC mean=-0.02809786275726448）"
+  }
+ },
+ "boundary": {
+  "extended": {
+   "old131_only_cs": {
+    "ic_mean": 0.05810478105898378,
+    "t_stat": 4.791994128227839,
+    "n_days": 317
+   },
+   "same_pool_denom": {
+    "ic_mean": 0.0732370242463266,
+    "t_stat": 6.216123964089141,
+    "n_days": 340
+   },
+   "cross_pool_144": {
+    "ic_mean": 0.06041694552668073,
+    "t_stat": 4.905749549169886,
+    "n_days": 317
+   }
+  },
+  "realC": {
+   "old131_only_cs": {
+    "ic_mean": -0.06547321802374459,
+    "t_stat": -3.057196536544331,
+    "n_days": 119
+   },
+   "same_pool_denom": {
+    "ic_mean": -0.06287942599045986,
+    "t_stat": -2.9066513487650765,
+    "n_days": 119
+   },
+   "cross_pool_144": {
+    "ic_mean": -0.07066114855245895,
+    "t_stat": -3.3284708125644333,
+    "n_days": 119
+   }
+  },
+  "extended_realC_inclusion": {
+   "n_extended": 317,
+   "n_realC": 119,
+   "n_excl_realC": 198,
+   "n_ext_minus_n_realC": 198,
+   "note": "extended 窗按日期构造包含 realC（技术保留②坐实：extended⊆realC 成立，n_extended−n_realC 应=pre-realC 信号日数）；t_excl 见 extended_excl_realC 窗",
+   "t_extended_excl_realC": 11.626048099964885
+  },
+  "realC_state_composition": {
+   "calm_broad": 23.74,
+   "calm_narrow": 49.64,
+   "hot_broad": 0.0,
+   "hot_narrow": 26.62
+  },
+  "flip_mechanism": {
+   "per_state_realC_ic": {
+    "calm_broad": -0.1668950156496466,
+    "calm_narrow": -0.06334853159149587,
+    "hot_broad": null,
+    "hot_narrow": -0.02809786275726448
+   },
+   "assumption_note": "翻转机制假设=态切换（高波动/窄广度）解释 realC 反号；若逐态 realC IC 仍全负，则态条件化不能拯救该态，条件化部署在该态失效"
+  }
+ },
+ "verdict": {
+  "conditional_conclusions": {
+   "calm_broad": "在态 calm_broad 下：extended IC=0.0914708248062143，realC IC=-0.1668950156496466，费后 fwd20 价差 extended=9.1069pp / realC=Nonepp → INSUFFICIENT_N（PW2-6 不判定）",
+   "calm_narrow": "在态 calm_narrow 下：extended IC=-0.0028631397217144645，realC IC=-0.06334853159149587，费后 fwd20 价差 extended=2.3403pp / realC=-3.6511pp → FAIL（条件化判线不过：extended 费后价差=2.3403pp, realC 费后价差=-3.6511pp, realC IC mean=-0.06334853159149587）",
+   "hot_broad": "在态 hot_broad 下：extended IC=None，realC IC=None，费后 fwd20 价差 extended=Nonepp / realC=Nonepp → INSUFFICIENT_N（PW2-6 不判定）",
+   "hot_narrow": "在态 hot_narrow 下：extended IC=0.08680396936508637，realC IC=-0.02809786275726448，费后 fwd20 价差 extended=3.7849pp / realC=-0.5064pp → FAIL（条件化判线不过：extended 费后价差=3.7849pp, realC 费后价差=-0.5064pp, realC IC mean=-0.02809786275726448）"
+  },
+  "states_passing_line": [],
+  "deployment_statement": "裸因子禁上（禁令维持）；仅当状态分类器实时可判且落在通过态时，方可在该态条件化暴露；态外一律禁止",
+  "n_day_exit_cost": "空头席「翻转后 N 日退出成本」：登记为边界预写项，需池间成对数据管线排期，本工单未跑（PW2-10，非判死）"
+ },
+ "wall_secs": 4.2
+}
