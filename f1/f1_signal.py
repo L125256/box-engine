@@ -56,9 +56,13 @@ SEED = 42
 np.random.seed(SEED)
 
 # 路径（自足性 WO：env 可覆盖，全新机器/CI 用 F1_CACHE/F1_POOL 指仓库内基线；
-# 缺省保持本机原值，旧 cron 不受影响）
+# 缺省保持本机原值，旧 cron 不受影响。B2：缺省路径不存在时回退仓库内基线
+# （engine_snapshot/cleaned_pool.json，env 优先），真 runner 无 /tmp/eng_wt 也能跑）
+_REPO_ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 CACHE = os.environ.get('F1_CACHE', '/tmp/box_cache')
 CLEANED_POOL = os.environ.get('F1_POOL', '/tmp/eng_wt/cleaned_pool.json')
+if not os.path.exists(CLEANED_POOL):
+    CLEANED_POOL = os.path.join(_REPO_ROOT, 'engine_snapshot', 'cleaned_pool.json')
 OUT_JSON_DEFAULT = os.environ.get('F1_OUT_JSON', '')
 
 TOP_N = 5

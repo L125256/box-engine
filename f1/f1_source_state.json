@@ -1,0 +1,23 @@
+{
+ "state": "NORMAL",
+ "consec_fail": 0,
+ "consec_ok": 2,
+ "last_ok": "2026-10-18T06:14:21Z",
+ "last_fail": null,
+ "degraded_since": null,
+ "pending_manual": false,
+ "frozen_asof": null,
+ "history": [
+  {
+   "ts": "2026-10-18T06:13:47Z",
+   "from": "NORMAL",
+   "round_ok": true
+  },
+  {
+   "ts": "2026-10-18T06:14:21Z",
+   "from": "NORMAL",
+   "round_ok": true
+  }
+ ],
+ "last_round_id": "DECIDE"
+}

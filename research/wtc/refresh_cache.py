@@ -73,6 +73,9 @@ def main():
             if done % 40 == 0:
                 print(f'进度 {done}/{len(pool)}', flush=True)
     print(f'完成: 成功{ok} 失败{len(fail)} {fail[:10]}', flush=True)
+    _rdir = os.path.dirname(REPORT)
+    if _rdir:
+        os.makedirs(_rdir, exist_ok=True)   # B1：真 runner /tmp/wtc 不存在，写报告前自建
     with open(REPORT, 'w') as f:
         json.dump(dict(ts=time.strftime('%Y-%m-%d %H:%M:%S'),
                        pool=len(pool), ok=ok, fail=fail,

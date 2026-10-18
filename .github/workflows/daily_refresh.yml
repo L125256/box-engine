@@ -57,6 +57,11 @@ jobs:
       # 行情缓存统一放 /tmp/box_cache（runner 全新，每轮由刷新步骤重建）
       BOX_CACHE_DIR: /tmp/box_cache
       F1_CACHE: /tmp/box_cache
+      # B1 双保险：拉行情报告显式指仓库内路径（写入端 refresh_cache.py 与
+      # 读取端"拉行情"步骤共用此值，不再依赖 /tmp/wtc 缺省目录存在）
+      BOX_REFRESH_REPORT: ${{ github.workspace }}/engine_snapshot/refresh_report.json
+      # B2：F1 权威池显式指仓库内基线（runner 无 /tmp/eng_wt，快照/判定轮必读）
+      F1_POOL: ${{ github.workspace }}/engine_snapshot/cleaned_pool.json
     steps:
       - name: 检出仓库
         uses: actions/checkout@v4
@@ -98,7 +103,7 @@ jobs:
       - name: 拉行情（refresh_cache 全池刷新，失败保留旧缓存）
         run: |
           python3 research/wtc/refresh_cache.py
-          OK=$(python3 -c "import json;r=json.load(open('/tmp/wtc/refresh_report.json'));print(f\"{r['ok']}/{r['pool']}\")")
+          OK=$(python3 -c "import json,os;r=json.load(open(os.environ['BOX_REFRESH_REPORT']));print(f\"{r['ok']}/{r['pool']}\")")
           echo "PULLED=$OK" >> "$GITHUB_ENV"
           echo "| 拉行情 | ✅ $OK 标的 |" >> "$GITHUB_STEP_SUMMARY"
 
