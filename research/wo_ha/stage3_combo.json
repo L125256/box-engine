@@ -1,0 +1,7 @@
+{
+ "stage": "stage3_combo",
+ "ts": "2026-10-18 22:32:57",
+ "rule": "Stage2 通过者按筛选窗 fwd20 ICIR 降序取<=3 等权 z-score 合成替换，重跑 P1-P3；LOTO（逐因子去一/留一）+ 日块/月块 stationary bootstrap 1000 + 随机带 500 seeds(42..541) 同表呈报",
+ "verdict": "NOT_RUN：Stage2 无双池全过候选 → 组合替换不触发（HA_SPEC 失败路径：H-A 归档，复活条件=新评估段累积或制度性新证据）",
+ "wall_secs": 0.0
+}

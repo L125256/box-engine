@@ -1,0 +1,115 @@
+{
+ "stage": "stage2_backtest",
+ "ts": "2026-10-18 22:28:20",
+ "baseline": "带闸 gated F1（OD7），dneg_engine 权威谱系，seed=42",
+ "gates": "P1 X=realC净年化改善>=+10pp；P2 Y=realA净年化降幅<=5pp；P3 realC合成fwd5 IC>=基线+0.02；双池分别判定、双池全过才算过",
+ "realC_burn_ledger": [
+  {
+   "cid": "C1",
+   "pname": "old131",
+   "touched": [
+    "backtest_realC",
+    "composite_IC_realC"
+   ],
+   "burned_at": "2026-10-18 22:28:20"
+  },
+  {
+   "cid": "C1",
+   "pname": "full144",
+   "touched": [
+    "backtest_realC",
+    "composite_IC_realC"
+   ],
+   "burned_at": "2026-10-18 22:28:20"
+  }
+ ],
+ "runs": {
+  "C1|old131": {
+   "arm": {
+    "realA": 85.58664836543768,
+    "realB": 1148.961373974817,
+    "realC": -40.10440861455287
+   },
+   "baseline": {
+    "realA": 98.80498932589217,
+    "realB": 850.3053590382228,
+    "realC": -31.799360333985206
+   },
+   "X_pp": -8.31,
+   "Y_pp": -13.22
+  },
+  "C1|full144": {
+   "arm": {
+    "realA": 54.46135187727887,
+    "realB": 1148.961373974817,
+    "realC": -31.83572634938463
+   },
+   "baseline": {
+    "realA": 69.87184774100068,
+    "realB": 1550.9384646953624,
+    "realC": -36.92869795537461
+   },
+   "X_pp": 5.09,
+   "Y_pp": -15.41
+  }
+ },
+ "p3": {
+  "C1|old131": {
+   "arm_ic": {
+    "mean": -0.008414945017448666,
+    "n_days": 20
+   },
+   "base_ic": {
+    "mean": -0.008448042967886888,
+    "n_days": 20
+   },
+   "diff": 0.0
+  },
+  "C1|full144": {
+   "arm_ic": {
+    "mean": -0.001363065869667382,
+    "n_days": 20
+   },
+   "base_ic": {
+    "mean": 0.00402764271546957,
+    "n_days": 20
+   },
+   "diff": -0.0054
+  }
+ },
+ "criteria": {
+  "C1|old131": {
+   "P1_X_ge_10pp": {
+    "value": -8.31,
+    "pass": false
+   },
+   "P2_Y_ge_minus5pp": {
+    "value": -13.22,
+    "pass": false
+   },
+   "P3_ic_diff_ge_0.02": {
+    "value": 0.0,
+    "pass": false
+   },
+   "OVERALL": "FAIL"
+  },
+  "C1|full144": {
+   "P1_X_ge_10pp": {
+    "value": 5.09,
+    "pass": false
+   },
+   "P2_Y_ge_minus5pp": {
+    "value": -15.41,
+    "pass": false
+   },
+   "P3_ic_diff_ge_0.02": {
+    "value": -0.0054,
+    "pass": false
+   },
+   "OVERALL": "FAIL"
+  }
+ },
+ "passers": [],
+ "passers_both_pools": [],
+ "wall_secs": 23.7
+}

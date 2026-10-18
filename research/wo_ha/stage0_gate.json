@@ -1,0 +1,55 @@
+{
+ "stage": "stage0_gate",
+ "ts": "2026-10-18 22:23:30",
+ "caches": {
+  "primary": "/tmp/dneg/box_cache",
+  "alt": "/tmp/box_cache",
+  "n_files": 176,
+  "per_file_aggregate_md5": "0e4c4fb9e487ff251639efa5fe06b05e",
+  "drift_files": [],
+  "note": "engine_snapshot 解包态，与 /tmp/box_cache 逐文件 md5 一致=零漂移"
+ },
+ "d0_pairing": {
+  "mom_6m": {
+   "ref": "run_screen.py F[mom_6m]",
+   "days": [
+    "2024-06-03",
+    "2025-06-02",
+    "2026-05-29"
+   ],
+   "maxdiff": 0.0
+  },
+  "atr_ratio_chg10": {
+   "ref": "run_screen.py F[atr_ratio_chg10]",
+   "days": [
+    "2024-06-03",
+    "2025-06-02",
+    "2026-05-29"
+   ],
+   "maxdiff": 0.0
+  },
+  "rev_10d": {
+   "ref": "run_screen.py F[rev_10d]（rev_10d 取负后对拍：冻结公式=反转符号，R3 原值为 +收益）",
+   "days": [
+    "2024-06-03",
+    "2025-06-02",
+    "2026-05-29"
+   ],
+   "maxdiff": 0.0
+  }
+ },
+ "c10_availability": {
+  "fields": [
+   "close",
+   "high",
+   "low",
+   "open",
+   "time",
+   "volume"
+  ],
+  "funding_daily": false,
+  "verdict": "C10 出局归档（无逐日资金费，禁换源）"
+ },
+ "gate": "PASS",
+ "wall_secs": 5.5
+}
