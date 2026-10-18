@@ -1,0 +1,11 @@
+{
+ "workorder": "R15 sha 对表防复发闸门（旧引擎产物混入交付链·防复发）",
+ "batch": "R15-2026-10-19",
+ "generated": "2026-10-19",
+ "note": "运行时校验产数据引擎文件 sha256 == 本表登记值（f1_signal.check_engine_authority，run_live 判定轮入口前置）；不一致/文件缺失/本表缺失 = fail-closed 拒绝产出+REFUSE_ENGINE_SHA 报警。改引擎=新工单，须同步重生成本表。登记基准=本单 commit（含所列文件最终版）。",
+ "files": {
+  "f1_signal.py": "e616a28d06727232fdd5792e87d03dca115c9a43f3a624e1c8a297dfcaf36293",
+  "f1_datasource.py": "c263444785e80e2c7377f0e5fdcd2f33a420792904d497dca83e98c56b758ebd",
+  "f1_backtest_v2.py": "48aa668da1e5b6eb9c49ef3671a4463e33bf55774d9a70f57268d5a5ea790712"
+ }
+}

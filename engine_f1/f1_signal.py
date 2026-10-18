@@ -64,7 +64,21 @@ _REPO_ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__fil
 CACHE = os.environ.get('F1_CACHE', '/tmp/box_cache')
 CLEANED_POOL = os.environ.get('F1_POOL', '/tmp/eng_wt/cleaned_pool.json')
 if not os.path.exists(CLEANED_POOL):
+    _POOL_ORIG = CLEANED_POOL
     CLEANED_POOL = os.path.join(_REPO_ROOT, 'engine_snapshot', 'cleaned_pool.json')
+    # R15 防静默回退（B2 补强）：回退发生必须留痕（POOL_FALLBACK 事件：原路径/回退路径/
+    # 时间戳，append-only JSONL，与 _log_guard 同格式）。此处处于模块导入期，
+    # _log_guard 尚未定义，故内联落盘（语义一致，失败不阻断导入）。
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               'f1_guard.log'), 'a') as _f:
+            _f.write(json.dumps({'ts': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                 'kind': 'POOL_FALLBACK',
+                                 'orig_path': _POOL_ORIG,
+                                 'fallback_path': CLEANED_POOL},
+                                ensure_ascii=False) + '\n')
+    except Exception:
+        pass
 OUT_JSON_DEFAULT = os.environ.get('F1_OUT_JSON', '')
 
 TOP_N = 5
@@ -837,7 +851,42 @@ def engine_sha256(path=None):
     return hashlib.sha256(open(path, 'rb').read()).hexdigest()
 
 
+def check_engine_authority():
+    """R15 sha 对表防复发闸门（fail-closed）。
+    运行时校验「产数据所用的引擎文件 sha256 == AUTHORITY_SHA.json（仓库 HEAD 登记）
+    权威 sha」；不一致/引擎文件缺失/登记表缺失 → 写 REFUSE_ENGINE_SHA 报警事件并
+    拒绝产出（RuntimeError，上层 main() 按 guard 拒绝判定语义处理），
+    杜绝旧副本引擎产数据入库（源：旧副本混入交付链事故）。
+    口径：改引擎=新工单，须同步重生成本登记表；登记表缺失同样 fail-closed（宁拒勿漏）。"""
+    here = os.path.dirname(os.path.abspath(__file__))
+    reg_path = os.path.join(here, 'AUTHORITY_SHA.json')
+    if not os.path.exists(reg_path):
+        _log_guard('REFUSE_ENGINE_SHA',
+                   {'reason': 'AUTHORITY_SHA.json 缺失',
+                    'action': 'fail-closed 拒绝产出'})
+        raise RuntimeError('拒绝判定：引擎 sha 对表失败——AUTHORITY_SHA.json 缺失，禁止产出')
+    reg = json.load(open(reg_path))
+    bad = []
+    for name, want in sorted(reg.get('files', {}).items()):
+        p = os.path.join(here, name)
+        if not os.path.exists(p):
+            bad.append(f'{name}: 引擎文件缺失')
+            continue
+        got = hashlib.sha256(open(p, 'rb').read()).hexdigest()
+        if got != want:
+            bad.append(f'{name}: got={got[:16]} want={want[:16]}')
+    if bad:
+        _log_guard('REFUSE_ENGINE_SHA',
+                   {'mismatch': bad, 'action': 'fail-closed 拒绝产出',
+                    'registry_batch': reg.get('batch', '')})
+        raise RuntimeError('拒绝判定：引擎 sha 对表失败——' + '; '.join(bad) +
+                           '；疑似旧副本引擎混入交付链，禁止产出')
+    return reg
+
+
 def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True):
+    # R15 sha 对表闸门（前置，先于探活/读数/任何产出；不一致=拒绝产出+报警，fail-closed）
+    check_engine_authority()
     if out_json is None:
         out_json = OUT_JSON_DEFAULT or '/workspace/f1_web/f1_live.json'
     # WO-R13-04：先做主源健康检查并推进状态机；DEGRADED → 冻结信号，直接返回冻结负载。

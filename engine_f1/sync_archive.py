@@ -19,7 +19,8 @@ WEB = '/workspace/f1_web'
 # (归档文件名, 权威源路径)
 PAIRS = []
 # ① 引擎与运行资产（权威源 = engine_f1/）
-for _n in ('f1_signal.py', 'f1_datasource.py', 'replay_breakers_r13.py',
+for _n in ('f1_signal.py', 'f1_datasource.py', 'AUTHORITY_SHA.json',
+           'replay_breakers_r13.py',
            'sync_archive.py', 'run_checks.py', 'run_scenario_checks.py',
            'run_r13_selftest.py', 'render_harness.cjs', 'f1_crontab.txt',
            'f1_rounds_r13.md', 'F1_台账口径_v1.md', 'f1_live.example.json',
