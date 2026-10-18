@@ -1,0 +1,611 @@
+{
+ "stage": "f6_deep_verify_and_s3xf6",
+ "od": "PCX-B1..B10（见脚本头注，冻结）",
+ "ts": "2026-10-19 02:38:59",
+ "pool": "严格 144 池定版（old131+new13，禁碰新标的）",
+ "seed": 42,
+ "prereg": "wo_crossf6_prereg.json（先冻结后运行）",
+ "fee_calibers": {
+  "stress(主判)": {
+   "FEE_SIDE": 0.00075,
+   "FUNDING": 0.00045
+  },
+  "default(谱系对拍)": {
+   "FEE_SIDE": 0.0005,
+   "FUNDING": 0.0003
+  }
+ },
+ "d0": {
+  "old131": {
+   "D1_vs_dneg_maxdiff": 0.0,
+   "D1_vs_dneg_fees_absdiff": 0.0,
+   "D2_vs_wo_rescue_maxdiff": 0.0,
+   "D2_vs_wo_rescue_fees_absdiff": 0.0,
+   "D3_vs_wo_hd_realA_ann_mdd_absdiff": [
+    0.0,
+    0.0
+   ],
+   "D3_vs_wo_hd_realC_ann_mdd_absdiff": [
+    0.0,
+    0.0
+   ],
+   "D4_v2_stress_FULL_avoid_vs_w3_absdiff": 0.0,
+   "D5_anchor_replay_absdiff": {
+    "v2_full_stop__x__v2": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0
+    },
+    "v2_full_stop__x__g2_ma": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0,
+     "lag_FULL_avoid": 0.0,
+     "lag_HOLD_avoid": 0.0
+    },
+    "open_half_nosell__x__v2": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0,
+     "lag_FULL_avoid": 0.0,
+     "lag_HOLD_avoid": 0.0
+    },
+    "open_full_nosell__x__v2": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0,
+     "lag_FULL_avoid": 0.0,
+     "lag_HOLD_avoid": 0.0
+    }
+   },
+   "D6_run_gate_x_equiv_maxdiff": 0.0,
+   "D6_run_gate_x_equiv_fees_absdiff": 0.0
+  },
+  "full144": {
+   "D1_vs_dneg_maxdiff": 0.0,
+   "D1_vs_dneg_fees_absdiff": 0.0,
+   "D2_vs_wo_rescue_maxdiff": 0.0,
+   "D2_vs_wo_rescue_fees_absdiff": 0.0,
+   "D3_vs_wo_hd_realA_ann_mdd_absdiff": [
+    0.0,
+    0.0
+   ],
+   "D3_vs_wo_hd_realC_ann_mdd_absdiff": [
+    0.0,
+    0.0
+   ],
+   "D4_v2_stress_FULL_avoid_vs_w3_absdiff": 0.0,
+   "D5_anchor_replay_absdiff": {
+    "v2_full_stop__x__v2": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0
+    },
+    "v2_full_stop__x__g2_ma": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0,
+     "lag_FULL_avoid": 0.0,
+     "lag_HOLD_avoid": 0.0
+    },
+    "open_half_nosell__x__v2": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0,
+     "lag_FULL_avoid": 0.0,
+     "lag_HOLD_avoid": 0.0
+    },
+    "open_full_nosell__x__v2": {
+     "FULL_avoid": 0.0,
+     "HOLD_avoid": 0.0,
+     "FULL_mdd_red": 0.0,
+     "HOLD_mdd_red": 0.0,
+     "p_boot": 0.0,
+     "lag_FULL_avoid": 0.0,
+     "lag_HOLD_avoid": 0.0
+    }
+   },
+   "D6_run_gate_x_equiv_maxdiff": 0.0,
+   "D6_run_gate_x_equiv_fees_absdiff": 0.0
+  }
+ },
+ "fdr_merged": {
+  "method": "BH",
+  "q": 0.1,
+  "m": 14,
+  "family": "PCX-B9 合并预注册族：单A 新格 5×2 池 + 单B B 臂 2×2 池 = 14 个 FULL 窗单侧 bootstrap p（锚格/参照臂/base 不进族；A 臂按 PCX-B3 单独判定不进 bootstrap 族）",
+  "pvals": {
+   "old131|v2_full_stop__x__g2_br": 0.208,
+   "old131|open_half_nosell__x__g2_ma": 0.091,
+   "old131|open_half_nosell__x__g2_br": 0.505,
+   "old131|open_full_nosell__x__g2_ma": 0.124,
+   "old131|open_full_nosell__x__g2_br": 0.405,
+   "old131|B1_lo_open_half": 0.008,
+   "old131|B2_hi_open_half": 0.604,
+   "full144|v2_full_stop__x__g2_br": 0.133,
+   "full144|open_half_nosell__x__g2_ma": 0.023,
+   "full144|open_half_nosell__x__g2_br": 0.133,
+   "full144|open_full_nosell__x__g2_ma": 0.103,
+   "full144|open_full_nosell__x__g2_br": 0.273,
+   "full144|B1_lo_open_half": 0.001,
+   "full144|B2_hi_open_half": 0.033
+  },
+  "reject": {
+   "old131|v2_full_stop__x__g2_br": false,
+   "old131|open_half_nosell__x__g2_ma": false,
+   "old131|open_half_nosell__x__g2_br": false,
+   "old131|open_full_nosell__x__g2_ma": false,
+   "old131|open_full_nosell__x__g2_br": false,
+   "old131|B1_lo_open_half": true,
+   "old131|B2_hi_open_half": false,
+   "full144|v2_full_stop__x__g2_br": false,
+   "full144|open_half_nosell__x__g2_ma": false,
+   "full144|open_half_nosell__x__g2_br": false,
+   "full144|open_full_nosell__x__g2_ma": false,
+   "full144|open_full_nosell__x__g2_br": false,
+   "full144|B1_lo_open_half": true,
+   "full144|B2_hi_open_half": false
+  }
+ },
+ "selected": {
+  "old131|v2_full_stop__x__v2": false,
+  "old131|v2_full_stop__x__g2_ma": false,
+  "old131|v2_full_stop__x__g2_br": false,
+  "old131|open_half_nosell__x__v2": false,
+  "old131|open_half_nosell__x__g2_ma": false,
+  "old131|open_half_nosell__x__g2_br": false,
+  "old131|open_full_nosell__x__v2": false,
+  "old131|open_full_nosell__x__g2_ma": false,
+  "old131|open_full_nosell__x__g2_br": false,
+  "old131|B1_lo_open_half": true,
+  "old131|B2_hi_open_half": false,
+  "full144|v2_full_stop__x__v2": false,
+  "full144|v2_full_stop__x__g2_ma": false,
+  "full144|v2_full_stop__x__g2_br": false,
+  "full144|open_half_nosell__x__v2": false,
+  "full144|open_half_nosell__x__g2_ma": false,
+  "full144|open_half_nosell__x__g2_br": false,
+  "full144|open_full_nosell__x__v2": false,
+  "full144|open_full_nosell__x__g2_ma": false,
+  "full144|open_full_nosell__x__g2_br": false,
+  "full144|B1_lo_open_half": true,
+  "full144|B2_hi_open_half": false
+ },
+ "wall_secs": 163.7,
+ "A_arm_deep_verify": {
+  "A_arm_verdict": "PENDING_FORWARD_DATA（生死未决）",
+  "logic": {
+   "alive_evidence_insufficient": true,
+   "death_evidence_insufficient": true
+  },
+  "criteria": {
+   "c1": {
+    "ic_mean_realC": 0.024034,
+    "ic_ge0": true,
+    "t_realC": 0.8274,
+    "t_ge2": false,
+    "note": "判据①「前瞻/留出段 realC 型子段 IC≥0 且 t≥2（补 t=0.83 短板）」——短板只能由扫描窗外新数据补上（见 PCX-B4），已落定数据读数=t=0.8274 原样"
+   },
+   "c2": {
+    "realC_spread_pp": 0.7665,
+    "n_sig": 8,
+    "pass": true
+   },
+   "c3": {
+    "ic_flipped_neg": false,
+    "spread_flipped_neg": false,
+    "triggered": false
+   }
+  },
+  "holdout_full_read_registered": {
+   "n_days": 128,
+   "ic_mean": 0.122643,
+   "t_stat": 4.9718,
+   "n_ic_days": 86,
+   "fwd20_decile_pp_net": 3.908,
+   "n_sig": 13,
+   "contamination_note": "2026-04-01→05-31 子段 ⊆ 35 态扫描窗，登记不作判线"
+  },
+  "realC_monthly_rolling_ic_registered": {
+   "2026-07": {
+    "ic_mean": 0.1415,
+    "t_stat": 2.6846,
+    "n_days": 21
+   },
+   "2026-08": {
+    "ic_mean": -0.0248,
+    "t_stat": -1.0122,
+    "n_days": 12
+   },
+   "2026-09": {
+    "ic_mean": -0.0655,
+    "t_stat": -1.6242,
+    "n_days": 21
+   }
+  },
+  "sample_extension_audit": {
+   "forward_extension_possible": false,
+   "forward_reason": "数据止于 2026-10-17（fwd20 需未来 20 日），前向延长无已落定数据可用",
+   "realC_extension_possible": false,
+   "contamination_proof": {
+    "scan_window": [
+     "2025-06-02",
+     "2026-10-17"
+    ],
+    "factor_evaluable_from": "2025-07-07",
+    "factor_evaluable_reason": "PC-4 RS=个股−异池等权互指：old131 名减 new13 等权 20 日收益，new13 idx 的 ret20 最早 2025-07-07 有效",
+    "settled_signal_days_evaluable_total": 66,
+    "settled_signal_days_inside_scan_window": 66,
+    "coverage_pct": 100.0,
+    "pre_scan_evaluable_signal_days": 0,
+    "verdict": "RS 因子可评首日（2025-07-07）已在扫描窗内：可评的已落定信号日 100% ⊆ 35 态扫描窗（选择效应污染区），且扫描窗前不存在可评信号日（结构性不可计算，非仅污染）——realC 观测不存在任何合法延长手段；判据①短板只能由前瞻数据补上"
+   },
+   "backward_extension": {
+    "possible": false,
+    "pre_scan_evaluable_signal_days": 0,
+    "verdict": "不可计算（截面 <30 名，附数登记）——后向延长路径关闭；唯一合法观测延长=前瞻数据积累"
+   },
+   "forward_protocol": "前瞻判读协议照挂：realC 段实时判读 + PB-9 轨迹 + 触发器（前瞻 realC 型子段逐日 IC≥0 且 t≥2 达成 → 评审可部署候选；IC<0 或价差<0 翻转 → 立即判死+全域死亡证明）"
+  },
+  "mechanism_check_H_F6": {
+   "lo": {
+    "n_days": 272,
+    "avg_pairwise_corr_mean": 0.1407,
+    "xsec_dispersion_mean_pct": 3.455,
+    "base_daily_ret_mean_pp": 0.2573,
+    "base_daily_ret_std_pp": 2.453,
+    "downside_day_share_pct": 54.04,
+    "neg_contrib_sum_pp": -161.62,
+    "pos_contrib_sum_pp": 231.61,
+    "neg_share_of_gross_pct": 41.1,
+    "v2_gate_off_days_in_state": 103,
+    "rs_ic_by_segment": {
+     "realA": {
+      "n_days": 144,
+      "ic_mean": 0.089537,
+      "t_stat": 5.2356,
+      "n_ic_days": 99,
+      "fwd20_decile_pp_net": 15.7912,
+      "n_sig": 13
+     },
+     "realB": {
+      "n_days": 60,
+      "ic_mean": 0.289045,
+      "t_stat": 11.5415,
+      "n_ic_days": 32,
+      "fwd20_decile_pp_net": 8.9345,
+      "n_sig": 5
+     },
+     "realC": {
+      "n_days": 68,
+      "ic_mean": 0.024034,
+      "t_stat": 0.8274,
+      "n_ic_days": 54,
+      "fwd20_decile_pp_net": 0.7665,
+      "n_sig": 8
+     }
+    }
+   },
+   "hi": {
+    "n_days": 156,
+    "avg_pairwise_corr_mean": 0.246,
+    "xsec_dispersion_mean_pct": 3.777,
+    "base_daily_ret_mean_pp": 0.176,
+    "base_daily_ret_std_pp": 2.1426,
+    "downside_day_share_pct": 46.15,
+    "neg_contrib_sum_pp": -100.41,
+    "pos_contrib_sum_pp": 127.87,
+    "neg_share_of_gross_pct": 43.98,
+    "v2_gate_off_days_in_state": 31,
+    "rs_ic_by_segment": {
+     "realA": {
+      "n_days": 84,
+      "ic_mean": 0.140238,
+      "t_stat": 8.5057,
+      "n_ic_days": 66,
+      "fwd20_decile_pp_net": 7.9496,
+      "n_sig": 15
+     },
+     "realB": {
+      "n_days": 1,
+      "ic_mean": 0.191489,
+      "t_stat": null,
+      "n_ic_days": 1,
+      "fwd20_decile_pp_net": null,
+      "n_sig": null
+     },
+     "realC": {
+      "n_days": 71,
+      "ic_mean": -0.149331,
+      "t_stat": -5.5357,
+      "n_ic_days": 65,
+      "fwd20_decile_pp_net": -8.8922,
+      "n_sig": 9
+     }
+    }
+   },
+   "H_F6_note": "待验假设 H_F6（低相关=分散保护）：lo/hi 截面对比是检验后叙事（VERDICT §五-2），只作机制登记，禁止写成已证实机制（PCX-B6）"
+  },
+  "selection_effect_mc": {
+   "m_testable_states": 34,
+   "n_sim": 20000,
+   "global_null": "p~U(0,1) 独立",
+   "P_at_least_one_BH_reject_pct": 10.09,
+   "E_n_reject": 0.123,
+   "observed_BH_rejects": 24,
+   "verdict_note": "Monte Carlo 复核（比 VERDICT「期望假发现≈2.7」更精确）：全局零假设下 P(≥1 拒绝)=10.1%、E[拒绝数]=0.12，而实测 BH 拒绝 24 个——「全部态都是运气（纯伪影）」版本被 MC 决定性证伪（其中 23 态为 PF-8 负尾真实负效应）；残余风险收缩为更尖锐的「F6|lo 是 24 个真拒绝中唯一的正腿，恰是符号级假阳性最可能藏身处」——不改变部署纪律：生死仍以前瞻段为准（PCX-B3）"
+  },
+  "consequence": {
+   "if_future_pass": "F6 过 → 因子域首个可部署候选（首席条款）",
+   "if_future_flip": "任一翻转 → 立即判死 + F6 死亡证明 + 因子域全域死亡证明",
+   "now": "死亡证明不颁发（③未触发）；可部署资格不授予（①已落定读数 t<2，且补短板证据只能来自前瞻数据）——因子域维持「一锤定音待深验」"
+  }
+ },
+ "B_arm_s3xf6": {
+  "cells": {
+   "B1_lo_open_half": {
+    "definition": "PCX-B7：vol_hi∧F6|lo→S3 半额开门，其余全停",
+    "pools": {
+     "old131": {
+      "FULL": {
+       "arm": {
+        "ret_pp": 297.6699,
+        "mdd_pct": -18.88,
+        "n_days": 428
+       },
+       "base": {
+        "ret_pp": 120.8411,
+        "mdd_pct": -32.13,
+        "n_days": 428
+       },
+       "avoid_pp": 176.8288,
+       "mdd_red_pct": 41.24
+      },
+      "HOLDOUT": {
+       "arm": {
+        "ret_pp": 90.0455,
+        "mdd_pct": -18.88,
+        "n_days": 200
+       },
+       "base": {
+        "ret_pp": 20.5212,
+        "mdd_pct": -32.13,
+        "n_days": 200
+       },
+       "avoid_pp": 69.5243,
+       "mdd_red_pct": 41.24
+      },
+      "p_full_avoid_gt0": 0.008,
+      "lag_FULL_avoid_pp": 176.6088,
+      "lag_HOLDOUT_avoid_pp": 70.157,
+      "lag_robust": true,
+      "T3_realB_improve_vs_v2_pp": 75.423,
+      "T3_realC_avoid_vs_base_pp": 17.9391,
+      "fdr_reject_full": true,
+      "selected": true
+     },
+     "full144": {
+      "FULL": {
+       "arm": {
+        "ret_pp": 355.7008,
+        "mdd_pct": -28.23,
+        "n_days": 428
+       },
+       "base": {
+        "ret_pp": 134.6245,
+        "mdd_pct": -34.46,
+        "n_days": 428
+       },
+       "avoid_pp": 221.0763,
+       "mdd_red_pct": 18.08
+      },
+      "HOLDOUT": {
+       "arm": {
+        "ret_pp": 111.5216,
+        "mdd_pct": -28.23,
+        "n_days": 200
+       },
+       "base": {
+        "ret_pp": 28.6114,
+        "mdd_pct": -34.46,
+        "n_days": 200
+       },
+       "avoid_pp": 82.9102,
+       "mdd_red_pct": 18.08
+      },
+      "p_full_avoid_gt0": 0.001,
+      "lag_FULL_avoid_pp": 196.8731,
+      "lag_HOLDOUT_avoid_pp": 77.9075,
+      "lag_robust": true,
+      "T3_realB_improve_vs_v2_pp": 35.0419,
+      "T3_realC_avoid_vs_base_pp": 14.616,
+      "fdr_reject_full": true,
+      "selected": true
+     }
+    }
+   },
+   "B2_hi_open_half": {
+    "definition": "PCX-B7：vol_hi∧F6|hi→S3 半额开门，其余全停（剂量反证对照）",
+    "pools": {
+     "old131": {
+      "FULL": {
+       "arm": {
+        "ret_pp": 97.4758,
+        "mdd_pct": -18.98,
+        "n_days": 428
+       },
+       "base": {
+        "ret_pp": 120.8411,
+        "mdd_pct": -32.13,
+        "n_days": 428
+       },
+       "avoid_pp": -23.3653,
+       "mdd_red_pct": 40.93
+      },
+      "HOLDOUT": {
+       "arm": {
+        "ret_pp": -4.5256,
+        "mdd_pct": -18.98,
+        "n_days": 200
+       },
+       "base": {
+        "ret_pp": 20.5212,
+        "mdd_pct": -32.13,
+        "n_days": 200
+       },
+       "avoid_pp": -25.0468,
+       "mdd_red_pct": 40.93
+      },
+      "p_full_avoid_gt0": 0.604,
+      "lag_FULL_avoid_pp": -29.2218,
+      "lag_HOLDOUT_avoid_pp": -26.9185,
+      "lag_robust": false,
+      "T3_realB_improve_vs_v2_pp": 0.0,
+      "T3_realC_avoid_vs_base_pp": 4.5666,
+      "fdr_reject_full": false,
+      "selected": false
+     },
+     "full144": {
+      "FULL": {
+       "arm": {
+        "ret_pp": 288.6107,
+        "mdd_pct": -30.01,
+        "n_days": 428
+       },
+       "base": {
+        "ret_pp": 134.6245,
+        "mdd_pct": -34.46,
+        "n_days": 428
+       },
+       "avoid_pp": 153.9862,
+       "mdd_red_pct": 12.91
+      },
+      "HOLDOUT": {
+       "arm": {
+        "ret_pp": 78.0023,
+        "mdd_pct": -30.01,
+        "n_days": 200
+       },
+       "base": {
+        "ret_pp": 28.6114,
+        "mdd_pct": -34.46,
+        "n_days": 200
+       },
+       "avoid_pp": 49.3909,
+       "mdd_red_pct": 12.91
+      },
+      "p_full_avoid_gt0": 0.033,
+      "lag_FULL_avoid_pp": 121.8076,
+      "lag_HOLDOUT_avoid_pp": 45.3695,
+      "lag_robust": true,
+      "T3_realB_improve_vs_v2_pp": 0.0,
+      "T3_realC_avoid_vs_base_pp": 13.9331,
+      "fdr_reject_full": false,
+      "selected": false
+     }
+    }
+   }
+  },
+  "off_diag": {
+   "old131|B1_lo_open_half": {
+    "n_gate_off_weeks": 26,
+    "note": "B 臂 OFF 响应态条件化：lo 态半额（B1）/hi 态半额（B2），态未定义日全停；OFF 语义占比见 f6_result.json B 臂诊断"
+   },
+   "old131|B2_hi_open_half": {
+    "n_gate_off_weeks": 26,
+    "note": "B 臂 OFF 响应态条件化：lo 态半额（B1）/hi 态半额（B2），态未定义日全停；OFF 语义占比见 f6_result.json B 臂诊断"
+   },
+   "full144|B1_lo_open_half": {
+    "n_gate_off_weeks": 23,
+    "note": "B 臂 OFF 响应态条件化：lo 态半额（B1）/hi 态半额（B2），态未定义日全停；OFF 语义占比见 f6_result.json B 臂诊断"
+   },
+   "full144|B2_hi_open_half": {
+    "n_gate_off_weeks": 23,
+    "note": "B 臂 OFF 响应态条件化：lo 态半额（B1）/hi 态半额（B2），态未定义日全停；OFF 语义占比见 f6_result.json B 臂诊断"
+   }
+  }
+ },
+ "f6_lineage_zero_drift_check": {
+  "lo_ext": {
+   "n_ext_days": [
+    272,
+    272
+   ],
+   "t_stat": [
+    7.1474,
+    7.1474
+   ],
+   "n_ic_days": [
+    185,
+    185
+   ],
+   "ic_mean": [
+    0.104927,
+    0.104927
+   ],
+   "ext_spread": [
+    9.8496,
+    9.8496
+   ],
+   "n_ext_sig": [
+    26,
+    26
+   ]
+  },
+  "lo_realC": {
+   "n_realC_days": [
+    68,
+    68
+   ],
+   "realC_ic_mean": [
+    0.024034,
+    0.024034
+   ],
+   "realC_t": [
+    0.8274,
+    0.8274
+   ],
+   "realC_spread": [
+    0.7665,
+    0.7665
+   ],
+   "realC_n_sig": [
+    8,
+    8
+   ]
+  },
+  "hi": {
+   "n_ext_days": [
+    156,
+    156
+   ],
+   "t_stat": [
+    -0.0978,
+    -0.0978
+   ],
+   "realC_t": [
+    -5.5357,
+    -5.5357
+   ],
+   "realC_spread": [
+    -8.8922,
+    -8.8922
+   ]
+  }
+ },
+ "verdict_rule_B": "PCX-B8 四件套（FDR ∧ 双窗 avoid>0 ∧ 双窗 mdd_red≥10 ∧ lag 不翻转）"
+}

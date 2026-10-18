@@ -1,0 +1,70 @@
+{
+ "workorder": "单A G1×G2 交叉格 9 格 + 单B F6 深验 & S3×F6 交叉并单（A/B 双臂）",
+ "frozen_at": "2026-10-19 02:36:15",
+ "spec_source": "/tmp/trade9_specs/G1G2FDR_VERDICT.md 首席终裁条款（逐字照做禁改）",
+ "A_arm_cross": {
+  "grid": {
+   "S3_axis": [
+    "v2_full_stop",
+    "open_half_nosell",
+    "open_full_nosell"
+   ],
+   "D1_axis": [
+    "v2",
+    "g2_ma",
+    "g2_br"
+   ],
+   "cells": 9,
+   "note": "PCX-A1/A2/A3：D1 关=纯 vol_hi；D1 开=idx<MA50（PG2-2 D1）；其他方向变体=D3 广度方向（breadth<MA20，PG2-2）；D2 与 D1 同源 idx 动量判死且信息冗余，登记边界项不入格"
+  },
+  "anchors": [
+   "v2_full_stop__x__v2",
+   "v2_full_stop__x__g2_ma",
+   "open_half_nosell__x__v2",
+   "open_full_nosell__x__v2"
+  ],
+  "new_cells_fdr": [
+   "v2_full_stop__x__g2_br",
+   "open_half_nosell__x__g2_ma",
+   "open_half_nosell__x__g2_br",
+   "open_full_nosell__x__g2_ma",
+   "open_full_nosell__x__g2_br"
+  ],
+  "first_priority": "open_half_nosell__x__g2_ma（S3×D1 失败腿互补）",
+  "eight_col": "PCX-A4 双池×realA/realB/realC 全八列（wo_hd 谱系）",
+  "fee": "PCX-A5 PB-5 费压 ×1.5（主判）",
+  "windows": "PCX-A6 FULL 2025-06-02→2026-10-17 + HOLDOUT 2026-04-01→2026-10-17",
+  "lag": "PCX-A7 全格 shift(1) 重跑不翻转",
+  "complementary": "PCX-A8 S3 补 D1 踏空（realB vs v2>0）/ D1 补 S3 方向盲（OFF 日均值 T1' + OFF 占比对读）",
+  "verdict_rule": "PCX-A9 = PG1-7 逐字：FDR 幸存 ∧ 双窗 avoid>0 ∧ 双窗 mdd_red≥10 ∧ lag 不翻转 ∧ realB 踏空改善 vs v2>0 ∧ realC 避损保持>0",
+  "d0": "PCX-A10 六检（任一不过即停工）：权威引擎 maxdiff=0 / wo_rescue 逐位 / wo_hd 八列 ≤0.01pp / W3 avoid ≤0.01pp / 四锚格存档回拍 / run_gate_x 等价"
+ },
+ "B_arm_f6": {
+  "A_arm": {
+   "domain": "PCX-B1：full144 × RS_momentum|fwd20 × F6_corr_p50|lo（同尺逐字）",
+   "zero_drift_check": "PCX-B2：F6|lo 与 F6|hi 全部存档数字逐位回拍",
+   "life_death": "PCX-B3 = VERDICT 六-2 ①②③逐字",
+   "sample_extension": "PCX-B4：前向不可能/realC 无合法延长（污染区覆盖逐日登记）/后向延长读数仅登记/前瞻协议照挂",
+   "mechanism": "PCX-B5：lo vs hi 分散度/回撤贡献/RS IC 对读 + 35 态选择效应 MC 量化（H_F6 待验假设，禁写已证实）",
+   "seal": "PCX-B6：样本内数字封印"
+  },
+  "B_arm": {
+   "variants": {
+    "B1_lo_open_half": "vol_hi∧F6|lo → S3 半额开门；其余全停",
+    "B2_hi_open_half": "vol_hi∧F6|hi → S3 半额开门；其余全停（剂量反证对照）"
+   },
+   "state_flag": "full144 池尺定义一次；态未定义日→v2 全停保守缺省",
+   "verdict_rule": "PCX-B8 四件套：FDR 幸存 ∧ 双窗 avoid>0 ∧ 双窗 mdd_red≥10 ∧ lag=1 不翻转"
+  }
+ },
+ "fdr_merged": {
+  "method": "BH",
+  "q": 0.1,
+  "m": 14,
+  "family": "单A 新格 5×2 池 + 单B B 臂 2×2 池 = 14 个 FULL 窗单侧 bootstrap p（锚格/参照臂/base 不进族——上轮 m=12 已判定，重复计入=双重惩罚；A 臂按 PCX-B3 单独判定不进 bootstrap 族）；VERDICT §五-3 交叉双重选择从严条款 m≥11 满足"
+ },
+ "pool": "严格 144 池定版（old131+new13，禁碰新标的）",
+ "seed": 42,
+ "parallel": "R8 Pool(32)",
+ "operation": "PCX-B10 空仓观望纸面工单；realC 实时判读/PB-9/realB 触发器照挂"
+}
