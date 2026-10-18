@@ -67,12 +67,17 @@ def g2():
                 bars = bars.get('bars', [])
             last_api = bars[-1]['time'] if bars else None
             last_cache = str(data[s].index[-1].date()) if s in data else None
+            # R14 跨日时钟加固：api 末根可为当日未落定 bar（24/7 币种），而缓存按 F1 口径
+            # 冻结在最近落定日 → 原 `api_last == cache_last` 严格相等判据在次日重跑必假。
+            # 放宽为「缓存不落后于最近落定 bar」（=api 末根或其前一根），仍严格禁缓存滞后 ≥2 根。
+            api_prev = bars[-2]['time'] if len(bars) > 1 else None
             fields_ok = all(fld in bars[-1] for fld in
                             ('time', 'open', 'high', 'low', 'close', 'volume')) if bars else False
             sane = bars[-1]['high'] >= bars[-1]['low'] and \
                 bars[-1]['low'] <= bars[-1]['close'] <= bars[-1]['high'] if bars else False
             probes.append({'sym': s, 'api_last': last_api, 'cache_last': last_cache,
-                           'fresh': last_api == last_cache, 'fields_ok': fields_ok,
+                           'fresh': last_api == last_cache or api_prev == last_cache,
+                           'fields_ok': fields_ok,
                            'ohlc_sane': sane})
             ok += all(p['fresh'] and p['fields_ok'] and p['ohlc_sane'] for p in probes)
         except Exception as e:

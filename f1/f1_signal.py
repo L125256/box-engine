@@ -794,16 +794,18 @@ def engine_sha256(path=None):
 
 def run_live(out_json='/workspace/f1_web/f1_live.json', cache=CACHE, allow_intraday=False,
              source_probe=True):
-    # WO-R13-04：先做主源健康检查并推进状态机；DEGRADED → 冻结信号，直接返回冻结负载
+    # WO-R13-04：先做主源健康检查并推进状态机；DEGRADED → 冻结信号，直接返回冻结负载。
+    # R14 Q-1（方案 A）：改走 DS.run_round——RECOVERING/将入 RECOVERING 的健康探测轮
+    # 自动执行主备一致性验收，通过即自动切回 NORMAL（不再依赖人工触发）。
     src_state = None
     if source_probe:
         try:
             sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
             import f1_datasource as DS
-            _r = DS.check_round(cache=cache)
-            src_state, _ = DS.transition(DS.load_state(), _r['ok'])
-            DS.save_state(src_state)
+            src_state, _rr = DS.run_round(round_id='DECIDE', cache=cache)
             src_state['banner'] = DS.source_banner(src_state)
+            src_state['round'] = {'ok': _rr['ok'],
+                                  'acceptance': (_rr.get('acceptance') or {}).get('pass')}
             if src_state['state'] in ('DEGRADED', 'RECOVERING'):
                 return _emit_frozen(out_json, src_state)
         except RuntimeError:

@@ -1,0 +1,55 @@
+{
+ "_readme": "f1_live.example.json — f1_live.json 结构样例（R14 尾巴工单项6）。运行时 f1_live.json 已退出 git 跟踪（见 /.gitignore）；本文件仅描述结构与口径，全部数值以当日引擎输出为准，勿当运行数据引用。",
+ "meta": {
+  "workorder": "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
+  "seed": 42,
+  "generated": "<每次判定轮落盘时刻>",
+  "engine_sha256": "<引擎指纹（口径书 §一：变化=换版，须核对版本说明）>",
+  "pool_n": 144,
+  "caliber": "V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar",
+  "tier_table_pct_per_stock": [
+   2.5,
+   1.5,
+   1.0,
+   0.5
+  ],
+  "total_exposure_pct": 12.5,
+  "calib_epoch": "R13-2026-10-18",
+  "calib_note": "<阈值重标定说明，见口径书 §一.12>",
+  "breaker_thresholds": "<breaker_thresholds() 输出：CB1/CB2/CB3/FEE 四线红黄值与窗口>",
+  "cb3_baseline_60d": 9.07,
+  "cb3_baseline_recomputed": "<live 重算对账参考值，超 ±10% 置 drift_alert>",
+  "cb3_baseline_drift_alert": false,
+  "replay": {
+   "start": "2024-01-24",
+   "end": "<回放末日>",
+   "eq_net": "<净账>",
+   "eq_gross": "<毛账>",
+   "stop_events_total": "<止损事件数>"
+  }
+ },
+ "signal": {
+  "asof": "<数据落定日>",
+  "is_signal_day": "<bool>",
+  "signal_rule": "<口径句>",
+  "gate": {
+   "on_holdcash": "<bool>",
+   "...": "..."
+  },
+  "top5": "<五标的等权名单（仅信号日可操作）>",
+  "slot_per_stock_pct": "<单票仓位%>",
+  "total_exposure_pct": "<总敞口%>",
+  "tier_idx": "<档位>",
+  "freeze_days_left": "<CB2 冻结剩余交易日>",
+  "freeze_until_date": "<冻结截止日>",
+  "frozen": "<bool>"
+ },
+ "state": "<f1_state.json 同源的档位/冻结状态机快照>",
+ "breakers": {
+  "overall": "<总灯>",
+  "lights/actions/detail": "<CB1/CB2/CB3/FEE 明细>"
+ },
+ "monthly_accounts": "<月报三本账>",
+ "fee_curve": "<月度费用曲线>",
+ "monitor": "<监控备注>"
+}

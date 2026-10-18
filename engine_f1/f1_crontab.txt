@@ -1,15 +1,19 @@
-# f1_crontab.txt — F1 上线定时接线（R11' G5 注册说明）
-# 本机（沙箱）无 crontab 命令，本文件为上岗注册模板：
+# f1_crontab.txt — F1 上线定时接线（R11' G5 注册说明；R14 修正任务3 --out 失效缺陷）
+# 【本文件为可移植附件，部署环境人工载入】：
 #   crontab f1_crontab.txt        # 载入（如已有其他任务请先 crontab -l 合并）
 # 或改用 systemd timer（CrashRecovery 后更稳）。
+# 现行入口只有两种模式：f1_signal.py live（判定轮，唯一可操作）与
+#   f1_signal.py snapshot（只读盘中快照，--round 取 20:30 / 00:30 / 04:30 三轮）。
+#   main() 从未解析 --out 参数（R13 审计瑕疵#2），任何 live --out 写法均失效，禁止使用。
 #
 # 任务1：WT-C 行情缓存刷新 + 影子双轨（已就绪入口）
 10 9 * * * /tmp/wtc/run_daily.sh >> /tmp/wtc/logs/cron.log 2>&1
 # 任务2：F1 信号引擎 + 状态页数据生成（幂等；在缓存刷新后运行，每周5天）
 # 口径统一（⑦）：直接指向现行入口 f1_signal.py live，与页脚/包装 docstring 一致，含 PYTHONHASHSEED=42
 25 9 * * 1-5 PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/f1_signal.py live >> /workspace/f1_web/cron.log 2>&1
-# 任务3（建议）：月度三本账归档，每月首个交易日追加落盘
-30 9 1-3 * * python3 /workspace/repo_ready/engine_f1/f1_signal.py live --out /workspace/repo_ready/f1/monthly/$(date +\%Y\%m).json >> /workspace/f1_web/cron.log 2>&1
+# 任务3（建议）：月度归档，每月首个交易日执行（R14 修正：原 live --out 参数从未被
+# main() 解析，月报归档从未落盘——归档职责改由现行入口 sync_archive.py 承担）
+0 10 1-3 * * PYTHONHASHSEED=42 python3 /workspace/repo_ready/engine_f1/sync_archive.py >> /workspace/f1_web/cron.log 2>&1
 #
 # ===== R13 WO-03：多轮扫描（展示多轮、判定一轮）=====
 # 判定轮 = 任务2（每日 09:25 北京，日K 00:00 UTC 落定后；可选前移 08:30，二选一）。

@@ -135,17 +135,29 @@ rec('R9', 'guard 二态：落定后 settled=True / 当日 bar settled=False',
     f"last_bar={cal[-1].date()}；now=D+2 vs now=D",
     f"D+2→{g_settled['settled']}；D→{g_open['settled']}", 'True / False',
     bool(g_settled['settled']) and not g_open['settled'])
-# R10 guard 拒绝判定（current_signal 抛 RuntimeError）
+# R10 guard 拒绝判定（current_signal 抛 RuntimeError）——R14 审计修复两处：
+# ① 原 else 分支 `raised = bool(g_settled['settled'])` 为恒真式弱断言（审计 §三-R10）；
+# ② 原用例隐式依赖「缓存最后一根 bar=当日未落定 bar」的运行时刻（跨日重跑即失效）。
+# 改为确定性真注入：向任一标的追加一根当日（UTC）bar，构造真实的未落定场景。
+_today = pd.Timestamp.now(tz='UTC').normalize().tz_localize(None)
+_s0 = next(iter(data))
+_inj = data[_s0].iloc[[-1]].copy()
+_inj.index = [_today]
+data_inj = dict(data)
+data_inj[_s0] = pd.concat([data[_s0], _inj])
+_g_inj = fs.guard_last_bar(pd.DatetimeIndex(sorted(set().union(
+    *[set(data_inj[s].index) for s in syms]))))
 try:
-    fs.current_signal(data, F, syms, allow_intraday=False)
-    raised = bool(g_settled['settled'])
+    fs.current_signal(data_inj, F, syms, allow_intraday=False)
+    raised = False
     msg = '未抛错'
 except RuntimeError as e:
     raised = True
     msg = str(e)[:80]
-rec('R10', 'guard：未落定 bar 拒绝产出判定（抛错）',
-    '当前 UTC 日 = 最后 bar 日（intraday）',
-    f"RuntimeError: {msg}", '拒绝判定且写日志', raised)
+rec('R10', 'guard：未落定 bar 拒绝产出判定（注入式确定性复现）',
+    f"注入当日（{_today.date()}）未落定 bar 至 {_s0}；settled={_g_inj['settled']}",
+    f"RuntimeError: {msg}", 'settled=False 且拒绝判定且写日志',
+    raised and not _g_inj['settled'])
 # R11 snapshot 只读：f1_state.json / f1_live.json 逐位不变
 b_state, b_live = sha(os.path.join(WEB, 'f1_state.json')), sha(os.path.join(WEB, 'f1_live.json'))
 b_dec = json.dumps({k: json.load(open(os.path.join(WEB, 'f1_live.json'))).get(k) for k in
@@ -197,6 +209,7 @@ rec('R14', '多轮时刻表可注册（20:30/00:30/04:30 只读 + 判定轮）',
 
 # ================================================================ WO-R13-04
 print('== WO-R13-04 数据源容灾（人造故障切换演练）==', flush=True)
+os.environ['F1_ACCEPT_FORCE'] = 'none'   # 显式传 consistency 的既有用例不受自动验收影响
 DS._reset()
 os.environ['F1_PRIMARY_FAIL'] = '1'
 os.environ['F1_RETRY_SLEEP'] = '0'
@@ -212,16 +225,29 @@ _dec_before = json.dumps({k: json.load(open(os.path.join(WEB, 'f1_live.json'))).
                       ensure_ascii=False, sort_keys=True)
 _st2, _r2 = DS.run_round(round_id='T-F2')
 _frz = DS.freeze_payload()
-_dec_after = json.dumps({k: json.load(open(os.path.join(WEB, 'f1_live.json'))).get(k) for k in
-                      ('signal', 'breakers', 'state', 'monthly_accounts')},
-                     ensure_ascii=False, sort_keys=True)
-rec('R16', '② 第 2 周期失败 → DEGRADED + f1_live.json 判定字段冻结',
-    'F1_PRIMARY_FAIL=1 连跑 2 周期',
-    f"state={_st2['state']}；判定字段逐位不变={_dec_before == _dec_after}；"
-    f"freeze 写 state={_frz['writes']['f1_state.json']}",
-    'DEGRADED + 不变 + False',
-    _st2['state'] == 'DEGRADED' and _dec_before == _dec_after
-    and _frz['writes']['f1_state.json'] is False)
+# R16（R14 审计修复：原为空洞比对——freeze_payload 只读不写，不变必然成立）。
+# 改走真实 _emit_frozen 路径：临时副本上实际调用，逐字段 diff 判定树，
+# 仅允许新增 2 个可操作性标注键（审计 §一-WO-04 口径）。
+import shutil
+_tmp_live = '/tmp/r13_selftest_frozen_live.json'
+shutil.copy2(os.path.join(WEB, 'f1_live.json'), _tmp_live)
+_before = json.load(open(_tmp_live))
+_frozen_out = fs._emit_frozen(_tmp_live, {'state': 'DEGRADED',
+                                          'banner': DS.source_banner({'state': 'DEGRADED'})})
+_after = json.load(open(_tmp_live))
+_diffs = DS.decision_diff({k: _before.get(k) for k in DS.DECISION_FIELDS},
+                          {k: _after.get(k) for k in DS.DECISION_FIELDS})
+rec('R16', '② 第 2 周期失败 → DEGRADED + _emit_frozen 实路冻结（判定字段实质逐位不动，'
+           '仅新增 2 个标注键）',
+    'F1_PRIMARY_FAIL=1 连跑 2 周期；临时副本真实调用 _emit_frozen 后逐字段 diff',
+    f"state={_st2['state']}；diffs={_diffs}；"
+    f"freeze 写 state={_frozen_out['writes']}",
+    'DEGRADED + diffs⊆2 标注键 + 不重算不写状态',
+    _st2['state'] == 'DEGRADED' and set(_diffs) <= DS.FROZEN_ANNOTATION_KEYS
+    and _after['signal'].get('frozen_by_source_failover') is True
+    and _after['signal'].get('operable') is False
+    and _frozen_out['writes']['f1_state.json'] is False
+    and _frozen_out['writes']['recomputed'] is False)
 
 os.environ['F1_PRIMARY_FAIL'] = '0'
 _st3, _ = DS.run_round(round_id='T-O1')
@@ -249,7 +275,7 @@ for _i in range(DS.OK_PERIODS_TO_RECOVER):
 _cons_bad = DS.consistency_check([{'symbol': 'aapl', 'date': '2026-10-16', 'close': 100.0}],
                           [{'symbol': 'aapl', 'date': '2026-10-16', 'close': 110.0}])
 _st6, _ = DS.run_round(round_id='T-BV', consistency=_cons_bad)
-rec('R19', '⑤ 一致性验收不通过 → 挂待人工，禁止自动强切',
+rec('R19', '⑤ 一致性验收不通过 → 留 RECOVERING 自动重试，禁止自动强切',
     '偏差 10% > 2%',
     f"cons_p={_cons_bad['pass']}, state={_st6['state']}, pending_manual={_st6.get('pending_manual')}",
     'False + RECOVERING + True',
@@ -271,9 +297,52 @@ _banner = DS.source_banner({'state': 'DEGRADED', 'frozen_asof': '2026-10-17'})
 rec('R21', '⑦ 降级期输出带 asof + source 标注', 'DEGRADED banner', _banner,
     '含 asof + 不构成新推荐', '2026-10-17' in _banner and '不构成新推荐' in _banner)
 
+# ================================================================ WO-R14 Q-1/Q-2
+print('== WO-R14 Q-1 自动验收接线 / Q-2 RECOVERING 回退 ==', flush=True)
+# R22 Q-1：RECOVERING 态恢复探测轮自动执行一致性验收（不传 consistency）→ 自动切回 NORMAL
+DS._reset()
+os.environ['F1_PRIMARY_FAIL'] = '1'
+os.environ['F1_ACCEPT_FORCE'] = 'none'
+for _i in range(DS.FAIL_PERIODS_TO_DEGRADE):
+    DS.run_round(round_id='T-Q1F')
+os.environ['F1_PRIMARY_FAIL'] = '0'
+_stq = None
+_rq = None
+for _i in range(DS.OK_PERIODS_TO_RECOVER):
+    os.environ['F1_ACCEPT_FORCE'] = 'ok' if _i == DS.OK_PERIODS_TO_RECOVER - 1 else 'none'
+    _stq, _rq = DS.run_round(round_id=f'T-Q1-{_i + 1}')
+rec('R22', 'Q-1 自动验收接线：RECOVERING 态自动执行一致性验收（无人工传参）→ NORMAL',
+    f"判死×2 → 恢复×2（末轮 F1_ACCEPT_FORCE=ok）；acceptance={_rq.get('acceptance')}",
+    f"末轮 state={_stq['state']}",
+    '自动验收 pass=True + auto=True → NORMAL',
+    _stq['state'] == 'NORMAL' and (_rq.get('acceptance') or {}).get('pass') is True
+    and (_rq.get('acceptance') or {}).get('auto') is True)
+
+# R23 Q-2：RECOVERING 期主源又连续 2 周期失败 → 显式回退 DEGRADED 并冻结新信号
+DS._reset()
+os.environ['F1_PRIMARY_FAIL'] = '1'
+os.environ['F1_ACCEPT_FORCE'] = 'none'
+for _i in range(DS.FAIL_PERIODS_TO_DEGRADE):
+    DS.run_round(round_id='T-Q2F')
+os.environ['F1_PRIMARY_FAIL'] = '0'
+for _i in range(DS.OK_PERIODS_TO_RECOVER):
+    DS.run_round(round_id='T-Q2O')
+_mid = DS.load_state()
+os.environ['F1_PRIMARY_FAIL'] = '1'
+for _i in range(DS.FAIL_PERIODS_TO_DEGRADE):
+    _stb, _ = DS.run_round(round_id=f'T-Q2B-{_i + 1}')
+rec('R23', 'Q-2 回退：RECOVERING 期主源又连续 2 周期失败 → 显式回退 DEGRADED 并冻结新信号',
+    f"RECOVERING（{_mid['state']}）→ 注入失败×2",
+    f"state={_stb['state']}；frozen_asof={_stb.get('frozen_asof')}",
+    'RECOVERING → DEGRADED + 冻结标注',
+    _mid['state'] == 'RECOVERING' and _stb['state'] == 'DEGRADED'
+    and _stb.get('frozen_asof') is not None
+    and '冻结' in DS.source_banner(_stb))
+
 # 复位到 NORMAL，避免污染生产状态
 DS._reset()
 os.environ['F1_PRIMARY_FAIL'] = '0'
+os.environ.pop('F1_ACCEPT_FORCE', None)
 DS.run_round(round_id='POST-DRILL-RESET')
 DS.run_round(round_id='POST-DRILL-RESET2')
 DS._reset()

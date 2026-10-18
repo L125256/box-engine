@@ -1,3 +1,0 @@
-{"ts": "2026-10-17T20:48:34Z", "kind": "DEGRADE", "reason": "主源连续 2 周期失败 → 判死降级", "consec_fail": 2, "at": "2026-10-17T20:48:34Z"}
-{"ts": "2026-10-17T20:48:43Z", "kind": "RECOVERING", "reason": "主源连续 2 周期健康 → 待一致性验收", "consec_ok": 2, "at": "2026-10-17T20:48:43Z"}
-{"ts": "2026-10-17T20:48:44Z", "kind": "RECOVERED", "reason": "一致性验收通过 → 自动切回主源", "consistency": {"pass": true, "reason": "一致性通过", "overlap": 1, "max_dev": 0.01, "worst": {"symbol": "aapl", "date": "2026-10-16"}, "tol": 0.02, "price_tol": 0.01, "basis_tol": 0.01}, "at": "2026-10-17T20:48:44Z"}

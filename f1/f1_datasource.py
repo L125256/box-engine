@@ -11,11 +11,13 @@ WO-R13-04 · 数据源容灾（主源 kxiandaoyan / 备源 新浪 只读）
 3. **误切换防护**：单次超时 ≠ 宕机。单轮重试 3 次（间隔 30s）仍失败才记 1 个「周期失败」，
    **连续 2 个周期失败** 才判死切备源。
 
-状态机：NORMAL → DEGRADED → RECOVERING → NORMAL
+状态机：NORMAL → DEGRADED → RECOVERING → NORMAL；RECOVERING → DEGRADED（Q-2 显式回退）
 - NORMAL：主源健康，正常出信号。
 - DEGRADED：主源判死，冻结新信号；仅白名单标的用新浪续命（人工止损参考 + 主源可信度抽查）。
-- RECOVERING：主源已连续 2 周期全检通过，等待一致性验收；验收通过→NORMAL，
-  验收不通过→挂「待人工」，禁止自动强切。
+- RECOVERING：主源已连续 2 周期全检通过；恢复探测轮**自动执行**主备一致性验收
+  （Q-1 · 方案 A，用户已批：不再依赖人工触发）。验收通过→自动切回 NORMAL 并写日志；
+  不通过→留 RECOVERING，下一健康轮自动重试；期间主源**又连续 2 周期失败**
+  →显式回退 DEGRADED 并冻结新信号（Q-2）。
 
 所有事件写 `f1_source_events.log`（JSONL，append-only），状态落盘 `f1_source_state.json`。
 
@@ -264,8 +266,11 @@ SOURCE_STATES = ('NORMAL', 'DEGRADED', 'RECOVERING')
 def transition(state, round_ok, consistency=None, now=None):
     """推进状态机（纯函数；返回 (new_state, event)）。
     - NORMAL   + 连续 FAIL_PERIODS_TO_DEGRADE 个周期失败 → DEGRADED
-    - DEGRADED + 连续 OK_PERIODS_TO_RECOVER 个周期健康 → RECOVERING（待一致性验收）
-    - RECOVERING + 一致性验收通过 → NORMAL；不通过 → 保持 RECOVERING 且 pending_manual=True
+    - DEGRADED + 连续 OK_PERIODS_TO_RECOVER 个周期健康 → RECOVERING；
+                 若同轮传入 consistency（Q-1 自动验收），当轮即完成验收判定
+    - RECOVERING + 一致性验收通过 → NORMAL（自动，写 RECOVERED 日志）；
+                 不通过 → 留 RECOVERING 自动重试（Q-1，不再挂人工等待）；
+                 主源又连续 FAIL_PERIODS_TO_DEGRADE 个周期失败 → 显式回退 DEGRADED（Q-2）
     """
     now = now or datetime.now(timezone.utc)
     now_s = now.strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -282,6 +287,21 @@ def transition(state, round_ok, consistency=None, now=None):
         state['consec_fail'] = int(state.get('consec_fail', 0)) + 1
         state['last_fail'] = now_s
 
+    def _apply_acceptance(via=''):
+        """Q-1：一致性验收判定（通过→自动切回 NORMAL；不过→留 RECOVERING 自动重试）。"""
+        if consistency.get('pass'):
+            state['state'] = 'NORMAL'
+            state['pending_manual'] = False
+            state['degraded_since'] = None
+            return log_event('RECOVERED',
+                             reason=via + '一致性验收通过 → 自动切回主源',
+                             consistency=consistency, at=now_s)
+        state['pending_manual'] = True
+        return log_event('RECOVER_ACCEPT_RETRY',
+                         reason=via + '一致性验收不通过 → 留 RECOVERING，下一健康轮自动重试'
+                                       '（不依赖人工触发，禁止自动强切）',
+                         consistency=consistency, at=now_s)
+
     ev = None
     if prev == 'NORMAL':
         if state['consec_fail'] >= FAIL_PERIODS_TO_DEGRADE:
@@ -294,21 +314,97 @@ def transition(state, round_ok, consistency=None, now=None):
             state['state'] = 'RECOVERING'
             ev = log_event('RECOVERING', reason='主源连续 2 周期健康 → 待一致性验收',
                            consec_ok=state['consec_ok'], at=now_s)
+            if consistency is not None:      # Q-1：进 RECOVERING 同轮自动验收
+                ev = _apply_acceptance('进 RECOVERING 同轮·')
     elif prev == 'RECOVERING':
-        if consistency is None:
-            pass                      # 尚未验收：维持待人工/待验收
-        elif consistency.get('pass'):
-            state['state'] = 'NORMAL'
+        if state['consec_fail'] >= FAIL_PERIODS_TO_DEGRADE:
+            # Q-2（WO-R14）：验收重试中主源又连续 2 周期失败 → 显式回退 DEGRADED 并冻结新信号
+            state['state'] = 'DEGRADED'
+            state['degraded_since'] = now_s
             state['pending_manual'] = False
-            state['degraded_since'] = None
-            ev = log_event('RECOVERED', reason='一致性验收通过 → 自动切回主源',
-                           consistency=consistency, at=now_s)
+            ev = log_event('RECOVER_DEGRADE',
+                           reason='RECOVERING 期主源又连续 2 周期失败 → '
+                                  '显式回退 DEGRADED 并冻结新信号',
+                           consec_fail=state['consec_fail'], at=now_s)
+        elif consistency is None:
+            pass                      # 尚未验收：维持待验收（下一健康轮自动重试）
         else:
-            state['pending_manual'] = True
-            ev = log_event('RECOVER_PENDING_MANUAL',
-                           reason='一致性验收不通过 → 挂待人工，禁止自动强切',
-                           consistency=consistency, at=now_s)
+            ev = _apply_acceptance()
     return state, ev
+
+
+# ---------------------------------------------------------------- Q-1 自动验收（方案 A）
+def _auto_acceptance(symbols=None):
+    """Q-1（WO-R14 · 用户已批方案 A）：RECOVERING/将入 RECOVERING 的健康探测轮
+    自动拉取主源近 3 日日K + 新浪同标的日K（≤白名单上限）做一致性验收。
+    返回 consistency dict（含 auto=True）；任一侧数据不可得 → None（本轮不验收，下轮重试）。
+    F1_ACCEPT_FORCE=ok|fail|none：仅测试用注入（对齐 F1_PRIMARY_FAIL 纪律），
+    生产 cron 禁止遗留该变量。"""
+    mode = os.environ.get('F1_ACCEPT_FORCE', '')
+    if mode == 'none':
+        return None
+    syms = list(symbols or DEFAULT_PROBE_SYMBOLS)[:MAX_PROXY_SYMBOLS]
+    if mode in ('ok', 'fail'):                       # 测试夹具：1%（过）/ 10%（不过）
+        c = 101.0 if mode == 'ok' else 110.0
+        res = consistency_check(
+            [{'symbol': base_symbol(syms[0]), 'date': '2026-10-16', 'close': 100.0}],
+            [{'symbol': base_symbol(syms[0]), 'date': '2026-10-16', 'close': c}])
+        res['auto'] = True
+        return res
+    primary, backup = [], []
+    try:
+        sys.path.insert(0, '/root/.codebuddy/artifact/kx-combo')
+        from kx_client import KxClient
+        k = KxClient()
+        for sym in syms:
+            r = k.get_kline(sym, market='futures', period='1d', limit=5)
+            bars = (r.get('data') or {}).get('bars') or r.get('bars') or []
+            if isinstance(bars, dict):
+                bars = bars.get('bars', [])
+            for b in bars[-3:]:
+                try:
+                    primary.append({'symbol': base_symbol(sym),
+                                    'date': str(b['time'])[:10], 'close': float(b['close'])})
+                except (KeyError, TypeError, ValueError):
+                    continue
+    except Exception as e:
+        log_event('ACCEPT_PRIMARY_UNAVAILABLE', error=str(e)[:200])
+        return None
+    try:
+        for r in fetch_sina_daily(syms):
+            backup.append({'symbol': r['symbol'], 'date': r['date'], 'close': r['close']})
+    except Exception as e:
+        log_event('ACCEPT_BACKUP_UNAVAILABLE', error=str(e)[:200])
+        return None
+    if not primary or not backup:
+        log_event('ACCEPT_SKIP', reason='主备任一侧无重叠数据，本轮不验收，下轮重试')
+        return None
+    res = consistency_check(primary, backup)
+    res['auto'] = True
+    return res
+
+
+# ---------------------------------------------------------------- 冻结实路比对（R13 审计 §三）
+DECISION_FIELDS = ('signal', 'breakers', 'state', 'monthly_accounts')
+FROZEN_ANNOTATION_KEYS = {'signal.frozen_by_source_failover', 'signal.operable'}
+
+
+def decision_diff(before, after, path=''):
+    """递归比较两份判定字段结构，返回差异键路径列表（如 'signal.operable'）。"""
+    out = []
+    if isinstance(before, dict) and isinstance(after, dict):
+        for k in sorted(set(before) | set(after)):
+            out += decision_diff(before.get(k), after.get(k),
+                                 f'{path}.{k}' if path else str(k))
+    elif isinstance(before, list) and isinstance(after, list):
+        if len(before) != len(after):
+            out.append(f'{path}[len {len(before)}!={len(after)}]')
+        else:
+            for i, (x, y) in enumerate(zip(before, after)):
+                out += decision_diff(x, y, f'{path}[{i}]')
+    elif before != after:
+        out.append(path)
+    return out
 
 
 def consistency_check(primary_rows, backup_rows, tol=EFFECTIVE_TOL):
@@ -341,8 +437,10 @@ def source_banner(state):
         return ('主源故障：信号冻结至 ' + str(state.get('frozen_asof') or state.get('last_ok')) +
                 '，以下为备源（新浪）抽查参考，不构成新推荐。')
     if st == 'RECOVERING':
-        return ('主源已恢复健康，正在做一致性验收；验收通过前不出新信号'
-                + ('（已挂待人工复核）' if state.get('pending_manual') else '') + '。')
+        return ('主源已恢复健康，正在做一致性验收（自动重试，不依赖人工触发）；'
+                '验收通过前不出新信号'
+                + ('（近期验收曾不通过，继续自动重试）' if state.get('pending_manual') else '')
+                + '。')
     return '数据源正常（主源 kxiandaoyan）。'
 
 
@@ -387,13 +485,22 @@ def _frozen_asof(state, live_json=LIVE_JSON):
 
 def run_round(round_id='DECIDE', symbols=None, cache='/tmp/box_cache',
               expect_date=None, state_path=STATE_PATH, consistency=None,
-              sleep_fn=None, live_json=LIVE_JSON):
-    """一轮：探测主源 → 推进状态机 → 返回 (state, round_result)。
-    consistency：RECOVERING 阶段传入验收结果 dict（None=尚未验收）。"""
+              sleep_fn=None, live_json=LIVE_JSON, auto_accept=True):
+    """一轮：探测主源 → （Q-1）RECOVERING/将入 RECOVERING 的健康轮自动一致性验收
+    → 推进状态机 → 返回 (state, round_result)。
+    consistency 显式传参时以传参为准（演练/自测注入）；None 且 auto_accept=True
+    时由 _auto_acceptance 自动取数验收；任一侧数据不可得则本轮不验收、下轮重试。"""
     stt = load_state(state_path)
     rr = check_round(symbols=symbols, cache=cache, expect_date=expect_date,
                      sleep_fn=sleep_fn)
-    stt, ev = transition(stt, rr['ok'], consistency=consistency)
+    cons = consistency
+    if cons is None and auto_accept and rr['ok']:
+        prev_state = stt.get('state', 'NORMAL')
+        entering = (prev_state == 'DEGRADED'
+                    and int(stt.get('consec_ok', 0)) + 1 >= OK_PERIODS_TO_RECOVER)
+        if entering or prev_state == 'RECOVERING':
+            cons = _auto_acceptance(symbols=symbols)
+    stt, ev = transition(stt, rr['ok'], consistency=cons)
     stt['last_round_id'] = round_id
     if stt['state'] in ('DEGRADED', 'RECOVERING'):
         stt['frozen_asof'] = _frozen_asof(stt, live_json)
@@ -401,7 +508,7 @@ def run_round(round_id='DECIDE', symbols=None, cache='/tmp/box_cache',
         stt['frozen_asof'] = None
     save_state(stt, state_path)
     return stt, {'round_id': round_id, 'ok': rr['ok'], 'attempts': rr['attempts'],
-                 'event': ev, 'banner': source_banner(stt)}
+                 'event': ev, 'acceptance': cons, 'banner': source_banner(stt)}
 
 
 # ---------------------------------------------------------------- CLI（自检 / 演练）
@@ -426,14 +533,18 @@ def main():
         print(json.dumps({'state': st['state'], 'round_ok': rr['ok'],
                           'banner': rr['banner']}, ensure_ascii=False))
     elif mode == 'drill':
-        # 完整演练（验收①~④）：
-        # ① 注入故障连跑 2 周期 → DEGRADED，且 f1_live.json 判定字段逐位冻结
+        # 完整演练（验收①~⑥）：
+        # ① 注入故障连跑 2 周期 → DEGRADED，且 _emit_frozen 实路判定字段实质逐位冻结
         # ② 解除故障连跑 2 周期 → RECOVERING，一致性验收通过 → NORMAL
         # ③ 新浪拉取速率 ≤6 只/轮，且 144 全量拉取被硬拒
         # ④ 降级期任何输出带 asof + source 标注
+        # ⑤ Q-1：RECOVERING 自动验收接线（无 consistency 传参 → 自动验收 → NORMAL）
+        # ⑥ Q-2：RECOVERING 期主源又连续 2 周期失败 → 显式回退 DEGRADED
+        import shutil
+        import f1_signal as fs          # 仅演练用：走真实 _emit_frozen 路径（审计 DR2 修复）
         _reset()
         checks, trace = [], []
-        snap_before = _snapshot_decision_fields()
+        os.environ['F1_ACCEPT_FORCE'] = 'none'   # 演练轮次统一关自动验收，显式控制验收注入
 
         os.environ['F1_PRIMARY_FAIL'] = '1'
         os.environ['F1_RETRY_SLEEP'] = '0'
@@ -443,12 +554,36 @@ def main():
         degr = load_state()
         checks.append({'id': 'DR1', 'desc': '主源连续 2 周期失败 → 状态机判死降级',
                                     'pass': degr['state'] == 'DEGRADED'})
-        frz = freeze_payload()
+        # ②' DR2（审计 §三 弱断言修复）：调用真实 _emit_frozen 后逐字段比对，
+        #    判定字段实质逐位不动，仅允许新增 2 个可操作性标注键
+        snap_before = _snapshot_decision_fields()
+        tmp_live = '/tmp/r13_drill_frozen_live.json'
+        frz = {'writes': {'f1_state.json': False}}
+        if os.path.exists(LIVE_JSON):
+            shutil.copy2(LIVE_JSON, tmp_live)
+            _before = json.load(open(tmp_live))
+            frozen = fs._emit_frozen(tmp_live, {'state': degr['state'],
+                                                'banner': source_banner(degr)})
+            _after = json.load(open(tmp_live))
+            diffs = decision_diff({k: _before.get(k) for k in DECISION_FIELDS},
+                                  {k: _after.get(k) for k in DECISION_FIELDS})
+            frz = frozen
+            checks.append({'id': 'DR2',
+                           'desc': '降级期 _emit_frozen 实路：判定字段实质逐位不动'
+                                   '（仅新增 frozen_by_source_failover/operable 标注键）',
+                           'pass': set(diffs) <= FROZEN_ANNOTATION_KEYS
+                           and _after['signal'].get('frozen_by_source_failover') is True
+                           and _after['signal'].get('operable') is False,
+                           'diffs': diffs})
+        else:
+            checks.append({'id': 'DR2', 'desc': '_emit_frozen 实路（无 f1_live.json 基线）',
+                           'pass': False})
         snap_after = _snapshot_decision_fields()
-        checks.append({'id': 'DR2', 'desc': '降级期 f1_live.json 判定字段逐位不变（冻结）',
+        checks.append({'id': 'DR2b', 'desc': '降级期 f1_live.json 判定字段未被写入',
                                     'pass': bool(snap_before) and snap_before == snap_after})
         checks.append({'id': 'DR3', 'desc': '降级期不写 f1_state.json',
-                                    'pass': frz.get('writes', {}).get('f1_state.json') is False})
+                                    'pass': frz.get('writes', {}).get('f1_state.json') is False
+                                    and frz.get('writes', {}).get('recomputed') is False})
 
         # ③ 新浪白名单硬约束
         wl = proxy_watchlist(['AAPLUSDT', 'NVDAUSDT', 'TSLAUSDT', 'MSFTUSDT', 'GOOGLUSDT'])
@@ -478,13 +613,55 @@ def main():
                                     'pass': st['state'] == 'NORMAL'})
         # ④ 降级期输出带 asof + source 标注
         banner = source_banner(load_state())
-        frozen_payload = {'asof': frz.get('asof'), 'source': '降级冻结', 'banner': banner}
+        frozen_payload = {'asof': (frz.get('signal') or {}).get('asof'),
+                          'source': '降级冻结', 'banner': banner}
         checks.append({'id': 'DR8',
                        'desc': '降级期输出带 asof + source 标注',
                        'pass': bool(frozen_payload['asof']) and 'source' in frozen_payload})
 
+        # ⑤ Q-1 自动验收接线：不传 consistency，恢复探测轮自动验收 → NORMAL
+        _reset()
+        os.environ['F1_ACCEPT_FORCE'] = 'none'
+        os.environ['F1_PRIMARY_FAIL'] = '1'
+        for i in range(FAIL_PERIODS_TO_DEGRADE):
+            run_round(round_id=f'DRILL-Q1F-{i + 1}')
+        os.environ['F1_PRIMARY_FAIL'] = '0'
+        st_auto = None
+        for i in range(OK_PERIODS_TO_RECOVER):
+            os.environ['F1_ACCEPT_FORCE'] = 'ok' if i == OK_PERIODS_TO_RECOVER - 1 else 'none'
+            st_auto, rr = run_round(round_id=f'DRILL-Q1-{i + 1}')
+            trace.append({'step': f'q1-auto-{i + 1}', 'state': st_auto['state'],
+                          'acceptance': (rr.get('acceptance') or {}).get('pass')})
+        checks.append({'id': 'DR9',
+                       'desc': 'Q-1 自动验收接线：RECOVERING 态恢复探测轮自动执行一致性验收'
+                               '（无人工传参）→ 自动切回 NORMAL 并写 RECOVERED 日志',
+                       'pass': st_auto is not None and st_auto['state'] == 'NORMAL'
+                       and (rr.get('acceptance') or {}).get('auto') is True})
+
+        # ⑥ Q-2 回退：RECOVERING 期主源又连续 2 周期失败 → 显式回退 DEGRADED
+        _reset()
+        os.environ['F1_ACCEPT_FORCE'] = 'none'
+        os.environ['F1_PRIMARY_FAIL'] = '1'
+        for i in range(FAIL_PERIODS_TO_DEGRADE):
+            run_round(round_id=f'DRILL-Q2F-{i + 1}')
+        os.environ['F1_PRIMARY_FAIL'] = '0'
+        for i in range(OK_PERIODS_TO_RECOVER):
+            run_round(round_id=f'DRILL-Q2O-{i + 1}')
+        mid = load_state()
+        os.environ['F1_PRIMARY_FAIL'] = '1'
+        for i in range(FAIL_PERIODS_TO_DEGRADE):
+            st_fb, rr = run_round(round_id=f'DRILL-Q2B-{i + 1}')
+            trace.append({'step': f'q2-fallback-{i + 1}', 'state': st_fb['state'],
+                          'ok': rr['ok']})
+        checks.append({'id': 'DR10',
+                       'desc': 'Q-2：RECOVERING 期主源又连续 2 周期失败 → '
+                               '显式回退 DEGRADED 并冻结新信号',
+                       'pass': mid['state'] == 'RECOVERING' and st_fb['state'] == 'DEGRADED'
+                       and st_fb.get('frozen_asof') is not None
+                       and '冻结' in source_banner(st_fb)})
+
         n_pass = sum(1 for c in checks if c['pass'])
-        payload = {'drill': 'WO-R13-04 数据源容灾演练',
+        payload = {'drill': 'WO-R13-04 数据源容灾演练（R14 补 Q-1 自动验收 / Q-2 回退）',
                    'n_checks': len(checks), 'n_pass': n_pass,
                    'all_pass': n_pass == len(checks),
                           'checks': checks, 'trace': trace,
@@ -493,6 +670,7 @@ def main():
         print(json.dumps(payload, ensure_ascii=False, indent=1))
         with open(os.path.join(HERE, 'r13_failover_drill.json'), 'w') as f:
             json.dump(payload, f, ensure_ascii=False, indent=1, default=str)
+        os.environ.pop('F1_ACCEPT_FORCE', None)
         return 0 if n_pass == len(checks) else 1
     else:
         print(__doc__)

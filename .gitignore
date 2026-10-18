@@ -1,0 +1,31 @@
+# R14 尾巴工单（审计 §二.1 / §七.5）：F1 运行时产物不入库
+# 这些文件随每次运行漂移（状态机推进、检测重跑、页面数据刷新）。
+# 处置 = 仅退出 git 跟踪（git rm --cached），本地文件保留——
+# 页面生成器（fetch f1_live.json / f1_state.json）与引擎运行仍依赖其本地存在。
+# 静态样例保留：f1/f1_live.example.json（结构参照，勿当运行数据引用）。
+
+# 运行态状态与页面数据
+f1_web/f1_live.json
+f1_web/f1_state.json
+f1/f1_live.json
+f1/f1_state.json
+f1/f1_live_intraday.json
+
+# 数据源容灾状态机运行产物
+engine_f1/f1_source_state.json
+engine_f1/f1_source_events.log
+engine_f1/f1_guard.log
+
+# 检测/演练重跑产物（取证值随每次运行变化，最新一次见本地或 CI 日志）
+engine_f1/checks_result.json
+engine_f1/scenario_checks_result.json
+engine_f1/r13_selftest_result.json
+engine_f1/r13_failover_drill.json
+f1/checks_result.json
+f1/scenario_checks_result.json
+f1/r13_selftest_result.json
+f1/r13_failover_drill.json
+
+# Python 运行缓存
+__pycache__/
+*.pyc

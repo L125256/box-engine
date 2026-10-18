@@ -22,7 +22,7 @@ PAIRS = []
 for _n in ('f1_signal.py', 'f1_datasource.py', 'replay_breakers_r13.py',
            'sync_archive.py', 'run_checks.py', 'run_scenario_checks.py',
            'run_r13_selftest.py', 'render_harness.cjs', 'f1_crontab.txt',
-           'f1_rounds_r13.md', 'F1_台账口径_v1.md',
+           'f1_rounds_r13.md', 'F1_台账口径_v1.md', 'f1_live.example.json',
            'checks_result.json', 'scenario_checks_result.json',
            'r13_selftest_result.json', 'r13_failover_drill.json',
            'breaker_stats_r13.json'):

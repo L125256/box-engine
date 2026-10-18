@@ -579,8 +579,11 @@ rec('D6', '信号日=日历末日：无越界异常', f"L2 截断数据至信号
 
 # ================================================================ BUG-04 权威回测对账
 print('== BUG-04 权威回测对账 ==', flush=True)
-sys.path.insert(0, '/tmp/eng_w2_f1')
-import f1_backtest as f1b                                 # noqa: E402
+# R14 夹具修复：G4 升版（e229358）已把 /tmp/eng_w2_f1/f1_backtest.py 原位升为 v2
+# （对账红线夹具：vs 引擎逐日持仓 diff=0）。本项要对照的 v0（未改语义 W2 版）改从
+# G4 升版留存的专用备份 /tmp/g4/f1_backtest_v1_instr.py 导入，两条检测互不覆盖。
+sys.path.insert(0, '/tmp/g4')
+import f1_backtest_v1_instr as f1b                       # noqa: E402
 pools = f1b.build_pools(data)
 bt = f1b.run_backtest(data, F, pools['full144'], True, f1b.FACTORS_4)
 rp10 = fs.replay(data, F, syms, slot=0.10)
@@ -849,16 +852,24 @@ rec('I1', 'guard：落定后 settled=True / 当日 bar settled=False',
     '未落定即拒绝判定', '禁止进入周调仓锚定与信号判定',
     bool(_g_ok['settled']) and not _g_bad['settled'], level='engine')
 # I2 guard 拒绝：未落定 bar 被标记 intraday（current_signal 会抛错拒绝判定）
-_gcheck = fs.guard_last_bar(pd.DatetimeIndex([pd.Timestamp.now(tz='UTC')
-                                              .normalize().tz_localize(None)]))
+# R14 加固：原用例隐式依赖「运行时刻=缓存末日当日」且 try 分支 `raised=bool(_gcheck['settled'])`
+# 为恒假式弱断言（与审计点名的自测 R10 同型）；改为注入当日未落定 bar 的确定性复现。
+_today_i2 = pd.Timestamp.now(tz='UTC').normalize().tz_localize(None)
+_s0_i2 = next(iter(data))
+_inj_i2 = data[_s0_i2].iloc[[-1]].copy()
+_inj_i2.index = [_today_i2]
+_data_inj = dict(data)
+_data_inj[_s0_i2] = pd.concat([data[_s0_i2], _inj_i2])
+_gcheck = fs.guard_last_bar(pd.DatetimeIndex(sorted(set().union(
+    *[set(_data_inj[s].index) for s in syms]))))
 refused = (not _gcheck['settled'])
 try:
-    fs.current_signal(data, F, syms, allow_intraday=False)
-    raised = bool(_gcheck['settled'])          # 已落定时不应抛错
+    fs.current_signal(_data_inj, F, syms, allow_intraday=False)
+    raised = False
 except RuntimeError:
-    raised = not _gcheck['settled']            # 未落定时必须抛错
-rec('I2', 'guard：当日未落定 bar 被判 intraday 且拒绝判定',
-    f"last_bar={_gcheck['last_bar_date']} today_utc={_gcheck['today_utc_date']}",
+    raised = True
+rec('I2', 'guard：当日未落定 bar 被判 intraday 且拒绝判定（注入式确定性复现）',
+    f"注入当日（{_today_i2.date()}）bar 至 {_s0_i2}；last_bar={_gcheck['last_bar_date']}",
     f"settled={_gcheck['settled']}；guard 行为正确={raised}",
     '只读旁路输出，禁写状态', refused and raised, level='engine')
 # I3 只读快照：不写 f1_state.json / 不覆盖 f1_live.json 判定字段
@@ -930,6 +941,8 @@ rec('I6', '多轮时刻表可注册（20:30/00:30/04:30 只读 + 判定轮）',
 print('== R13 J 组：数据源容灾 ==', flush=True)
 sys.path.insert(0, HERE)
 import f1_datasource as DS                                # noqa: E402
+# R14 Q-1：run_round 现内置自动验收；J 组用例走显式 consistency 传参，统一关闭自动取数
+os.environ['F1_ACCEPT_FORCE'] = 'none'
 
 # J1 单次失败 ≠ 宕机：1 个周期失败后仍在 NORMAL
 DS._reset()
@@ -955,7 +968,7 @@ _st4, _ = DS.run_round(round_id='J3b')
 rec('J3', '连续 2 周期健康 → RECOVERING（待一致性验收）',
     '解除故障跑 2 周期',
     f"{_st3['state']} → {_st4['state']}",
-    '验收不过挂待人工', _st4['state'] == 'RECOVERING', level='engine')
+    '进 RECOVERING 待自动验收', _st4['state'] == 'RECOVERING', level='engine')
 # J4 一致性验收：基差计入容差，偏差 ≤2% 通过
 _cons = DS.consistency_check([{'symbol': 'aapl', 'date': '2026-10-16', 'close': 100.0}],
                               [{'symbol': 'aapl', 'date': '2026-10-16', 'close': 101.5}])
@@ -975,7 +988,7 @@ for _i in range(DS.OK_PERIODS_TO_RECOVER):
 _cons_bad = DS.consistency_check([{'symbol': 'aapl', 'date': '2026-10-16', 'close': 100.0}],
                                    [{'symbol': 'aapl', 'date': '2026-10-16', 'close': 110.0}])
 _st6, _ = DS.run_round(round_id='J5v', consistency=_cons_bad)
-rec('J5', '一致性验收不通过 → 挂待人工，禁止自动强切',
+rec('J5', '一致性验收不通过 → 留 RECOVERING 自动重试（R14 Q-1），禁止自动强切',
     '偏差 10% 超限',
     f"cons={_cons_bad['pass']}；state={_st6['state']}；pending_manual={_st6.get('pending_manual')}",
     '页面标注待人工',
@@ -1000,6 +1013,8 @@ rec('J7', '降级期任何输出带 asof + source 标注',
     '页面显著标注', '2026-10-17' in _banner and '不构成新推荐' in _banner, level='engine')
 
 # ================================================================ 汇总
+os.environ.pop('F1_ACCEPT_FORCE', None)
+DS._reset()
 n_pass = sum(1 for r in RES if r['pass'])
 summary = {'total': len(RES), 'pass': n_pass, 'fail': len(RES) - n_pass,
            'results': RES}
