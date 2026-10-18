@@ -1,0 +1,314 @@
+{
+ "stage": "dual_precise_split_readout（DUAL_VERDICT §一-2 主轨精确切分件）",
+ "frozen_at": "2026-10-19",
+ "annotation": "口径变更重判（本文件除 *_orig 封印块外全部数字均属口径变更重判，引用必须携带本标注）",
+ "split": {
+  "realC": [
+   "2026-06-01",
+   "2026-10-17"
+  ],
+  "realC1": [
+   "2026-06-01",
+   "2026-08-08"
+  ],
+  "realC2": [
+   "2026-08-09",
+   "2026-10-17"
+  ],
+  "cut_rule": "切点=窗中点（08-08）一次性冻结（DUAL_VERDICT §五-2）",
+  "seg_trading_days": {
+   "realC1": 69,
+   "realC2": 70
+  },
+  "seg_days_note": "realC 池日历 139 交易日；realC1+realC2=139（08-08 归前段）"
+ },
+ "rerun_quota": {
+  "max": 1,
+  "used": 1,
+  "rule": "DC-6：同一切分最多重跑一次，之后只能加新数据再判",
+  "audit_note": "首跑 2026-10-19 出数后发现判定聚合代码路径缺陷（②样本不足与严格不过未区分），同日修复聚合逻辑后重跑 1 次：子段 dual_* 数字与首跑逐位一致（断言核对通过），非数字挑选；配额 1/1 用尽，此后只能加新数据再判（DC-6）"
+ },
+ "dual_f6": {
+  "definition": "DC-2：F6 判据①②逐字不放宽，realC 内切 realC1/realC2 互验（A 臂域 PCX-B1 逐字：full144 × RS_momentum|fwd20 × F6|lo）",
+  "annotation": "口径变更重判",
+  "segments": {
+   "realC1": {
+    "n_days": 21,
+    "ic_mean": 0.141468,
+    "t_stat": 2.6846,
+    "n_ic_days": 21,
+    "fwd20_decile_pp_net": null,
+    "n_sig": null,
+    "dual_clause1_ic_ge0_t_ge2": true,
+    "dual_clause2_insufficient_n_sig_lt5": true,
+    "dual_clause2_spread_gt0_sig5": false,
+    "dual_fr5_early_death_hit": false,
+    "dual_segment_state": "样本不足（②价差观测<5 不可判；①读数另注）"
+   },
+   "realC2": {
+    "n_days": 47,
+    "ic_mean": -0.050697,
+    "t_stat": -1.8719,
+    "n_ic_days": 33,
+    "fwd20_decile_pp_net": -2.5399,
+    "n_sig": 5,
+    "dual_clause1_ic_ge0_t_ge2": false,
+    "dual_clause2_insufficient_n_sig_lt5": false,
+    "dual_clause2_spread_gt0_sig5": false,
+    "dual_fr5_early_death_hit": false,
+    "dual_segment_state": "不过"
+   }
+  },
+  "dual_verdict": "互验分歧（衰减态：不放行、不判死）",
+  "note": "前段与后段态不一致或后段错向——单段过/不可判仅段态登记，双段同向才算主轨结论；FR-5 早判死线未触发 → 衰减态登记"
+ },
+ "dual_s3xd1": {
+  "definition": "DC-3/DC-4：S3×D1 第一优先格（open_half_nosell×g2_ma），realC1/realC2 互验重判（avoid>0 ∧ mdd_red≥10 ∧ lag 子段不翻转，逐字不放宽；FDR/realB 腿属 FULL 窗项不随切分重算，原判封印）",
+  "annotation": "口径变更重判",
+  "pools": {
+   "old131": {
+    "segments": {
+     "realC1": {
+      "dual_seg_arm": {
+       "ret_pp": -14.579,
+       "mdd_pct": -18.94,
+       "n_days": 69
+      },
+      "dual_seg_base": {
+       "ret_pp": -16.1119,
+       "mdd_pct": -17.25,
+       "n_days": 69
+      },
+      "dual_avoid_pp": 1.5329,
+      "dual_mdd_red_pct": -9.8,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 0.0
+     },
+     "realC2": {
+      "dual_seg_arm": {
+       "ret_pp": -8.8413,
+       "mdd_pct": -11.38,
+       "n_days": 70
+      },
+      "dual_seg_base": {
+       "ret_pp": -8.8523,
+       "mdd_pct": -11.38,
+       "n_days": 70
+      },
+      "dual_avoid_pp": 0.011,
+      "dual_mdd_red_pct": 0.0,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 0.0
+     }
+    },
+    "dual_verdict": "双段同向不过（主轨重判结论=不过）",
+    "note": "双段同向",
+    "n_gate_off_full": 13,
+    "n_gate_off_full_lag1": 4,
+    "orig_sealed": "原判封印 *_orig：full144 p=0.023 / old131 p=0.091（合并族 m=14 BH，FULL 窗）"
+   },
+   "full144": {
+    "segments": {
+     "realC1": {
+      "dual_seg_arm": {
+       "ret_pp": -16.7984,
+       "mdd_pct": -20.6,
+       "n_days": 69
+      },
+      "dual_seg_base": {
+       "ret_pp": -18.2696,
+       "mdd_pct": -19.83,
+       "n_days": 69
+      },
+      "dual_avoid_pp": 1.4712,
+      "dual_mdd_red_pct": -3.88,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 0.0
+     },
+     "realC2": {
+      "dual_seg_arm": {
+       "ret_pp": -11.513,
+       "mdd_pct": -13.96,
+       "n_days": 70
+      },
+      "dual_seg_base": {
+       "ret_pp": -11.513,
+       "mdd_pct": -13.96,
+       "n_days": 70
+      },
+      "dual_avoid_pp": 0.0,
+      "dual_mdd_red_pct": 0.0,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 0.0
+     }
+    },
+    "dual_verdict": "双段同向不过（主轨重判结论=不过）",
+    "note": "双段同向",
+    "n_gate_off_full": 11,
+    "n_gate_off_full_lag1": 4,
+    "orig_sealed": "原判封印 *_orig：full144 p=0.023 / old131 p=0.091（合并族 m=14 BH，FULL 窗）"
+   }
+  }
+ },
+ "dual_B1": {
+  "definition": "DC-3/DC-4：B1_lo_open_half（vol_hi∧F6|lo→S3 半额开门），realC1/realC2 互验重判（avoid>0 ∧ mdd_red≥10 ∧ lag 子段不翻转，逐字不放宽；FDR/realB 腿属 FULL 窗项不随切分重算，原判封印）",
+  "annotation": "口径变更重判",
+  "pools": {
+   "old131": {
+    "segments": {
+     "realC1": {
+      "dual_seg_arm": {
+       "ret_pp": 3.6011,
+       "mdd_pct": -18.88,
+       "n_days": 69
+      },
+      "dual_seg_base": {
+       "ret_pp": -16.1119,
+       "mdd_pct": -17.25,
+       "n_days": 69
+      },
+      "dual_avoid_pp": 19.713,
+      "dual_mdd_red_pct": -9.45,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 19.9793
+     },
+     "realC2": {
+      "dual_seg_arm": {
+       "ret_pp": -8.8413,
+       "mdd_pct": -11.38,
+       "n_days": 70
+      },
+      "dual_seg_base": {
+       "ret_pp": -8.8523,
+       "mdd_pct": -11.38,
+       "n_days": 70
+      },
+      "dual_avoid_pp": 0.011,
+      "dual_mdd_red_pct": 0.0,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 0.0002
+     }
+    },
+    "dual_verdict": "双段同向不过（主轨重判结论=不过）",
+    "note": "双段同向",
+    "n_gate_off_full": 26,
+    "n_gate_off_full_lag1": 24,
+    "orig_sealed": "原判封印 *_orig：p=0.001(full144)/0.008(old131) 四件套（FDR∧双窗 avoid>0∧双窗 mdd_red≥10∧lag 不翻转）"
+   },
+   "full144": {
+    "segments": {
+     "realC1": {
+      "dual_seg_arm": {
+       "ret_pp": -1.7507,
+       "mdd_pct": -22.9,
+       "n_days": 69
+      },
+      "dual_seg_base": {
+       "ret_pp": -18.2696,
+       "mdd_pct": -19.83,
+       "n_days": 69
+      },
+      "dual_avoid_pp": 16.5189,
+      "dual_mdd_red_pct": -15.48,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 14.2234
+     },
+     "realC2": {
+      "dual_seg_arm": {
+       "ret_pp": -11.513,
+       "mdd_pct": -13.96,
+       "n_days": 70
+      },
+      "dual_seg_base": {
+       "ret_pp": -11.513,
+       "mdd_pct": -13.96,
+       "n_days": 70
+      },
+      "dual_avoid_pp": 0.0,
+      "dual_mdd_red_pct": 0.0,
+      "dual_pass_segment": false,
+      "dual_lag1_avoid_pp": 0.0
+     }
+    },
+    "dual_verdict": "双段同向不过（主轨重判结论=不过）",
+    "note": "双段同向",
+    "n_gate_off_full": 23,
+    "n_gate_off_full_lag1": 20,
+    "orig_sealed": "原判封印 *_orig：p=0.001(full144)/0.008(old131) 四件套（FDR∧双窗 avoid>0∧双窗 mdd_red≥10∧lag 不翻转）"
+   }
+  }
+ },
+ "main_track_read": {
+  "F6": "互验分歧（衰减态：不放行、不判死）",
+  "S3xD1": {
+   "old131": "双段同向不过（主轨重判结论=不过）",
+   "full144": "双段同向不过（主轨重判结论=不过）"
+  },
+  "B1": {
+   "old131": "双段同向不过（主轨重判结论=不过）",
+   "full144": "双段同向不过（主轨重判结论=不过）"
+  }
+ },
+ "overall": "衰减态——不放行、不判死（主轨行动依据=维持空仓观望与门域监测不变）",
+ "conflict_rule": "两轨结论冲突时：辅轨为最终确认、主轨为当下行动依据（DUAL_VERDICT §〇）",
+ "aux_track_pointer": "forward_readout.py n≥20 前瞻管线照挂（不删不停）；并排日报见 daily_track_compare.jsonl（dual_daily.py）",
+ "seal_orig": {
+  "rule": "DUAL_VERDICT §一-1 封印清单：原数字不覆盖、不混写，引用必须带「口径变更重判」标注（引用不带标注视为违规——DUAL_VERDICT §五-1）",
+  "F6_realC_orig": {
+   "ic_mean": 0.024034,
+   "t_stat": 0.8274,
+   "fwd20_decile_pp_net": 0.7665,
+   "n_sig": 8,
+   "monthly_rolling_registered": {
+    "2026-07": {
+     "ic_mean": 0.1415,
+     "t_stat": 2.6846,
+     "n_days": 21
+    },
+    "2026-08": {
+     "ic_mean": -0.0248,
+     "t_stat": -1.0122,
+     "n_days": 12
+    },
+    "2026-09": {
+     "ic_mean": -0.0655,
+     "t_stat": -1.6242,
+     "n_days": 21
+    }
+   },
+   "note": "F6 原判数字封印（CROSSF6 f6_result.json 原样）"
+  },
+  "S3xD1_orig": {
+   "pools": {
+    "old131": {
+     "p_full_avoid_gt0": 0.091,
+     "fdr_reject_full": false
+    },
+    "full144": {
+     "p_full_avoid_gt0": 0.023,
+     "fdr_reject_full": false
+    }
+   },
+   "note": "S3×D1 原判数字封印（full144 p=0.023 / old131 p=0.091）"
+  },
+  "B1_orig": {
+   "pools": {
+    "old131": {
+     "p_full_avoid_gt0": 0.008,
+     "fdr_reject_full": true,
+     "FULL_avoid_pp": 176.8288,
+     "HOLDOUT_avoid_pp": 69.5243
+    },
+    "full144": {
+     "p_full_avoid_gt0": 0.001,
+     "fdr_reject_full": true,
+     "FULL_avoid_pp": 221.0763,
+     "HOLDOUT_avoid_pp": 82.9102
+    }
+   },
+   "note": "B1 原判数字封印（四件套，PCX-B8）"
+  }
+ },
+ "wall_secs": 19.7,
+ "ts": "2026-10-19 03:58:25"
+}
