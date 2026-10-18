@@ -1,0 +1,5170 @@
+{
+ "stage": "b_gate_sweep",
+ "ts": "2026-10-18 23:19:21",
+ "prereg": "见 b_preregistration.json（先冻结后运行，PB-1..PB-10）",
+ "total_configs_formula": 209,
+ "total_configs_spec_stated": 195,
+ "runnable": 41,
+ "not_runnable": 168,
+ "fdr_reject_full_count": 0,
+ "n_selected": 0,
+ "selected": [],
+ "rows": [
+  {
+   "id": "vol30",
+   "vars": {
+    "vol": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 98,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30",
+   "vars": {
+    "vol": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 98,
+   "FULL": {
+    "gated": {
+     "ret_pp": 267.1948,
+     "mdd_pct": -30.46,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 132.5703,
+    "mdd_red_pct": 11.61
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 147.7915,
+     "mdd_pct": -30.46,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 119.1801,
+    "mdd_red_pct": 11.61
+   },
+   "p_full_avoid_gt0": 0.134,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40",
+   "vars": {
+    "vol": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 82,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40",
+   "vars": {
+    "vol": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 82,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50",
+   "vars": {
+    "vol": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 73,
+   "FULL": {
+    "gated": {
+     "ret_pp": 183.1745,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 62.3334,
+    "mdd_red_pct": 12.11
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.8956,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 61.3744,
+    "mdd_red_pct": 12.11
+   },
+   "p_full_avoid_gt0": 0.228,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50",
+   "vars": {
+    "vol": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 73,
+   "FULL": {
+    "gated": {
+     "ret_pp": 178.8206,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 44.1961,
+    "mdd_red_pct": 18.05
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 78.1963,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 49.5849,
+    "mdd_red_pct": 18.05
+   },
+   "p_full_avoid_gt0": 0.282,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60",
+   "vars": {
+    "vol": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 63,
+   "FULL": {
+    "gated": {
+     "ret_pp": 218.7254,
+     "mdd_pct": -28.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 97.8843,
+    "mdd_red_pct": 11.92
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 69.0948,
+     "mdd_pct": -28.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 48.5736,
+    "mdd_red_pct": 11.92
+   },
+   "p_full_avoid_gt0": 0.106,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60",
+   "vars": {
+    "vol": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 64,
+   "FULL": {
+    "gated": {
+     "ret_pp": 179.8928,
+     "mdd_pct": -27.99,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 45.2683,
+    "mdd_red_pct": 18.78
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.8874,
+     "mdd_pct": -27.99,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 44.276,
+    "mdd_red_pct": 18.78
+   },
+   "p_full_avoid_gt0": 0.269,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70",
+   "vars": {
+    "vol": 70
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 55,
+   "FULL": {
+    "gated": {
+     "ret_pp": 248.6359,
+     "mdd_pct": -27.23,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 127.7948,
+    "mdd_red_pct": 15.25
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.9149,
+     "mdd_pct": -27.23,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 57.3937,
+    "mdd_red_pct": 15.25
+   },
+   "p_full_avoid_gt0": 0.056,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70",
+   "vars": {
+    "vol": 70
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 54,
+   "FULL": {
+    "gated": {
+     "ret_pp": 235.9488,
+     "mdd_pct": -27.23,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 101.3243,
+    "mdd_red_pct": 20.98
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.7371,
+     "mdd_pct": -27.23,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 44.1257,
+    "mdd_red_pct": 20.98
+   },
+   "p_full_avoid_gt0": 0.069,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80",
+   "vars": {
+    "vol": 80
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 26,
+   "FULL": {
+    "gated": {
+     "ret_pp": 114.5464,
+     "mdd_pct": -15.95,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -6.2947,
+    "mdd_red_pct": 50.36
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 3.7276,
+     "mdd_pct": -11.97,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -16.7936,
+    "mdd_red_pct": 62.75
+   },
+   "p_full_avoid_gt0": 0.517,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80",
+   "vars": {
+    "vol": 80
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 23,
+   "FULL": {
+    "gated": {
+     "ret_pp": 318.8913,
+     "mdd_pct": -24.92,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 184.2668,
+    "mdd_red_pct": 27.68
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 91.8723,
+     "mdd_pct": -24.92,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 63.2609,
+    "mdd_red_pct": 27.68
+   },
+   "p_full_avoid_gt0": 0.022,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br20",
+   "vars": {
+    "breadth": 20
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 40,
+   "FULL": {
+    "gated": {
+     "ret_pp": 68.3242,
+     "mdd_pct": -25.37,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -52.5169,
+    "mdd_red_pct": 21.04
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": -18.1063,
+     "mdd_pct": -25.37,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -38.6275,
+    "mdd_red_pct": 21.04
+   },
+   "p_full_avoid_gt0": 0.848,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br20",
+   "vars": {
+    "breadth": 20
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 40,
+   "FULL": {
+    "gated": {
+     "ret_pp": 68.3129,
+     "mdd_pct": -24.8,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": -66.3116,
+    "mdd_red_pct": 28.03
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": -17.487,
+     "mdd_pct": -24.8,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": -46.0984,
+    "mdd_red_pct": 28.03
+   },
+   "p_full_avoid_gt0": 0.854,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br30",
+   "vars": {
+    "breadth": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 50,
+   "FULL": {
+    "gated": {
+     "ret_pp": 95.845,
+     "mdd_pct": -13.41,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -24.9961,
+    "mdd_red_pct": 58.26
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": -4.9804,
+     "mdd_pct": -13.41,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -25.5016,
+    "mdd_red_pct": 58.26
+   },
+   "p_full_avoid_gt0": 0.656,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br30",
+   "vars": {
+    "breadth": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 51,
+   "FULL": {
+    "gated": {
+     "ret_pp": 88.6648,
+     "mdd_pct": -15.93,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": -45.9597,
+    "mdd_red_pct": 53.77
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": -7.7541,
+     "mdd_pct": -15.93,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": -36.3655,
+    "mdd_red_pct": 53.77
+   },
+   "p_full_avoid_gt0": 0.748,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br40",
+   "vars": {
+    "breadth": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 58,
+   "FULL": {
+    "gated": {
+     "ret_pp": 85.9542,
+     "mdd_pct": -12.42,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -34.8869,
+    "mdd_red_pct": 61.34
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": -3.6504,
+     "mdd_pct": -12.19,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -24.1716,
+    "mdd_red_pct": 62.06
+   },
+   "p_full_avoid_gt0": 0.727,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br40",
+   "vars": {
+    "breadth": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 63,
+   "FULL": {
+    "gated": {
+     "ret_pp": 120.6771,
+     "mdd_pct": -16.1,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": -13.9474,
+    "mdd_red_pct": 53.28
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 9.7069,
+     "mdd_pct": -16.1,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": -18.9045,
+    "mdd_red_pct": 53.28
+   },
+   "p_full_avoid_gt0": 0.617,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br50",
+   "vars": {
+    "breadth": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 72,
+   "FULL": {
+    "gated": {
+     "ret_pp": 117.7975,
+     "mdd_pct": -18.43,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -3.0436,
+    "mdd_red_pct": 42.64
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 6.648,
+     "mdd_pct": -18.43,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -13.8732,
+    "mdd_red_pct": 42.64
+   },
+   "p_full_avoid_gt0": 0.561,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br50",
+   "vars": {
+    "breadth": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 82,
+   "FULL": {
+    "gated": {
+     "ret_pp": 223.8121,
+     "mdd_pct": -31.49,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 89.1876,
+    "mdd_red_pct": 8.62
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 61.3165,
+     "mdd_pct": -31.49,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 32.7051,
+    "mdd_red_pct": 8.62
+   },
+   "p_full_avoid_gt0": 0.109,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br60",
+   "vars": {
+    "breadth": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 96,
+   "FULL": {
+    "gated": {
+     "ret_pp": 285.1229,
+     "mdd_pct": -27.06,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 164.2818,
+    "mdd_red_pct": 15.78
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.2327,
+     "mdd_pct": -27.06,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 56.7115,
+    "mdd_red_pct": 15.78
+   },
+   "p_full_avoid_gt0": 0.04,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "br60",
+   "vars": {
+    "breadth": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 332.4015,
+     "mdd_pct": -20.68,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 197.777,
+    "mdd_red_pct": 39.99
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 57.2843,
+     "mdd_pct": -20.68,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 28.6729,
+    "mdd_red_pct": 39.99
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "fu20",
+   "vars": {
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "fu40",
+   "vars": {
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "fu60",
+   "vars": {
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "fu80",
+   "vars": {
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 103,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 103,
+   "FULL": {
+    "gated": {
+     "ret_pp": 267.1948,
+     "mdd_pct": -30.46,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 132.5703,
+    "mdd_red_pct": 11.61
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 147.7915,
+     "mdd_pct": -30.46,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 119.1801,
+    "mdd_red_pct": 11.61
+   },
+   "p_full_avoid_gt0": 0.134,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br30",
+   "vars": {
+    "vol": 30,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 104,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br30",
+   "vars": {
+    "vol": 30,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 104,
+   "FULL": {
+    "gated": {
+     "ret_pp": 267.1948,
+     "mdd_pct": -30.46,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 132.5703,
+    "mdd_red_pct": 11.61
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 147.7915,
+     "mdd_pct": -30.46,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 119.1801,
+    "mdd_red_pct": 11.61
+   },
+   "p_full_avoid_gt0": 0.134,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 105,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 106,
+   "FULL": {
+    "gated": {
+     "ret_pp": 267.1948,
+     "mdd_pct": -30.46,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 132.5703,
+    "mdd_red_pct": 11.61
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 147.7915,
+     "mdd_pct": -30.46,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 119.1801,
+    "mdd_red_pct": 11.61
+   },
+   "p_full_avoid_gt0": 0.134,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br50",
+   "vars": {
+    "vol": 30,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 110,
+   "FULL": {
+    "gated": {
+     "ret_pp": 374.98,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 254.1389,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.626,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1048,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br50",
+   "vars": {
+    "vol": 30,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 110,
+   "FULL": {
+    "gated": {
+     "ret_pp": 267.1948,
+     "mdd_pct": -30.46,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 132.5703,
+    "mdd_red_pct": 11.61
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 147.7915,
+     "mdd_pct": -30.46,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 119.1801,
+    "mdd_red_pct": 11.61
+   },
+   "p_full_avoid_gt0": 0.134,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 380.4064,
+     "mdd_pct": -30.25,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 259.5653,
+    "mdd_red_pct": 5.85
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 144.629,
+     "mdd_pct": -30.25,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.1078,
+    "mdd_red_pct": 5.85
+   },
+   "p_full_avoid_gt0": 0.03,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+br60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 123,
+   "FULL": {
+    "gated": {
+     "ret_pp": 331.0773,
+     "mdd_pct": -30.46,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 196.4528,
+    "mdd_red_pct": 11.61
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 147.7915,
+     "mdd_pct": -30.46,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 119.1801,
+    "mdd_red_pct": 11.61
+   },
+   "p_full_avoid_gt0": 0.071,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 89,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 89,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br30",
+   "vars": {
+    "vol": 40,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 91,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br30",
+   "vars": {
+    "vol": 40,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 91,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 92,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 94,
+   "FULL": {
+    "gated": {
+     "ret_pp": 344.8646,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 210.2401,
+    "mdd_red_pct": 12.07
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8431,
+    "mdd_red_pct": 12.07
+   },
+   "p_full_avoid_gt0": 0.043,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br50",
+   "vars": {
+    "vol": 40,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 98,
+   "FULL": {
+    "gated": {
+     "ret_pp": 341.0723,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 220.2312,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4545,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9333,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.045,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br50",
+   "vars": {
+    "vol": 40,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 100,
+   "FULL": {
+    "gated": {
+     "ret_pp": 365.2565,
+     "mdd_pct": -30.31,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 230.632,
+    "mdd_red_pct": 12.04
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.4702,
+     "mdd_pct": -30.31,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 116.8588,
+    "mdd_red_pct": 12.04
+   },
+   "p_full_avoid_gt0": 0.033,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 106,
+   "FULL": {
+    "gated": {
+     "ret_pp": 377.5917,
+     "mdd_pct": -30.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 256.7506,
+    "mdd_red_pct": 5.7
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 145.469,
+     "mdd_pct": -30.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 124.9478,
+    "mdd_red_pct": 5.7
+   },
+   "p_full_avoid_gt0": 0.035,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol40+br60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 120,
+   "FULL": {
+    "gated": {
+     "ret_pp": 369.273,
+     "mdd_pct": -30.37,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 234.6485,
+    "mdd_red_pct": 11.87
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 146.5292,
+     "mdd_pct": -30.37,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 117.9178,
+    "mdd_red_pct": 11.87
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br20",
+   "vars": {
+    "vol": 50,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 80,
+   "FULL": {
+    "gated": {
+     "ret_pp": 183.1745,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 62.3334,
+    "mdd_red_pct": 12.11
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.8956,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 61.3744,
+    "mdd_red_pct": 12.11
+   },
+   "p_full_avoid_gt0": 0.228,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br20",
+   "vars": {
+    "vol": 50,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 80,
+   "FULL": {
+    "gated": {
+     "ret_pp": 178.8206,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 44.1961,
+    "mdd_red_pct": 18.05
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 78.1963,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 49.5849,
+    "mdd_red_pct": 18.05
+   },
+   "p_full_avoid_gt0": 0.282,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br30",
+   "vars": {
+    "vol": 50,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 83,
+   "FULL": {
+    "gated": {
+     "ret_pp": 183.1745,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 62.3334,
+    "mdd_red_pct": 12.11
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.8956,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 61.3744,
+    "mdd_red_pct": 12.11
+   },
+   "p_full_avoid_gt0": 0.228,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br30",
+   "vars": {
+    "vol": 50,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 83,
+   "FULL": {
+    "gated": {
+     "ret_pp": 178.8206,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 44.1961,
+    "mdd_red_pct": 18.05
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 78.1963,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 49.5849,
+    "mdd_red_pct": 18.05
+   },
+   "p_full_avoid_gt0": 0.282,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br40",
+   "vars": {
+    "vol": 50,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 85,
+   "FULL": {
+    "gated": {
+     "ret_pp": 183.1745,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 62.3334,
+    "mdd_red_pct": 12.11
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.8956,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 61.3744,
+    "mdd_red_pct": 12.11
+   },
+   "p_full_avoid_gt0": 0.228,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br40",
+   "vars": {
+    "vol": 50,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 87,
+   "FULL": {
+    "gated": {
+     "ret_pp": 178.8206,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 44.1961,
+    "mdd_red_pct": 18.05
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 78.1963,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 49.5849,
+    "mdd_red_pct": 18.05
+   },
+   "p_full_avoid_gt0": 0.282,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br50",
+   "vars": {
+    "vol": 50,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 91,
+   "FULL": {
+    "gated": {
+     "ret_pp": 183.1745,
+     "mdd_pct": -28.24,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 62.3334,
+    "mdd_red_pct": 12.11
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.8956,
+     "mdd_pct": -28.24,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 61.3744,
+    "mdd_red_pct": 12.11
+   },
+   "p_full_avoid_gt0": 0.228,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br50",
+   "vars": {
+    "vol": 50,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 96,
+   "FULL": {
+    "gated": {
+     "ret_pp": 196.3909,
+     "mdd_pct": -28.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 61.7664,
+    "mdd_red_pct": 17.88
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.9534,
+     "mdd_pct": -28.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 53.342,
+    "mdd_red_pct": 17.88
+   },
+   "p_full_avoid_gt0": 0.21,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br60",
+   "vars": {
+    "vol": 50,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 102,
+   "FULL": {
+    "gated": {
+     "ret_pp": 239.6701,
+     "mdd_pct": -27.8,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 118.829,
+    "mdd_red_pct": 13.48
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 76.6808,
+     "mdd_pct": -27.8,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 56.1596,
+    "mdd_red_pct": 13.48
+   },
+   "p_full_avoid_gt0": 0.102,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol50+br60",
+   "vars": {
+    "vol": 50,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 119,
+   "FULL": {
+    "gated": {
+     "ret_pp": 47.9381,
+     "mdd_pct": -14.13,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": -86.6864,
+    "mdd_red_pct": 59.0
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 0.0,
+     "mdd_pct": 0.0,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": -28.6114,
+    "mdd_red_pct": 100.0
+   },
+   "p_full_avoid_gt0": 0.883,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br20",
+   "vars": {
+    "vol": 60,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 70,
+   "FULL": {
+    "gated": {
+     "ret_pp": 218.7254,
+     "mdd_pct": -28.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 97.8843,
+    "mdd_red_pct": 11.92
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 69.0948,
+     "mdd_pct": -28.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 48.5736,
+    "mdd_red_pct": 11.92
+   },
+   "p_full_avoid_gt0": 0.106,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br20",
+   "vars": {
+    "vol": 60,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 71,
+   "FULL": {
+    "gated": {
+     "ret_pp": 179.8928,
+     "mdd_pct": -27.99,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 45.2683,
+    "mdd_red_pct": 18.78
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.8874,
+     "mdd_pct": -27.99,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 44.276,
+    "mdd_red_pct": 18.78
+   },
+   "p_full_avoid_gt0": 0.269,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br30",
+   "vars": {
+    "vol": 60,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 73,
+   "FULL": {
+    "gated": {
+     "ret_pp": 218.7254,
+     "mdd_pct": -28.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 97.8843,
+    "mdd_red_pct": 11.92
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 69.0948,
+     "mdd_pct": -28.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 48.5736,
+    "mdd_red_pct": 11.92
+   },
+   "p_full_avoid_gt0": 0.106,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br30",
+   "vars": {
+    "vol": 60,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 74,
+   "FULL": {
+    "gated": {
+     "ret_pp": 179.8928,
+     "mdd_pct": -27.99,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 45.2683,
+    "mdd_red_pct": 18.78
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.8874,
+     "mdd_pct": -27.99,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 44.276,
+    "mdd_red_pct": 18.78
+   },
+   "p_full_avoid_gt0": 0.269,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br40",
+   "vars": {
+    "vol": 60,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 75,
+   "FULL": {
+    "gated": {
+     "ret_pp": 218.7254,
+     "mdd_pct": -28.3,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 97.8843,
+    "mdd_red_pct": 11.92
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 69.0948,
+     "mdd_pct": -28.3,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 48.5736,
+    "mdd_red_pct": 11.92
+   },
+   "p_full_avoid_gt0": 0.106,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br40",
+   "vars": {
+    "vol": 60,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 78,
+   "FULL": {
+    "gated": {
+     "ret_pp": 179.8928,
+     "mdd_pct": -27.99,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 45.2683,
+    "mdd_red_pct": 18.78
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.8874,
+     "mdd_pct": -27.99,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 44.276,
+    "mdd_red_pct": 18.78
+   },
+   "p_full_avoid_gt0": 0.269,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br50",
+   "vars": {
+    "vol": 60,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 82,
+   "FULL": {
+    "gated": {
+     "ret_pp": 226.9801,
+     "mdd_pct": -27.48,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 106.139,
+    "mdd_red_pct": 14.47
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 73.4742,
+     "mdd_pct": -27.48,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 52.953,
+    "mdd_red_pct": 14.47
+   },
+   "p_full_avoid_gt0": 0.086,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br50",
+   "vars": {
+    "vol": 60,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 89,
+   "FULL": {
+    "gated": {
+     "ret_pp": 200.0993,
+     "mdd_pct": -28.23,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 65.4748,
+    "mdd_red_pct": 18.08
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.3207,
+     "mdd_pct": -28.23,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 48.7093,
+    "mdd_red_pct": 18.08
+   },
+   "p_full_avoid_gt0": 0.189,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 98,
+   "FULL": {
+    "gated": {
+     "ret_pp": 369.4412,
+     "mdd_pct": -27.14,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 248.6001,
+    "mdd_red_pct": 15.53
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 81.838,
+     "mdd_pct": -27.14,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 61.3168,
+    "mdd_red_pct": 15.53
+   },
+   "p_full_avoid_gt0": 0.012,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol60+br60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 116,
+   "FULL": {
+    "gated": {
+     "ret_pp": 166.6657,
+     "mdd_pct": -11.81,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 32.0412,
+    "mdd_red_pct": 65.73
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 37.0375,
+     "mdd_pct": -8.45,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 8.4261,
+    "mdd_red_pct": 75.48
+   },
+   "p_full_avoid_gt0": 0.402,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br20",
+   "vars": {
+    "vol": 70,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 63,
+   "FULL": {
+    "gated": {
+     "ret_pp": 248.6359,
+     "mdd_pct": -27.23,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 127.7948,
+    "mdd_red_pct": 15.25
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.9149,
+     "mdd_pct": -27.23,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 57.3937,
+    "mdd_red_pct": 15.25
+   },
+   "p_full_avoid_gt0": 0.056,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br20",
+   "vars": {
+    "vol": 70,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 63,
+   "FULL": {
+    "gated": {
+     "ret_pp": 235.9488,
+     "mdd_pct": -27.23,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 101.3243,
+    "mdd_red_pct": 20.98
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.7371,
+     "mdd_pct": -27.23,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 44.1257,
+    "mdd_red_pct": 20.98
+   },
+   "p_full_avoid_gt0": 0.069,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br30",
+   "vars": {
+    "vol": 70,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 66,
+   "FULL": {
+    "gated": {
+     "ret_pp": 248.6359,
+     "mdd_pct": -27.23,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 127.7948,
+    "mdd_red_pct": 15.25
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.9149,
+     "mdd_pct": -27.23,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 57.3937,
+    "mdd_red_pct": 15.25
+   },
+   "p_full_avoid_gt0": 0.056,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br30",
+   "vars": {
+    "vol": 70,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 66,
+   "FULL": {
+    "gated": {
+     "ret_pp": 235.9488,
+     "mdd_pct": -27.23,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 101.3243,
+    "mdd_red_pct": 20.98
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.7371,
+     "mdd_pct": -27.23,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 44.1257,
+    "mdd_red_pct": 20.98
+   },
+   "p_full_avoid_gt0": 0.069,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br40",
+   "vars": {
+    "vol": 70,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 69,
+   "FULL": {
+    "gated": {
+     "ret_pp": 229.9587,
+     "mdd_pct": -27.18,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 109.1176,
+    "mdd_red_pct": 15.41
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.6251,
+     "mdd_pct": -27.18,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 57.1039,
+    "mdd_red_pct": 15.41
+   },
+   "p_full_avoid_gt0": 0.094,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br40",
+   "vars": {
+    "vol": 70,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 71,
+   "FULL": {
+    "gated": {
+     "ret_pp": 217.9354,
+     "mdd_pct": -27.18,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 83.3109,
+    "mdd_red_pct": 21.13
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 72.4562,
+     "mdd_pct": -27.18,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 43.8448,
+    "mdd_red_pct": 21.13
+   },
+   "p_full_avoid_gt0": 0.119,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br50",
+   "vars": {
+    "vol": 70,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 79,
+   "FULL": {
+    "gated": {
+     "ret_pp": 226.5926,
+     "mdd_pct": -27.19,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 105.7515,
+    "mdd_red_pct": 15.38
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 74.4933,
+     "mdd_pct": -27.19,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 53.9721,
+    "mdd_red_pct": 15.38
+   },
+   "p_full_avoid_gt0": 0.094,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br50",
+   "vars": {
+    "vol": 70,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 85,
+   "FULL": {
+    "gated": {
+     "ret_pp": 247.8044,
+     "mdd_pct": -27.09,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 113.1799,
+    "mdd_red_pct": 21.39
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 73.6813,
+     "mdd_pct": -27.09,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 45.0699,
+    "mdd_red_pct": 21.39
+   },
+   "p_full_avoid_gt0": 0.072,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 97,
+   "FULL": {
+    "gated": {
+     "ret_pp": 284.2087,
+     "mdd_pct": -27.06,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 163.3676,
+    "mdd_red_pct": 15.78
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.2327,
+     "mdd_pct": -27.06,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 56.7115,
+    "mdd_red_pct": 15.78
+   },
+   "p_full_avoid_gt0": 0.04,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol70+br60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 332.4015,
+     "mdd_pct": -20.68,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 197.777,
+    "mdd_red_pct": 39.99
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 57.2843,
+     "mdd_pct": -20.68,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 28.6729,
+    "mdd_red_pct": 39.99
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br20",
+   "vars": {
+    "vol": 80,
+    "breadth": 20
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 46,
+   "FULL": {
+    "gated": {
+     "ret_pp": 115.0163,
+     "mdd_pct": -24.02,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -5.8248,
+    "mdd_red_pct": 25.24
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 6.6422,
+     "mdd_pct": -24.02,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -13.879,
+    "mdd_red_pct": 25.24
+   },
+   "p_full_avoid_gt0": 0.498,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br20",
+   "vars": {
+    "vol": 80,
+    "breadth": 20
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 46,
+   "FULL": {
+    "gated": {
+     "ret_pp": 222.3133,
+     "mdd_pct": -29.68,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 87.6888,
+    "mdd_red_pct": 13.87
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 66.7727,
+     "mdd_pct": -29.68,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 38.1613,
+    "mdd_red_pct": 13.87
+   },
+   "p_full_avoid_gt0": 0.096,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br30",
+   "vars": {
+    "vol": 80,
+    "breadth": 30
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 52,
+   "FULL": {
+    "gated": {
+     "ret_pp": 115.2424,
+     "mdd_pct": -24.16,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -5.5987,
+    "mdd_red_pct": 24.81
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 6.4591,
+     "mdd_pct": -24.16,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -14.0621,
+    "mdd_red_pct": 24.81
+   },
+   "p_full_avoid_gt0": 0.499,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br30",
+   "vars": {
+    "vol": 80,
+    "breadth": 30
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 54,
+   "FULL": {
+    "gated": {
+     "ret_pp": 219.0072,
+     "mdd_pct": -30.59,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 84.3827,
+    "mdd_red_pct": 11.23
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 64.6277,
+     "mdd_pct": -30.59,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 36.0163,
+    "mdd_red_pct": 11.23
+   },
+   "p_full_avoid_gt0": 0.099,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br40",
+   "vars": {
+    "vol": 80,
+    "breadth": 40
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 60,
+   "FULL": {
+    "gated": {
+     "ret_pp": 104.2115,
+     "mdd_pct": -23.04,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": -16.6296,
+    "mdd_red_pct": 28.29
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 7.8637,
+     "mdd_pct": -23.04,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": -12.6575,
+    "mdd_red_pct": 28.29
+   },
+   "p_full_avoid_gt0": 0.585,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br40",
+   "vars": {
+    "vol": 80,
+    "breadth": 40
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 65,
+   "FULL": {
+    "gated": {
+     "ret_pp": 208.0393,
+     "mdd_pct": -29.59,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 73.4148,
+    "mdd_red_pct": 14.13
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 66.6916,
+     "mdd_pct": -29.59,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 38.0802,
+    "mdd_red_pct": 14.13
+   },
+   "p_full_avoid_gt0": 0.134,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br50",
+   "vars": {
+    "vol": 80,
+    "breadth": 50
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 74,
+   "FULL": {
+    "gated": {
+     "ret_pp": 204.0634,
+     "mdd_pct": -31.56,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 83.2223,
+    "mdd_red_pct": 1.77
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 62.0707,
+     "mdd_pct": -31.56,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 41.5495,
+    "mdd_red_pct": 1.77
+   },
+   "p_full_avoid_gt0": 0.13,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br50",
+   "vars": {
+    "vol": 80,
+    "breadth": 50
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 82,
+   "FULL": {
+    "gated": {
+     "ret_pp": 223.8121,
+     "mdd_pct": -31.49,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 89.1876,
+    "mdd_red_pct": 8.62
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 61.3165,
+     "mdd_pct": -31.49,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 32.7051,
+    "mdd_red_pct": 8.62
+   },
+   "p_full_avoid_gt0": 0.109,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60
+   },
+   "pname": "old131",
+   "runnable": true,
+   "n_gate_off_weeks": 96,
+   "FULL": {
+    "gated": {
+     "ret_pp": 285.1229,
+     "mdd_pct": -27.06,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 120.8411,
+     "mdd_pct": -32.13,
+     "n_days": 428
+    },
+    "avoid_pp": 164.2818,
+    "mdd_red_pct": 15.78
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 77.2327,
+     "mdd_pct": -27.06,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 20.5212,
+     "mdd_pct": -32.13,
+     "n_days": 200
+    },
+    "avoid_pp": 56.7115,
+    "mdd_red_pct": 15.78
+   },
+   "p_full_avoid_gt0": 0.04,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol80+br60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60
+   },
+   "pname": "full144",
+   "runnable": true,
+   "n_gate_off_weeks": 115,
+   "FULL": {
+    "gated": {
+     "ret_pp": 332.4015,
+     "mdd_pct": -20.68,
+     "n_days": 428
+    },
+    "base": {
+     "ret_pp": 134.6245,
+     "mdd_pct": -34.46,
+     "n_days": 428
+    },
+    "avoid_pp": 197.777,
+    "mdd_red_pct": 39.99
+   },
+   "HOLDOUT": {
+    "gated": {
+     "ret_pp": 57.2843,
+     "mdd_pct": -20.68,
+     "n_days": 200
+    },
+    "base": {
+     "ret_pp": 28.6114,
+     "mdd_pct": -34.46,
+     "n_days": 200
+    },
+    "avoid_pp": 28.6729,
+    "mdd_red_pct": 39.99
+   },
+   "p_full_avoid_gt0": 0.039,
+   "fdr_reject_full": false,
+   "selected": false
+  },
+  {
+   "id": "vol30+fu20",
+   "vars": {
+    "vol": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+fu40",
+   "vars": {
+    "vol": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+fu60",
+   "vars": {
+    "vol": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+fu80",
+   "vars": {
+    "vol": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+fu20",
+   "vars": {
+    "vol": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+fu40",
+   "vars": {
+    "vol": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+fu60",
+   "vars": {
+    "vol": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+fu80",
+   "vars": {
+    "vol": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+fu20",
+   "vars": {
+    "vol": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+fu40",
+   "vars": {
+    "vol": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+fu60",
+   "vars": {
+    "vol": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+fu80",
+   "vars": {
+    "vol": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+fu20",
+   "vars": {
+    "vol": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+fu40",
+   "vars": {
+    "vol": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+fu60",
+   "vars": {
+    "vol": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+fu80",
+   "vars": {
+    "vol": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+fu20",
+   "vars": {
+    "vol": 70,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+fu40",
+   "vars": {
+    "vol": 70,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+fu60",
+   "vars": {
+    "vol": 70,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+fu80",
+   "vars": {
+    "vol": 70,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+fu20",
+   "vars": {
+    "vol": 80,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+fu40",
+   "vars": {
+    "vol": 80,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+fu60",
+   "vars": {
+    "vol": 80,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+fu80",
+   "vars": {
+    "vol": 80,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br20+fu20",
+   "vars": {
+    "breadth": 20,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br20+fu40",
+   "vars": {
+    "breadth": 20,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br20+fu60",
+   "vars": {
+    "breadth": 20,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br20+fu80",
+   "vars": {
+    "breadth": 20,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br30+fu20",
+   "vars": {
+    "breadth": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br30+fu40",
+   "vars": {
+    "breadth": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br30+fu60",
+   "vars": {
+    "breadth": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br30+fu80",
+   "vars": {
+    "breadth": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br40+fu20",
+   "vars": {
+    "breadth": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br40+fu40",
+   "vars": {
+    "breadth": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br40+fu60",
+   "vars": {
+    "breadth": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br40+fu80",
+   "vars": {
+    "breadth": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br50+fu20",
+   "vars": {
+    "breadth": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br50+fu40",
+   "vars": {
+    "breadth": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br50+fu60",
+   "vars": {
+    "breadth": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br50+fu80",
+   "vars": {
+    "breadth": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br60+fu20",
+   "vars": {
+    "breadth": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br60+fu40",
+   "vars": {
+    "breadth": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br60+fu60",
+   "vars": {
+    "breadth": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "br60+fu80",
+   "vars": {
+    "breadth": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br20+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br20+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br20+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br20+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 20,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br30+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br30+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br30+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br30+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br40+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br40+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br40+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br40+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br50+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br50+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br50+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br50+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br60+fu20",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br60+fu40",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br60+fu60",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol30+br60+fu80",
+   "vars": {
+    "vol": 30,
+    "breadth": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br20+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br20+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br20+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br20+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 20,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br30+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br30+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br30+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br30+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br40+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br40+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br40+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br40+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br50+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br50+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br50+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br50+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br60+fu20",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br60+fu40",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br60+fu60",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol40+br60+fu80",
+   "vars": {
+    "vol": 40,
+    "breadth": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br20+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br20+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br20+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br20+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 20,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br30+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br30+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br30+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br30+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br40+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br40+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br40+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br40+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br50+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br50+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br50+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br50+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br60+fu20",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br60+fu40",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br60+fu60",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol50+br60+fu80",
+   "vars": {
+    "vol": 50,
+    "breadth": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br20+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br20+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br20+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br20+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 20,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br30+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br30+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br30+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br30+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br40+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br40+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br40+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br40+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br50+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br50+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br50+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br50+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br60+fu20",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br60+fu40",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br60+fu60",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol60+br60+fu80",
+   "vars": {
+    "vol": 60,
+    "breadth": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br20+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br20+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br20+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br20+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 20,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br30+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br30+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br30+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br30+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br40+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br40+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br40+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br40+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br50+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br50+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br50+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br50+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br60+fu20",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br60+fu40",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br60+fu60",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol70+br60+fu80",
+   "vars": {
+    "vol": 70,
+    "breadth": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br20+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br20+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br20+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br20+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 20,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br30+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br30+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br30+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br30+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 30,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br40+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br40+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br40+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br40+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 40,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br50+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br50+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br50+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br50+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 50,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br60+fu20",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 20
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br60+fu40",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 40
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br60+fu60",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 60
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  },
+  {
+   "id": "vol80+br60+fu80",
+   "vars": {
+    "vol": 80,
+    "breadth": 60,
+    "funding": 80
+   },
+   "runnable": false,
+   "status": "NOT_RUNNABLE",
+   "reason": "资金费维度数据不可得（box_cache 仅 OHLCV；wo2 P1 探针 11 端点无 funding 字段指纹；不可计算≠证伪）"
+  }
+ ],
+ "stop_ledger": {},
+ "vol_thr_realA": {
+  "old131": {
+   "30": 0.1167,
+   "40": 0.1497,
+   "50": 0.174,
+   "60": 0.1943,
+   "70": 0.22,
+   "80": 1.0359
+  },
+  "full144": {
+   "30": 0.1165,
+   "40": 0.1496,
+   "50": 0.1769,
+   "60": 0.1964,
+   "70": 0.2237,
+   "80": 1.2267
+  }
+ },
+ "wall_secs": 184.3
+}

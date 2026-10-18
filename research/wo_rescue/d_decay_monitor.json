@@ -1,0 +1,113 @@
+{
+ "ts": "2026-10-18 23:04:59",
+ "date": "2026-10-17",
+ "triggered": true,
+ "clocks": {
+  "calendar_30d": {
+   "days_since_last_review": null,
+   "trigger": true
+  },
+  "sample_20ic": {
+   "ic_days_now": 20,
+   "ic_days_baseline": 20,
+   "new_ic_days": 0,
+   "trigger": false
+  },
+  "performance_rolling20_ic_neg": {
+   "old131": {
+    "rolling20_ic_mean": -0.008448042967886883,
+    "first_trigger_date": "2026-10-12",
+    "trigger": true
+   },
+   "full144": {
+    "rolling20_ic_mean": 0.004027642715469566,
+    "first_trigger_date": null,
+    "trigger": false
+   }
+  },
+  "performance_trigger": true
+ },
+ "sunset_semantics": "触发→自动重判+三路径改造评估；降权/换周期/换门试尽才许退场，退场归会诊",
+ "reform_paths": {
+  "1_downweight_slot_half": {
+   "old131": {
+    "base_realC": {
+     "ann_pct": -49.31,
+     "mdd_pct": -23.09
+    },
+    "half_weight_realC": {
+     "ann_pct": -28.33,
+     "mdd_pct": -12.08
+    },
+    "viable": true
+   },
+   "full144": {
+    "base_realC": {
+     "ann_pct": -56.31,
+     "mdd_pct": -27.72
+    },
+    "half_weight_realC": {
+     "ann_pct": -33.56,
+     "mdd_pct": -14.81
+    },
+    "viable": true
+   }
+  },
+  "2_switch_horizon": {
+   "old131": {
+    "5": {
+     "rank_ic_mean": -0.008448042967886888,
+     "t_stat": -0.17425418247138108
+    },
+    "10": {
+     "rank_ic_mean": -0.053538225535011384,
+     "t_stat": -1.1869555856341891
+    },
+    "20": {
+     "rank_ic_mean": -0.05287970346756485,
+     "t_stat": -1.292433169293005
+    },
+    "best_horizon": 5,
+    "viable": false
+   },
+   "full144": {
+    "5": {
+     "rank_ic_mean": 0.00402764271546957,
+     "t_stat": 0.08112168721700924
+    },
+    "10": {
+     "rank_ic_mean": -0.05391531107116591,
+     "t_stat": -1.1537846719266143
+    },
+    "20": {
+     "rank_ic_mean": -0.0634846283768285,
+     "t_stat": -1.3941058921929794
+    },
+    "best_horizon": 5,
+    "viable": false
+   }
+  },
+  "3_switch_gate_vol20p80": {
+   "source": "/workspace/repo_ready/research/wo_hd/wo_hd_result.json",
+   "note": "引用 wo_hd 八列表 realC 段（权威谱系，避免重烧）",
+   "vol20_p80_pause": {
+    "old131": {
+     "base_realC_ann": -49.31,
+     "base_realC_mdd": -23.09,
+     "gate_realC_ann": -27.17,
+     "gate_realC_mdd": -11.29,
+     "viable": true
+    },
+    "full144": {
+     "base_realC_ann": -56.31,
+     "base_realC_mdd": -27.72,
+     "gate_realC_ann": -15.53,
+     "gate_realC_mdd": -24.19,
+     "viable": true
+    }
+   }
+  },
+  "all_paths_dead": false,
+  "disposition": "存在 viable 改造路径 → 续命/改造（会诊择路）"
+ }
+}

@@ -1,0 +1,381 @@
+{
+ "stage": "c_new_candidates",
+ "ts": "2026-10-18 23:21:20",
+ "od": "PC-1..PC-7（见头注，冻结）",
+ "directions": {
+  "c1": {
+   "direction": "c1 资金费代理",
+   "variants": [
+    {
+     "id": "c1a_funding_pct",
+     "def": "费率 60 日滚动分位",
+     "status": "NOT_RUNNABLE",
+     "evidence": "快照字段=['close', 'high', 'low', 'open', 'time', 'volume']（无 funding/rate）；wo2 P1 探针 11 端点中 0 个含 funding 指纹且均非 200 有效（wo2_result.json p1_probe）；样本要求=日频≥240 交易日费率史，覆盖 0%",
+     "revival": "新数据源出现（wo2 缺口登记复活条款）"
+    },
+    {
+     "id": "c1b_funding_slope",
+     "def": "费率 20 日斜率",
+     "status": "NOT_RUNNABLE",
+     "evidence": "快照字段=['close', 'high', 'low', 'open', 'time', 'volume']（无 funding/rate）；wo2 P1 探针 11 端点中 0 个含 funding 指纹且均非 200 有效（wo2_result.json p1_probe）；样本要求=日频≥240 交易日费率史，覆盖 0%",
+     "revival": "新数据源出现（wo2 缺口登记复活条款）"
+    },
+    {
+     "id": "c1c_fund_px_div",
+     "def": "费率-价格背离（费率分位 vs 20 日收益分位差）",
+     "status": "NOT_RUNNABLE",
+     "evidence": "快照字段=['close', 'high', 'low', 'open', 'time', 'volume']（无 funding/rate）；wo2 P1 探针 11 端点中 0 个含 funding 指纹且均非 200 有效（wo2_result.json p1_probe）；样本要求=日频≥240 交易日费率史，覆盖 0%",
+     "revival": "新数据源出现（wo2 缺口登记复活条款）"
+    }
+   ],
+   "variant_total": 3,
+   "variant_run": 0,
+   "verdict": "不可测试（数据域缺口），非统计判死；按 R9 附证据登记排除册"
+  },
+  "c2": {
+   "events": {
+    "E1_brk_vol|old131": {
+     "FULL": {
+      "overlay": {
+       "ret_pp": 84.6567,
+       "mdd_pct": -29.47,
+       "n_days": 428
+      },
+      "base": {
+       "ret_pp": 129.6483,
+       "mdd_pct": -31.15,
+       "n_days": 428
+      },
+      "avoid_incr_pp": -44.9916,
+      "mdd_not_worse": true
+     },
+     "realC": {
+      "overlay": {
+       "ret_pp": -20.7561,
+       "mdd_pct": -21.22,
+       "n_days": 139
+      },
+      "base": {
+       "ret_pp": -22.6419,
+       "mdd_pct": -23.09,
+       "n_days": 139
+      },
+      "avoid_incr_pp": 1.8858,
+      "mdd_not_worse": true
+     },
+     "OVERALL": "FAIL"
+    },
+    "E1_brk_vol|full144": {
+     "FULL": {
+      "overlay": {
+       "ret_pp": 93.3801,
+       "mdd_pct": -33.4,
+       "n_days": 428
+      },
+      "base": {
+       "ret_pp": 143.8839,
+       "mdd_pct": -33.55,
+       "n_days": 428
+      },
+      "avoid_incr_pp": -50.5038,
+      "mdd_not_worse": true
+     },
+     "realC": {
+      "overlay": {
+       "ret_pp": -26.7061,
+       "mdd_pct": -27.56,
+       "n_days": 139
+      },
+      "base": {
+       "ret_pp": -26.8669,
+       "mdd_pct": -27.72,
+       "n_days": 139
+      },
+      "avoid_incr_pp": 0.1608,
+      "mdd_not_worse": true
+     },
+     "OVERALL": "FAIL"
+    },
+    "E2_nhnl_cluster|old131": {
+     "FULL": {
+      "overlay": {
+       "ret_pp": 54.4283,
+       "mdd_pct": -28.19,
+       "n_days": 428
+      },
+      "base": {
+       "ret_pp": 129.6483,
+       "mdd_pct": -31.15,
+       "n_days": 428
+      },
+      "avoid_incr_pp": -75.22,
+      "mdd_not_worse": true
+     },
+     "realC": {
+      "overlay": {
+       "ret_pp": -16.275,
+       "mdd_pct": -19.68,
+       "n_days": 139
+      },
+      "base": {
+       "ret_pp": -22.6419,
+       "mdd_pct": -23.09,
+       "n_days": 139
+      },
+      "avoid_incr_pp": 6.3669,
+      "mdd_not_worse": true
+     },
+     "OVERALL": "FAIL"
+    },
+    "E2_nhnl_cluster|full144": {
+     "FULL": {
+      "overlay": {
+       "ret_pp": 69.1005,
+       "mdd_pct": -28.51,
+       "n_days": 428
+      },
+      "base": {
+       "ret_pp": 143.8839,
+       "mdd_pct": -33.55,
+       "n_days": 428
+      },
+      "avoid_incr_pp": -74.7834,
+      "mdd_not_worse": true
+     },
+     "realC": {
+      "overlay": {
+       "ret_pp": -19.8151,
+       "mdd_pct": -22.23,
+       "n_days": 139
+      },
+      "base": {
+       "ret_pp": -26.8669,
+       "mdd_pct": -27.72,
+       "n_days": 139
+      },
+      "avoid_incr_pp": 7.0518,
+      "mdd_not_worse": true
+     },
+     "OVERALL": "FAIL"
+    },
+    "E3_gap_unfilled|old131": {
+     "FULL": {
+      "overlay": {
+       "ret_pp": 125.267,
+       "mdd_pct": -29.44,
+       "n_days": 428
+      },
+      "base": {
+       "ret_pp": 129.6483,
+       "mdd_pct": -31.15,
+       "n_days": 428
+      },
+      "avoid_incr_pp": -4.3813,
+      "mdd_not_worse": true
+     },
+     "realC": {
+      "overlay": {
+       "ret_pp": -19.2881,
+       "mdd_pct": -19.76,
+       "n_days": 139
+      },
+      "base": {
+       "ret_pp": -22.6419,
+       "mdd_pct": -23.09,
+       "n_days": 139
+      },
+      "avoid_incr_pp": 3.3538,
+      "mdd_not_worse": true
+     },
+     "OVERALL": "FAIL"
+    },
+    "E3_gap_unfilled|full144": {
+     "FULL": {
+      "overlay": {
+       "ret_pp": 139.2328,
+       "mdd_pct": -31.88,
+       "n_days": 428
+      },
+      "base": {
+       "ret_pp": 143.8839,
+       "mdd_pct": -33.55,
+       "n_days": 428
+      },
+      "avoid_incr_pp": -4.6511,
+      "mdd_not_worse": true
+     },
+     "realC": {
+      "overlay": {
+       "ret_pp": -23.7035,
+       "mdd_pct": -24.59,
+       "n_days": 139
+      },
+      "base": {
+       "ret_pp": -26.8669,
+       "mdd_pct": -27.72,
+       "n_days": 139
+      },
+      "avoid_incr_pp": 3.1634,
+      "mdd_not_worse": true
+     },
+     "OVERALL": "FAIL"
+    }
+   },
+   "event_counts": {
+    "E1_brk_vol": {
+     "signal_day_events_full": 109,
+     "all_day_events_full": 670
+    },
+    "E2_nhnl_cluster": {
+     "signal_day_events_full": 1285,
+     "all_day_events_full": 7272
+    },
+    "E3_gap_unfilled": {
+     "signal_day_events_full": 1042,
+     "all_day_events_full": 4459
+    }
+   },
+   "variant_total": 6,
+   "variant_run": 6,
+   "verdict": "FAIL（三事件×双池 6 变体全跑完，逐变体数字见 events）"
+  },
+  "c3": {
+   "periods": [
+    "weekly_base(OD8 基准)",
+    "daily_smooth5(日尺度)",
+    "weekly_agg(周线聚合)",
+    "intraday(不可得：快照仅日线，登记)"
+   ],
+   "windows": {
+    "realC20": {
+     "weekly_base": {
+      "ic_mean": 0.0025135493352915787,
+      "t_stat": 0.04953651598758941,
+      "n_days": 20
+     },
+     "daily_smooth5": {
+      "ic_mean": 0.019436445402991706,
+      "t_stat": 0.4713758602769403,
+      "n_days": 20
+     },
+     "weekly_agg": {
+      "ic_mean": 0.020397546313412028,
+      "t_stat": 0.49270732913714926,
+      "n_days": 20
+     },
+     "composite": {
+      "ic_mean": 0.01391081638904344,
+      "t_stat": 0.321661693837794,
+      "n_days": 20
+     },
+     "best_single_ic": 0.020397546313412028,
+     "improvement_pct": -31.8,
+     "OVERALL": "FAIL"
+    },
+    "extended": {
+     "weekly_base": {
+      "ic_mean": 0.07138364280194447,
+      "t_stat": 2.825383283384782,
+      "n_days": 57
+     },
+     "daily_smooth5": {
+      "ic_mean": 0.08096666800528403,
+      "t_stat": 3.5486702120896356,
+      "n_days": 57
+     },
+     "weekly_agg": {
+      "ic_mean": 0.08098677797648596,
+      "t_stat": 3.4993266141265655,
+      "n_days": 57
+     },
+     "composite": {
+      "ic_mean": 0.07815845676791625,
+      "t_stat": 3.316269462827689,
+      "n_days": 57
+     },
+     "best_single_ic": 0.08098677797648596,
+     "improvement_pct": -3.49,
+     "OVERALL": "FAIL"
+    }
+   },
+   "variant_total": 3,
+   "variant_run": 3,
+   "verdict": "三变体全跑完；日内不可得登记；判定逐窗附数"
+  },
+  "c4": {
+   "def": "RS20=个股20日收益−异池等权20日收益（full144 内 old131/new13 互指）；动量/回归分开验",
+   "hypotheses": {
+    "RS_momentum|fwd5": {
+     "ic_mean_extended": 0.023344461155867417,
+     "t_extended": 1.6186746013426545,
+     "n_extended": 320,
+     "ic_mean_realC": -0.031497830275966525,
+     "t_realC": -1.2368975725503164,
+     "n_realC": 134,
+     "decile_spread_pp_raw": 1.4616,
+     "decile_spread_pp_net_of_fee": 1.3616,
+     "pass_t_gt_2": false
+    },
+    "RS_momentum|fwd20": {
+     "ic_mean_extended": 0.059231512212505236,
+     "t_extended": 4.776407291079294,
+     "n_extended": 317,
+     "ic_mean_realC": -0.07381898351543066,
+     "t_realC": -3.4468609852514507,
+     "n_realC": 119,
+     "decile_spread_pp_raw": 1.4616,
+     "decile_spread_pp_net_of_fee": 1.3616,
+     "pass_t_gt_2": true
+    },
+    "RS_mean_reversion|fwd5": {
+     "ic_mean_extended": -0.023344461155867417,
+     "t_extended": -1.6186746013426545,
+     "n_extended": 320,
+     "ic_mean_realC": 0.031497830275966525,
+     "t_realC": 1.2368975725503164,
+     "n_realC": 134,
+     "decile_spread_pp_raw": -1.4394,
+     "decile_spread_pp_net_of_fee": -1.5394,
+     "pass_t_gt_2": false
+    },
+    "RS_mean_reversion|fwd20": {
+     "ic_mean_extended": -0.059231512212505236,
+     "t_extended": -4.776407291079294,
+     "n_extended": 317,
+     "ic_mean_realC": 0.07381898351543066,
+     "t_realC": 3.4468609852514507,
+     "n_realC": 119,
+     "decile_spread_pp_raw": -1.4394,
+     "decile_spread_pp_net_of_fee": -1.5394,
+     "pass_t_gt_2": false
+    }
+   },
+   "variant_total": 4,
+   "variant_run": 4,
+   "verdict": "双假设×双 horizon 全跑完（4 变体），逐变体 t 与费后价差附数"
+  },
+  "c5": {
+   "styles": [
+    "vol20",
+    "rev_10d",
+    "log_turn20"
+   ],
+   "windows": {
+    "realC20": {
+     "ic_mean": 0.00947556037843197,
+     "t_stat": 0.25133430930635386,
+     "n_days": 20
+    },
+    "extended": {
+     "ic_mean": 0.04306870775890364,
+     "t_stat": 2.1820766933683236,
+     "n_days": 54
+    }
+   },
+   "variant_total": 1,
+   "variant_run": 1,
+   "verdict": "残差 IC 全窗附数；pass(t>2, extended)=True"
+  }
+ },
+ "wall_secs": 99.3
+}
