@@ -35,7 +35,9 @@ summary{cursor:pointer;color:#58a6ff}
 <div class="tabs"><a class="on" href="index.html">📊 运行状态</a><a href="manual.html">📖 使用说明</a></div>
 <div class="meta" id="meta">加载中…</div>
 <div class="warnline">模拟数据·起步仓位 12.5%·请勿仅依赖本页决策</div>
+<div class="line">⏱ 本页有两个时间，别看混：判定区=每天早上更新一次（08:30 判定轮）；快照区=每轮都更新</div>
 <div id="decision" class="decision d-hold">加载中…</div>
+<div class="stat" id="snapsec" style="display:none"><b>🕐 盘中快照（只读·不可操作）</b> <span class="badge" id="snapmeta"></span><div id="snap" style="margin-top:8px"></div></div>
 <div class="stat"><b>🧭 现在该做什么</b><div id="sig" style="margin-top:8px"></div></div>
 <div class="stat"><b>🚦 策略健康灯（与上面开关无关）</b><div id="bkall" style="margin-top:8px"></div><div id="bk" class="grid" style="margin-top:8px"></div></div>
 <div class="stat"><b>📒 三本账月报（不算费的账 / 费用账 / 跑输躺平的账）</b><div id="acct"></div></div>
@@ -53,10 +55,11 @@ function render(){
   const m=D.meta,s=D.signal,b=D.breakers,st=D.state||{};
   const T=m.breaker_thresholds||{};
   const frozen=(st.freeze_days_left||0)>0;
-  document.getElementById('meta').innerHTML='生成于 '+m.generated+' · 数据截至 '+s.asof+
+  document.getElementById('meta').innerHTML='判定数据：生成于 '+m.generated+' · 数据截至 '+s.asof+
     ' · <span class="badge">仓位档：第'+((st.tier_idx||0)+1)+'档/共'+m.tier_table_pct_per_stock.length+'档（最重档=第1档）· 单票 '+s.slot_per_stock_pct+'% · 总上限 '+s.total_exposure_pct+'%</span>'+
     (T.CB1?'<span class="badge">熔断阈值：'+m.calib_epoch+' 重标定 · '+m.total_exposure_pct+'% 敞口口径</span>':'')+
     (frozen?'<span class="badge" style="border-color:#f59e0b;color:#f59e0b">🧊 冻结开新仓：剩 '+st.freeze_days_left+' 个交易日（至 '+st.freeze_until_date+'）</span>':'')+
+    '<span class="badge">判定数据：asof '+s.asof+'（每天 08:30 判定轮更新，一天只变一次）</span>'+
     ' · <a href="manual.html">📖 怎么用这份页面？看使用说明</a>';
   /* ---- UI-01 决策条：聚合优先级 熔断红灯＞闸关闭＞正常持仓 ---- */
   const dec=document.getElementById('decision');
@@ -179,6 +182,31 @@ function acctRow(r){
     '<td class="'+(r.pool_pct>0?'up':'dn')+'">'+pct(r.pool_pct,1)+'</td>'+
     '<td class="neutral">'+pct(r.concede_pct,1)+'</td></tr>';
 }
+/* ---- 盘中快照区：只读展示，判定语义一律以判定区为准 ---- */
+function renderSnap(snap){
+  const m=snap.meta||{},s=snap.snapshot||{};
+  let h='<div class="line">轮次：'+m.round_id+'（'+(m.round_semantic||'')+'）· '+(s.notice||'')+'</div>';
+  const cw=s.crash_watch;
+  if(cw&&typeof cw.pool_med_ret_intraday==='number')
+    h+='<div class="line">崩市观察（预估，不触发动作）：池中位盘中 '+(cw.pool_med_ret_intraday*100>0?'+':'')+(cw.pool_med_ret_intraday*100).toFixed(2)+'% · '+(cw.triggered_estimate?'预估触发':'预估未触发')+'</div>';
+  const bp=s.breaker_preview;
+  if(bp&&bp.overall)
+    h+='<div class="line">'+lamp(bp.overall.light)+'健康总灯预演：'+bp.overall.action+' · '+bp.kind+'（判定以「判定数据」为准）</div>';
+  const hd=s.holdings||[];
+  h+='<div class="line">持仓快照：'+(hd.length?hd.map(x=>x.sym||x).join('、'):'（空仓）')+'</div>';
+  document.getElementById('snap').innerHTML=h;
+}
 fetch('f1_live.json?ts='+Date.now()).then(r=>r.json()).then(d=>{D=d;render();})
  .catch(e=>{document.getElementById('meta').textContent='数据加载失败：'+e});
+/* 快照轮（20:30/00:30/04:30）产物：拉取失败显示「快照暂无」，不影响判定区 */
+fetch('f1_live_intraday.json?ts='+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})
+ .then(snap=>{
+   const sec=document.getElementById('snapsec');sec.style.display='';
+   if(snap&&snap.meta&&snap.meta.mode==='intraday_snapshot'){
+     document.getElementById('snapmeta').textContent='快照数据：'+snap.meta.generated+'（每轮更新·不可操作）';
+     renderSnap(snap);
+   }else{document.getElementById('snapmeta').textContent='快照暂无';}
+ })
+ .catch(e=>{document.getElementById('snapsec').style.display='';
+   document.getElementById('snapmeta').textContent='快照暂无';});
 </script></body></html>
