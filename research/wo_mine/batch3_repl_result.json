@@ -1,0 +1,38 @@
+{
+ "ts": "2026-10-20 03:45:30",
+ "spec": "独立第二实现抽 2 新实现变体逐位对拍（复现锚替代；单机环境以独立代码路径替代物理双机，batch2_repl 同谱系，如实登记）",
+ "items": [
+  {
+   "variant": "K2-mr-d5-h5|old131",
+   "n_main": 767,
+   "n_repl": 767,
+   "maxdiff": 0.0,
+   "bitwise": true,
+   "verdict": "hit(逐位)"
+  },
+  {
+   "variant": "K2-mr-d5-h5|full144",
+   "n_main": 767,
+   "n_repl": 767,
+   "maxdiff": 0.0,
+   "bitwise": true,
+   "verdict": "hit(逐位)"
+  },
+  {
+   "variant": "K5-fd-exit-time20",
+   "kind": "出场 bar/R 独立重算（入场点引用主件）",
+   "n_trades": 2946,
+   "n_exit_bar_match": 2946,
+   "n_mismatch": 0,
+   "max_xi_diff": 0,
+   "max_r_diff": 0.0,
+   "bitwise": true,
+   "verdict": "hit(逐位)",
+   "independence_note": "入场信号/eff/ATR 引用主件产出；出场判定、顺延取价、费与 R 由独立循环重算（共用仅数据层与 IEEE 基元）"
+  }
+ ],
+ "all_bitwise": true,
+ "wall_secs": 12.3,
+ "status": "done",
+ "r10_note": "本运行不产出任何「域读数→仓位」映射（R10）"
+}

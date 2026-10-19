@@ -1,0 +1,8 @@
+{
+ "pass": true,
+ "returncode": 0,
+ "d0_all_pass": true,
+ "d0_runtime_sec": 8.6,
+ "gate_runtime_sec": 9.1,
+ "lineage": "batch0_domains.py 四对拍（Batch 1/2 同谱系，停工条款逐字适用）"
+}
