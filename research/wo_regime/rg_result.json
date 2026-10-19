@@ -1,0 +1,2077 @@
+{
+  "spec": "REGIME_SPEC_v1",
+  "asof": "2026-10-17",
+  "seed": 42,
+  "smoke": false,
+  "events_frozen": {
+    "E1": "2026-04-20",
+    "E2": "2026-05-09",
+    "E3": "2026-07-29"
+  },
+  "probe": false,
+  "m_fdr": 13,
+  "fdr_q": 0.1,
+  "bh_pass": {
+    "RG1-1": false,
+    "RG1-2": false,
+    "RG1-3": false,
+    "RG2-1": false,
+    "RG2-2": false,
+    "RG4-1": false,
+    "RG4-2": false,
+    "RG4-3": false,
+    "RG5-1": false,
+    "RG5-2": false,
+    "RG6-1": false,
+    "RG6-2": false,
+    "RG6-3": false
+  },
+  "loto_replay": {
+    "rg1a": {
+      "n_ok_dir": 0,
+      "n_total": 20,
+      "pass": false
+    },
+    "rg1b": {
+      "n_ok_dir": 19,
+      "n_total": 20,
+      "pass": true
+    },
+    "rg1c": {
+      "n_ok_dir": 20,
+      "n_total": 20,
+      "pass": true
+    },
+    "rg2a": {
+      "n_ok_dir": 0,
+      "n_total": 20,
+      "pass": false
+    },
+    "rg2b": {
+      "n_ok_dir": 0,
+      "n_total": 20,
+      "pass": false
+    },
+    "rg6a": {
+      "n_ok_dir": 0,
+      "n_total": 20,
+      "pass": false
+    },
+    "rg6b": {
+      "n_ok_dir": 0,
+      "n_total": 20,
+      "pass": false
+    },
+    "rg6c": {
+      "n_ok_dir": 0,
+      "n_total": 20,
+      "pass": false
+    }
+  },
+  "families": {
+    "RG1-1": {
+      "desc": "fee60_ann 水平，费压上行",
+      "direction": 1,
+      "full144": {
+        "id": "RG1-1",
+        "key": "rg1a",
+        "direction": 1,
+        "pool": "full144",
+        "band": 0.012335,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 21,
+            "false_trig_total": 55,
+            "monthly": 3.328
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.001805,
+            "effect_z": -0.4193,
+            "ci95": [
+              -0.002922,
+              -0.000758
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.4193,
+            "perm_median": 0.4749,
+            "threshold": 1.4247,
+            "n_perm": 1000,
+            "p_perm": 0.5564,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.5564
+      },
+      "old131": {
+        "id": "RG1-1",
+        "key": "rg1a",
+        "direction": 1,
+        "pool": "old131",
+        "band": 0.012335,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 21,
+            "false_trig_total": 55,
+            "monthly": 3.328
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.001805,
+            "effect_z": -0.4193,
+            "ci95": [
+              -0.002922,
+              -0.000758
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.4193,
+            "perm_median": 0.4749,
+            "threshold": 1.4247,
+            "n_perm": 1000,
+            "p_perm": 0.5564,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.5564
+      },
+      "L3_full": {
+        "id": "RG1-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.00088,
+          "2026H2": -0.00344
+        },
+        "lag1_effect": -0.001971,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG1-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.00088,
+          "2026H2": -0.00344
+        },
+        "lag1_effect": -0.001971,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 0,
+          "n_total": 20,
+          "pass": false
+        },
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG1-2": {
+      "desc": "fee60_ann 20 日 CUSUM 漂移",
+      "direction": 1,
+      "full144": {
+        "id": "RG1-2",
+        "key": "rg1b",
+        "direction": 1,
+        "pool": "full144",
+        "band": 0.005285,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": true,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": 14,
+              "E3": null
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 29,
+            "false_trig_total": 14,
+            "monthly": 0.847
+          },
+          "L4": {
+            "pass": false,
+            "effect": 3.6e-05,
+            "effect_z": 0.0114,
+            "ci95": [
+              -0.001881,
+              0.001781
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.0114,
+            "perm_median": 0.4603,
+            "threshold": 1.3809,
+            "n_perm": 1000,
+            "p_perm": 0.99,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.99
+      },
+      "old131": {
+        "id": "RG1-2",
+        "key": "rg1b",
+        "direction": 1,
+        "pool": "old131",
+        "band": 0.005285,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": true,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": 14,
+              "E3": null
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 29,
+            "false_trig_total": 14,
+            "monthly": 0.847
+          },
+          "L4": {
+            "pass": false,
+            "effect": 3.6e-05,
+            "effect_z": 0.0114,
+            "ci95": [
+              -0.001881,
+              0.001781
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.0114,
+            "perm_median": 0.4603,
+            "threshold": 1.3809,
+            "n_perm": 1000,
+            "p_perm": 0.99,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.99
+      },
+      "L3_full": {
+        "id": "RG1-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 0.003266,
+          "2026H2": -0.006273
+        },
+        "lag1_effect": -0.000209,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG1-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 0.003266,
+          "2026H2": -0.006273
+        },
+        "lag1_effect": -0.000209,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 19,
+          "n_total": 20,
+          "pass": true
+        },
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG1-3": {
+      "desc": "交易费/开桶日",
+      "direction": 1,
+      "full144": {
+        "id": "RG1-3",
+        "key": "rg1c",
+        "direction": 1,
+        "pool": "full144",
+        "band": 5.9e-05,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": true,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": 19,
+              "E3": null
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 28,
+            "false_trig_total": 15,
+            "monthly": 0.908
+          },
+          "L4": {
+            "pass": true,
+            "effect": 1.4e-05,
+            "effect_z": 0.5553,
+            "ci95": [
+              2e-06,
+              2.5e-05
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.5553,
+            "perm_median": 0.3964,
+            "threshold": 1.1893,
+            "n_perm": 1000,
+            "p_perm": 0.3287,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.3287
+      },
+      "old131": {
+        "id": "RG1-3",
+        "key": "rg1c",
+        "direction": 1,
+        "pool": "old131",
+        "band": 5.9e-05,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": true,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": 19,
+              "E3": null
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 28,
+            "false_trig_total": 15,
+            "monthly": 0.908
+          },
+          "L4": {
+            "pass": true,
+            "effect": 1.4e-05,
+            "effect_z": 0.5553,
+            "ci95": [
+              2e-06,
+              2.5e-05
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.5553,
+            "perm_median": 0.3964,
+            "threshold": 1.1893,
+            "n_perm": 1000,
+            "p_perm": 0.3287,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.3287
+      },
+      "L3_full": {
+        "id": "RG1-3",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 3.2e-05,
+          "2026H2": -2.3e-05
+        },
+        "lag1_effect": 1.1e-05,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG1-3",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 3.2e-05,
+          "2026H2": -2.3e-05
+        },
+        "lag1_effect": 1.1e-05,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": true,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 20,
+          "n_total": 20,
+          "pass": true
+        },
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG2-1": {
+      "desc": "turnover20 水平",
+      "direction": 1,
+      "full144": {
+        "id": "RG2-1",
+        "key": "rg2a",
+        "direction": 1,
+        "pool": "full144",
+        "band": 0.4,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": true,
+            "n1_hits": 0,
+            "false_trig_total": 0,
+            "monthly": 0.0
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.077145,
+            "effect_z": -0.8146,
+            "ci95": [
+              -0.088433,
+              -0.065811
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.8146,
+            "perm_median": 0.4924,
+            "threshold": 1.4773,
+            "n_perm": 1000,
+            "p_perm": 0.1439,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.1439
+      },
+      "old131": {
+        "id": "RG2-1",
+        "key": "rg2a",
+        "direction": 1,
+        "pool": "old131",
+        "band": 0.4,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": true,
+            "n1_hits": 0,
+            "false_trig_total": 0,
+            "monthly": 0.0
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.077145,
+            "effect_z": -0.8146,
+            "ci95": [
+              -0.088433,
+              -0.065811
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.8146,
+            "perm_median": 0.4924,
+            "threshold": 1.4773,
+            "n_perm": 1000,
+            "p_perm": 0.1439,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.1439
+      },
+      "L3_full": {
+        "id": "RG2-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.085657,
+          "2026H2": -0.053146
+        },
+        "lag1_effect": -0.073806,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG2-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.085657,
+          "2026H2": -0.053146
+        },
+        "lag1_effect": -0.073806,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": true,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 0,
+          "n_total": 20,
+          "pass": false
+        },
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG2-2": {
+      "desc": "换手一阶差分 Δ20",
+      "direction": 1,
+      "full144": {
+        "id": "RG2-2",
+        "key": "rg2b",
+        "direction": 1,
+        "pool": "full144",
+        "band": 0.127,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 1,
+            "false_trig_total": 40,
+            "monthly": 2.421
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.130964,
+            "effect_z": -1.2907,
+            "ci95": [
+              -0.177348,
+              -0.086628
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": true,
+            "effect_z": -1.2907,
+            "perm_median": 0.3871,
+            "threshold": 1.1612,
+            "n_perm": 1000,
+            "p_perm": 0.04,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.04
+      },
+      "old131": {
+        "id": "RG2-2",
+        "key": "rg2b",
+        "direction": 1,
+        "pool": "old131",
+        "band": 0.127,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 1,
+            "false_trig_total": 40,
+            "monthly": 2.421
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.130964,
+            "effect_z": -1.2907,
+            "ci95": [
+              -0.177348,
+              -0.086628
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": true,
+            "effect_z": -1.2907,
+            "perm_median": 0.3871,
+            "threshold": 1.1612,
+            "n_perm": 1000,
+            "p_perm": 0.04,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.04
+      },
+      "L3_full": {
+        "id": "RG2-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.16176,
+          "2026H2": -0.058313
+        },
+        "lag1_effect": -0.137244,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG2-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.16176,
+          "2026H2": -0.058313
+        },
+        "lag1_effect": -0.137244,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 0,
+          "n_total": 20,
+          "pass": false
+        },
+        "L6": true
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG3-1": {
+      "desc": "funding30 水平",
+      "direction": 1,
+      "full144": {
+        "id": "RG3-1",
+        "pool": "full144",
+        "status": "undecidable",
+        "reason": "RG3 数据源不可达（探针），禁备源估算顶替",
+        "revival": "RC-数据：交易所 API 回填落地后重测（W1 复活条件①）"
+      },
+      "old131": {
+        "id": "RG3-1",
+        "pool": "old131",
+        "status": "undecidable",
+        "reason": "RG3 数据源不可达（探针），禁备源估算顶替",
+        "revival": "RC-数据：交易所 API 回填落地后重测（W1 复活条件①）"
+      },
+      "L3_full": {
+        "id": "RG3-1",
+        "year_effects": {},
+        "lag1_effect": null,
+        "no_flip": false,
+        "undecidable": true
+      },
+      "L3_old": {
+        "id": "RG3-1",
+        "year_effects": {},
+        "lag1_effect": null,
+        "no_flip": false,
+        "undecidable": true
+      },
+      "verdict": "UNDECIDABLE",
+      "revival": "RC-数据：交易所 API 回填落地后重测（W1 复活条件①）"
+    },
+    "RG3-2": {
+      "desc": "funding30 跳变（30d vs 前30d）",
+      "direction": 1,
+      "full144": {
+        "id": "RG3-2",
+        "pool": "full144",
+        "status": "undecidable",
+        "reason": "RG3 数据源不可达（探针），禁备源估算顶替",
+        "revival": "RC-数据：交易所 API 回填落地后重测（W1 复活条件①）"
+      },
+      "old131": {
+        "id": "RG3-2",
+        "pool": "old131",
+        "status": "undecidable",
+        "reason": "RG3 数据源不可达（探针），禁备源估算顶替",
+        "revival": "RC-数据：交易所 API 回填落地后重测（W1 复活条件①）"
+      },
+      "L3_full": {
+        "id": "RG3-2",
+        "year_effects": {},
+        "lag1_effect": null,
+        "no_flip": false,
+        "undecidable": true
+      },
+      "L3_old": {
+        "id": "RG3-2",
+        "year_effects": {},
+        "lag1_effect": null,
+        "no_flip": false,
+        "undecidable": true
+      },
+      "verdict": "UNDECIDABLE",
+      "revival": "RC-数据：交易所 API 回填落地后重测（W1 复活条件①）"
+    },
+    "RG4-1": {
+      "desc": "Δbreadth5（崩塌速度，下向）",
+      "direction": -1,
+      "full144": {
+        "id": "RG4-1",
+        "key": "rg4a",
+        "direction": -1,
+        "pool": "full144",
+        "band": -11.388889,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 39,
+            "monthly": 2.36
+          },
+          "L4": {
+            "pass": false,
+            "effect": 1.436581,
+            "effect_z": 0.1204,
+            "ci95": [
+              -0.113071,
+              2.953238
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.1204,
+            "perm_median": 0.179,
+            "threshold": 0.5371,
+            "n_perm": 1000,
+            "p_perm": 0.6264,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.6264
+      },
+      "old131": {
+        "id": "RG4-1",
+        "key": "rg4a",
+        "direction": -1,
+        "pool": "old131",
+        "band": -12.21374,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 34,
+            "monthly": 2.058
+          },
+          "L4": {
+            "pass": false,
+            "effect": 1.154756,
+            "effect_z": 0.0896,
+            "ci95": [
+              -0.4997,
+              2.778607
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.0896,
+            "perm_median": 0.1753,
+            "threshold": 0.5258,
+            "n_perm": 1000,
+            "p_perm": 0.7143,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.7143
+      },
+      "L3_full": {
+        "id": "RG4-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -2.226988,
+          "2026H2": 0.243886
+        },
+        "lag1_effect": -1.377257,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG4-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -2.060695,
+          "2026H2": 0.724278
+        },
+        "lag1_effect": -1.066017,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_price_ok": 0,
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG4-2": {
+      "desc": "Δbreadth20",
+      "direction": -1,
+      "full144": {
+        "id": "RG4-2",
+        "key": "rg4b",
+        "direction": -1,
+        "pool": "full144",
+        "band": -29.027778,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 32,
+            "monthly": 1.937
+          },
+          "L4": {
+            "pass": false,
+            "effect": 2.560953,
+            "effect_z": 0.159,
+            "ci95": [
+              -0.240261,
+              5.272718
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.159,
+            "perm_median": 0.357,
+            "threshold": 1.0711,
+            "n_perm": 1000,
+            "p_perm": 0.7592,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.7592
+      },
+      "old131": {
+        "id": "RG4-2",
+        "key": "rg4b",
+        "direction": -1,
+        "pool": "old131",
+        "band": -31.908397,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 31,
+            "monthly": 1.876
+          },
+          "L4": {
+            "pass": false,
+            "effect": 2.633907,
+            "effect_z": 0.1524,
+            "ci95": [
+              -0.461452,
+              5.540364
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.1524,
+            "perm_median": 0.355,
+            "threshold": 1.0649,
+            "n_perm": 1000,
+            "p_perm": 0.7712,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.7712
+      },
+      "L3_full": {
+        "id": "RG4-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -6.201321,
+          "2026H2": 4.79067
+        },
+        "lag1_effect": -1.938396,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG4-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -6.9069,
+          "2026H2": 5.959677
+        },
+        "lag1_effect": -2.048921,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_price_ok": 0,
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG4-3": {
+      "desc": "Δ5 连续为负天数",
+      "direction": 1,
+      "full144": {
+        "id": "RG4-3",
+        "key": "rg4c",
+        "direction": 1,
+        "pool": "full144",
+        "band": 5.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": true
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": 20
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 38,
+            "monthly": 2.3
+          },
+          "L4": {
+            "pass": false,
+            "effect": -1.131658,
+            "effect_z": -0.388,
+            "ci95": [
+              -1.738932,
+              -0.397085
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.388,
+            "perm_median": 0.2585,
+            "threshold": 0.7755,
+            "n_perm": 1000,
+            "p_perm": 0.2907,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.2907
+      },
+      "old131": {
+        "id": "RG4-3",
+        "key": "rg4c",
+        "direction": 1,
+        "pool": "old131",
+        "band": 5.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": true
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": 20
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 37,
+            "monthly": 2.239
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.957454,
+            "effect_z": -0.3291,
+            "ci95": [
+              -1.599552,
+              -0.220281
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.3291,
+            "perm_median": 0.2558,
+            "threshold": 0.7674,
+            "n_perm": 1000,
+            "p_perm": 0.3726,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.3726
+      },
+      "L3_full": {
+        "id": "RG4-3",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -1.733333,
+          "2026H2": 0.151196
+        },
+        "lag1_effect": -0.927303,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG4-3",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -1.47598,
+          "2026H2": 0.146411
+        },
+        "lag1_effect": -0.753099,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG5-1": {
+      "desc": "div20 水平（顶背离）",
+      "direction": 1,
+      "full144": {
+        "id": "RG5-1",
+        "key": "rg5a",
+        "direction": 1,
+        "pool": "full144",
+        "band": 1.799407,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": true,
+            "hits": {
+              "E1": true,
+              "E2": true,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": 17,
+              "E2": 29,
+              "E3": null
+            },
+            "n_hit": 2,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 25,
+            "false_trig_total": 11,
+            "monthly": 0.666
+          },
+          "L4": {
+            "pass": true,
+            "effect": 1.775586,
+            "effect_z": 1.3473,
+            "ci95": [
+              1.218942,
+              2.375353
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": true,
+            "effect_z": 1.3473,
+            "perm_median": 0.4122,
+            "threshold": 1.2367,
+            "n_perm": 1000,
+            "p_perm": 0.016,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.016
+      },
+      "old131": {
+        "id": "RG5-1",
+        "key": "rg5a",
+        "direction": 1,
+        "pool": "old131",
+        "band": 1.701361,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": true,
+            "hits": {
+              "E1": true,
+              "E2": true,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": 23,
+              "E2": 29,
+              "E3": null
+            },
+            "n_hit": 2,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 25,
+            "false_trig_total": 12,
+            "monthly": 0.726
+          },
+          "L4": {
+            "pass": true,
+            "effect": 1.748146,
+            "effect_z": 1.3277,
+            "ci95": [
+              1.201419,
+              2.346964
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": true,
+            "effect_z": 1.3277,
+            "perm_median": 0.4016,
+            "threshold": 1.2049,
+            "n_perm": 1000,
+            "p_perm": 0.018,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.018
+      },
+      "L3_full": {
+        "id": "RG5-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 2.520593,
+          "2026H2": 0.151306
+        },
+        "lag1_effect": 1.736335,
+        "no_flip": true
+      },
+      "L3_old": {
+        "id": "RG5-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 2.449691,
+          "2026H2": 0.211336
+        },
+        "lag1_effect": 1.717587,
+        "no_flip": true
+      },
+      "legs": {
+        "L1": true,
+        "L2": false,
+        "L3": true,
+        "L4": true,
+        "L5": false,
+        "_loto_price_ok": 20,
+        "L6": true
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L2",
+        "L5"
+      ],
+      "revival": "RC-结构：影子期实测分布显示判线前提失真，须新工单重立判线（禁止就地放宽）"
+    },
+    "RG5-2": {
+      "desc": "二元顶背离标记",
+      "direction": 1,
+      "full144": {
+        "id": "RG5-2",
+        "key": "rg5b",
+        "direction": 1,
+        "pool": "full144",
+        "band": 1.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": true,
+            "n1_hits": 0,
+            "false_trig_total": 0,
+            "monthly": 0.0
+          },
+          "L4": {
+            "pass": true,
+            "effect": 0.463149,
+            "effect_z": 1.0895,
+            "ci95": [
+              0.278224,
+              0.630515
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": true,
+            "effect_z": 1.0895,
+            "perm_median": 0.3298,
+            "threshold": 0.9895,
+            "n_perm": 1000,
+            "p_perm": 0.026,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.026
+      },
+      "old131": {
+        "id": "RG5-2",
+        "key": "rg5b",
+        "direction": 1,
+        "pool": "old131",
+        "band": 1.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": true,
+            "n1_hits": 0,
+            "false_trig_total": 0,
+            "monthly": 0.0
+          },
+          "L4": {
+            "pass": true,
+            "effect": 0.485762,
+            "effect_z": 1.1811,
+            "ci95": [
+              0.306533,
+              0.655641
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": true,
+            "effect_z": 1.1811,
+            "perm_median": 0.3594,
+            "threshold": 1.0782,
+            "n_perm": 1000,
+            "p_perm": 0.027,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.027
+      },
+      "L3_full": {
+        "id": "RG5-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 0.801471,
+          "2026H2": -0.241627
+        },
+        "lag1_effect": 0.463149,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG5-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 0.823529,
+          "2026H2": -0.220096
+        },
+        "lag1_effect": 0.485762,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": true,
+        "L3": false,
+        "L4": true,
+        "L5": false,
+        "_loto_price_ok": 20,
+        "L6": true
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L3",
+        "L5"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG6-1": {
+      "desc": "stop_cnt60 密度水平",
+      "direction": 1,
+      "full144": {
+        "id": "RG6-1",
+        "key": "rg6a",
+        "direction": 1,
+        "pool": "full144",
+        "band": 18.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 25,
+            "monthly": 1.513
+          },
+          "L4": {
+            "pass": false,
+            "effect": -3.70804,
+            "effect_z": -0.7446,
+            "ci95": [
+              -4.550963,
+              -2.842831
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.7446,
+            "perm_median": 0.4573,
+            "threshold": 1.372,
+            "n_perm": 1000,
+            "p_perm": 0.2537,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.2537
+      },
+      "old131": {
+        "id": "RG6-1",
+        "key": "rg6a",
+        "direction": 1,
+        "pool": "old131",
+        "band": 18.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 0,
+            "false_trig_total": 25,
+            "monthly": 1.513
+          },
+          "L4": {
+            "pass": false,
+            "effect": -3.70804,
+            "effect_z": -0.7446,
+            "ci95": [
+              -4.550963,
+              -2.842831
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.7446,
+            "perm_median": 0.4573,
+            "threshold": 1.372,
+            "n_perm": 1000,
+            "p_perm": 0.2537,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.2537
+      },
+      "L3_full": {
+        "id": "RG6-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -5.085784,
+          "2026H2": -0.663636
+        },
+        "lag1_effect": -3.647069,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG6-1",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -5.085784,
+          "2026H2": -0.663636
+        },
+        "lag1_effect": -3.647069,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 0,
+          "n_total": 20,
+          "pass": false
+        },
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG6-2": {
+      "desc": "密度一阶差分/加速度",
+      "direction": 1,
+      "full144": {
+        "id": "RG6-2",
+        "key": "rg6b",
+        "direction": 1,
+        "pool": "full144",
+        "band": 1.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": true,
+            "n1_hits": 0,
+            "false_trig_total": 12,
+            "monthly": 0.726
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.060972,
+            "effect_z": -0.0835,
+            "ci95": [
+              -0.167169,
+              0.027638
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.0835,
+            "perm_median": 0.1324,
+            "threshold": 0.3973,
+            "n_perm": 1000,
+            "p_perm": 0.6693,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.6693
+      },
+      "old131": {
+        "id": "RG6-2",
+        "key": "rg6b",
+        "direction": 1,
+        "pool": "old131",
+        "band": 1.0,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": false,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": null,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 0,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": true,
+            "n1_hits": 0,
+            "false_trig_total": 12,
+            "monthly": 0.726
+          },
+          "L4": {
+            "pass": false,
+            "effect": -0.060972,
+            "effect_z": -0.0835,
+            "ci95": [
+              -0.167169,
+              0.027638
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": -0.0835,
+            "perm_median": 0.1324,
+            "threshold": 0.3973,
+            "n_perm": 1000,
+            "p_perm": 0.6693,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.6693
+      },
+      "L3_full": {
+        "id": "RG6-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.02451,
+          "2026H2": -0.126316
+        },
+        "lag1_effect": -0.060972,
+        "no_flip": false
+      },
+      "L3_old": {
+        "id": "RG6-2",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": -0.02451,
+          "2026H2": -0.126316
+        },
+        "lag1_effect": -0.060972,
+        "no_flip": false
+      },
+      "legs": {
+        "L1": false,
+        "L2": true,
+        "L3": false,
+        "L4": false,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 0,
+          "n_total": 20,
+          "pass": false
+        },
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    },
+    "RG6-3": {
+      "desc": "stop_pnl60 深度",
+      "direction": 1,
+      "full144": {
+        "id": "RG6-3",
+        "key": "rg6c",
+        "direction": 1,
+        "pool": "full144",
+        "band": -0.008,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": true,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": 25,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 4,
+            "false_trig_total": 4,
+            "monthly": 0.242
+          },
+          "L4": {
+            "pass": true,
+            "effect": 0.009547,
+            "effect_z": 0.8493,
+            "ci95": [
+              0.007693,
+              0.011317
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.8493,
+            "perm_median": 0.4444,
+            "threshold": 1.3331,
+            "n_perm": 1000,
+            "p_perm": 0.1898,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.1898
+      },
+      "old131": {
+        "id": "RG6-3",
+        "key": "rg6c",
+        "direction": 1,
+        "pool": "old131",
+        "band": -0.008,
+        "status": "ok",
+        "legs": {
+          "L1": {
+            "pass": false,
+            "hits": {
+              "E1": true,
+              "E2": false,
+              "E3": false
+            },
+            "lead_days": {
+              "E1": 25,
+              "E2": null,
+              "E3": null
+            },
+            "n_hit": 1,
+            "need": "≥2/3"
+          },
+          "L2": {
+            "pass": false,
+            "n1_hits": 4,
+            "false_trig_total": 4,
+            "monthly": 0.242
+          },
+          "L4": {
+            "pass": true,
+            "effect": 0.009547,
+            "effect_z": 0.8493,
+            "ci95": [
+              0.007693,
+              0.011317
+            ],
+            "B": 2000,
+            "seed": 42
+          },
+          "L6": {
+            "pass": false,
+            "effect_z": 0.8493,
+            "perm_median": 0.4444,
+            "threshold": 1.3331,
+            "n_perm": 1000,
+            "p_perm": 0.1898,
+            "seed": 42
+          }
+        },
+        "p_perm": 0.1898
+      },
+      "L3_full": {
+        "id": "RG6-3",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 0.012306,
+          "2026H2": 0.003246
+        },
+        "lag1_effect": 0.009407,
+        "no_flip": true
+      },
+      "L3_old": {
+        "id": "RG6-3",
+        "year_effects": {
+          "2025H2": null,
+          "2026H1": 0.012306,
+          "2026H2": 0.003246
+        },
+        "lag1_effect": 0.009407,
+        "no_flip": true
+      },
+      "legs": {
+        "L1": false,
+        "L2": false,
+        "L3": true,
+        "L4": false,
+        "L5": false,
+        "_loto_replay": {
+          "n_ok_dir": 0,
+          "n_total": 20,
+          "pass": false
+        },
+        "L6": false
+      },
+      "verdict": "DEAD",
+      "fail_legs": [
+        "L1",
+        "L2",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "revival": "RC-事件：下一真实变脸事件（E4+，A2 刷新配额内）加数据再判"
+    }
+  },
+  "data_limits": [
+    "RG2 换手=开桶日成分变动率【推断】口径（引擎无 qty 明细）",
+    "old131 双池对回放域读数（RG1/RG2/RG6）共用 144 回放序列，双池同向检验仅对价格域（RG4/RG5）逐位重算",
+    "RG3 资金费：探针不可达 → 不可判定"
+  ],
+  "r7_tags": "价格域读数【实证】；RG2 口径【推断】；RG3 状态【实证-探针】+结论【不可判定】"
+}
