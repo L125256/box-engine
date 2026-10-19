@@ -1,0 +1,34 @@
+{
+ "ts": "2026-10-20 05:10:50",
+ "spec": "K1P70_SPEC_v1（2026-10-20 预注册冻结）",
+ "judgment_line": "§3 冻结：①净差为正 ΔA>ΔC ∧ ②双池同向 ∧ ③分年不翻脸；④p75 只算不裁；无中间态",
+ "money_caliber": "名义 100 万、费后、单位万元（_OPS2）；主判线=现行费率臂，×1.5 费压臂伴行（grid[].fee15）",
+ "p70_vs_p80": {
+  "old131": {
+   "dA_wan": -5.5547,
+   "dC_wan": -84.6175,
+   "net_wan": 79.0628
+  },
+  "full144": {
+   "dA_wan": -14.6197,
+   "dC_wan": 4.5811,
+   "net_wan": -19.2008
+  }
+ },
+ "conditions": {
+  "cond1_net_positive": false,
+  "cond2_dual_pool_same_direction": false,
+  "cond3_yearly_no_flip": false,
+  "negative_years": {
+   "2025|old131": -0.0048,
+   "2025|full144": -0.0034,
+   "2026|full144": -19.1974
+  },
+  "cond4_p75_computed_not_judged": "p75 同法已算（交换曲线完整性），本工单只裁 p70 vs p80（§3-4，只算不裁）"
+ },
+ "verdict": "p70 不优于 p80，维持 p80 锚",
+ "verdict_nature": "无中间态（§3）；结果入册（负结果同权）；不触发任何 F1/部署改动（拒绝清单③）；p70 谱系 MAP-INVALID 标记不混写（性质声明）",
+ "sealed": true,
+ "sealed_at": "2026-10-20 05:10:50",
+ "r10_note": "本深化产出不改部署姿态（R10）"
+}

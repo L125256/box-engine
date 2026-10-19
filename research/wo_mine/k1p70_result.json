@@ -1,0 +1,585 @@
+{
+ "ts": "2026-10-20 05:10:50",
+ "spec": "K1P70_SPEC_v1（2026-10-20 预注册冻结）",
+ "runtime_sec": 26.1,
+ "thresholds_frozen": {
+  "p80_from_domains_anchors": {
+   "old131": 1.0359095406560563,
+   "full144": 1.2266534247386358
+  },
+  "p70_from_batch3_frozen": {
+   "old131": 0.219964,
+   "full144": 0.223697
+  },
+  "p75_computed_this_run_LN_REALA_q075": {
+   "old131": 0.925061,
+   "full144": 1.102614
+  },
+  "p75_freeze_note": "先落盘后回放（同 batch3 p70 先例）"
+ },
+ "d0": {
+  "ran_at": "2026-10-20 05:10:50",
+  "checks": [
+   {
+    "name": "replay_K1-d-gate-vol20p70-pause_vs_FACTBOOK_BATCH3.jsonl",
+    "pools": {
+     "old131": {
+      "replay_avoid": 128.2103,
+      "replay_mdd_red": 13.04,
+      "ref_avoid": 128.2103,
+      "ref_mdd_red": 13.04,
+      "verdict": "hit"
+     },
+     "full144": {
+      "replay_avoid": 100.7821,
+      "replay_mdd_red": 19.46,
+      "ref_avoid": 100.7821,
+      "ref_mdd_red": 19.46,
+      "verdict": "hit"
+     }
+    },
+    "verdict": "hit"
+   },
+   {
+    "name": "replay_K1-d-gate-vol20p80-pause_vs_FACTBOOK_BATCH1.jsonl",
+    "pools": {
+     "old131": {
+      "replay_avoid": -8.7673,
+      "replay_mdd_red": 49.08,
+      "ref_avoid": -8.7673,
+      "ref_mdd_red": 49.08,
+      "verdict": "hit"
+     },
+     "full144": {
+      "replay_avoid": 189.6599,
+      "replay_mdd_red": 27.9,
+      "ref_avoid": 189.6599,
+      "ref_mdd_red": 27.9,
+      "verdict": "hit"
+     }
+    },
+    "verdict": "hit"
+   }
+  ],
+  "all_pass": true
+ },
+ "grid": [
+  {
+   "pool": "old131",
+   "tier": "p70",
+   "threshold": 0.219964,
+   "avoid_pp": 128.2103,
+   "mdd_red_pct": 13.04,
+   "n_off_exec_days": 237,
+   "A_wan": 0.0,
+   "C_wan": -64.566,
+   "net_vs_base_wan": 64.566,
+   "fee15": {
+    "avoid_pp": 127.9448,
+    "mdd_red_pct": 15.04,
+    "A_wan": 0.0,
+    "C_wan": -65.5491
+   },
+   "off_expand_vs_p80_days": 82
+  },
+  {
+   "pool": "old131",
+   "tier": "p75",
+   "threshold": 0.925061,
+   "avoid_pp": 111.2115,
+   "mdd_red_pct": 11.04,
+   "n_off_exec_days": 177,
+   "A_wan": 10.7336,
+   "C_wan": -48.9797,
+   "net_vs_base_wan": 59.7133,
+   "fee15": {
+    "avoid_pp": 110.0544,
+    "mdd_red_pct": 11.73,
+    "A_wan": 10.7798,
+    "C_wan": -49.8792
+   },
+   "off_expand_vs_p80_days": 22
+  },
+  {
+   "pool": "old131",
+   "tier": "p80",
+   "threshold": 1.03591,
+   "avoid_pp": -8.7673,
+   "mdd_red_pct": 49.08,
+   "n_off_exec_days": 155,
+   "A_wan": 5.5547,
+   "C_wan": 20.0515,
+   "net_vs_base_wan": -14.4968,
+   "fee15": {
+    "avoid_pp": -6.3021,
+    "mdd_red_pct": 50.23,
+    "A_wan": 5.6277,
+    "C_wan": 19.014
+   },
+   "off_expand_vs_p80_days": 0
+  },
+  {
+   "pool": "full144",
+   "tier": "p70",
+   "threshold": 0.223697,
+   "avoid_pp": 100.7821,
+   "mdd_red_pct": 19.46,
+   "n_off_exec_days": 237,
+   "A_wan": 0.0,
+   "C_wan": -53.1879,
+   "net_vs_base_wan": 53.1879,
+   "fee15": {
+    "avoid_pp": 101.3243,
+    "mdd_red_pct": 20.98,
+    "A_wan": 0.0,
+    "C_wan": -54.3599
+   },
+   "off_expand_vs_p80_days": 103
+  },
+  {
+   "pool": "full144",
+   "tier": "p75",
+   "threshold": 1.102614,
+   "avoid_pp": 128.8728,
+   "mdd_red_pct": 28.88,
+   "n_off_exec_days": 155,
+   "A_wan": 1.7782,
+   "C_wan": -60.9237,
+   "net_vs_base_wan": 62.7019,
+   "fee15": {
+    "avoid_pp": 125.6706,
+    "mdd_red_pct": 29.86,
+    "A_wan": 1.7845,
+    "C_wan": -61.2218
+   },
+   "off_expand_vs_p80_days": 21
+  },
+  {
+   "pool": "full144",
+   "tier": "p80",
+   "threshold": 1.226653,
+   "avoid_pp": 189.6599,
+   "mdd_red_pct": 27.9,
+   "n_off_exec_days": 134,
+   "A_wan": 14.6197,
+   "C_wan": -57.769,
+   "net_vs_base_wan": 72.3887,
+   "fee15": {
+    "avoid_pp": 184.2668,
+    "mdd_red_pct": 27.68,
+    "A_wan": 14.7034,
+    "C_wan": -57.957
+   },
+   "off_expand_vs_p80_days": 0
+  }
+ ],
+ "episodes": {
+  "old131|p70": [
+   {
+    "t0": "2025-11-06",
+    "t1": "2025-11-07",
+    "year": 2025,
+    "side": "cost",
+    "base_ret_pp": 1.5957,
+    "arm_ret_pp": 1.5957,
+    "delta_pp": 0.0,
+    "money_wan": -0.0
+   },
+   {
+    "t0": "2025-11-20",
+    "t1": "2025-11-21",
+    "year": 2025,
+    "side": "cost",
+    "base_ret_pp": 0.6859,
+    "arm_ret_pp": 0.6859,
+    "delta_pp": 0.0,
+    "money_wan": -0.0
+   },
+   {
+    "t0": "2025-11-24",
+    "t1": "2025-12-04",
+    "year": 2025,
+    "side": "cost",
+    "base_ret_pp": 3.3753,
+    "arm_ret_pp": 3.3705,
+    "delta_pp": -0.0048,
+    "money_wan": -0.0048
+   },
+   {
+    "t0": "2026-01-31",
+    "t1": "2026-09-13",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 11.293,
+    "arm_ret_pp": 75.8638,
+    "delta_pp": 64.5708,
+    "money_wan": 64.5708
+   },
+   {
+    "t0": "2026-10-14",
+    "t1": "2026-10-17",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.7756,
+    "arm_ret_pp": -0.7756,
+    "delta_pp": 0.0,
+    "money_wan": 0.0
+   }
+  ],
+  "old131|p75": [
+   {
+    "t0": "2026-01-31",
+    "t1": "2026-02-22",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -3.5033,
+    "arm_ret_pp": 8.7848,
+    "delta_pp": 12.2882,
+    "money_wan": 12.2882
+   },
+   {
+    "t0": "2026-02-23",
+    "t1": "2026-03-20",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -5.4958,
+    "arm_ret_pp": -7.318,
+    "delta_pp": -1.8222,
+    "money_wan": -1.8222
+   },
+   {
+    "t0": "2026-03-21",
+    "t1": "2026-03-22",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.0132,
+    "arm_ret_pp": -0.0161,
+    "delta_pp": -0.0029,
+    "money_wan": -0.0029
+   },
+   {
+    "t0": "2026-03-23",
+    "t1": "2026-07-23",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 25.3399,
+    "arm_ret_pp": 74.5543,
+    "delta_pp": 49.2144,
+    "money_wan": 49.2144
+   },
+   {
+    "t0": "2026-07-24",
+    "t1": "2026-07-26",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 0.1325,
+    "arm_ret_pp": 0.0,
+    "delta_pp": -0.1325,
+    "money_wan": -0.1325
+   },
+   {
+    "t0": "2026-07-27",
+    "t1": "2026-07-31",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 0.1022,
+    "arm_ret_pp": 0.0,
+    "delta_pp": -0.1022,
+    "money_wan": -0.1022
+   },
+   {
+    "t0": "2026-08-01",
+    "t1": "2026-08-02",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.2705,
+    "arm_ret_pp": 0.0,
+    "delta_pp": 0.2705,
+    "money_wan": 0.2705
+   }
+  ],
+  "old131|p80": [
+   {
+    "t0": "2026-01-31",
+    "t1": "2026-02-22",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -3.5033,
+    "arm_ret_pp": 8.7848,
+    "delta_pp": 12.2882,
+    "money_wan": 12.2882
+   },
+   {
+    "t0": "2026-02-28",
+    "t1": "2026-03-13",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -7.2942,
+    "arm_ret_pp": -15.0743,
+    "delta_pp": -7.7801,
+    "money_wan": -7.7801
+   },
+   {
+    "t0": "2026-03-14",
+    "t1": "2026-03-15",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.013,
+    "arm_ret_pp": -0.004,
+    "delta_pp": 0.009,
+    "money_wan": 0.009
+   },
+   {
+    "t0": "2026-03-21",
+    "t1": "2026-03-22",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.0132,
+    "arm_ret_pp": -0.0151,
+    "delta_pp": -0.0019,
+    "money_wan": -0.0019
+   },
+   {
+    "t0": "2026-03-23",
+    "t1": "2026-04-10",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 3.3349,
+    "arm_ret_pp": -6.1571,
+    "delta_pp": -9.4921,
+    "money_wan": -9.4921
+   },
+   {
+    "t0": "2026-04-11",
+    "t1": "2026-07-17",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 24.1924,
+    "arm_ret_pp": 13.633,
+    "delta_pp": -10.5594,
+    "money_wan": -10.5594
+   },
+   {
+    "t0": "2026-07-18",
+    "t1": "2026-07-19",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.0437,
+    "arm_ret_pp": 0.0,
+    "delta_pp": 0.0437,
+    "money_wan": 0.0437
+   },
+   {
+    "t0": "2026-07-20",
+    "t1": "2026-07-22",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.9958,
+    "arm_ret_pp": 0.0,
+    "delta_pp": 0.9958,
+    "money_wan": 0.9958
+   }
+  ],
+  "full144|p70": [
+   {
+    "t0": "2025-11-06",
+    "t1": "2025-11-07",
+    "year": 2025,
+    "side": "cost",
+    "base_ret_pp": 1.6087,
+    "arm_ret_pp": 1.6087,
+    "delta_pp": -0.0,
+    "money_wan": -0.0
+   },
+   {
+    "t0": "2025-11-20",
+    "t1": "2025-11-21",
+    "year": 2025,
+    "side": "cost",
+    "base_ret_pp": 0.6928,
+    "arm_ret_pp": 0.6928,
+    "delta_pp": 0.0,
+    "money_wan": -0.0
+   },
+   {
+    "t0": "2025-11-24",
+    "t1": "2025-12-04",
+    "year": 2025,
+    "side": "cost",
+    "base_ret_pp": 3.3521,
+    "arm_ret_pp": 3.3487,
+    "delta_pp": -0.0034,
+    "money_wan": -0.0034
+   },
+   {
+    "t0": "2026-01-31",
+    "t1": "2026-09-13",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 22.6828,
+    "arm_ret_pp": 75.874,
+    "delta_pp": 53.1913,
+    "money_wan": 53.1913
+   },
+   {
+    "t0": "2026-10-14",
+    "t1": "2026-10-17",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.0127,
+    "arm_ret_pp": -0.0127,
+    "delta_pp": 0.0,
+    "money_wan": 0.0
+   }
+  ],
+  "full144|p75": [
+   {
+    "t0": "2026-01-31",
+    "t1": "2026-03-20",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -7.3817,
+    "arm_ret_pp": 0.4572,
+    "delta_pp": 7.8389,
+    "money_wan": 7.8389
+   },
+   {
+    "t0": "2026-03-21",
+    "t1": "2026-03-22",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.0524,
+    "arm_ret_pp": -0.0161,
+    "delta_pp": 0.0363,
+    "money_wan": 0.0363
+   },
+   {
+    "t0": "2026-03-23",
+    "t1": "2026-03-29",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -3.894,
+    "arm_ret_pp": -10.0285,
+    "delta_pp": -6.1345,
+    "money_wan": -6.1345
+   },
+   {
+    "t0": "2026-03-30",
+    "t1": "2026-04-03",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 1.8997,
+    "arm_ret_pp": 7.905,
+    "delta_pp": 6.0054,
+    "money_wan": 6.0054
+   },
+   {
+    "t0": "2026-04-11",
+    "t1": "2026-07-12",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 32.5125,
+    "arm_ret_pp": 87.4308,
+    "delta_pp": 54.9183,
+    "money_wan": 54.9183
+   },
+   {
+    "t0": "2026-07-13",
+    "t1": "2026-07-17",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -0.0375,
+    "arm_ret_pp": 0.0,
+    "delta_pp": 0.0375,
+    "money_wan": 0.0375
+   }
+  ],
+  "full144|p80": [
+   {
+    "t0": "2026-01-31",
+    "t1": "2026-02-22",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -3.5037,
+    "arm_ret_pp": 8.7862,
+    "delta_pp": 12.2899,
+    "money_wan": 12.2899
+   },
+   {
+    "t0": "2026-02-23",
+    "t1": "2026-03-15",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -4.2891,
+    "arm_ret_pp": -7.8348,
+    "delta_pp": -3.5457,
+    "money_wan": -3.5457
+   },
+   {
+    "t0": "2026-03-23",
+    "t1": "2026-03-27",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -3.8723,
+    "arm_ret_pp": -1.1021,
+    "delta_pp": 2.7702,
+    "money_wan": 2.7702
+   },
+   {
+    "t0": "2026-04-11",
+    "t1": "2026-07-05",
+    "year": 2026,
+    "side": "cost",
+    "base_ret_pp": 38.7281,
+    "arm_ret_pp": 96.4971,
+    "delta_pp": 57.769,
+    "money_wan": 57.769
+   },
+   {
+    "t0": "2026-07-06",
+    "t1": "2026-07-09",
+    "year": 2026,
+    "side": "avoid",
+    "base_ret_pp": -3.1053,
+    "arm_ret_pp": 0.0,
+    "delta_pp": 3.1053,
+    "money_wan": 3.1053
+   }
+  ]
+ },
+ "episodes_note": "_OPS1/_OPS2：episode=执行日读门信号连续段（FULL 窗内）；段收益=段首前一交易日收盘→段末日收盘（费后）；money 单位=万元（名义 100 万×1pp）；episode 明细全量入册",
+ "yearly_net": {
+  "2025": {
+   "old131": {
+    "A70_wan": 0,
+    "C70_wan": 0.0048,
+    "A80_wan": 0,
+    "C80_wan": 0,
+    "net_70vs80_wan": -0.0048
+   },
+   "full144": {
+    "A70_wan": 0,
+    "C70_wan": 0.0034,
+    "A80_wan": 0,
+    "C80_wan": 0,
+    "net_70vs80_wan": -0.0034
+   }
+  },
+  "2026": {
+   "old131": {
+    "A70_wan": 0.0,
+    "C70_wan": -64.5708,
+    "A80_wan": 5.5547,
+    "C80_wan": 20.0515,
+    "net_70vs80_wan": 79.0676
+   },
+   "full144": {
+    "A70_wan": 0.0,
+    "C70_wan": -53.1913,
+    "A80_wan": 14.6197,
+    "C80_wan": -57.769,
+    "net_70vs80_wan": -19.1974
+   }
+  }
+ }
+}

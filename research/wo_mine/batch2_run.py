@@ -393,7 +393,11 @@ def run_q1(win, smoke):
         rows += r1_ + [f_full_row(vid, 'Q1', ic, sp_day, 'FULL', nt)]
         if not smoke:
             rc = ic[ic.index >= REALC[0]]
-            rows.append(f_full_row(vid, 'Q1', ic, sp_day, 'REALC', nt))
+            # REALC 传参修复（SHADOW_SPEC_v1 §5 随工单，登记级）：原 396 行误传 ic——
+            # rc 已算未用，REALC 行实为全窗重贴；改显式传 REALC 窗序列（默认值不动），
+            # 价差列同步限 REALC 窗保单窗口径（重落 FACTBOOK_BATCH2.REALC 行）。
+            sp_rc = sp_day[sp_day.index >= REALC[0]] if len(sp_day) else sp_day
+            rows.append(f_full_row(vid, 'Q1', rc, sp_rc, 'REALC', nt))
             plc = B1.placebo_factor(ic)
             detail[vid] = {'placebo': plc, 't_full': MC.tstat(ic)[0], 'n_full': int(len(ic))}
             if plc['map_invalid']:
@@ -455,7 +459,9 @@ def run_q3(win, smoke):
         rows += r1_ + [f_full_row(vid, 'Q3', ic, sp_day, 'FULL', nt)]
         if not smoke:
             rc = ic[ic.index >= REALC[0]]
-            rows.append(f_full_row(vid, 'Q3', ic, sp_day, 'REALC', nt))
+            # REALC 传参修复（同 Q1，登记级）：原 458 行误传 ic，改显式传 rc。
+            sp_rc = sp_day[sp_day.index >= REALC[0]] if len(sp_day) else sp_day
+            rows.append(f_full_row(vid, 'Q3', rc, sp_rc, 'REALC', nt))
             plc = B1.placebo_factor(ic)
             detail[vid] = {'placebo': plc, 't_full': MC.tstat(ic)[0], 'n_full': int(len(ic))}
             if plc['map_invalid']:
@@ -526,7 +532,9 @@ def run_q4(win, smoke):
         rows += r1_ + [f_full_row(vid, 'Q4', ic, sp_day, 'FULL', nt)]
         if not smoke:
             rc = ic[ic.index >= REALC[0]]
-            rows.append(f_full_row(vid, 'Q4', ic, sp_day, 'REALC', nt))
+            # REALC 传参修复（同 Q1，登记级）：原 529 行（工单行号 518，审计修正后漂移）误传 ic。
+            sp_rc = sp_day[sp_day.index >= REALC[0]] if len(sp_day) else sp_day
+            rows.append(f_full_row(vid, 'Q4', rc, sp_rc, 'REALC', nt))
             plc = B1.placebo_factor(ic)
             detail[vid] = {'placebo': plc, 't_full': MC.tstat(ic)[0], 'n_full': int(len(ic))}
             if plc['map_invalid']:

@@ -1079,6 +1079,15 @@ def main():
                             '--auto'], timeout=1800, check=False)
         except Exception as _fe:  # 挂接旁路：任何异常只登记，不影响 live 输出
             print(f'forward_readout 挂接异常（不阻断）: {_fe}')
+        # SHADOW_SPEC_v1 §6-2 四胜任格影子计数器（S1-S3 因子格/S4 换门事件格）：
+        # 判定轮数据落盘后自动执行；只读+旁路落盘，不改引擎语义（异常不阻断判定轮）。
+        try:
+            import subprocess
+            subprocess.run([sys.executable,
+                            '/workspace/repo_ready/research/wo_mine/shadow_cells.py',
+                            '--auto'], timeout=1800, check=False)
+        except Exception as _se:  # 挂接旁路：任何异常只登记，不影响 live 输出
+            print(f'shadow_cells 挂接异常（不阻断）: {_se}')
     elif mode == 'snapshot':
         # WO-R13-03 只读盘中快照：--round {20:30|00:30|04:30}
         rnd = sys.argv[sys.argv.index('--round') + 1] if '--round' in sys.argv else '20:30'
