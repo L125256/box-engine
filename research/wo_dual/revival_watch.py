@@ -43,7 +43,22 @@ RV-6 触发器：
   T1 新数据段满 20 交易日（池日历 last_seen_data_tail 之后新增交易日 ≥20）；
   T2 复活哨兵命中（revival_sentinels.json：overseas_api_ok / new_funding_endpoint /
      shadow_seq_days≥20 任一为真）；
-  T3 realB 型段触发器（revival_sentinels.json.realb_like_segment.detected=true）。
+  T3 realB 型段触发器（revival_sentinels.json.realb_like_segment.detected=true）；
+  T4 混合锚触发器（TR-1..TR-5，Phase 2；规格=research/ADAPTIVE_TRADE9_v1.md §C3，
+     用户 L125256 2026-10-19「全部批准」）：只读 /workspace/repo_ready/f1/f1_live.json
+     的现行已算量（breakers 灯色 + meta.breadth），零新增信号口径，禁碰引擎：
+       TR-1 CB1 红灯（20 交易日净账 MDD ≤ −8%，现行口径 §一.12 实测极值 ×1.20）；
+       TR-2 CB2 红灯（止损闸冻结开新仓 20 交易日）；
+       TR-3 费线红灯（60 日费用年化 ≥4pp；最高优先级——R10 实证真凶=成本脸）；
+       TR-4 CB1/CB2/费线任一黄灯连续 2 个滚动窗口（黄线 −4%/−2.5pp/2pp，
+            连计存 state.tr4_yellow_streak，旧 state 缺字段自动补建）；
+       TR-5 meta.breadth.pct < 20（**TEMP 临时值标注**：breadth 2026-10-19 上线、
+            2026-12-18 前后按 P10×1.2 重标定；读数缺失/未上线时跳过不误报）。
+     命中语义=登记 REVIVAL_TRIGGER 事件（revival_events.jsonl 追加不覆盖，注明触发器
+     编号与当日读数）+ 下次审计从「月度」提前为「立即」（本轮即按同判线整表重审）；
+     **不自动复活任何死账、不改引擎、不动 CB 动作本身**（降档/冻结照旧由引擎自动执行，
+     触发器只加复审提醒层，判线不放宽）；TR 触发复审后 60 交易日冷却
+     （state.tr_cooldown_until，池日历计第 60 个交易日，池日历不可得时退化自然日并标注）。
   无触发时调用=只检状态不重审不落库（防台账噪声膨胀）。
 RV-7 证据源（数据驱动重审时）：A 类证据=coverage_grades.json 当前冻结台账
   （其本身为常设重标定件——影子≥20 日自动重算上限并刷新，本件只读其最新态）；
@@ -52,7 +67,9 @@ RV-8 首轮审计（R0，2026-10-19）：以冻结存档数字过同判线，结
   DUAL_VERDICT §七 汇总（复活 0 / 维持挂账 / 无法评估 / 历史出清维持 8 / F3 待补档），
   断言不过即停工。
 RV-9 自测（--selftest）：沙箱目录验证 ①追加不覆盖（两轮追加后首轮行逐位不变）；
-  ②触发器 T0/T1 判定正确；③复活行通道字段与标注齐备；④断言 0 复活复现。
+  ②触发器 T0/T1 判定正确；③复活行通道字段与标注齐备；④断言 0 复活复现；
+  ⑤T4 混合锚（伪造 CB1 红+breadth<20 → TR-1/TR-5 命中、REVIVAL_TRIGGER 事件登记、
+    同判线重审 0 复活、冷却生效）；⑥旧格式 revival_state.json 兼容读取。
 
 用法：
   python3 revival_watch.py           # 判定轮调用：检触发器，命中即整表重审追加
@@ -89,6 +106,14 @@ JUDGE_SIGNAL = '垫概念不适用（信号用途，费率=变量，范畴错误
 JUDGE_EVENT = 'FULL 窗判线：叠加臂净收益−base>0 ∧ |MDD_叠加|≤|MDD_base|（PC-2 逐字）'
 
 DUAL_TAG = '口径变更重判'
+
+# ---- T4 混合锚触发器（TR-1..TR-5，Phase 2；规格=research/ADAPTIVE_TRADE9_v1.md §C3）----
+F1_LIVE_F = os.path.normpath(os.path.join(_HERE, '..', '..', 'f1', 'f1_live.json'))
+EVENTS_F = os.path.join(_HERE, 'revival_events.jsonl')   # REVIVAL_TRIGGER 事件日志（追加不覆盖）
+TR_COOLDOWN_DAYS = 60        # TR 触发复审后冷却 60 交易日（方案 §C3）
+TR4_YELLOW_STREAK_REQ = 2    # 任一黄线连续 2 个滚动窗口
+TR5_BREADTH_PCT = 20.0       # TEMP 临时值（实测 22.92% 下方一档；未标定前只触发复审不触发动作）
+TR5_RECALIB_DUE = '2026-12-18'  # TR-5 重标定到期日（P10×1.2，R13 法）
 
 
 # ============================================================ 人口表（RV-2，写死）
@@ -225,12 +250,79 @@ def revive_row(row, round_id, trigger):
     return row
 
 
-# ============================================================ 触发器（RV-6）
+# ============================================================ 触发器（RV-6 + T4 混合锚）
 def _pool_calendar_tail():
     import wo_rescue_run as WR
     WR._init()
     cal = set().union(*[set(WR._DATA[s].index) for s in WR._POOLS['full144']])
     return max(cal)
+
+
+def _read_f1_live():
+    """只读 f1/f1_live.json（引擎现行已算量；只读，禁碰引擎）。不可得→None（TR 层静默跳过）。"""
+    try:
+        with open(F1_LIVE_F) as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def _tr_cooldown_active(state):
+    until = state.get('tr_cooldown_until')
+    return bool(until) and time.strftime('%Y-%m-%d') <= str(until)
+
+
+def _shift_trading_days(n):
+    """自今日起第 n 个交易日（池日历）；日历不可得→退化 n 个自然日并标注。"""
+    try:
+        import pandas as pd
+        import wo_rescue_run as WR
+        WR._init()
+        cal = sorted(set().union(*[set(WR._DATA[s].index)
+                                   for s in WR._POOLS['full144']]))
+        today = pd.Timestamp(time.strftime('%Y-%m-%d'))
+        fut = [d for d in cal if d > today]
+        if len(fut) >= n:
+            return str(fut[n - 1].date()), 'trading_days'
+    except Exception:
+        pass
+    import datetime
+    return (datetime.date.today() + datetime.timedelta(days=n)).isoformat(), \
+        'natural_days_fallback'
+
+
+def tr_checks(live):
+    """TR-1/2/3 判定（纯只读；TR-3 费线最高优先级故列首）。返回 (hits, ctx)。"""
+    hits = []
+    br = (live or {}).get('breakers') or {}
+    items = {it.get('name'): it for it in br.get('items') or []}
+    cb1, cb2, fee = (items.get('CB1') or {}, items.get('CB2') or {},
+                     items.get('FEE') or {})
+    if fee.get('light') == 'red':
+        hits.append(('TR-3_费线红灯（60日费用年化≥4pp，最高优先级）',
+                     {'fee_ann_pct': (fee.get('detail') or {}).get('fee_ann_pct'),
+                      'threshold': 0.04, 'source': 'f1_live.breakers.FEE'}))
+    if cb1.get('light') == 'red':
+        hits.append(('TR-1_CB1红灯（20交易日净账MDD≤−8%）',
+                     {'mdd': cb1.get('detail'), 'threshold': -0.08,
+                      'source': 'f1_live.breakers.CB1'}))
+    if cb2.get('light') == 'red':
+        hits.append(('TR-2_CB2红灯（止损闸冻结开新仓20交易日）',
+                     {'detail': cb2.get('detail'), 'source': 'f1_live.breakers.CB2'}))
+    return hits, {'CB1': cb1, 'CB2': cb2, 'FEE': fee,
+                  'meta': (live or {}).get('meta') or {}}
+
+
+def _register_tr_events(hits, rid):
+    """登记 REVIVAL_TRIGGER 事件（追加不覆盖）：触发器编号+当日读数+复审语义。"""
+    ev = {'event': 'REVIVAL_TRIGGER', 'at': time.strftime('%F %T'),
+          'round_id': rid,
+          'triggers': [{'id': h[0], 'readings': h[1]} for h in hits],
+          'recalib_due': TR5_RECALIB_DUE,
+          'action': '下次审计提前为立即（本轮已按同判线整表重审）；不自动复活任何死账，'
+                    '不改引擎，不动 CB 动作（降档/冻结照旧由引擎自动执行）——只加复审提醒层'}
+    with open(EVENTS_F, 'a') as f:
+        f.write(json.dumps(ev, ensure_ascii=False) + '\n')
 
 
 def triggers(state):
@@ -259,6 +351,36 @@ def triggers(state):
         n_new = len([d for d in cal if d > ls])
         if n_new >= NEWSEG_DAYS_REQ:
             tr.append(('T1_新数据段满 20 交易日', f'新增 {n_new} 交易日（>{last_seen}）'))
+    # ---- T4 混合锚（TR-1..TR-5，Phase 2）：冷却期内跳过；live 不可得→静默跳过不误报 ----
+    if not _tr_cooldown_active(state):
+        live = _read_f1_live()
+        if live:
+            hits, ctx = tr_checks(live)
+            state.setdefault('tr4_yellow_streak', {})   # 旧格式 state 缺字段自动补建
+            streak = state['tr4_yellow_streak']
+            for name, key in (('CB1', 'CB1'), ('CB2', 'CB2'), ('FEE', 'FEE')):
+                if ctx[key].get('light') == 'yellow':
+                    streak[key] = int(streak.get(key, 0)) + 1
+                else:
+                    streak[key] = 0
+            if any(int(v) >= TR4_YELLOW_STREAK_REQ for v in streak.values()):
+                hits.append(('TR-4_任一黄线连续2个滚动窗口（黄线CB1−4%/CB2−2.5pp/费线2pp）',
+                             {'yellow_streaks': dict(streak),
+                              'source': 'f1_live.breakers（黄灯连计）'}))
+            bd = ctx['meta'].get('breadth') or {}
+            pct = bd.get('pct')
+            if pct is not None and pct < TR5_BREADTH_PCT:
+                hits.append((f'TR-5_宽度红灯（meta.breadth.pct<{TR5_BREADTH_PCT:g}，'
+                             'TEMP 临时值）',
+                             {'breadth_pct': pct, 'n_above': bd.get('n_above'),
+                              'n_total': bd.get('n_total'),
+                              'note': f'TEMP 临时值标注：breadth 2026-10-19 上线，'
+                                      f'{TR5_RECALIB_DUE} 前后按 P10×1.2 重标定固化',
+                              'source': 'f1_live.meta.breadth'}))
+            # pct is None（breadth 未上线/旧引擎产物）→ TR-5 跳过，不构成触发亦不误报
+            if hits:
+                tr.append(('T4_混合锚触发（' + '；'.join(
+                    h[0].split('_')[0] for h in hits) + '）', hits))
     state['data_tail_seen_this_run'] = str(tail.date())
     return tr
 
@@ -296,8 +418,10 @@ def run():
                  'protocol': 'RV-1..RV-9（revival_watch.py 头注，2026-10-19 冻结）'}
     tr = triggers(state)
     if not tr:
+        cool = state.get('tr_cooldown_until')
         print(f"revival_watch: 无触发（月度={state.get('last_monthly_audit')}；"
-              f"数据尾={state.get('data_tail_seen_this_run')}）——只检状态不重审（RV-6）")
+              f"数据尾={state.get('data_tail_seen_this_run')}；"
+              f"TR 冷却至={cool or '无'}）——只检状态不重审（RV-6）")
         with open(STATE_F, 'w') as f:
             json.dump(state, f, ensure_ascii=False, indent=1)
         return state
@@ -309,6 +433,11 @@ def run():
     state['last_seen_data_tail'] = state.get('data_tail_seen_this_run')
     state[f'last_round_{rid}'] = {'rows': n, 'revived': n_rev,
                                   'trigger': names, 'at': time.strftime('%F %T')}
+    if any(t[0].startswith('T4') for t in tr):
+        hits = [h for t in tr if t[0].startswith('T4') for h in t[1]]
+        _register_tr_events(hits, rid)
+        state['tr_cooldown_until'], state['tr_cooldown_mode'] = \
+            _shift_trading_days(TR_COOLDOWN_DAYS)
     with open(STATE_F, 'w') as f:
         json.dump(state, f, ensure_ascii=False, indent=1)
     print(f"revival_watch: 重审 {rid} 落库（触发={names}）——{n} 行追加，"
@@ -351,11 +480,13 @@ def selftest():
     """RV-9：沙箱自测（不改真台账）。"""
     import shutil
     import tempfile
-    global LEDGER_F, STATE_F, SENTINEL_F
+    global LEDGER_F, STATE_F, SENTINEL_F, F1_LIVE_F, EVENTS_F
     tmp = tempfile.mkdtemp(prefix='revival_selftest_')
-    real = (LEDGER_F, STATE_F, SENTINEL_F)
+    real = (LEDGER_F, STATE_F, SENTINEL_F, F1_LIVE_F, EVENTS_F)
     LEDGER_F, STATE_F = os.path.join(tmp, 'l.jsonl'), os.path.join(tmp, 's.json')
     SENTINEL_F = os.path.join(tmp, 'sent.json')
+    F1_LIVE_F = os.path.join(tmp, 'f1_live.json')
+    EVENTS_F = os.path.join(tmp, 'ev.jsonl')
     try:
         # ① 首轮建账（R0）
         build()
@@ -387,12 +518,74 @@ def selftest():
         revive_row(fake, 'RX', '自测伪造证据')
         assert fake['revived'] and fake['revival_channel']['stage'] == '纸面可跑池（paper_runnable）'
         assert any('复活来源' in a for a in fake['annotations']) and DUAL_TAG in fake['annotations']
-        n_lines = len(second)
-        n_rounds = sum(1 for l in second if '"_round"' in l)
+        # ⑤ T4 混合锚：伪造 f1_live（CB1 红 + 费线黄 + breadth 18.5<20）→ TR-1/TR-5 命中，
+        #    REVIVAL_TRIGGER 事件登记，同判线重审不自动复活（证据文件未变→复活 0）
+        json.dump({}, open(SENTINEL_F, 'w'))   # 清哨兵，隔离 T4
+        json.dump({'breakers': {'overall': {'light': 'red', 'action': '降档'},
+                                'items': [
+                                    {'name': 'CB1', 'light': 'red', 'action': '降一档',
+                                     'detail': -0.091},
+                                    {'name': 'CB2', 'light': 'green', 'action': '正常',
+                                     'detail': {}},
+                                    {'name': 'CB3', 'light': 'green', 'action': '正常',
+                                     'detail': {}},
+                                    {'name': 'FEE', 'light': 'yellow', 'action': '观察',
+                                     'detail': {'fee_ann_pct': 0.021}}]},
+                   'meta': {'breadth': {'pct': 18.5, 'n_above': 27, 'n_total': 144,
+                                        'ma_window': 50, 'min_periods': 40}}},
+                  open(F1_LIVE_F, 'w'))
+        st4 = {'round_counter': 99, 'last_monthly_audit': time.strftime('%Y-%m'),
+               'last_seen_data_tail': str(cal[-1].date())}   # 隔离 T0/T1
+        json.dump(st4, open(STATE_F, 'w'))
+        tr4 = triggers(st4)
+        assert any(t[0].startswith('T4') for t in tr4), tr4
+        t4_hits = [h for t in tr4 if t[0].startswith('T4') for h in t[1]]
+        t4_ids = [h[0].split('_')[0] for h in t4_hits]
+        assert 'TR-1' in t4_ids and 'TR-5' in t4_ids, t4_ids
+        # TR-4 专测：预置费线黄灯已连计 1 窗 → 本次再黄 → 连续 2 窗命中
+        st_y = {'round_counter': 99, 'last_monthly_audit': time.strftime('%Y-%m'),
+                'last_seen_data_tail': str(cal[-1].date()),
+                'tr4_yellow_streak': {'CB1': 0, 'CB2': 0, 'FEE': 1}}
+        tr_y = triggers(st_y)
+        t4y = [h for t in tr_y if t[0].startswith('T4') for h in t[1]]
+        assert any(h[0].startswith('TR-4') for h in t4y), t4y
+        run()
+        evs = [json.loads(l) for l in open(EVENTS_F)]
+        assert evs and evs[-1]['event'] == 'REVIVAL_TRIGGER', evs
+        last_ids = [t['id'].split('_')[0] for t in evs[-1]['triggers']]
+        assert 'TR-1' in last_ids and 'TR-5' in last_ids, last_ids
+        assert any('TEMP 临时值' in json.dumps(t['readings'], ensure_ascii=False)
+                   for t in evs[-1]['triggers'] if t['id'].startswith('TR-5'))
+        st_now = json.load(open(STATE_F))
+        assert st_now.get('tr_cooldown_until'), '冷却未登记'
+        tail_rows = [json.loads(l) for l in open(LEDGER_F) if '"category"' in l]
+        assert all(not r.get('revived') for r in tail_rows
+                   if r.get('round_id') != 'R0'), \
+            'T4 触发轮出现复活行——违反「不自动复活」'
+        n_after_t4 = sum(1 for l in open(LEDGER_F) if '"_round"' in l)
+        # ⑥ 冷却生效：同条件再判 → T4 不再触发
+        json.dump(st_now, open(STATE_F, 'w'))
+        tr_cool = triggers(st_now)
+        assert not any(t[0].startswith('T4') for t in tr_cool), tr_cool
+        # ⑦ 旧格式 state 兼容（无任何 T4 新字段）：清冷却后 run() 正常执行
+        old_fmt = {'created_at': '2026-10-19 04:02:37', 'round_counter': 1,
+                   'last_monthly_audit': '2000-01',
+                   'last_seen_data_tail': str(fake_tail_25.date()),
+                   'protocol': 'RV-1..RV-9（旧格式）'}
+        json.dump(old_fmt, open(STATE_F, 'w'))
+        tr_old = triggers(old_fmt)
+        assert tr_old, '旧格式 state 应照常触发'
+        run()
+        st_old = json.load(open(STATE_F))
+        assert 'tr4_yellow_streak' in st_old and 'tr_cooldown_until' in st_old
+        n_lines = len([l for l in open(LEDGER_F)])
+        n_rounds = sum(1 for l in open(LEDGER_F) if '"_round"' in l)
         print(f'SELFTEST PASS：追加不覆盖 ✓（{n_rounds} 轮 {n_lines} 行，首轮逐位不变）；'
-              f'触发器 T0/T1/T2 ✓；复活通道四段字段+标注 ✓；0 复活复现 ✓')
+              f'触发器 T0/T1/T2 ✓；复活通道四段字段+标注 ✓；0 复活复现 ✓；'
+              f'T4 混合锚 TR-1/TR-4/TR-5 命中+REVIVAL_TRIGGER 事件+冷却 ✓（T4 触发轮 0 复活）；'
+              f'旧格式 state 兼容 ✓')
     finally:
-        LEDGER_F, STATE_F, SENTINEL_F = real
+        LEDGER_F, STATE_F, SENTINEL_F, F1_LIVE_F, EVENTS_F = real
         shutil.rmtree(tmp, ignore_errors=True)
 
 
