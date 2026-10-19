@@ -73,12 +73,13 @@ from multiprocessing import Pool
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, '/workspace/repo_ready/research/wo_dneg')
+_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # 仓库根（云端化：禁绝对路径）
+sys.path.insert(0, os.path.join(_ROOT, 'research', 'wo_dneg'))
 import dneg_engine as DE
 
 SEED = 42
-CACHE = '/tmp/box_cache'
-OUT = '/workspace/repo_ready/research/wo_rescue'
+CACHE = os.environ.get('FORWARD_BOX_CACHE') or os.path.join(_ROOT, '.cache', 'box_cache')
+OUT = os.path.join(_ROOT, 'research', 'wo_rescue')
 os.makedirs(OUT, exist_ok=True)
 PREREG_F = os.path.join(OUT, 'b_preregistration.json')
 
@@ -593,7 +594,7 @@ def c1_funding():
         d = json.load(open(os.path.join(CACHE, fn)))
         if isinstance(d, list) and d:
             fields |= set(d[0].keys())
-    wo2 = json.load(open('/workspace/repo_ready/research/wo_cycle1/wo2_result.json'))
+    wo2 = json.load(open(os.path.join(_ROOT, 'research', 'wo_cycle1', 'wo2_result.json')))
     probe = wo2['p1_probe']['results']
     n_probe = len(probe)
     n_probe_funding = sum(1 for p in probe if p.get('mentions_funding'))

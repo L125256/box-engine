@@ -105,15 +105,16 @@ import numpy as np
 import pandas as pd
 from scipy import stats as sst
 
-sys.path.insert(0, '/workspace/repo_ready/research/wo_rescue')
-sys.path.insert(0, '/workspace/repo_ready/research/wo_g1g2fdr')
-sys.path.insert(0, '/workspace/repo_ready/research/wo_dneg')
+_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # 仓库根（云端化：禁绝对路径）
+sys.path.insert(0, os.path.join(_ROOT, 'research', 'wo_rescue'))
+sys.path.insert(0, os.path.join(_ROOT, 'research', 'wo_g1g2fdr'))
+sys.path.insert(0, os.path.join(_ROOT, 'research', 'wo_dneg'))
 import wo_rescue_run as WR
 import wo_g1g2fdr_run as WG
 import dneg_engine as DE
 
 SEED = 42
-OUT = '/workspace/repo_ready/research/wo_crossf6'
+OUT = os.path.join(_ROOT, 'research', 'wo_crossf6')
 PREREG_F = os.path.join(OUT, 'wo_crossf6_prereg.json')
 os.makedirs(OUT, exist_ok=True)
 
@@ -129,7 +130,7 @@ ANCHORS = {('v2_full_stop', 'v2'): ('g1', 'v2_ref'),                # PCX-A3 锚
            ('open_full_nosell', 'v2'): ('g1', 'g1_open_full_nosell')}
 NEW_CELLS = [c for c in CELLS if c not in ANCHORS]
 B_ARMS = ['B1_lo_open_half', 'B2_hi_open_half']                    # PCX-B7
-G1_ARC = '/workspace/repo_ready/research/wo_g1g2fdr'
+G1_ARC = os.path.join(_ROOT, 'research', 'wo_g1g2fdr')
 PRIO = ('open_half_nosell', 'g2_ma')                               # S3×D1 第一优先格
 
 
@@ -470,7 +471,7 @@ def run_all():
         md2 = float((WG._curve(R[(p, 'v2', 0, 'default')]) - wr['curve']).abs().max())
         fd2 = float(abs(R[(p, 'v2', 0, 'default')]['fees'] - wr['fees']))
         # ③ wo_hd 八列谱系（default 费 base 臂 realA/realC）
-        hd = json.load(open('/workspace/repo_ready/research/wo_hd/wo_hd_result.json'))['eight_col_table']
+        hd = json.load(open(os.path.join(_ROOT, 'research', 'wo_hd', 'wo_hd_result.json')))['eight_col_table']
         e8 = WG._seg_metrics(R[(p, 'base', 0, 'default')], *WR.REALA)
         e8c = WG._seg_metrics(R[(p, 'base', 0, 'default')], *WR.REALC)
         r8 = hd[f'{p}|base']['realA']
@@ -478,7 +479,7 @@ def run_all():
         c_ann = abs(e8c['annualized_pct'] - hd[f'{p}|base']['realC']['annualized_pct'])
         c_mdd = abs(e8c['mdd_pct'] - hd[f'{p}|base']['realC']['mdd_pct'])
         # ④ W3 跨单谱系（费压 v2 参照臂 FULL avoid）
-        w3 = json.load(open('/workspace/repo_ready/research/wo_w2w3/w3_result.json'))
+        w3 = json.load(open(os.path.join(_ROOT, 'research', 'wo_w2w3', 'w3_result.json')))
         w3_avoid = w3['primary'][p]['gate|FULL']['avoid_pp']
         mine = WG._primary(WG._curve(R[(p, 'v2', 0, 'stress')]), WG._curve(R[(p, 'base', 0, 'stress')]))
         d_w3 = abs(mine['FULL']['avoid_pp'] - w3_avoid)

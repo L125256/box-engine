@@ -33,23 +33,38 @@ FR-8 S3×D1 前瞻复评（同判线 PCX-A9 承继，前瞻段适用项）：前
 FR-9 B1 部署评审：触发条件=F6 判活 ∧ B1 前瞻段 avoid>0 ∧ |MDD| 不劣化 → 报警输出
   「B1 部署评审待办（须新预注册，前瞻段新数字）」；B1 本身不部署、不改空仓姿态。
 
-挂接：engine_f1/f1_signal.py live 判定轮落盘后自动调用本件 --auto（只读+旁路落盘，
-不改引擎语义，异常不阻断判定轮）。
-用法：python3 forward_readout.py [--auto]
-产出：forward/forward_state.json + forward/forward_ic_days.jsonl（+判读时 forward_readout_*.json）
+【云端沙箱化（2026-10-19 缺陷修复；判据零改动，FR-1..FR-9 逐字承继）】
+- 缺陷根因：旧版硬编码本沙箱绝对路径（/workspace/repo_ready/research/wo_*、
+  /tmp/box_cache）→ 云端任务沙箱无这些路径，每轮 0 行；且状态文件在
+  research/wo_unlock/forward/ 不随判定轮回传。
+- 修复：①所有路径相对仓库根（由 __file__ 上溯两级，env FORWARD_REPO_ROOT 可覆盖，
+  禁绝对路径）；②数据源=仓库内引擎快照 engine_snapshot/box_cache_snapshot.tar.gz，
+  首跑自动解包至 <repo>/.cache/box_cache（env FORWARD_BOX_CACHE 可覆盖，本地真实
+  路径模式经此 env 指向实盘缓存即回归现状）；③状态文件迁移至 f1/ 目录
+  （forward_state.json + forward_ic_days.jsonl 随判定轮回传持久化，云端每轮
+  拉取→累计→回传，跨轮持久；旧 forward/ 目录现存文件自动迁移）；④输入接线=
+  仓库内判定轮产物 f1/f1_live.json（每轮判定轮回传的就是它，本件只读其
+  signal.asof 作轮次血缘登记，不参与任何判据计算）。
+
+挂接：云端任务判定轮命令之后追加调用本件 --auto（只读+旁路落盘，不改引擎语义，
+异常不阻断判定轮）；engine_f1/f1_signal.py 的本沙箱内挂接路径不变。
+用法：python3 research/wo_unlock/forward_readout.py [--auto]
+产出：f1/forward_state.json + f1/forward_ic_days.jsonl（+判读时 f1/forward_readout_*.json）
 """
 import json
 import os
 import sys
+import tarfile
 import time
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
-for p in ('/workspace/repo_ready/research/wo_dneg',
-          '/workspace/repo_ready/research/wo_rescue',
-          '/workspace/repo_ready/research/wo_g1g2fdr',
-          '/workspace/repo_ready/research/wo_crossf6'):
-    if p not in sys.path:
-        sys.path.insert(0, p)
+_HERE = os.path.dirname(os.path.abspath(__file__))                       # research/wo_unlock
+ROOT = os.environ.get('FORWARD_REPO_ROOT') or \
+    os.path.dirname(os.path.dirname(_HERE))                              # 仓库根（__file__ 相对，禁绝对路径）
+for _d in ('research/wo_dneg', 'research/wo_rescue',
+           'research/wo_g1g2fdr', 'research/wo_crossf6'):
+    _p = os.path.join(ROOT, _d)
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 FW0 = '2026-10-18'          # FR-1 前瞻窗起点
 MIN_READOUT_DAYS = 20       # FR-4
@@ -57,18 +72,59 @@ EARLY_DEATH_DAYS = 10       # FR-5
 FWD_H = 20                  # 判据② fwd20（逐字）
 MIN_NAMES = 30
 FEE_RT_PP = 0.10            # c4 费后价差谱系（双边 0.10pp）
-STATEDIR = os.path.join(_HERE, 'forward')
+STATEDIR = os.path.join(ROOT, 'f1')            # 状态随判定轮回传（云端持久目录）
 STATE_F = os.path.join(STATEDIR, 'forward_state.json')
 IC_F = os.path.join(STATEDIR, 'forward_ic_days.jsonl')
+ROUND_F = os.path.join(ROOT, 'f1', 'f1_live.json')   # 判定轮产物（每轮回传）
+LEGACY_STATEDIR = os.path.join(_HERE, 'forward')     # 旧状态目录（迁移源）
+SNAPSHOT_TAR = os.path.join(ROOT, 'engine_snapshot', 'box_cache_snapshot.tar.gz')
 
 # 延迟重导入（首次调用 ~10s，常驻判定轮可接受）
 _WR_LOADED = False
+
+
+def _cache_dir():
+    """引擎快照缓存目录：env 覆盖 > 仓库内 .cache（首跑从快照包解包，幂等）。"""
+    env = os.environ.get('FORWARD_BOX_CACHE')
+    if env:
+        return env
+    d = os.path.join(ROOT, '.cache', 'box_cache')
+    if not os.path.isdir(d) or not os.listdir(d):
+        os.makedirs(d, exist_ok=True)
+        with tarfile.open(SNAPSHOT_TAR, 'r:gz') as tf:
+            tf.extractall(os.path.dirname(d))          # 包内顶层即 box_cache/
+    return d
+
+
+def _migrate_state():
+    """旧状态目录 → f1/ 一次性迁移（copy 式，仅当新处缺失；旧文件保留不删）。"""
+    os.makedirs(STATEDIR, exist_ok=True)
+    for fn in ('forward_state.json', 'forward_ic_days.jsonl'):
+        src = os.path.join(LEGACY_STATEDIR, fn)
+        dst = os.path.join(STATEDIR, fn)
+        if os.path.exists(src) and not os.path.exists(dst):
+            with open(src) as f:
+                content = f.read()
+            with open(dst, 'w') as f:
+                f.write(content)
+            print(f'forward_readout: 状态迁移 {src[len(ROOT):]} → f1/{fn}')
+
+
+def _round_asof():
+    """判定轮产物血缘（只读，不参与判据）：f1/f1_live.json 的 signal.asof。"""
+    try:
+        with open(ROUND_F) as f:
+            d = json.load(f)
+        return d.get('signal', {}).get('asof') or d.get('meta', {}).get('asof')
+    except Exception:
+        return None
 
 
 def _eng():
     global _WR_LOADED
     import wo_rescue_run as WR
     if not _WR_LOADED:
+        WR.CACHE = _cache_dir()          # 数据源=仓库内快照/env 覆盖（云端化接线点）
         WR._init()
         _WR_LOADED = True
     return WR
@@ -352,6 +408,7 @@ def do_readout(state):
 
 
 def run(auto=False):
+    _migrate_state()
     os.makedirs(STATEDIR, exist_ok=True)
     if os.path.exists(STATE_F):
         state = json.load(open(STATE_F))
@@ -376,6 +433,7 @@ def run(auto=False):
                              'n_lo_days_matured': n, 'target': MIN_READOUT_DAYS,
                              'new_rows_this_run': len(new),
                              'ic_mean': ic_mean, 'ic_t': ic_t,
+                             'round_asof': _round_asof(),
                              'note': 'FR-6：数据不足→不判读只累计'}
     verdict = None
     # FR-5 早判死

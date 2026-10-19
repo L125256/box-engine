@@ -41,7 +41,8 @@ REALC_START = pd.Timestamp('2026-06-01')
 FACTORS_4 = ['ma20_slope', 'obv_slope20', 'dist_52w_high', 'mom_1m']
 FACTORS_3 = ['ma20_slope', 'dist_52w_high', 'mom_1m']
 
-CACHE = '/tmp/dneg/box_cache'
+_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # 仓库根（云端化：禁绝对路径）
+CACHE = os.environ.get('FORWARD_BOX_CACHE') or os.path.join(_ROOT, '.cache', 'box_cache')
 
 
 # ---------------------------------------------------------------- 数据与池（=v2 逐行）

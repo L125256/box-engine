@@ -96,13 +96,14 @@ import numpy as np
 import pandas as pd
 from scipy import stats as sst
 
-sys.path.insert(0, '/workspace/repo_ready/research/wo_rescue')
-sys.path.insert(0, '/workspace/repo_ready/research/wo_dneg')
+_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # 仓库根（云端化：禁绝对路径）
+sys.path.insert(0, os.path.join(_ROOT, 'research', 'wo_rescue'))
+sys.path.insert(0, os.path.join(_ROOT, 'research', 'wo_dneg'))
 import wo_rescue_run as WR
 import dneg_engine as DE
 
 SEED = 42
-OUT = '/workspace/repo_ready/research/wo_g1g2fdr'
+OUT = os.path.join(_ROOT, 'research', 'wo_g1g2fdr')
 os.makedirs(OUT, exist_ok=True)
 
 REALB = (pd.Timestamp('2026-04-01'), pd.Timestamp('2026-05-31'))
@@ -475,7 +476,7 @@ def stage_gate():
         wr = WR.run_gate(WR._POOLS[p], gate_map=v2map, fee=DE.FEE_SIDE, fund=DE.FUNDING)
         md2 = float((_curve(R[(p, 'v2', 'default')]) - wr['curve']).abs().max())
         fd2 = float(abs(R[(p, 'v2', 'default')]['fees'] - wr['fees']))
-        hd = json.load(open('/workspace/repo_ready/research/wo_hd/wo_hd_result.json'))['eight_col_table']
+        hd = json.load(open(os.path.join(_ROOT, 'research', 'wo_hd', 'wo_hd_result.json')))['eight_col_table']
         e8 = _seg_metrics(R[(p, 'base', 'default')], *WR.REALA)
         e8c = _seg_metrics(R[(p, 'base', 'default')], *WR.REALC)
         r8 = hd[f'{p}|base']['realA']
@@ -483,7 +484,7 @@ def stage_gate():
         d_mdd = abs(e8['mdd_pct'] - r8['mdd_pct'])
         c_ann = abs(e8c['annualized_pct'] - hd[f'{p}|base']['realC']['annualized_pct'])
         c_mdd = abs(e8c['mdd_pct'] - hd[f'{p}|base']['realC']['mdd_pct'])
-        w3 = json.load(open('/workspace/repo_ready/research/wo_w2w3/w3_result.json'))
+        w3 = json.load(open(os.path.join(_ROOT, 'research', 'wo_w2w3', 'w3_result.json')))
         w3_avoid = w3['primary'][p]['gate|FULL']['avoid_pp']
         mine_avoid = _primary(_curve(R[(p, 'v2', 'stress')]), _curve(R[(p, 'base', 'stress')]))['FULL']['avoid_pp']
         d_w3 = abs(mine_avoid - w3_avoid)
@@ -727,7 +728,7 @@ def stage_fdr():
     fwd20 = C.shift(-20) / C - 1
 
     # 谱系对拍（PF-10）：无条件 extended IC vs W2 存档
-    w2 = json.load(open('/workspace/repo_ready/research/wo_w2w3/w2_result.json'))
+    w2 = json.load(open(os.path.join(_ROOT, 'research', 'wo_w2w3', 'w2_result.json')))
     ic_ext = WR._xsec_ic_series(rs_cross, fwd20)
     t_ext, n_ext = WR._tstat(ic_ext[(ic_ext.index >= WR.REALA[0]) & (ic_ext.index <= WR.REALC[1])])
     reg = w2['baseline_144pool']['extended']['ic']
