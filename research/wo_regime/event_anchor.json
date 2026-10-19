@@ -1,0 +1,143 @@
+{
+  "method": "双侧 CUSUM（S=cumsum(x−mean)，k*=argmax|S|；同 E1/T4 法）",
+  "rule": "偏差 ≤2 日维持原锚，>2 日建议修正（工单冻结规则）",
+  "series_note": "E1 主判=fee60_ann（费压，T4 口径）；E2/E3 主判=idx 日收益（池等权均价）",
+  "results": [
+    {
+      "event": "E1",
+      "anchor": "2026-04-15",
+      "series": "fee60_ann",
+      "window": [
+        "2026-03-16",
+        "2026-05-15"
+      ],
+      "n_days": 61,
+      "cusum_max": 0.094634,
+      "measured": "2026-04-20",
+      "dev_days": 5,
+      "decision": "建议修正",
+      "aux_series": [
+        {
+          "series": "idx_ret",
+          "measured": "2026-05-09",
+          "cusum_max": 0.507993,
+          "near_edge": false
+        },
+        {
+          "series": "idx_logdiff",
+          "measured": "2026-05-09",
+          "cusum_max": 0.492923,
+          "near_edge": false
+        },
+        {
+          "series": "abs_ret(波动)",
+          "measured": "2026-04-10",
+          "cusum_max": 1.632508,
+          "near_edge": false
+        }
+      ]
+    },
+    {
+      "event": "E2",
+      "anchor": "2026-06-01",
+      "series": "idx_ret",
+      "window": [
+        "2026-05-02",
+        "2026-07-01"
+      ],
+      "n_days": 61,
+      "cusum_max": 0.717743,
+      "measured": "2026-05-09",
+      "dev_days": 23,
+      "decision": "建议修正",
+      "aux_series": [
+        {
+          "series": "fee60_ann",
+          "measured": "2026-05-13",
+          "cusum_max": 0.029745,
+          "near_edge": false
+        },
+        {
+          "series": "idx_logdiff",
+          "measured": "2026-05-09",
+          "cusum_max": 0.493928,
+          "near_edge": false
+        },
+        {
+          "series": "abs_ret(波动)",
+          "measured": "2026-05-18",
+          "cusum_max": 1.190017,
+          "near_edge": false
+        }
+      ]
+    },
+    {
+      "event": "E3",
+      "anchor": "2026-08-09",
+      "series": "idx_ret",
+      "window": [
+        "2026-07-10",
+        "2026-09-08"
+      ],
+      "n_days": 61,
+      "cusum_max": 0.140021,
+      "measured": "2026-07-29",
+      "dev_days": 11,
+      "decision": "建议修正",
+      "aux_series": [
+        {
+          "series": "fee60_ann",
+          "measured": "2026-07-30",
+          "cusum_max": 0.040566,
+          "near_edge": false
+        },
+        {
+          "series": "idx_logdiff",
+          "measured": "2026-07-29",
+          "cusum_max": 0.152312,
+          "near_edge": false
+        },
+        {
+          "series": "abs_ret(波动)",
+          "measured": "2026-08-04",
+          "cusum_max": 0.330593,
+          "near_edge": false
+        }
+      ]
+    },
+    {
+      "event": "E1-旁证",
+      "anchor": "2026-04-15",
+      "series": "idx_ret",
+      "window": [
+        "2026-03-16",
+        "2026-05-15"
+      ],
+      "n_days": 61,
+      "cusum_max": 0.507993,
+      "measured": "2026-05-09",
+      "dev_days": 24,
+      "decision": "旁证非判"
+    }
+  ],
+  "frozen_events": {
+    "E1": {
+      "anchor": "2026-04-15",
+      "measured": "2026-04-20",
+      "final": "2026-04-20",
+      "decision": "建议修正"
+    },
+    "E2": {
+      "anchor": "2026-06-01",
+      "measured": "2026-05-09",
+      "final": "2026-05-09",
+      "decision": "建议修正"
+    },
+    "E3": {
+      "anchor": "2026-08-09",
+      "measured": "2026-07-29",
+      "final": "2026-07-29",
+      "decision": "建议修正"
+    }
+  }
+}

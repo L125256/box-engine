@@ -1,0 +1,19 @@
+{
+  "ts": "2026-10-19 23:00:54",
+  "network_note": "沙箱实测，云端待复测",
+  "results": [
+    {
+      "name": "binance_funding",
+      "url": "https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1",
+      "reachable": false,
+      "http": "<urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "name": "bybit_tickers",
+      "url": "https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT",
+      "reachable": false,
+      "http": "<urlopen error [Errno 101] Network is unreachable>"
+    }
+  ],
+  "verdict": "UNREACHABLE"
+}
