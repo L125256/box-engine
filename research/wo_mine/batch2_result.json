@@ -1,5 +1,5 @@
 {
- "ts": "2026-10-20 03:12:58",
+ "ts": "2026-10-20 04:03:36",
  "budget": {
   "Q1": 8,
   "Q2": 8,
@@ -16,15 +16,15 @@
   "n_cells_batch1_framework": 40,
   "n_cells_batch2": 127,
   "n_cells_total": 199,
-  "n_q_le_010": 117,
+  "n_q_le_010": 116,
   "note": "BH 合并族 m=86（MC.bh_fdr_q）；格级 p 沿用 batch1 既有实现（因子=IC t 上尾 / 框架=域内日超额 boot p_one / Q2=双侧 t），m=86 为变体冻结预算、格级补表为 batch1 先例，如实登记"
  },
  "d0_gate": {
   "pass": true,
   "returncode": 0,
   "d0_all_pass": true,
-  "d0_runtime_sec": 8.2,
-  "gate_runtime_sec": 8.6,
+  "d0_runtime_sec": 8.3,
+  "gate_runtime_sec": 8.8,
   "lineage": "batch0_domains.py 四对拍（Batch 1 同谱系，停工条款逐字适用）"
  },
  "dual_impl_check": {
@@ -113,10 +113,10 @@
    "Q2-ar1-hl-lev": {
     "placebo": {
      "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
-     "obs": 0.018365789991902748,
+     "obs": 2.9494824359599248,
      "placebo_p": 0.0,
      "map_invalid": false,
-     "placebo_p50": 0.004797018446870749
+     "placebo_p50": 0.7129244411463995
     },
     "n_full": 268
    },
@@ -160,7 +160,7 @@
     },
     "n_full": 267
    },
-   "wall_secs": 5.1
+   "wall_secs": 5.2
   },
   "Q1": {
    "Q1-boxpos-p75": {
@@ -188,24 +188,24 @@
    "Q1-touch-bounce-5": {
     "placebo": {
      "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
-     "obs": 0.14416213902694305,
-     "placebo_p": 0.01,
+     "obs": 0.15850444785556322,
+     "placebo_p": 0.0,
      "map_invalid": false,
-     "placebo_p50": 0.05313833086603488
+     "placebo_p50": 0.04623080583709789
     },
-    "t_full": 6.076232199577125,
-    "n_full": 285
+    "t_full": -0.9530560866340472,
+    "n_full": 284
    },
    "Q1-touch-bounce-20": {
     "placebo": {
      "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
-     "obs": 0.049180453489714095,
-     "placebo_p": 0.31,
+     "obs": 0.03400925255129598,
+     "placebo_p": 0.56,
      "map_invalid": true,
-     "placebo_p50": 0.038704902072583675
+     "placebo_p50": 0.03795232701492775
     },
-    "t_full": 4.826820709583498,
-    "n_full": 276
+    "t_full": 2.4513737642525597,
+    "n_full": 275
    },
    "Q1-brk-pos-20": {
     "placebo": {
@@ -251,7 +251,7 @@
     "t_full": -0.3163946778467587,
     "n_full": 261
    },
-   "wall_secs": 6.0
+   "wall_secs": 6.1
   },
   "Q3": {
    "Q3-rs-ew-fwd5": {
@@ -458,5 +458,10 @@
    "wall_secs": 6.5
   }
  },
- "runtime_sec": 0.0
+ "runtime_sec": 0.0,
+ "auditfix": {
+  "ts": "2026-10-20",
+  "note": "Q1-touch-bounce-5/20 去前视修正重跑（配额各 1/1）+ Q2-ar1-hl-lev OU 公式重算；本文件 fdr_merged 统计为 batch2 口径（199 格）；383 格全纲领合并表已按 batch3 口径整体刷新一次（213 格 q≤0.10，原 215）",
+  "report": "AUDITFIX_BATCH23_REPORT.md"
+ }
 }

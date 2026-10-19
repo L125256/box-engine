@@ -261,11 +261,16 @@ def run_q2(win, smoke):
         base = 1.0 + pm
         return (-np.log(2.0) / np.log(base)).where((base > 0) & (pm != 0) & pm.notna())
     hl_ret = hl(phi_med)
+    # 【审计修正·OU 口径】水平 AR1 半衰期公式改 HL=−log2/log(φ)（φ∈(0,1)）——
+    # 原实现误用 −log2/log(1+φ)，φ_p≈1 时分母 log(2) 使读数恒≈−1（量级失真，作废）。
+    # 交易分析团队审计终裁②引用公式。缺陷修复配额 1/1。
+    def hl_ou(pm):
+        return (-np.log(2.0) / np.log(pm)).where((pm > 0) & (pm < 1) & pm.notna())
     lp = np.log(C)
     xp = lp.shift(1)
     phi_p = lp.rolling(W, min_periods=W).cov(xp) / xp.rolling(W, min_periods=W).var()
     phi_p_med = phi_p.median(axis=1).where(phi_p.notna().sum(axis=1) >= 30)
-    hl_lev = hl(phi_p_med)
+    hl_lev = hl_ou(phi_p_med)
     # v5/v6：Hurst 60 日（水平=日收益 / 趋势=5 日收益）
     r5 = idx.pct_change(5)
     def hurst_series(s):
@@ -286,8 +291,13 @@ def run_q2(win, smoke):
         'Q2-ac-lag1': (ac1, 'idx 日收益 60 日窗滚动 lag1 自相关'),
         'Q2-ac-lag5': (ac5, 'idx 日收益 60 日窗滚动 lag5 自相关'),
         'Q2-ar1-hl-ret': (hl_ret, '池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 '
-                                  '−log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）'),
-        'Q2-ar1-hl-lev': (hl_lev, '池个股对数价格 AR1(60 日) 斜率中位→半衰期（水平/趋势口径对）'),
+                                  '−log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）'
+                                  '【口径存疑·量级失真·审计终裁③登记不重算：OU 口径 '
+                                  '−log2/log(φ) 下 φ_ret→0 使半衰期量级不可比，原式量级'
+                                  '亦不可作日数直读，仅保序使用】'),
+        'Q2-ar1-hl-lev': (hl_lev, '池个股对数价格 AR1(60 日) 斜率中位→半衰期 −log2/log(φ)'
+                                  '（OU 口径·审计修正版重算，原 −log2/log(1+φ) 恒≈−1 读数作废；'
+                                  '水平/趋势口径对）'),
         'Q2-hurst-level': (h_lvl, 'idx 日收益 60 日 R/S Hurst（水平）'),
         'Q2-hurst-trend': (h_trd, 'idx 5 日收益 60 日 R/S Hurst（趋势）'),
         'Q2-hl-xdom-speed': (-hl_ret, '半衰期×域交互记账①：回归速度=−HL（中位）'),
@@ -330,11 +340,15 @@ def run_q1(win, smoke):
     sig_w = sig[(sig >= (win or FULL)[0]) & (sig <= (win or FULL)[1])]
 
     def bounce_rate(N):
+        # 【审计修正·去前视】原实现 nxt_up=C.shift(-1)>C 使 t 日因子值包含当日 touch
+        # 的反弹结果（依赖 t+1 收盘，与 fwd5 前视窗重叠）。修正：touch/good 整体后移
+        # 1 日再滚动——t 日因子只用 t−N..t−1 的触及，最近一次反弹结果 C(t)vsC(t−1)
+        # 当日已知，无前视。缺陷修复配额 1/1（Batch 2/3 审计终裁①）。
         sup = L.rolling(N).min().shift(1)
         touch = L <= sup
         nxt_up = C.shift(-1) > C
-        good = (touch & nxt_up).rolling(N).sum()
-        hits = touch.rolling(N).sum()
+        good = (touch & nxt_up).shift(1).rolling(N).sum()
+        hits = touch.shift(1).rolling(N).sum()
         return (good / hits.where(hits > 0))
 
     def crowd_inv(N):
@@ -352,9 +366,11 @@ def run_q1(win, smoke):
         ('Q1-boxpos-p90', pos.where(pos >= 0.90), P['fwd5'],
          '箱体位置入场变体：仅 position≥P90 标的入截面'),
         ('Q1-touch-bounce-5', bounce_rate(5), P['fwd5'],
-         '触及支撑（N=5 日低点）次日反弹率；窗内零触及=NaN'),
+         '触及支撑（N=5 日低点）次日反弹率【去前视修正版重算：剔除当日 touch 重叠，'
+         '原前视读数作废】；窗内零触及=NaN'),
         ('Q1-touch-bounce-20', bounce_rate(20), P['fwd5'],
-         '触及支撑（N=20 日低点）次日反弹率'),
+         '触及支撑（N=20 日低点）次日反弹率【去前视修正版重算：剔除当日 touch 重叠，'
+         '原前视读数作废】'),
         ('Q1-brk-pos-20', brk(20), P['fwd5'],
          '区间突破纯位置强度（C/20 日 high 前值−1，非放量条件化，brk 判线换轨）'),
         ('Q1-brk-pos-60', brk(60), P['fwd5'], '区间突破纯位置强度（N=60）'),

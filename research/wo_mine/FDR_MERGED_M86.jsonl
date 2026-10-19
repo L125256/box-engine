@@ -1,75 +1,75 @@
 {"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd20", "pool": "full144", "domain": "牛稳", "p": 4.537530050469242e-12, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0}
-{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd20", "pool": "full144", "domain": "牛躁", "p": 0.0011241902365827095, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.001343}
-{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd20", "pool": "full144", "domain": "弱稳", "p": 0.07962317415245267, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.042532}
+{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd20", "pool": "full144", "domain": "牛躁", "p": 0.0011241902365827095, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.001381}
+{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd20", "pool": "full144", "domain": "弱稳", "p": 0.07962317415245267, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.043067}
 {"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd20", "pool": "full144", "domain": "弱躁", "p": 0.9670250713007638, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd5", "pool": "full144", "domain": "牛稳", "p": 0.0019680959277641992, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002123}
-{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd5", "pool": "full144", "domain": "牛躁", "p": 0.04264043354046041, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.027781}
-{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd5", "pool": "full144", "domain": "弱稳", "p": 0.035702216820569205, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.023801}
+{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd5", "pool": "full144", "domain": "牛稳", "p": 0.0019680959277641992, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002205}
+{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd5", "pool": "full144", "domain": "牛躁", "p": 0.04264043354046041, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.028208}
+{"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd5", "pool": "full144", "domain": "弱稳", "p": 0.035702216820569205, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.024176}
 {"batch": "batch1", "variant_id": "Q5-c4-rs_mom-fwd5", "pool": "full144", "domain": "弱躁", "p": 0.9778804662137226, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "牛稳", "p": 0.03098526534574326, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.02149}
-{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "牛躁", "p": 0.1589518507131035, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.073101}
-{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "弱稳", "p": 0.44353450914916165, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.166568}
-{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "弱躁", "p": 0.24464823285979823, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.098303}
-{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "牛稳", "p": 0.03098526534574326, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.02149}
-{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "牛躁", "p": 0.1589518507131035, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.073101}
-{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "弱稳", "p": 0.44353450914916165, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.166568}
-{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "弱躁", "p": 0.24464823285979823, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.098303}
-{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "牛稳", "p": 0.06264737640622836, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.03612}
-{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "牛躁", "p": 0.14411953563981375, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.069278}
-{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "弱稳", "p": 0.40666223267189394, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.154066}
-{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "弱躁", "p": 0.23966578338700512, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.098017}
-{"batch": "batch1", "variant_id": "Q6-c5-v4_norev", "pool": "full144", "domain": "牛稳", "p": 0.00010502513093713247, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000158}
-{"batch": "batch1", "variant_id": "Q6-c5-v4_norev", "pool": "full144", "domain": "牛躁", "p": 0.0750537943024926, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.040852}
-{"batch": "batch1", "variant_id": "Q6-c5-v4_norev", "pool": "full144", "domain": "弱稳", "p": 0.2601149762792456, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.102235}
+{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "牛稳", "p": 0.03098526534574326, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.022023}
+{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "牛躁", "p": 0.1589518507131035, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.073494}
+{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "弱稳", "p": 0.44353450914916165, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.167298}
+{"batch": "batch1", "variant_id": "Q6-c5-v1_orig", "pool": "full144", "domain": "弱躁", "p": 0.24464823285979823, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.099226}
+{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "牛稳", "p": 0.03098526534574326, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.022023}
+{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "牛躁", "p": 0.1589518507131035, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.073494}
+{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "弱稳", "p": 0.44353450914916165, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.167298}
+{"batch": "batch1", "variant_id": "Q6-c5-v2_breadth", "pool": "full144", "domain": "弱躁", "p": 0.24464823285979823, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.099226}
+{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "牛稳", "p": 0.06264737640622836, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.036608}
+{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "牛躁", "p": 0.14411953563981375, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.069665}
+{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "弱稳", "p": 0.40666223267189394, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.154748}
+{"batch": "batch1", "variant_id": "Q6-c5-v3_gap", "pool": "full144", "domain": "弱躁", "p": 0.23966578338700512, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.09895}
+{"batch": "batch1", "variant_id": "Q6-c5-v4_norev", "pool": "full144", "domain": "牛稳", "p": 0.00010502513093713247, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000161}
+{"batch": "batch1", "variant_id": "Q6-c5-v4_norev", "pool": "full144", "domain": "牛躁", "p": 0.0750537943024926, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.041376}
+{"batch": "batch1", "variant_id": "Q6-c5-v4_norev", "pool": "full144", "domain": "弱稳", "p": 0.2601149762792456, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.103177}
 {"batch": "batch1", "variant_id": "Q6-c5-v4_norev", "pool": "full144", "domain": "弱躁", "p": 0.9778001458309011, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "牛稳", "p": 0.002633951093148387, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002634}
-{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "牛躁", "p": 0.06428676647554442, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.036614}
-{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "弱稳", "p": 0.18408709003678894, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0799}
-{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "弱躁", "p": 0.21887271781161174, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.090933}
-{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "牛稳", "p": 0.003092896758735179, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.003057}
-{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "牛躁", "p": 0.060786310999563664, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.035322}
-{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "弱稳", "p": 0.17956772557865053, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.078646}
-{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "弱躁", "p": 0.26034271792991864, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.102235}
+{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "牛稳", "p": 0.002633951093148387, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002729}
+{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "牛躁", "p": 0.06428676647554442, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.037105}
+{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "弱稳", "p": 0.18408709003678894, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.080303}
+{"batch": "batch1", "variant_id": "Q6-c5-v5_pool60", "pool": "full144", "domain": "弱躁", "p": 0.21887271781161174, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.09182}
+{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "牛稳", "p": 0.003092896758735179, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.003167}
+{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "牛躁", "p": 0.060786310999563664, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.035806}
+{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "弱稳", "p": 0.17956772557865053, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.079048}
+{"batch": "batch1", "variant_id": "Q6-c5-v6_pool120", "pool": "full144", "domain": "弱躁", "p": 0.26034271792991864, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.103177}
 {"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "old131", "domain": "牛稳", "p": 0.995, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.224543}
 {"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "old131", "domain": "牛躁", "p": 0.839, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "old131", "domain": "弱稳", "p": 0.258, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.102235}
+{"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "old131", "domain": "弱稳", "p": 0.258, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.103177}
 {"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "old131", "domain": "弱躁", "p": 0.909, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.224543}
 {"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "full144", "domain": "牛稳", "p": 0.992, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.224543}
 {"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "full144", "domain": "牛躁", "p": 0.919, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.224543}
 {"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "full144", "domain": "弱稳", "p": 0.959, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "full144", "domain": "弱躁", "p": 0.161, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.073649}
+{"batch": "batch1", "variant_id": "K1-d-downweight-slot05", "pool": "full144", "domain": "弱躁", "p": 0.161, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.074043}
 {"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "old131", "domain": "牛稳", "p": 0.906, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.224543}
 {"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "old131", "domain": "牛躁", "p": 0.854, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "old131", "domain": "弱稳", "p": 0.023, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.0172}
-{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "old131", "domain": "弱躁", "p": 0.007, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.006404}
+{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "old131", "domain": "弱稳", "p": 0.023, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.017661}
+{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "old131", "domain": "弱躁", "p": 0.007, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.006689}
 {"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "full144", "domain": "牛稳", "p": 0.756, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "full144", "domain": "牛躁", "p": 0.007, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.006404}
+{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "full144", "domain": "牛躁", "p": 0.007, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.006689}
 {"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "full144", "domain": "弱稳", "p": 0.0, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.0}
-{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "full144", "domain": "弱躁", "p": 0.079, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.042463}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "牛稳", "p": 0.094, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.048994}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "牛躁", "p": 0.069, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.039039}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "弱稳", "p": 0.178, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.078646}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "弱躁", "p": 0.027, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.019645}
-{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "old131", "domain": "牛稳", "p": 0.032, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.022016}
+{"batch": "batch1", "variant_id": "K1-d-gate-vol20p80-pause", "pool": "full144", "domain": "弱躁", "p": 0.079, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.043067}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "牛稳", "p": 0.094, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.049595}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "牛躁", "p": 0.069, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.03956}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "弱稳", "p": 0.178, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.079048}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "old131", "domain": "弱躁", "p": 0.027, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.020153}
+{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "old131", "domain": "牛稳", "p": 0.032, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.022557}
 {"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "old131", "domain": "牛躁", "p": 0.924, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "old131", "domain": "弱稳", "p": 0.126, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.062276}
+{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "old131", "domain": "弱稳", "p": 0.126, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.062636}
 {"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "old131", "domain": "弱躁", "p": 0.0, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.0}
-{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "old131", "domain": "牛稳", "p": 0.033, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.022346}
+{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "old131", "domain": "牛稳", "p": 0.033, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.022887}
 {"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "old131", "domain": "牛躁", "p": 0.939, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.224543}
-{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "old131", "domain": "弱稳", "p": 0.122, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.060647}
-{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "old131", "domain": "弱躁", "p": 0.008, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.007242}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "牛稳", "p": 0.057, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.033807}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "牛躁", "p": 0.005, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.004725}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "弱稳", "p": 0.001, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.001229}
-{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "弱躁", "p": 0.19, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.081088}
-{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "full144", "domain": "牛稳", "p": 0.029, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.020612}
-{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "full144", "domain": "牛躁", "p": 0.153, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.071511}
+{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "old131", "domain": "弱稳", "p": 0.122, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.061}
+{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "old131", "domain": "弱躁", "p": 0.008, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "own_p50", "q_merged": 0.007478}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "牛稳", "p": 0.057, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.03428}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "牛躁", "p": 0.005, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.004943}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "弱稳", "p": 0.001, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.001246}
+{"batch": "batch1", "variant_id": "K1-s3d1-armA", "pool": "full144", "domain": "弱躁", "p": 0.19, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.081489}
+{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "full144", "domain": "牛稳", "p": 0.029, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.021136}
+{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "full144", "domain": "牛躁", "p": 0.153, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.071902}
 {"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "full144", "domain": "弱稳", "p": 0.0, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.0}
-{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "full144", "domain": "弱躁", "p": 0.083, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.044062}
-{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "牛稳", "p": 0.029, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.020612}
-{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "牛躁", "p": 0.131, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.064011}
-{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "弱稳", "p": 0.002, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.002123}
-{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "弱躁", "p": 0.24, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.098017}
+{"batch": "batch1", "variant_id": "K1-s3d1-armB", "pool": "full144", "domain": "弱躁", "p": 0.083, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.044613}
+{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "牛稳", "p": 0.029, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.021136}
+{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "牛躁", "p": 0.131, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.064377}
+{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "弱稳", "p": 0.002, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.002205}
+{"batch": "batch1", "variant_id": "K1-s3d1-armC", "pool": "full144", "domain": "弱躁", "p": 0.24, "p_kind": "boot_p_one_sided(域内日超额)", "label_axisB": "frozen_anchor", "q_merged": 0.09895}
 {"batch": "batch2", "variant_id": "Q2-ac-lag1", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 1.0541996279946347e-23, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-ac-lag1", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 1.9860041999292492e-13, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-ac-lag1", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 3.6967687473254353e-07, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 1e-06}
@@ -78,14 +78,14 @@
 {"batch": "batch2", "variant_id": "Q2-ac-lag5", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 9.070696077938469e-09, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-ac-lag5", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 3.634052060264074e-08, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-ac-lag5", "family": "Q2", "pool": "full144", "domain": "弱躁", "p": 5.676361107308756e-14, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q2-ar1-hl-ret", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 0.10393695924850942, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.052923}
+{"batch": "batch2", "variant_id": "Q2-ar1-hl-ret", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 0.10393695924850942, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.053557}
 {"batch": "batch2", "variant_id": "Q2-ar1-hl-ret", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 1.2377920015514896e-30, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-ar1-hl-ret", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 5.835625168149905e-17, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-ar1-hl-ret", "family": "Q2", "pool": "full144", "domain": "弱躁", "p": 4.273183425103254e-46, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 2.3236055251420886e-214, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 2.780455863959819e-99, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 4.867893004804914e-47, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "弱躁", "p": 2.4761736905584144e-113, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
+{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 5.686639022224589e-65, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
+{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 1.4451805497427108e-34, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
+{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 1.987613139822639e-17, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
+{"batch": "batch2", "variant_id": "Q2-ar1-hl-lev", "family": "Q2", "pool": "full144", "domain": "弱躁", "p": 3.436540471521835e-42, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hurst-level", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 7.604617004803696e-129, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hurst-level", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 3.08310276405025e-79, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hurst-level", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 4.952745746965082e-59, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
@@ -94,7 +94,7 @@
 {"batch": "batch2", "variant_id": "Q2-hurst-trend", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 9.439933044089397e-80, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hurst-trend", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 2.438151326789242e-55, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hurst-trend", "family": "Q2", "pool": "full144", "domain": "弱躁", "p": 8.80227858541296e-97, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q2-hl-xdom-speed", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 0.10393695924850942, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.052923}
+{"batch": "batch2", "variant_id": "Q2-hl-xdom-speed", "family": "Q2", "pool": "full144", "domain": "牛稳", "p": 0.10393695924850942, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.053557}
 {"batch": "batch2", "variant_id": "Q2-hl-xdom-speed", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 1.2377920015514896e-30, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hl-xdom-speed", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 5.835625168149905e-17, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hl-xdom-speed", "family": "Q2", "pool": "full144", "domain": "弱躁", "p": 4.273183425103254e-46, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
@@ -102,100 +102,100 @@
 {"batch": "batch2", "variant_id": "Q2-hl-xdom-disp", "family": "Q2", "pool": "full144", "domain": "牛躁", "p": 1.1582890210631727e-42, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hl-xdom-disp", "family": "Q2", "pool": "full144", "domain": "弱稳", "p": 7.24711231352602e-19, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q2-hl-xdom-disp", "family": "Q2", "pool": "full144", "domain": "弱躁", "p": 1.0009913172748218e-47, "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q1-boxpos-p75", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.011661911432713553, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.010029}
+{"batch": "batch2", "variant_id": "Q1-boxpos-p75", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.011661911432713553, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.010339}
 {"batch": "batch2", "variant_id": "Q1-boxpos-p75", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.9936735448579487, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q1-boxpos-p75", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.2457565571323967, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.098303}
+{"batch": "batch2", "variant_id": "Q1-boxpos-p75", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.2457565571323967, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.099226}
 {"batch": "batch2", "variant_id": "Q1-boxpos-p75", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.9993780343629327, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q1-boxpos-p90", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.29224867273644733, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.113213}
+{"batch": "batch2", "variant_id": "Q1-boxpos-p90", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.29224867273644733, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.113726}
 {"batch": "batch2", "variant_id": "Q1-boxpos-p90", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.9892661239638304, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q1-boxpos-p90", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.8723170463123805, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q1-boxpos-p90", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.9444853558300658, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 2.1478217123083264e-19, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.20235312544492337, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.084478}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.0032961167194306058, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.003221}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.5929149462683215, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.216062}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.0010414928156407073, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.001262}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.0019188027522860703, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002123}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.013743565290348468, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.011365}
-{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.07654708919259783, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.041403}
-{"batch": "batch2", "variant_id": "Q1-brk-pos-20", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.00013195194569180977, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000196}
-{"batch": "batch2", "variant_id": "Q1-brk-pos-20", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 4.062364766963272e-05, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 6.2e-05}
-{"batch": "batch2", "variant_id": "Q1-brk-pos-20", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.5315414752208267, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.196191}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.007559663878238553, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.007144}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.9986773299996058, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.03497473834251549, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.023872}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-5", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.9966755104948302, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.11787453398540011, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.059631}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.01723812797989179, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.014119}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.07914614015695436, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.043067}
+{"batch": "batch2", "variant_id": "Q1-touch-bounce-20", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.2838538049609536, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.111468}
+{"batch": "batch2", "variant_id": "Q1-brk-pos-20", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.00013195194569180977, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000199}
+{"batch": "batch2", "variant_id": "Q1-brk-pos-20", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 4.062364766963272e-05, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 6.4e-05}
+{"batch": "batch2", "variant_id": "Q1-brk-pos-20", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.5315414752208267, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.197037}
 {"batch": "batch2", "variant_id": "Q1-brk-pos-20", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.9466219494560475, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q1-brk-pos-60", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 4.8241494692523e-07, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 1e-06}
 {"batch": "batch2", "variant_id": "Q1-brk-pos-60", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 5.26180105615122e-07, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 1e-06}
-{"batch": "batch2", "variant_id": "Q1-brk-pos-60", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.5962151744365176, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.216348}
+{"batch": "batch2", "variant_id": "Q1-brk-pos-60", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.5962151744365176, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.218189}
 {"batch": "batch2", "variant_id": "Q1-brk-pos-60", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.9896341030937689, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q1-crowdinv-20", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.9646088635487187, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q1-crowdinv-20", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.9999932135743025, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q1-crowdinv-20", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.07429649099033504, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.040697}
-{"batch": "batch2", "variant_id": "Q1-crowdinv-20", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.15396225285266116, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.071572}
+{"batch": "batch2", "variant_id": "Q1-crowdinv-20", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.07429649099033504, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.041223}
+{"batch": "batch2", "variant_id": "Q1-crowdinv-20", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.15396225285266116, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.071961}
 {"batch": "batch2", "variant_id": "Q1-crowdinv-60", "family": "Q1", "pool": "full144", "domain": "牛稳", "p": 0.6437454321647869, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q1-crowdinv-60", "family": "Q1", "pool": "full144", "domain": "牛躁", "p": 0.9999899487110249, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q1-crowdinv-60", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.013466710759161112, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.011244}
-{"batch": "batch2", "variant_id": "Q1-crowdinv-60", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.000340587076483695, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000458}
-{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd5", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.00047211429458420673, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000606}
-{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd5", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.04970651812851472, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.031665}
-{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd5", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.0021351857583891106, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002166}
+{"batch": "batch2", "variant_id": "Q1-crowdinv-60", "family": "Q1", "pool": "full144", "domain": "弱稳", "p": 0.013466710759161112, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.011581}
+{"batch": "batch2", "variant_id": "Q1-crowdinv-60", "family": "Q1", "pool": "full144", "domain": "弱躁", "p": 0.000340587076483695, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000465}
+{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd5", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.00047211429458420673, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000615}
+{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd5", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.04970651812851472, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.032141}
+{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd5", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.0021351857583891106, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002245}
 {"batch": "batch2", "variant_id": "Q3-rs-ew-fwd5", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.9731838583821211, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q3-rs-ew-fwd20", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 2.475499557962914e-16, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd20", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.002141027355554651, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002166}
-{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd20", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.00021729077391638768, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000301}
+{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd20", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.002141027355554651, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002245}
+{"batch": "batch2", "variant_id": "Q3-rs-ew-fwd20", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.00021729077391638768, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000306}
 {"batch": "batch2", "variant_id": "Q3-rs-ew-fwd20", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.9518419942947152, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-rs-med-fwd5", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.00047211429458420673, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000606}
-{"batch": "batch2", "variant_id": "Q3-rs-med-fwd5", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.04970651812851472, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.031665}
-{"batch": "batch2", "variant_id": "Q3-rs-med-fwd5", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.0021351857583891106, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002166}
+{"batch": "batch2", "variant_id": "Q3-rs-med-fwd5", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.00047211429458420673, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000615}
+{"batch": "batch2", "variant_id": "Q3-rs-med-fwd5", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.04970651812851472, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.032141}
+{"batch": "batch2", "variant_id": "Q3-rs-med-fwd5", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.0021351857583891106, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002245}
 {"batch": "batch2", "variant_id": "Q3-rs-med-fwd5", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.9731838583821211, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q3-rs-med-fwd20", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 2.475499557962914e-16, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0}
-{"batch": "batch2", "variant_id": "Q3-rs-med-fwd20", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.002141027355554651, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002166}
-{"batch": "batch2", "variant_id": "Q3-rs-med-fwd20", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.00021729077391638768, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000301}
+{"batch": "batch2", "variant_id": "Q3-rs-med-fwd20", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.002141027355554651, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.002245}
+{"batch": "batch2", "variant_id": "Q3-rs-med-fwd20", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.00021729077391638768, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000306}
 {"batch": "batch2", "variant_id": "Q3-rs-med-fwd20", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.9518419942947152, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q3-lowvol-p33", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.8526753343080403, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-lowvol-p33", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 1.3448816681308147e-05, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 2.1e-05}
+{"batch": "batch2", "variant_id": "Q3-lowvol-p33", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 1.3448816681308147e-05, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 2.2e-05}
 {"batch": "batch2", "variant_id": "Q3-lowvol-p33", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.9956679839847302, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q3-lowvol-p33", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.8050936289322457, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-lowvol-mom", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 1.5593533847616935e-05, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 2.4e-05}
+{"batch": "batch2", "variant_id": "Q3-lowvol-mom", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 1.5593533847616935e-05, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 2.5e-05}
 {"batch": "batch2", "variant_id": "Q3-lowvol-mom", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 5.551137540708608e-12, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0}
 {"batch": "batch2", "variant_id": "Q3-lowvol-mom", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.909359176230815, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-lowvol-mom", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.3278147717975033, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.125298}
+{"batch": "batch2", "variant_id": "Q3-lowvol-mom", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.3278147717975033, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.125857}
 {"batch": "batch2", "variant_id": "Q3-rev-5", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.9987798184968809, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-rev-5", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.24162324474361843, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.098017}
+{"batch": "batch2", "variant_id": "Q3-rev-5", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.24162324474361843, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.09895}
 {"batch": "batch2", "variant_id": "Q3-rev-5", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.8935708995314097, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-rev-5", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.00045804535383294485, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000606}
+{"batch": "batch2", "variant_id": "Q3-rev-5", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.00045804535383294485, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000615}
 {"batch": "batch2", "variant_id": "Q3-rev-10", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.9999940909099319, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-rev-10", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.47556763310948025, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.176288}
+{"batch": "batch2", "variant_id": "Q3-rev-10", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.47556763310948025, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.177051}
 {"batch": "batch2", "variant_id": "Q3-rev-10", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.9352236255218681, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-rev-10", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.018101992025421433, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.014152}
+{"batch": "batch2", "variant_id": "Q3-rev-10", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.018101992025421433, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.014549}
 {"batch": "batch2", "variant_id": "Q3-rev-liq", "family": "Q3", "pool": "full144", "domain": "牛稳", "p": 0.9989776270605043, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q3-rev-liq", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.11972214988709151, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.059861}
-{"batch": "batch2", "variant_id": "Q3-rev-liq", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.4471211094704704, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.167184}
-{"batch": "batch2", "variant_id": "Q3-rev-liq", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.00028039699306655984, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000383}
+{"batch": "batch2", "variant_id": "Q3-rev-liq", "family": "Q3", "pool": "full144", "domain": "牛躁", "p": 0.11972214988709151, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.060211}
+{"batch": "batch2", "variant_id": "Q3-rev-liq", "family": "Q3", "pool": "full144", "domain": "弱稳", "p": 0.4471211094704704, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.167914}
+{"batch": "batch2", "variant_id": "Q3-rev-liq", "family": "Q3", "pool": "full144", "domain": "弱躁", "p": 0.00028039699306655984, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000389}
 {"batch": "batch2", "variant_id": "Q4-div-vsurge-stall", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 0.6938229243861461, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q4-div-vsurge-stall", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.18015485532088313, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.078646}
-{"batch": "batch2", "variant_id": "Q4-div-vsurge-stall", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.07261281449362052, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.040288}
+{"batch": "batch2", "variant_id": "Q4-div-vsurge-stall", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.18015485532088313, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.079048}
+{"batch": "batch2", "variant_id": "Q4-div-vsurge-stall", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.07261281449362052, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.040815}
 {"batch": "batch2", "variant_id": "Q4-div-count", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 0.6343542605816612, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q4-div-count", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.07126067455460744, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.039795}
-{"batch": "batch2", "variant_id": "Q4-div-count", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.0741063463182355, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.040697}
-{"batch": "batch2", "variant_id": "Q4-div-count", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.0013784562729557488, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.001624}
+{"batch": "batch2", "variant_id": "Q4-div-count", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.07126067455460744, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.040319}
+{"batch": "batch2", "variant_id": "Q4-div-count", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.0741063463182355, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.041223}
+{"batch": "batch2", "variant_id": "Q4-div-count", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.0013784562729557488, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.00167}
 {"batch": "batch2", "variant_id": "Q4-gap-unfilled-mom", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 1.9466050273431905e-06, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 3e-06}
 {"batch": "batch2", "variant_id": "Q4-gap-unfilled-mom", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.6453653611569182, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q4-gap-unfilled-mom", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.019630305189891464, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.014809}
+{"batch": "batch2", "variant_id": "Q4-gap-unfilled-mom", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.019630305189891464, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.015209}
 {"batch": "batch2", "variant_id": "Q4-gap-unfilled-mom", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.9457380716365652, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q4-gap-fillrev", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 0.000588300752614599, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000744}
+{"batch": "batch2", "variant_id": "Q4-gap-fillrev", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 0.000588300752614599, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000755}
 {"batch": "batch2", "variant_id": "Q4-gap-fillrev", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.9943085479174358, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q4-gap-fillrev", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.00016530296788640596, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000237}
-{"batch": "batch2", "variant_id": "Q4-gap-fillrev", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.46501958217451367, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.173124}
+{"batch": "batch2", "variant_id": "Q4-gap-fillrev", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.00016530296788640596, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000241}
+{"batch": "batch2", "variant_id": "Q4-gap-fillrev", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.46501958217451367, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.173877}
 {"batch": "batch2", "variant_id": "Q4-gap-density", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 1.223140955190136e-05, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 2e-05}
 {"batch": "batch2", "variant_id": "Q4-gap-density", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.9966492188216247, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch2", "variant_id": "Q4-gap-density", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 4.4296435528445586e-07, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 1e-06}
-{"batch": "batch2", "variant_id": "Q4-gap-density", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.18488412511454708, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0799}
+{"batch": "batch2", "variant_id": "Q4-gap-density", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.18488412511454708, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.080303}
 {"batch": "batch2", "variant_id": "Q4-shadow-ratio", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 0.6628665103948135, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q4-shadow-ratio", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.027183186985488137, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.019645}
+{"batch": "batch2", "variant_id": "Q4-shadow-ratio", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.027183186985488137, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.020153}
 {"batch": "batch2", "variant_id": "Q4-shadow-ratio", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.8026729711199789, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
-{"batch": "batch2", "variant_id": "Q4-shadow-ratio", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.1914055630858322, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.081088}
-{"batch": "batch2", "variant_id": "Q4-close-loc", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 0.00014261440326194746, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000208}
-{"batch": "batch2", "variant_id": "Q4-close-loc", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.015742333261027086, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.012653}
-{"batch": "batch2", "variant_id": "Q4-close-loc", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.10490204388566685, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.053068}
+{"batch": "batch2", "variant_id": "Q4-shadow-ratio", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.1914055630858322, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.081489}
+{"batch": "batch2", "variant_id": "Q4-close-loc", "family": "Q4", "pool": "full144", "domain": "牛稳", "p": 0.00014261440326194746, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.000211}
+{"batch": "batch2", "variant_id": "Q4-close-loc", "family": "Q4", "pool": "full144", "domain": "牛躁", "p": 0.015742333261027086, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.013144}
+{"batch": "batch2", "variant_id": "Q4-close-loc", "family": "Q4", "pool": "full144", "domain": "弱稳", "p": 0.10490204388566685, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.0537}
 {"batch": "batch2", "variant_id": "Q4-close-loc", "family": "Q4", "pool": "full144", "domain": "弱躁", "p": 0.8604844868310961, "p_kind": "t.sf(ic_t, n_ic-2) 上尾（batch1 PF-5 同式）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot075", "pool": "old131", "domain": "弱稳", "p": 0.791, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot075", "pool": "old131", "domain": "弱躁", "p": 0.872, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
@@ -206,178 +206,178 @@
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot025", "pool": "old131", "domain": "牛稳", "p": 0.991, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot025", "pool": "old131", "domain": "牛躁", "p": 0.811, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "old131", "domain": "弱稳", "p": 0.687, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "old131", "domain": "弱躁", "p": 0.191, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.081088}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "old131", "domain": "牛稳", "p": 0.145, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.069278}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "old131", "domain": "牛躁", "p": 0.007, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.006404}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "old131", "domain": "弱稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008687}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "old131", "domain": "弱躁", "p": 0.058, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.034164}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "old131", "domain": "弱躁", "p": 0.191, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.081489}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "old131", "domain": "牛稳", "p": 0.145, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.069665}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "old131", "domain": "牛躁", "p": 0.007, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.006689}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "old131", "domain": "弱稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008958}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "old131", "domain": "弱躁", "p": 0.058, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.034639}
 {"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "old131", "domain": "牛稳", "p": 0.912, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "old131", "domain": "牛躁", "p": 0.857, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot075", "pool": "full144", "domain": "弱稳", "p": 0.961, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K1-d-downweight-slot075", "pool": "full144", "domain": "弱躁", "p": 0.165, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.074293}
+{"batch": "batch3", "variant_id": "K1-d-downweight-slot075", "pool": "full144", "domain": "弱躁", "p": 0.165, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.074684}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot075", "pool": "full144", "domain": "牛稳", "p": 0.992, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot075", "pool": "full144", "domain": "牛躁", "p": 0.918, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot025", "pool": "full144", "domain": "弱稳", "p": 0.958, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K1-d-downweight-slot025", "pool": "full144", "domain": "弱躁", "p": 0.152, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.071432}
+{"batch": "batch3", "variant_id": "K1-d-downweight-slot025", "pool": "full144", "domain": "弱躁", "p": 0.152, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.071824}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot025", "pool": "full144", "domain": "牛稳", "p": 0.991, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K1-d-downweight-slot025", "pool": "full144", "domain": "牛躁", "p": 0.919, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "full144", "domain": "弱稳", "p": 0.005, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.004725}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "full144", "domain": "弱稳", "p": 0.005, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.004943}
 {"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "full144", "domain": "弱躁", "p": 0.903, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "full144", "domain": "牛稳", "p": 0.093, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.048768}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "full144", "domain": "牛躁", "p": 0.048, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.031038}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "full144", "domain": "牛稳", "p": 0.093, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.04937}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p70-pause", "pool": "full144", "domain": "牛躁", "p": 0.048, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.031511}
 {"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "full144", "domain": "弱稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "full144", "domain": "弱躁", "p": 0.294, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.113381}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "full144", "domain": "弱躁", "p": 0.294, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.113892}
 {"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "full144", "domain": "牛稳", "p": 0.783, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "full144", "domain": "牛躁", "p": 0.015, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.01217}
+{"batch": "batch3", "variant_id": "K1-d-gate-vol20p80-pause-lag1", "pool": "full144", "domain": "牛躁", "p": 0.015, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.012647}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "old131", "domain": "弱稳", "p": 0.983, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "old131", "domain": "弱躁", "p": 0.993, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "old131", "domain": "牛稳", "p": 0.039, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0258}
+{"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "old131", "domain": "牛稳", "p": 0.039, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.026203}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "old131", "domain": "牛躁", "p": 0.802, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "old131", "domain": "弱稳", "p": 0.971, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "old131", "domain": "弱躁", "p": 0.996, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "old131", "domain": "牛稳", "p": 0.063, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.03612}
+{"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "old131", "domain": "牛稳", "p": 0.063, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.036608}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "old131", "domain": "牛躁", "p": 0.788, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "old131", "domain": "弱稳", "p": 0.974, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "old131", "domain": "弱躁", "p": 0.994, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "old131", "domain": "牛稳", "p": 0.115, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.057836}
+{"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "old131", "domain": "牛稳", "p": 0.115, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.058521}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "old131", "domain": "牛躁", "p": 0.806, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "old131", "domain": "弱稳", "p": 0.992, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "old131", "domain": "弱躁", "p": 0.973, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "old131", "domain": "牛稳", "p": 0.07, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.039346}
+{"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "old131", "domain": "牛稳", "p": 0.07, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.039868}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "old131", "domain": "牛躁", "p": 0.832, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "old131", "domain": "弱稳", "p": 0.965, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "old131", "domain": "弱躁", "p": 0.984, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "old131", "domain": "牛稳", "p": 0.057, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033807}
+{"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "old131", "domain": "牛稳", "p": 0.057, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.03428}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "old131", "domain": "牛躁", "p": 0.819, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "old131", "domain": "弱稳", "p": 0.976, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "old131", "domain": "弱躁", "p": 0.993, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "old131", "domain": "牛稳", "p": 0.194, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.081784}
+{"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "old131", "domain": "牛稳", "p": 0.194, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.082187}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "old131", "domain": "牛躁", "p": 0.787, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "full144", "domain": "弱稳", "p": 0.89, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "full144", "domain": "弱躁", "p": 0.995, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "full144", "domain": "牛稳", "p": 0.013, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.010961}
+{"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "full144", "domain": "牛稳", "p": 0.013, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.011293}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5", "pool": "full144", "domain": "牛躁", "p": 0.857, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "full144", "domain": "弱稳", "p": 0.902, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "full144", "domain": "弱躁", "p": 0.995, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "full144", "domain": "牛稳", "p": 0.033, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.022346}
+{"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "full144", "domain": "牛稳", "p": 0.033, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.022887}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h10", "pool": "full144", "domain": "牛躁", "p": 0.842, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "full144", "domain": "弱稳", "p": 0.842, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "full144", "domain": "弱躁", "p": 0.998, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "full144", "domain": "牛稳", "p": 0.152, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.071432}
+{"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "full144", "domain": "牛稳", "p": 0.152, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.071824}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h5", "pool": "full144", "domain": "牛躁", "p": 0.876, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "full144", "domain": "弱稳", "p": 0.871, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "full144", "domain": "弱躁", "p": 0.999, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "full144", "domain": "牛稳", "p": 0.052, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.032882}
+{"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "full144", "domain": "牛稳", "p": 0.052, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033373}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10", "pool": "full144", "domain": "牛躁", "p": 0.895, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "full144", "domain": "弱稳", "p": 0.899, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "full144", "domain": "弱躁", "p": 0.994, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "full144", "domain": "牛稳", "p": 0.056, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033807}
+{"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "full144", "domain": "牛稳", "p": 0.056, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.03428}
 {"batch": "batch3", "variant_id": "K2-mr-d5-h5-volconf", "pool": "full144", "domain": "牛躁", "p": 0.86, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "full144", "domain": "弱稳", "p": 0.793, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "full144", "domain": "弱躁", "p": 0.987, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "full144", "domain": "牛稳", "p": 0.179, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.078646}
+{"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "full144", "domain": "牛稳", "p": 0.179, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.079048}
 {"batch": "batch3", "variant_id": "K2-mr-d8-h10-domweak", "pool": "full144", "domain": "牛躁", "p": 0.849, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K3-brk-frozen-breadth", "pool": "full144", "domain": "牛稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002123}
-{"batch": "batch3", "variant_id": "K3-brk-frozen-breadth", "pool": "full144", "domain": "牛躁", "p": 0.026, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.019111}
+{"batch": "batch3", "variant_id": "K3-brk-frozen-breadth", "pool": "full144", "domain": "牛稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002205}
+{"batch": "batch3", "variant_id": "K3-brk-frozen-breadth", "pool": "full144", "domain": "牛躁", "p": 0.026, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.019614}
 {"batch": "batch3", "variant_id": "K3-brk-frozen-breadth", "pool": "full144", "domain": "弱稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
 {"batch": "batch3", "variant_id": "K3-brk-frozen-breadth", "pool": "full144", "domain": "弱躁", "p": 0.994, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K3-brk-domfilter-niuwen", "pool": "full144", "domain": "牛稳", "p": 0.001, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.001229}
+{"batch": "batch3", "variant_id": "K3-brk-domfilter-niuwen", "pool": "full144", "domain": "牛稳", "p": 0.001, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.001246}
 {"batch": "batch3", "variant_id": "K3-brk-domfilter-niuwen", "pool": "full144", "domain": "牛躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K3-brk-domfilter-niuwen", "pool": "full144", "domain": "弱稳", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K3-brk-domfilter-niuwen", "pool": "full144", "domain": "弱躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K3-brk-domfilter-niunao", "pool": "full144", "domain": "牛稳", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K3-brk-domfilter-niunao", "pool": "full144", "domain": "牛躁", "p": 0.017, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.013537}
+{"batch": "batch3", "variant_id": "K3-brk-domfilter-niunao", "pool": "full144", "domain": "牛躁", "p": 0.017, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.014058}
 {"batch": "batch3", "variant_id": "K3-brk-domfilter-niunao", "pool": "full144", "domain": "弱稳", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K3-brk-domfilter-niunao", "pool": "full144", "domain": "弱躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K3-brk-short-mirror-20", "pool": "full144", "domain": "牛稳", "p": 0.019, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.01446}
+{"batch": "batch3", "variant_id": "K3-brk-short-mirror-20", "pool": "full144", "domain": "牛稳", "p": 0.019, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.014855}
 {"batch": "batch3", "variant_id": "K3-brk-short-mirror-20", "pool": "full144", "domain": "牛躁", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
-{"batch": "batch3", "variant_id": "K3-brk-short-mirror-20", "pool": "full144", "domain": "弱稳", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033786}
+{"batch": "batch3", "variant_id": "K3-brk-short-mirror-20", "pool": "full144", "domain": "弱稳", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.034275}
 {"batch": "batch3", "variant_id": "K3-brk-short-mirror-20", "pool": "full144", "domain": "弱躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K3-brk-short-mirror-20-weak", "pool": "full144", "domain": "牛稳", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K3-brk-short-mirror-20-weak", "pool": "full144", "domain": "牛躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K3-brk-short-mirror-20-weak", "pool": "full144", "domain": "弱稳", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033786}
+{"batch": "batch3", "variant_id": "K3-brk-short-mirror-20-weak", "pool": "full144", "domain": "弱稳", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.034275}
 {"batch": "batch3", "variant_id": "K3-brk-short-mirror-20-weak", "pool": "full144", "domain": "弱躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K3-brk-pullback-confirm", "pool": "full144", "domain": "牛稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008687}
-{"batch": "batch3", "variant_id": "K3-brk-pullback-confirm", "pool": "full144", "domain": "牛躁", "p": 0.196, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.082224}
+{"batch": "batch3", "variant_id": "K3-brk-pullback-confirm", "pool": "full144", "domain": "牛稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008958}
+{"batch": "batch3", "variant_id": "K3-brk-pullback-confirm", "pool": "full144", "domain": "牛躁", "p": 0.196, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.082627}
 {"batch": "batch3", "variant_id": "K3-brk-pullback-confirm", "pool": "full144", "domain": "弱稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
-{"batch": "batch3", "variant_id": "K3-brk-pullback-confirm", "pool": "full144", "domain": "弱躁", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002123}
+{"batch": "batch3", "variant_id": "K3-brk-pullback-confirm", "pool": "full144", "domain": "弱躁", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002205}
 {"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "old131", "domain": "弱稳", "p": 0.962, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "old131", "domain": "弱躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "old131", "domain": "牛稳", "p": 0.03, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.021148}
+{"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "old131", "domain": "牛稳", "p": 0.03, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.021681}
 {"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "old131", "domain": "牛躁", "p": 0.75, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "old131", "domain": "弱稳", "p": 0.96, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "old131", "domain": "弱躁", "p": 0.086, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.045374}
+{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "old131", "domain": "弱躁", "p": 0.086, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.045938}
 {"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "old131", "domain": "牛稳", "p": 0.899, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "old131", "domain": "牛躁", "p": 0.542, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.199197}
+{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "old131", "domain": "牛躁", "p": 0.542, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.200052}
 {"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "old131", "domain": "弱稳", "p": 0.839, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "old131", "domain": "弱躁", "p": 0.812, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "old131", "domain": "牛稳", "p": 0.36, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.136991}
+{"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "old131", "domain": "牛稳", "p": 0.36, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.1376}
 {"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "old131", "domain": "牛躁", "p": 0.788, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "old131", "domain": "弱稳", "p": 0.758, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "old131", "domain": "弱躁", "p": 0.826, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "old131", "domain": "牛稳", "p": 0.223, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.092202}
-{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "old131", "domain": "牛躁", "p": 0.609, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.220059}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "弱稳", "p": 0.145, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.069278}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "弱躁", "p": 0.188, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.08084}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "牛稳", "p": 0.057, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033807}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "牛躁", "p": 0.034, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.022844}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "弱稳", "p": 0.255, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.101528}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "弱躁", "p": 0.146, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.06937}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "牛稳", "p": 0.056, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033807}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "牛躁", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033786}
+{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "old131", "domain": "牛稳", "p": 0.223, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.093097}
+{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "old131", "domain": "牛躁", "p": 0.609, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.221924}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "弱稳", "p": 0.145, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.069665}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "弱躁", "p": 0.188, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.081246}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "牛稳", "p": 0.057, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.03428}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "old131", "domain": "牛躁", "p": 0.034, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.023392}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "弱稳", "p": 0.255, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.102477}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "弱躁", "p": 0.146, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.069756}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "牛稳", "p": 0.056, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.03428}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "old131", "domain": "牛躁", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.034275}
 {"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "full144", "domain": "弱稳", "p": 0.901, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "full144", "domain": "弱躁", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "full144", "domain": "牛稳", "p": 0.013, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.010961}
+{"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "full144", "domain": "牛稳", "p": 0.013, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.011293}
 {"batch": "batch3", "variant_id": "K4-reentry-nextday", "pool": "full144", "domain": "牛躁", "p": 0.804, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "full144", "domain": "弱稳", "p": 0.96, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "full144", "domain": "弱躁", "p": 0.104, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.052923}
-{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "full144", "domain": "牛稳", "p": 0.145, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.069278}
+{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "full144", "domain": "弱躁", "p": 0.104, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.053557}
+{"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "full144", "domain": "牛稳", "p": 0.145, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.069665}
 {"batch": "batch3", "variant_id": "K4-reentry-ma20", "pool": "full144", "domain": "牛躁", "p": 0.985, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "full144", "domain": "弱稳", "p": 0.952, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "full144", "domain": "弱躁", "p": 0.168, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.07486}
+{"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "full144", "domain": "弱躁", "p": 0.168, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.07525}
 {"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "full144", "domain": "牛稳", "p": 1.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "full144", "domain": "牛躁", "p": 0.165, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.074293}
+{"batch": "batch3", "variant_id": "K4-gateexec-sameday", "pool": "full144", "domain": "牛躁", "p": 0.165, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.074684}
 {"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "full144", "domain": "弱稳", "p": 0.896, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "full144", "domain": "弱躁", "p": 0.316, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.121321}
+{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "full144", "domain": "弱躁", "p": 0.316, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.121865}
 {"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "full144", "domain": "牛稳", "p": 0.997, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "full144", "domain": "牛躁", "p": 0.104, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.052923}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "弱稳", "p": 0.163, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.074169}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "弱躁", "p": 0.241, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.098017}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "牛稳", "p": 0.06, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.035102}
-{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "牛躁", "p": 0.026, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.019111}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "弱稳", "p": 0.264, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.1032}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "弱躁", "p": 0.167, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.074802}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "牛稳", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.033786}
-{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "牛躁", "p": 0.041, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.026916}
+{"batch": "batch3", "variant_id": "K4-gateexec-nextopen", "pool": "full144", "domain": "牛躁", "p": 0.104, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.053557}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "弱稳", "p": 0.163, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.074564}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "弱躁", "p": 0.241, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.09895}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "牛稳", "p": 0.06, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.035586}
+{"batch": "batch3", "variant_id": "K4-feeproxy-pause", "pool": "full144", "domain": "牛躁", "p": 0.026, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.019614}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "弱稳", "p": 0.264, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.104147}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "弱躁", "p": 0.167, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.075194}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "牛稳", "p": 0.055, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.034275}
+{"batch": "batch3", "variant_id": "K4-feeproxy-halfslot", "pool": "full144", "domain": "牛躁", "p": 0.041, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.027333}
 {"batch": "batch3", "variant_id": "K5-fd-exit-ctrl", "pool": "full144", "domain": "牛稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
 {"batch": "batch3", "variant_id": "K5-fd-exit-ctrl", "pool": "full144", "domain": "牛躁", "p": 0.787, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-ctrl", "pool": "full144", "domain": "弱稳", "p": 0.014, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.011467}
+{"batch": "batch3", "variant_id": "K5-fd-exit-ctrl", "pool": "full144", "domain": "弱稳", "p": 0.014, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.011921}
 {"batch": "batch3", "variant_id": "K5-fd-exit-ctrl", "pool": "full144", "domain": "弱躁", "p": 0.866, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-keep", "pool": "full144", "domain": "牛稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
 {"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-keep", "pool": "full144", "domain": "牛躁", "p": 0.743, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-keep", "pool": "full144", "domain": "弱稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002123}
-{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-keep", "pool": "full144", "domain": "弱躁", "p": 0.291, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.113213}
+{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-keep", "pool": "full144", "domain": "弱稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002205}
+{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-keep", "pool": "full144", "domain": "弱躁", "p": 0.291, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.113726}
 {"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-breakeven", "pool": "full144", "domain": "牛稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
 {"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-breakeven", "pool": "full144", "domain": "牛躁", "p": 0.747, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-breakeven", "pool": "full144", "domain": "弱稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002123}
-{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-breakeven", "pool": "full144", "domain": "弱躁", "p": 0.128, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.062903}
+{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-breakeven", "pool": "full144", "domain": "弱稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002205}
+{"batch": "batch3", "variant_id": "K5-fd-exit-partial3r-breakeven", "pool": "full144", "domain": "弱躁", "p": 0.128, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.063264}
 {"batch": "batch3", "variant_id": "K5-fd-exit-time20", "pool": "full144", "domain": "牛稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
 {"batch": "batch3", "variant_id": "K5-fd-exit-time20", "pool": "full144", "domain": "牛躁", "p": 0.842, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-time20", "pool": "full144", "domain": "弱稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008687}
-{"batch": "batch3", "variant_id": "K5-fd-exit-time20", "pool": "full144", "domain": "弱躁", "p": 0.589, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.215549}
+{"batch": "batch3", "variant_id": "K5-fd-exit-time20", "pool": "full144", "domain": "弱稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008958}
+{"batch": "batch3", "variant_id": "K5-fd-exit-time20", "pool": "full144", "domain": "弱躁", "p": 0.589, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.21647}
 {"batch": "batch3", "variant_id": "K5-fd-exit-time45", "pool": "full144", "domain": "牛稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
 {"batch": "batch3", "variant_id": "K5-fd-exit-time45", "pool": "full144", "domain": "牛躁", "p": 0.756, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-time45", "pool": "full144", "domain": "弱稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008687}
+{"batch": "batch3", "variant_id": "K5-fd-exit-time45", "pool": "full144", "domain": "弱稳", "p": 0.01, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.008958}
 {"batch": "batch3", "variant_id": "K5-fd-exit-time45", "pool": "full144", "domain": "弱躁", "p": 0.949, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-atr2", "pool": "full144", "domain": "牛稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002123}
+{"batch": "batch3", "variant_id": "K5-fd-exit-atr2", "pool": "full144", "domain": "牛稳", "p": 0.002, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.002205}
 {"batch": "batch3", "variant_id": "K5-fd-exit-atr2", "pool": "full144", "domain": "牛躁", "p": 0.927, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-atr2", "pool": "full144", "domain": "弱稳", "p": 0.019, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.01446}
+{"batch": "batch3", "variant_id": "K5-fd-exit-atr2", "pool": "full144", "domain": "弱稳", "p": 0.019, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.014855}
 {"batch": "batch3", "variant_id": "K5-fd-exit-atr2", "pool": "full144", "domain": "弱躁", "p": 0.999, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
 {"batch": "batch3", "variant_id": "K5-fd-exit-atr3", "pool": "full144", "domain": "牛稳", "p": 0.0, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.0}
 {"batch": "batch3", "variant_id": "K5-fd-exit-atr3", "pool": "full144", "domain": "牛躁", "p": 0.839, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-atr3", "pool": "full144", "domain": "弱稳", "p": 0.018, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.014152}
+{"batch": "batch3", "variant_id": "K5-fd-exit-atr3", "pool": "full144", "domain": "弱稳", "p": 0.018, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.014549}
 {"batch": "batch3", "variant_id": "K5-fd-exit-atr3", "pool": "full144", "domain": "弱躁", "p": 0.976, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-mix-timeatr", "pool": "full144", "domain": "牛稳", "p": 0.005, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.004725}
+{"batch": "batch3", "variant_id": "K5-fd-exit-mix-timeatr", "pool": "full144", "domain": "牛稳", "p": 0.005, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.004943}
 {"batch": "batch3", "variant_id": "K5-fd-exit-mix-timeatr", "pool": "full144", "domain": "牛躁", "p": 0.916, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}
-{"batch": "batch3", "variant_id": "K5-fd-exit-mix-timeatr", "pool": "full144", "domain": "弱稳", "p": 0.019, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.01446}
+{"batch": "batch3", "variant_id": "K5-fd-exit-mix-timeatr", "pool": "full144", "domain": "弱稳", "p": 0.019, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.014855}
 {"batch": "batch3", "variant_id": "K5-fd-exit-mix-timeatr", "pool": "full144", "domain": "弱躁", "p": 0.989, "p_kind": "boot_p_one_sided（域内日超额/日R合计 ≤0 频率，块长10 B1000 seed42）", "q_merged": 0.224543}

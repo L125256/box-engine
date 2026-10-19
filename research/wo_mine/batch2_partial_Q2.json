@@ -389,7 +389,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
+   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）【口径存疑·量级失真·审计终裁③登记不重算：OU 口径 −log2/log(φ) 下 φ_ret→0 使半衰期量级不可比，原式量级亦不可作日数直读，仅保序使用】；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
   },
   {
    "batch": "batch2",
@@ -419,7 +419,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
+   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）【口径存疑·量级失真·审计终裁③登记不重算：OU 口径 −log2/log(φ) 下 φ_ret→0 使半衰期量级不可比，原式量级亦不可作日数直读，仅保序使用】；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
   },
   {
    "batch": "batch2",
@@ -449,7 +449,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
+   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）【口径存疑·量级失真·审计终裁③登记不重算：OU 口径 −log2/log(φ) 下 φ_ret→0 使半衰期量级不可比，原式量级亦不可作日数直读，仅保序使用】；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
   },
   {
    "batch": "batch2",
@@ -479,7 +479,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
+   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）【口径存疑·量级失真·审计终裁③登记不重算：OU 口径 −log2/log(φ) 下 φ_ret→0 使半衰期量级不可比，原式量级亦不可作日数直读，仅保序使用】；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口 MAP-INVALID"
   },
   {
    "batch": "batch2",
@@ -509,7 +509,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
+   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）【口径存疑·量级失真·审计终裁③登记不重算：OU 口径 −log2/log(φ) 下 φ_ret→0 使半衰期量级不可比，原式量级亦不可作日数直读，仅保序使用】；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
   },
   {
    "batch": "batch2",
@@ -539,7 +539,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
+   "notes": "池个股 AR1(60 日, r_t~r_t-1) 斜率中位→半衰期 −log2/log(1+φ)（φ>0 为负值=趋势延续读数；分母池内自算）【口径存疑·量级失真·审计终裁③登记不重算：OU 口径 −log2/log(φ) 下 φ_ret→0 使半衰期量级不可比，原式量级亦不可作日数直读，仅保序使用】；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
   },
   {
    "batch": "batch2",
@@ -554,22 +554,22 @@
    "ann_pct": null,
    "excess_pp": null,
    "mdd_pct": null,
-   "ic_mean": -1.056048,
-   "ic_t": -592.157884,
+   "ic_mean": 10.32849,
+   "ic_t": 34.409704,
    "n_ic": 124,
    "spread_net_pp": null,
    "avoid_pp": null,
    "mdd_red_pct": null,
-   "cushion_x": 0.99,
+   "cushion_x": 1.11,
    "fdr_q": null,
-   "ci95_low": -1.067253,
-   "ci95_high": -1.047163,
+   "ci95_low": 8.715741,
+   "ci95_high": 11.793882,
    "loto_pass": null,
    "yearly_flip": null,
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期（水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
+   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期 −log2/log(φ)（OU 口径·审计修正版重算，原 −log2/log(1+φ) 恒≈−1 读数作废；水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
   },
   {
    "batch": "batch2",
@@ -584,22 +584,22 @@
    "ann_pct": null,
    "excess_pp": null,
    "mdd_pct": null,
-   "ic_mean": -1.060148,
-   "ic_t": -471.368088,
+   "ic_mean": 9.261925,
+   "ic_t": 28.950399,
    "n_ic": 55,
    "spread_net_pp": null,
    "avoid_pp": null,
    "mdd_red_pct": null,
    "cushion_x": 1.0,
    "fdr_q": null,
-   "ci95_low": -1.070076,
-   "ci95_high": -1.050361,
+   "ci95_low": 7.831007,
+   "ci95_high": 10.758315,
    "loto_pass": null,
    "yearly_flip": null,
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期（水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
+   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期 −log2/log(φ)（OU 口径·审计修正版重算，原 −log2/log(1+φ) 恒≈−1 读数作废；水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
   },
   {
    "batch": "batch2",
@@ -614,22 +614,22 @@
    "ann_pct": null,
    "excess_pp": null,
    "mdd_pct": null,
-   "ic_mean": -1.064868,
-   "ic_t": -286.769833,
+   "ic_mean": 8.655323,
+   "ic_t": 20.221167,
    "n_ic": 27,
    "spread_net_pp": null,
    "avoid_pp": null,
    "mdd_red_pct": null,
-   "cushion_x": 1.0,
+   "cushion_x": 0.94,
    "fdr_q": null,
-   "ci95_low": -1.07753,
-   "ci95_high": -1.051861,
+   "ci95_low": 7.17232,
+   "ci95_high": 10.208085,
    "loto_pass": null,
    "yearly_flip": null,
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期（水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
+   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期 −log2/log(φ)（OU 口径·审计修正版重算，原 −log2/log(1+φ) 恒≈−1 读数作废；水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
   },
   {
    "batch": "batch2",
@@ -644,22 +644,22 @@
    "ann_pct": null,
    "excess_pp": null,
    "mdd_pct": null,
-   "ic_mean": -1.074414,
-   "ic_t": -527.656294,
+   "ic_mean": 7.379008,
+   "ic_t": 35.142025,
    "n_ic": 62,
    "spread_net_pp": null,
    "avoid_pp": null,
    "mdd_red_pct": null,
-   "cushion_x": 1.01,
+   "cushion_x": 0.8,
    "fdr_q": null,
-   "ci95_low": -1.083109,
-   "ci95_high": -1.06619,
+   "ci95_low": 6.585386,
+   "ci95_high": 8.276516,
    "loto_pass": null,
    "yearly_flip": null,
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期（水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
+   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期 −log2/log(φ)（OU 口径·审计修正版重算，原 −log2/log(1+φ) 恒≈−1 读数作废；水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】；Q2 非截面族：ic_mean 字段承载域内统计量均值（字段复用登记），ic_t=该均值 t 统计（df=n−1），p=双侧（结构统计量无预注册方向）；C5/格级判定统一 Batch 3 收口"
   },
   {
    "batch": "batch2",
@@ -674,8 +674,8 @@
    "ann_pct": null,
    "excess_pp": null,
    "mdd_pct": null,
-   "ic_mean": -1.062027,
-   "ic_t": -884.124041,
+   "ic_mean": 9.258697,
+   "ic_t": 51.152272,
    "n_ic": 268,
    "spread_net_pp": null,
    "avoid_pp": null,
@@ -689,7 +689,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期（水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
+   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期 −log2/log(φ)（OU 口径·审计修正版重算，原 −log2/log(1+φ) 恒≈−1 读数作废；水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
   },
   {
    "batch": "batch2",
@@ -704,8 +704,8 @@
    "ann_pct": null,
    "excess_pp": null,
    "mdd_pct": null,
-   "ic_mean": -1.081723,
-   "ic_t": -761.772242,
+   "ic_mean": 6.645766,
+   "ic_t": 53.708783,
    "n_ic": 101,
    "spread_net_pp": null,
    "avoid_pp": null,
@@ -719,7 +719,7 @@
    "lag_flip": null,
    "evidence_tag": "【实证】",
    "anchor_ref": "new",
-   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期（水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
+   "notes": "池个股对数价格 AR1(60 日) 斜率中位→半衰期 −log2/log(φ)（OU 口径·审计修正版重算，原 −log2/log(1+φ) 恒≈−1 读数作废；水平/趋势口径对）；【口径操作化·R7 登记·MINE_SPEC 未逐字定义处提请终裁】"
   },
   {
    "batch": "batch2",
@@ -1557,7 +1557,7 @@
    "family": "Q2",
    "pool": "full144",
    "domain": "牛稳",
-   "p": 2.3236055251420886e-214,
+   "p": 5.686639022224589e-65,
    "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）"
   },
   {
@@ -1566,7 +1566,7 @@
    "family": "Q2",
    "pool": "full144",
    "domain": "牛躁",
-   "p": 2.780455863959819e-99,
+   "p": 1.4451805497427108e-34,
    "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）"
   },
   {
@@ -1575,7 +1575,7 @@
    "family": "Q2",
    "pool": "full144",
    "domain": "弱稳",
-   "p": 4.867893004804914e-47,
+   "p": 1.987613139822639e-17,
    "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）"
   },
   {
@@ -1584,7 +1584,7 @@
    "family": "Q2",
    "pool": "full144",
    "domain": "弱躁",
-   "p": 2.4761736905584144e-113,
+   "p": 3.436540471521835e-42,
    "p_kind": "t 双侧(df=n-1)（Q2 结构统计量，无预注册方向）"
   },
   {
@@ -1766,10 +1766,10 @@
   "Q2-ar1-hl-lev": {
    "placebo": {
     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
-    "obs": 0.018365789991902748,
+    "obs": 2.9494824359599248,
     "placebo_p": 0.0,
     "map_invalid": false,
-    "placebo_p50": 0.004797018446870749
+    "placebo_p50": 0.7129244411463995
    },
    "n_full": 268
   },
@@ -1813,7 +1813,7 @@
    },
    "n_full": 267
   },
-  "wall_secs": 5.1
+  "wall_secs": 5.2
  },
- "ts": "2026-10-20 03:12:57"
+ "ts": "2026-10-20 04:03:31"
 }

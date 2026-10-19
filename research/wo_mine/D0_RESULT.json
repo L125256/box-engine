@@ -67,9 +67,9 @@
   "kernel_final": 4.730578,
   "alpha_ref": 4.730578,
   "absdiff": 4.819623171670173e-07,
-  "runtime_sec": 1.6,
+  "runtime_sec": 1.5,
   "source": "wo_alpha/alpha_result.json A_final=4.730578（用户锚 4.7306）"
  },
  "all_pass": true,
- "runtime_sec": 8.6
+ "runtime_sec": 8.3
 }
