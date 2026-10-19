@@ -29,6 +29,19 @@ RUNS = {
 # eng_final.py 模块级常量（逐字引用，勿改）
 B, X, Q, AMAX, FEE = 0.25, 0.75, 30, 60, 0.03
 
+# 双轮标注（交易分析团队终裁 2026-10-19）：云端主轮已双轮（09:00 判定级 / 21:00 盘中快照，cron 0 0 9,21 * * *），
+# 按生成时北京时间小时打 round_type 标，防止 21:00 轮被误读为当日收盘判定。
+RT_JUDGE = '判定级'
+RT_SNAP  = '盘中快照·不可操作'
+
+
+def round_type_for_hour(hour):
+    """北京时间小时 → 轮次标注：8-12 时区间=09:00 判定级；19-23（21:00 轮）与其余时段
+    一律保守默认=盘中快照·不可操作。不改主扫描流程、不动 fd 信号判定逻辑。"""
+    if 8 <= hour < 12:
+        return RT_JUDGE
+    return RT_SNAP
+
 
 def load_module(name, path):
     spec = importlib.util.spec_from_file_location(name, path)
@@ -211,9 +224,14 @@ details{margin:8px 0}details>summary{cursor:pointer;padding:6px 10px;background:
 .fdtag{display:inline-block;background:#1f3a5f;color:#58a6ff;border-radius:4px;padding:1px 6px;font-size:11px;margin-left:6px}
 .warnfd{color:#f59e0b;font-size:12px}
 .linkbar{margin:10px 0;font-size:13px}
+.rt{display:inline-block;border-radius:4px;padding:1px 6px;font-size:11px;font-weight:bold;margin-left:6px;vertical-align:1px}
+.rt.judge{background:#12301c;color:#3fb950;border:1px solid #16a34a}
+.rt.snap{background:#33270a;color:#e3b341;border:1px solid #f59e0b}
+.rt.unknown{background:#30363d;color:#8b949e;border:1px solid #30363d}
 </style></head><body>
 <h1>📦 箱体引擎 · 观察站（fd 信号源 + 市况温度计）</h1>
 <div class="meta" id="meta">加载中…</div>
+<div class="meta" id="roundline"></div>
 <div class="decl">📦 <b>观察站——本页只看不操作，操作指令只在 F1 页（/f1/）</b>
 → <a href="f1/index.html">去 F1 运行页</a> · <a href="f1/manual.html">📖 F1 说明书</a> · <a href="box/manual.html">📖 本页使用说明</a>
 <details><summary>展开诚实声明（空头席复核 2026-10-15）</summary><div style="margin-top:6px">本策略为防守型工具，收益与池贝塔强相关——剔除同期池等权涨幅后无独立超额；回测含幸存者偏差（池=当前存续票，估计 ≥+9pp 高估，务必打折看待）；年化指标曾因计算错误高估已修正。本页为本机复刻版：口径=V2 可实现出场（触发仍为 V1 收盘判定）+ 清洗后 144 标的池，与权威引擎 eng_final.py 同源同数。仓位与买卖决策请勿仅依赖本页。</div></details></div>
@@ -243,6 +261,10 @@ function render(){
   document.getElementById('meta').textContent='生成于 '+d.generated+' · 版本 '+d.version+
     ' · 主区=冻结基线 N='+p.N+' k='+p.k+' m='+p.m+' e='+p.e+
     ' · 池='+d.pool.n+' 标的 · seed='+d.seed+' · 牛闸快照='+BULL_ASOF;
+  const rt=d.round_type||'轮次未标注';
+  const rtCls=(rt==='判定级')?'rt judge':((rt==='盘中快照·不可操作')?'rt snap':'rt unknown');
+  document.getElementById('roundline').innerHTML='本轮类型 <span class="'+rtCls+'">'+rt+
+    '</span> · 21:00 轮为盘中快照，仅供参考，fd 信号一律以收盘判定为准';
   const cs=r.cards||[];
   const nLock=cs.filter(c=>c.mode==='箱体锁定').length,nSeek=cs.filter(c=>c.mode==='箱体搜索').length;
   const th=document.getElementById('thermo');
@@ -342,8 +364,11 @@ def main():
     eng, pool, dropped, runs = step2_engine_scan()
     checks = step3_verify_sample(pool, runs)
     print('[3/4] 抽样核对：', json.dumps(checks, ensure_ascii=False), flush=True)
+    bj_hour = (datetime.datetime.utcnow() + datetime.timedelta(hours=8)).hour
+    round_type = round_type_for_hour(bj_hour)
     data = dict(
         generated=datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
+        round_type=round_type,
         version='box-web-v1.0(本机权威引擎复刻)',
         seed=SEED,
         params=runs['baseline']['params'],
