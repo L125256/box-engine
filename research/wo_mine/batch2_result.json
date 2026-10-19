@@ -1,0 +1,462 @@
+{
+ "ts": "2026-10-20 03:12:58",
+ "budget": {
+  "Q1": 8,
+  "Q2": 8,
+  "Q3": 10,
+  "Q4": 8,
+  "total": 34,
+  "note": "MINE_SPEC §3.7 冻结预算 48 之子集；86=全纲领（Batch1 16+本批 34+Batch3 38）"
+ },
+ "n_factbook_rows_batch2": 204,
+ "n_d1_cells": 136,
+ "fdr_merged": {
+  "m_total": 86,
+  "n_cells_batch1_factor": 32,
+  "n_cells_batch1_framework": 40,
+  "n_cells_batch2": 127,
+  "n_cells_total": 199,
+  "n_q_le_010": 117,
+  "note": "BH 合并族 m=86（MC.bh_fdr_q）；格级 p 沿用 batch1 既有实现（因子=IC t 上尾 / 框架=域内日超额 boot p_one / Q2=双侧 t），m=86 为变体冻结预算、格级补表为 batch1 先例，如实登记"
+ },
+ "d0_gate": {
+  "pass": true,
+  "returncode": 0,
+  "d0_all_pass": true,
+  "d0_runtime_sec": 8.2,
+  "gate_runtime_sec": 8.6,
+  "lineage": "batch0_domains.py 四对拍（Batch 1 同谱系，停工条款逐字适用）"
+ },
+ "dual_impl_check": {
+  "spec": "复现锚替代：独立第二实现抽 3 变体逐位对拍（用户指令④；单机环境以独立代码路径替代物理双机，如实登记）",
+  "sampled": [
+   "Q2-ac-lag1",
+   "Q3-rs-ew-fwd20",
+   "Q4-gap-unfilled-mom（vs fwd20 面板对拍）"
+  ],
+  "independence": "第二实现：独立面板构造（逐标的装 numpy）+ 手工平均秩 + 逐日循环；不经 mine_common/batch2_run 统计件；共用的仅数据层（DE.load_data）与 IEEE 基元（nanmean/corrcoef）",
+  "items": [
+   {
+    "variant": "Q3-rs-ew-fwd20",
+    "kind": "逐日截面 Spearman IC 序列",
+    "n_main": 341,
+    "n_repl": 341,
+    "n_common": 341,
+    "n_repl_only": 0,
+    "maxdiff": 0.0,
+    "bitwise": true,
+    "verdict": "hit(逐位)"
+   },
+   {
+    "variant": "Q4-gap-unfilled-mom",
+    "kind": "逐日截面 Spearman IC 序列",
+    "n_main": 278,
+    "n_repl": 278,
+    "n_common": 278,
+    "n_repl_only": 0,
+    "maxdiff": 0.0,
+    "bitwise": true,
+    "verdict": "hit(逐位)"
+   },
+   {
+    "variant": "Q2-ac-lag1",
+    "kind": "idx 日收益 60 日窗 lag1 滚动自相关序列",
+    "n_main": 428,
+    "n_repl": 428,
+    "n_common": 428,
+    "n_repl_only": 0,
+    "maxdiff": 2.2620794126737565e-13,
+    "bitwise": false,
+    "verdict": "DIFF（如实登记，禁止改数）"
+   }
+  ],
+  "q4_nan_policy": "缺口回补窗口 NaN 政策（两实现统一，R7 登记）：未回补须逐日确证——回看窗内缺任一根 low → 不可确认 → 不计（保守口径）",
+  "q2_nonbitwise_note": "Q2-ac-lag1 非逐位如实登记：pandas rolling.corr 内部累加算法（_nancorr）不可被独立路径复现（np.corrcoef/手写中心化式均差 ~2.3e-13；np.nanmean vs pandas mean 亦差 ~2.0e-13）；n_main=n_repl=428 逐日齐，maxdiff=2.26e-13 << §0.5 容差 ±0.01（相差 7 个数量级），判为 float 求和路径差异非实现误差，提请终裁知悉",
+  "wall_secs": 6.3,
+  "all_bitwise": false,
+  "status": "done"
+ },
+ "ruling3_cond1_note": "FACTBOOK_BATCH1 old131 K1 行已按终裁条件①替换（25 行）；格级胜任判定统一 Batch 3 收口",
+ "r10_note": "本运行不产出任何「域读数→仓位」映射（R10）",
+ "detail": {
+  "Q2": {
+   "Q2-ac-lag1": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 0.09791399179291282,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.025500211924018343
+    },
+    "n_full": 428
+   },
+   "Q2-ac-lag5": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 0.0522422476494131,
+     "placebo_p": 0.21,
+     "map_invalid": true,
+     "placebo_p50": 0.03959725297674242
+    },
+    "n_full": 428
+   },
+   "Q2-ar1-hl-ret": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 14.740862005361569,
+     "placebo_p": 1.0,
+     "map_invalid": true,
+     "placebo_p50": 27.5332006309687
+    },
+    "n_full": 267
+   },
+   "Q2-ar1-hl-lev": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 0.018365789991902748,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.004797018446870749
+    },
+    "n_full": 268
+   },
+   "Q2-hurst-level": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 0.04312268631077798,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.0140808587579489
+    },
+    "n_full": 428
+   },
+   "Q2-hurst-trend": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 0.06952391880559239,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.018753004393168682
+    },
+    "n_full": 428
+   },
+   "Q2-hl-xdom-speed": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 14.740862005361569,
+     "placebo_p": 1.0,
+     "map_invalid": true,
+     "placebo_p50": 27.5332006309687
+    },
+    "n_full": 267
+   },
+   "Q2-hl-xdom-disp": {
+    "placebo": {
+     "statistic": "四域效应极差（Q2 统计量日值，MS_REALA 窗内，cond2 冻结口径）",
+     "obs": 0.2739287480438998,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.07462593145609298
+    },
+    "n_full": 267
+   },
+   "wall_secs": 5.1
+  },
+  "Q1": {
+   "Q1-boxpos-p75": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.2173275386983206,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05047231450750816
+    },
+    "t_full": -0.16122574488248398,
+    "n_full": 177
+   },
+   "Q1-boxpos-p90": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.19541578630506207,
+     "placebo_p": 0.04,
+     "map_invalid": false,
+     "placebo_p50": 0.09589087671671871
+    },
+    "t_full": -1.9267707116708988,
+    "n_full": 64
+   },
+   "Q1-touch-bounce-5": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.14416213902694305,
+     "placebo_p": 0.01,
+     "map_invalid": false,
+     "placebo_p50": 0.05313833086603488
+    },
+    "t_full": 6.076232199577125,
+    "n_full": 285
+   },
+   "Q1-touch-bounce-20": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.049180453489714095,
+     "placebo_p": 0.31,
+     "map_invalid": true,
+     "placebo_p50": 0.038704902072583675
+    },
+    "t_full": 4.826820709583498,
+    "n_full": 276
+   },
+   "Q1-brk-pos-20": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.17526027535972985,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.06487989585448031
+    },
+    "t_full": 2.24429519121759,
+    "n_full": 302
+   },
+   "Q1-brk-pos-60": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.25892779256887083,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.06485977575080876
+    },
+    "t_full": 2.811952710761101,
+    "n_full": 262
+   },
+   "Q1-crowdinv-20": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.14281840877248267,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.04511482145232399
+    },
+    "t_full": -1.9788463261517864,
+    "n_full": 296
+   },
+   "Q1-crowdinv-60": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.17869614713738569,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.040171074232306786
+    },
+    "t_full": -0.3163946778467587,
+    "n_full": 261
+   },
+   "wall_secs": 6.0
+  },
+  "Q3": {
+   "Q3-rs-ew-fwd5": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.18242032369871677,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.058784863703170126
+    },
+    "t_full": 2.3205273951537624,
+    "n_full": 344
+   },
+   "Q3-rs-ew-fwd20": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.18644237125759747,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05010221903238296
+    },
+    "t_full": 6.181363404588409,
+    "n_full": 341
+   },
+   "Q3-rs-med-fwd5": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.18242032369871677,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.058784863703170126
+    },
+    "t_full": 2.3205273951537624,
+    "n_full": 344
+   },
+   "Q3-rs-med-fwd20": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.18644237125759747,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05010221903238296
+    },
+    "t_full": 6.181363404588409,
+    "n_full": 341
+   },
+   "Q3-lowvol-p20": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": null,
+     "placebo_p": null,
+     "map_invalid": null,
+     "placebo_p50": null
+    },
+    "t_full": null,
+    "n_full": 0
+   },
+   "Q3-lowvol-p33": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.21089960459949644,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05088776673445547
+    },
+    "t_full": -0.5793197953534323,
+    "n_full": 240
+   },
+   "Q3-lowvol-mom": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.25034202456862037,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05821212731978051
+    },
+    "t_full": 5.319577465893971,
+    "n_full": 282
+   },
+   "Q3-rev-5": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.17173560977821156,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05789143052491939
+    },
+    "t_full": 0.1597829474854055,
+    "n_full": 332
+   },
+   "Q3-rev-10": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.14924957839437764,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.059386136181492105
+    },
+    "t_full": -1.587664731310097,
+    "n_full": 345
+   },
+   "Q3-rev-liq": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.208768600279564,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.06892306962663042
+    },
+    "t_full": 0.6612288529982894,
+    "n_full": 282
+   },
+   "wall_secs": 7.8
+  },
+  "Q4": {
+   "Q4-div-vshrink-newhigh": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": null,
+     "placebo_p": null,
+     "map_invalid": null,
+     "placebo_p50": null
+    },
+    "t_full": null,
+    "n_full": 0
+   },
+   "Q4-div-vsurge-stall": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.18234458609050022,
+     "placebo_p": 0.36,
+     "map_invalid": true,
+     "placebo_p50": 0.1590756781927546
+    },
+    "t_full": 0.3172234049884299,
+    "n_full": 33
+   },
+   "Q4-div-count": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.046926833725435,
+     "placebo_p": 0.07,
+     "map_invalid": true,
+     "placebo_p50": 0.026000140407224204
+    },
+    "t_full": 2.634730244722718,
+    "n_full": 362
+   },
+   "Q4-gap-unfilled-mom": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.10239425974497934,
+     "placebo_p": 0.01,
+     "map_invalid": false,
+     "placebo_p50": 0.042681120711102416
+    },
+    "t_full": 3.137584613920407,
+    "n_full": 282
+   },
+   "Q4-gap-fillrev": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.16533690303385942,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.039422893638612566
+    },
+    "t_full": 1.6997246703986728,
+    "n_full": 337
+   },
+   "Q4-gap-density": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.23582334192950108,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05002321235168859
+    },
+    "t_full": 2.9231222072422516,
+    "n_full": 341
+   },
+   "Q4-shadow-ratio": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.06145850391382063,
+     "placebo_p": 0.28,
+     "map_invalid": true,
+     "placebo_p50": 0.045698598355794304
+    },
+    "t_full": 0.8684404737258096,
+    "n_full": 303
+   },
+   "Q4-close-loc": {
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.0780189086877123,
+     "placebo_p": 0.07,
+     "map_invalid": true,
+     "placebo_p50": 0.0420541623776127
+    },
+    "t_full": 2.7657620395095424,
+    "n_full": 303
+   },
+   "wall_secs": 6.5
+  }
+ },
+ "runtime_sec": 0.0
+}

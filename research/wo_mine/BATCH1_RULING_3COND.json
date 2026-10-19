@@ -1,0 +1,220 @@
+{
+ "spec": "Batch 1 终裁三条件前置（2026-10-20 用户终裁指令，统计件修正不占重跑配额）",
+ "ts": "2026-10-20 02:52:09",
+ "cond1": {
+  "rule": "old131 域标签轴 B 阈值=分母池内自算：old131 自身 vol_med 在 MS_REALA(2025-06-01~2026-10-17) 的 P50（MINE_SPEC §2.4 域锚窗）",
+  "old131_own_vol_med_p50": 0.40323392296570093,
+  "full144_frozen_anchor_unchanged": 0.4202424305853871,
+  "old131_d1_counts_realA_recut": {
+   "牛稳": 158,
+   "弱躁": 112,
+   "牛躁": 102,
+   "弱稳": 56
+  },
+  "label_diff_days_vs_shared_anchor": 51,
+  "full144_determinism_check": {
+   "n_anchor_cmp": 42,
+   "maxdev": 0.0,
+   "identical": true
+  },
+  "framework_rows_reissued": 25,
+  "rerun_quota_note": "同切分重跑配额不受影响：本件为终裁统计件修正（域格重切重出），复现锚与全窗数字未改判",
+  "old131_placebo_downweight_recomputed": {
+   "statistic": "四域日超额均值极差（MS_REALA 窗内）",
+   "obs": 0.0024238596397766197,
+   "placebo_p": 0.42,
+   "map_invalid": true
+  }
+ },
+ "cond2_d3_statistic_freeze": {
+  "statistic": "四域效应极差（four-domain effect range）",
+  "per_family": {
+   "factor(Q1/Q3/Q4/Q5/Q6)": "四域逐日 IC 均值极差（MS_REALA 窗内）",
+   "framework(K1~K5)": "四域逐日超额（臂−base）均值极差（MS_REALA 窗内）",
+   "timeseries(Q2)": "变体时序统计量逐日值四域均值极差（MS_REALA 窗内）"
+  },
+  "placebo": "D1 标签 MS_REALA 窗内逐日随机打乱 ×100（seed=42..141）；P(安慰剂极差≥观测极差)>0.05 → MAP-INVALID（MINE_SPEC §2.3）",
+  "status": "FROZEN 2026-10-20 终裁，先于 Batch 2 任何运行"
+ },
+ "cond3_anchor_vintage_dual_registry": {
+  "rule": "旧锚历史坐标（不改）+ 当前 vintage 复算基线（got）双锚并行，禁挑一",
+  "n_miss_registered": 21,
+  "items": [
+   {
+    "anchor_key": "c4.fwd5.n_realC",
+    "old_anchor": 134,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 135,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "c4.fwd5.t_extended",
+    "old_anchor": 1.618675,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 1.7022524636181682,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "c4.fwd5.t_realC",
+    "old_anchor": -1.236898,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -1.106429363035822,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "c4.n_extended",
+    "old_anchor": 317,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 318,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "c4.t_extended",
+    "old_anchor": 4.776407,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 4.758517872143934,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "c4.t_realC",
+    "old_anchor": -3.446861,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -3.470859796424961,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "c5.V1.t_extended",
+    "old_anchor": 2.182077,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 2.2008593424462317,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "c5.V1.t_realC",
+    "old_anchor": 0.251334,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 0.2700388472247435,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_dw.old131.base.realC_ann",
+    "old_anchor": -49.31,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -49.15,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_dw.old131.base.realC_mdd",
+    "old_anchor": -23.09,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -23.0,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_dw.old131.dw.realC_ann",
+    "old_anchor": -28.33,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -28.22,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_dw.old131.dw.realC_mdd",
+    "old_anchor": -12.08,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -12.03,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_gate.old131.base.realC_ann",
+    "old_anchor": -49.31,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -49.15,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_gate.old131.base.realC_mdd",
+    "old_anchor": -23.09,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -23.0,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_gate.old131.gate.realC_ann",
+    "old_anchor": -27.17,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -26.94,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "d_gate.old131.gate.realC_mdd",
+    "old_anchor": -11.29,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": -11.19,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "s3d1.old131.armA.FULL_avoid",
+    "old_anchor": 155.0332,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 155.2152,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "s3d1.old131.armA.FULL_mdd_red",
+    "old_anchor": 38.81,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 38.94,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "s3d1.old131.armA.lag_FULL_HOLD",
+    "old_anchor": [
+     154.843,
+     59.7147
+    ],
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": [
+     155.0247,
+     59.7848
+    ],
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "s3d1.old131.armB.FULL_avoid",
+    "old_anchor": 60.8638,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 60.93520000000001,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   },
+   {
+    "anchor_key": "s3d1.old131.armB.FULL_mdd_red",
+    "old_anchor": 36.6,
+    "old_anchor_source": "METHOD_BOOK_BATCH1 §一~§五 复现锚表（不改）",
+    "cur_vintage_baseline": 36.72,
+    "proof": "三组独立谱系逐位对拍（c4/c5=wo_rescue_run PC-4/PC-5 冻结代码同数据只读复算；框架族=dneg_engine.run_instr 权威谱系），见 batch1_result.json detail.*.lineage_check",
+    "verdict": "双锚并行登记，禁挑一；锚数字不改，引用时注明 vintage"
+   }
+  ]
+ },
+ "wall_secs": 83.6
+}

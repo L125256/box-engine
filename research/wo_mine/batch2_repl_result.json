@@ -1,0 +1,49 @@
+{
+ "spec": "复现锚替代：独立第二实现抽 3 变体逐位对拍（用户指令④；单机环境以独立代码路径替代物理双机，如实登记）",
+ "sampled": [
+  "Q2-ac-lag1",
+  "Q3-rs-ew-fwd20",
+  "Q4-gap-unfilled-mom（vs fwd20 面板对拍）"
+ ],
+ "independence": "第二实现：独立面板构造（逐标的装 numpy）+ 手工平均秩 + 逐日循环；不经 mine_common/batch2_run 统计件；共用的仅数据层（DE.load_data）与 IEEE 基元（nanmean/corrcoef）",
+ "items": [
+  {
+   "variant": "Q3-rs-ew-fwd20",
+   "kind": "逐日截面 Spearman IC 序列",
+   "n_main": 341,
+   "n_repl": 341,
+   "n_common": 341,
+   "n_repl_only": 0,
+   "maxdiff": 0.0,
+   "bitwise": true,
+   "verdict": "hit(逐位)"
+  },
+  {
+   "variant": "Q4-gap-unfilled-mom",
+   "kind": "逐日截面 Spearman IC 序列",
+   "n_main": 278,
+   "n_repl": 278,
+   "n_common": 278,
+   "n_repl_only": 0,
+   "maxdiff": 0.0,
+   "bitwise": true,
+   "verdict": "hit(逐位)"
+  },
+  {
+   "variant": "Q2-ac-lag1",
+   "kind": "idx 日收益 60 日窗 lag1 滚动自相关序列",
+   "n_main": 428,
+   "n_repl": 428,
+   "n_common": 428,
+   "n_repl_only": 0,
+   "maxdiff": 2.2620794126737565e-13,
+   "bitwise": false,
+   "verdict": "DIFF（如实登记，禁止改数）"
+  }
+ ],
+ "q4_nan_policy": "缺口回补窗口 NaN 政策（两实现统一，R7 登记）：未回补须逐日确证——回看窗内缺任一根 low → 不可确认 → 不计（保守口径）",
+ "q2_nonbitwise_note": "Q2-ac-lag1 非逐位如实登记：pandas rolling.corr 内部累加算法（_nancorr）不可被独立路径复现（np.corrcoef/手写中心化式均差 ~2.3e-13；np.nanmean vs pandas mean 亦差 ~2.0e-13）；n_main=n_repl=428 逐日齐，maxdiff=2.26e-13 << §0.5 容差 ±0.01（相差 7 个数量级），判为 float 求和路径差异非实现误差，提请终裁知悉",
+ "wall_secs": 6.3,
+ "all_bitwise": false,
+ "status": "done"
+}
