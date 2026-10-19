@@ -176,6 +176,7 @@ def calc_breadth(data, syms):
     - MA 历史不足 min_periods 的票按研究口径（NaN 比较记 False）计入分母、
       不计入分子，如实计数；
     - pct 保留 2 位小数。
+    差异注：缺K线标的在门域研究口径中计入分母（NaN 比较为 False），本函数已从分母剔除——常态（全池有K线）两者等价，缺数日本函数 pct 会高于研究口径，TR-5 触发器在缺数日略不敏感（当前 144 池无缺数日，影响为零）。
     只做读数输出，不参与任何信号/闸/状态机判定（零行为改动）。"""
     close = pd.DataFrame({s: data[s]['close'] for s in syms})
     cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))

@@ -11,7 +11,7 @@
 ## 一、四工单逐项独立验证
 
 ### WO-R13-01 熔断线重标定 —— **PASS**
-- **阈值落盘三处一致（本席自验）**：代码常量（f1_signal.py：CB1 −0.08/−0.04、CB2 −0.05/−0.025、费线 0.04/0.02、CB3 9.07×3=27.27 不动、CALIB_EPOCH='R13-2026-10-18'）= `f1_web/f1_live.json → meta.breaker_thresholds` 逐值一致 = `f1_state.json.calib_epoch` 一致且 `prev_reds` 已清空（迁移纪律生效）。
+- **阈值落盘三处一致（本席自验）**：代码常量（f1_signal.py：CB1 −0.08/−0.04、CB2 −0.05/−0.025、费线 0.04/0.02、CB3 9.07×3=27.21 不动、CALIB_EPOCH='R13-2026-10-18'）= `f1_web/f1_live.json → meta.breaker_thresholds` 逐值一致 = `f1_state.json.calib_epoch` 一致且 `prev_reds` 已清空（迁移纪律生效）。
 - **页面联动（本席读源码核验）**：index.html 全部阈值经 `T.CB1/T.CB2/T.CB3/T.FEE` 从 JSON 渲染；grep 旧字面量 21.7/10.85/0.32/0.217 于 index.html 0 命中；manual.html 唯一命中为 pp 单位词典示例（非活阈值）。
 - **验收③独立复跑（本席 A/B 双轨）**：pre-R13 引擎（65bb3fd 版）vs 795c4d3 引擎，同缓存 slot=0.10 全量回放（2024-01-24~2026-10-17）：eq_net=2.2817 / eq_gross=2.4347 / stops=104 **逐位相同**，逐日持仓 767 天 **diff=0** → 重标定不改任何交易行为。
 - **触发统计**：采信链=施工回放+测试席自实现计数+本席代码级复核（同源 `_roll_mdd`/滚动60日）三方一致（CB1 黄18、CB2 红5、CB3/费线 0）；本席未第三次全量重跑回放统计（时限控制），判 PASS 留 1% 保留。

@@ -48,7 +48,7 @@
 - **F6 尺零漂移回拍（强制断言）**：延拓尺 vs wo_crossf6.f6_state 官方尺 FULL 窗重叠日
   maxdiff=0、p50 阈值零漂移。
 - **挂接**：engine_f1/f1_signal.py live 判定轮输出后自动调 `forward_readout.py --auto`
-  （subprocess 旁路 + try/except 不阻断，不改引擎语义；f1_signal.py:905-915）。
+  （subprocess 旁路 + try/except 不阻断，不改引擎语义；f1_signal.py:1074-1080）。
 - 自测证据：真实数据态 0/20 → ACCUMULATING；沙箱 20 日 → 判读+封印+报警输出+拒重复，
   全链路通过（详见本报告判定速览 #3）。
 

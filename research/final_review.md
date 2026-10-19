@@ -13,10 +13,10 @@
 |---|---|---|
 | A5 闸灯二态 | node harness 真实执行页面脚本，闸开/闸关双态变体渲染比对 | PASS：闸开=d-hold+[目标仓]+🟩；闸关=d-cash+[闸门关闭·不开仓]+🟥 且无买入标签；`or True` 恒真式确认已移除 |
 | D3 idx==MA50 | 自建 6 票合成池横盘段（二进制精确相等实测=True），评分轮换注入，**真喂 fs.replay** | PASS：相等→次日建满 5 只；idx=MA50−1e−9→次日清空。两态行为有区分度 |
-| C3b 冻结基准 | 自建 28 笔止损回放结果喂 eval_breakers(cb3_base=CB3_BASE_60D) | PASS：线=27.21、CB3=yellow 且 CB1/CB2/FEE 全绿；对照 cb3_base=1.0 线=3.0 证明修复必要性；CB3 无 red 分支（源码 407-413） |
+| C3b 冻结基准 | 自建 28 笔止损回放结果喂 eval_breakers(cb3_base=CB3_BASE_60D) | PASS：线=27.21、CB3=yellow 且 CB1/CB2/FEE 全绿；对照 cb3_base=1.0 线=3.0 证明修复必要性；CB3 无 red 分支（源码 502-510） |
 | B3b 崩市禁重建 | 真实数据注入 68/134 只 −5.5%（med=−5.50%、闸保持开）真喂引擎；v0 对照=源码去除全部 2 处 skip_rebuild 守卫后重放 | PASS：v1 次日持仓空；v0 次日重建 5 只——语义区分度成立。注：holdings 出自 `_replay_holdings` 独立循环，守卫必须两处同除（首次只补丁 one_pass 时 v0 伪空，已修正，这也反证 v1 判空路径真实经过守卫） |
 | E2 渲染级 | node harness + 真实 f1_live.json | PASS：渲染产物 idx=220.0968/MA50=236.4119 与 json 逐位一致；决策条 class=d-cash 与 on_holdcash=True 匹配 |
-| CB3 冻结常量 | 源码+json 落盘核验 | PASS：`CB3_BASE_60D = 9.07` 在位（f1_signal.py:72）；run_live 只传常量、重算值降为 `cb3_baseline_recomputed` 对账字段（无回写暗门）；meta.cb3_baseline_60d=9.07 |
+| CB3 冻结常量 | 源码+json 落盘核验 | PASS：`CB3_BASE_60D = 9.07` 在位（f1_signal.py:112）；run_live 只传常量、重算值降为 `cb3_baseline_recomputed` 对账字段（无回写暗门）；meta.cb3_baseline_60d=9.07 |
 
 **技术席判定：上轮 5 处弱断言的加固全部真实、抽验无水分，69/69 可信。**
 
