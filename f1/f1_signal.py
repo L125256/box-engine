@@ -43,6 +43,12 @@ BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
 多轮口径（WO-R13-03）：展示多轮、判定一轮。20:30/00:30/04:30 = 只读快照（输出 f1_live_intraday.json，
       不写 f1_state.json、不出 top5）；判定轮 = 日K落定后现行 09:25 一轮。
       未落定的当日 bar 由 guard_last_bar() 标记 intraday 并拒绝进入周调仓锚定与信号判定。
+
+市场宽度（WO-BREADTH-01 · 2026-10-19）：meta.breadth = {pct, n_above, n_total, ma_window, min_periods}，
+      = 池内「当日有K线」标的中 close > 自身 MA50（简单滚动，窗口50、min_periods=40）的比例(%)，
+      口径与研究 research/wo_g1g2fdr/wo_g1g2fdr_run.py L300-302 逐字对齐。
+      纯 meta 读数新增（live/snapshot 双模式均输出），零信号行为改动：
+      四因子/top5/gate/熔断/止损/状态机逻辑一行不动。
 """
 import json
 import os
@@ -154,6 +160,34 @@ def build_pool(data):
     syms = sorted(s for s in pool if s in data and len(data[s]) >= 100)
     assert len(syms) == 144, f'权威池={len(syms)} != 144'
     return syms
+
+
+# ---- 市场宽度（WO-BREADTH-01）：晨报读数，纯 meta 输出，零信号行为改动
+BREADTH_MA_WINDOW = 50       # MA50：简单滚动均线（与研究口径逐字对齐）
+BREADTH_MIN_PERIODS = 40     # min_periods=40（同上，wo_g1g2fdr_run.py L302）
+
+
+def calc_breadth(data, syms):
+    """市场宽度（G-breadth）：池内「当日有K线」标的中 close > 自身 MA50 的比例(%)。
+    口径逐字对齐 research/wo_g1g2fdr/wo_g1g2fdr_run.py L300-302：
+        breadth = (above > above.rolling(50, min_periods=40).mean()).mean(axis=1) * 100.0
+    - 分母 n_total = 当日有K线（close 非 NaN）标的数（与 idx 同过滤口径）；
+    - 分子 n_above = 其中有K线且 close > MA50 的标的数；
+    - MA 历史不足 min_periods 的票按研究口径（NaN 比较记 False）计入分母、
+      不计入分子，如实计数；
+    - pct 保留 2 位小数。
+    只做读数输出，不参与任何信号/闸/状态机判定（零行为改动）。"""
+    close = pd.DataFrame({s: data[s]['close'] for s in syms})
+    cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
+    close = close.reindex(cal)
+    ma50 = close.rolling(BREADTH_MA_WINDOW, min_periods=BREADTH_MIN_PERIODS).mean()
+    c_last, ma_last = close.iloc[-1], ma50.iloc[-1]
+    has_bar = c_last.notna()
+    above = has_bar & (c_last > ma_last)     # NaN>x=False（研究口径）；无K线票不入分母
+    n_total, n_above = int(has_bar.sum()), int(above.sum())
+    pct = round(n_above / n_total * 100.0, 2) if n_total else None
+    return {'pct': pct, 'n_above': n_above, 'n_total': n_total,
+            'ma_window': BREADTH_MA_WINDOW, 'min_periods': BREADTH_MIN_PERIODS}
 
 
 # ---------------------------------------------------------------- 因子（与 f1_backtest 同源）
@@ -806,6 +840,7 @@ def run_snapshot(out_json=None, cache=CACHE, round_id='20:30'):
         'meta': {'workorder': 'R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）',
                  'seed': SEED, 'generated': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
+                 'breadth': calc_breadth(data, syms),
                  'mode': 'intraday_snapshot', 'operable': False,
                  'data_source': ('主源+新浪备源容灾' if _sina_on_s else '主源单源模式'),
                  'round_id': round_id, 'round_tz': meta_round['tz'],
@@ -955,6 +990,7 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True
         'meta': {'workorder': "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
                  'seed': SEED, 'generated': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
+                 'breadth': calc_breadth(data, syms),
                  'caliber': 'V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar',
                  'tier_table_pct_per_stock': [round(s * 100, 2) for s in SLOTS],
                  'total_exposure_pct': round(SLOTS[0] * TOP_N * 100, 2),
