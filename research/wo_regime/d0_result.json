@@ -1,0 +1,95 @@
+{
+  "asof": "2026-10-17",
+  "checks": [
+    {
+      "item": "D0-2 gate.idx",
+      "ours": 218.5703,
+      "live": 218.5703,
+      "diff": 0.0,
+      "pass": true
+    },
+    {
+      "item": "D0-2 gate.ma50",
+      "ours": 236.3814,
+      "live": 236.3814,
+      "diff": 0.0,
+      "pass": true
+    },
+    {
+      "item": "D0-2 gate.on_holdcash",
+      "ours": true,
+      "live": true,
+      "diff": 0,
+      "pass": true
+    },
+    {
+      "item": "D0-4 fee_60d",
+      "ours": 0.001617,
+      "live": 0.001617,
+      "diff": 0.0,
+      "pass": true
+    },
+    {
+      "item": "D0-4 fee_ann_pct",
+      "ours": 0.0068,
+      "live": 0.0068,
+      "diff": 0.0,
+      "pass": true
+    },
+    {
+      "item": "D0-3 CB2.stop_count_60d(engine重算)",
+      "ours": 14,
+      "live": 14,
+      "diff": 0,
+      "pass": true
+    },
+    {
+      "item": "D0-3 CB2.stop_pnl_sum_60d(engine重算)",
+      "ours": -0.035,
+      "live": -0.035,
+      "diff": 0.0,
+      "pass": true
+    },
+    {
+      "item": "D0-3 CB3 基线对拍(9.07)",
+      "ours": 9.07,
+      "live": 9.07,
+      "diff": 0.0,
+      "pass": true
+    },
+    {
+      "item": "D0-1 CB1.mdd20(engine重算)",
+      "ours": -0.0069,
+      "live": -0.0069,
+      "diff": 0.0,
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "engine_sha256_current": "6acc937de54584fa",
+  "engine_sha256_live_meta": "262bf3a4c3e5d054",
+  "eq_net_ours": 1.2653,
+  "eq_net_live_replay": 1.2653,
+  "eq_net_delta_note": "回放净账终值非 D0 四腿，差异登记备查（live 由前版引擎 sha=262bf3a4 生成，现行 sha=6acc937d 含 WO-BREADTH-01）",
+  "note": "live meta sha 与现行引擎不一致=WO-BREADTH-01 于 live 生成(2026-10-19 05:20)后改引擎（零行为改动），D0 以行为值对拍为准",
+  "breadth_engine_asof_full": {
+    "pct": 22.22,
+    "n_above": 32,
+    "n_total": 144,
+    "ma_window": 50,
+    "min_periods": 40
+  },
+  "breadth_engine_asof_trunc": {
+    "pct": 22.22,
+    "n_above": 32,
+    "n_total": 144,
+    "ma_window": 50,
+    "min_periods": 40
+  },
+  "breadth_spec_anchor": {
+    "pct": 22.92,
+    "n_above": 33,
+    "n_total": 144,
+    "measured": "2026-10-19"
+  }
+}
