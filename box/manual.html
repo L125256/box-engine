@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📖 箱体观察站 · 使用说明书</title>
+<style>
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,sans-serif;margin:0;padding:16px;font-size:14px;line-height:1.7}
+h1{font-size:20px}h2{font-size:16px;border-bottom:1px solid #30363d;padding-bottom:4px;margin-top:24px}
+a{color:#58a6ff;text-decoration:none}
+.tabs{margin:6px 0 10px}.tabs a{display:inline-block;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:4px 12px;margin-right:6px;font-size:13px}
+.tabs a.on{background:#1f6feb;border-color:#1f6feb;color:#fff}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px 14px;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+td,th{border-bottom:1px solid #21262d;padding:5px 8px;text-align:left;vertical-align:top}
+th{color:#8b949e}
+.warnline{background:#4a3b12;border:1px solid #f59e0b;color:#ffe08a;border-radius:6px;padding:6px 10px;font-size:12px;margin:6px 0}
+b.r{color:#ff2d2d}b.g{color:#16a34a}
+footer{color:#8b949e;font-size:11px;margin-top:20px;line-height:1.6}
+details{margin:6px 0;font-size:12px;color:#8b949e}summary{cursor:pointer;color:#58a6ff}
+</style></head><body>
+<h1>📖 箱体观察站 · 使用说明书（v1.0）</h1>
+<div class="tabs"><a href="../index.html">📦 观察站</a><a class="on" href="manual.html">📖 使用说明</a><a href="../f1/index.html">📊 F1 运行页</a><a href="../f1/manual.html">📖 F1 使用说明</a></div>
+<div class="warnline">本手册与箱体引擎 eng_final.py + generate_page.py（seed=42）实际行为逐条核对 · <b>本页（箱体页）只看不动手，操作指令只在 F1 页（/f1/）</b> · 与引擎不一致处以引擎为准</div>
+
+<div class="card"><b>一句话</b>：一台在 144 只票里盯「横盘收窄箱体」的<b>观察站</b>——箱底回归信号（fd）有参考价值，突破信号（bk）已判死归档；<b>本页只看，不动手</b>。本页不提供任何仓位建议，仓位纪律只属于 F1 体系（F1 页单票 2.5% 档那一套，本页没有）。</div>
+
+<h2>1. fd 信号怎么读</h2>
+<p><b>fd 是什么</b>：fd = 回归买入信号（箱底回踩）。三个条件同时满足才打 fd 标：</p>
+<ol>
+<li><b>牛市闸开放</b>：池内 144 只票等权均价（idx）在 50 日均线上方（页面温度计 🟩）；</li>
+<li><b>票在箱体内横盘收窄锁定</b>：连续 m=2 根 K 线收进 N=20 根窗口、宽度 &lt; k=6×ATR 的箱体；</li>
+<li><b>收盘回踩箱底容忍带</b>：收盘价落进「箱底 + e=0.2×箱高」的容忍带。</li>
+</ol>
+<p><b>读法</b>：「值得加入自选观察」——<b>不是买入指令</b>。触发判定<b>按收盘价</b>，盘中触摸不算数；看到 ⚡接近 fd 回踩观察区的标注，含义是「收盘落进观察带了，可以留意」，<b>参考观察，非买入指令</b>。牛闸关闭（🟥）时 fd 不触发，锁定再多也只是干等。</p>
+
+<h2>2. 市况温度计怎么看</h2>
+<table>
+<tr><th>部件</th><th>含义</th><th>白话</th></tr>
+<tr><td><b>牛闸 🟩/🟥</b></td><td>池均价 idx 与 MA50 的相对位置</td><td>箱体策略的「天气总开关」：🟩=适合做箱体，🟥=关闭，fd 不触发</td></tr>
+<tr><td><b>箱体锁定 N 张</b></td><td>当前处于「箱体锁定」状态的票数</td><td>多=池子普遍横盘蓄势（箱体策略的天气）；少=行情在 trending，无箱可做</td></tr>
+<tr><td><b>搜索中 M 只</b></td><td>窗口正在收窄、还没锁定的票数</td><td>未来的潜在箱体，先看着</td></tr>
+</table>
+<p>温度计回答一个问题：<b>「现在是不是箱体策略的天气」</b>。🟥 + 锁定少 = 收摊看别的；🟩 + 锁定多 = 翻 fd 观察区的票。</p>
+
+<h2>3. 双参数组是什么（本页专属 FAQ）</h2>
+<p><b>为什么页面上有两个参数组？</b>页面对同一批数据跑了两套参数：</p>
+<table>
+<tr><th>参数组</th><th>参数</th><th>身份</th></tr>
+<tr><td><b>冻结基线</b>（主区默认）</td><td>N=20 / k=6.0 / m=2 / e=0.2</td><td>v1.0 验收时冻结的「官方参数」，本页主区<b>唯一默认</b></td></tr>
+<tr><td><b>Top1</b>（底部折叠区）</td><td>N=15 / k=7.5 / m=2 / e=0.3</td><td>回测统计略优的研究候选（pf 1.194 vs 1.129），<b>从未实盘授权</b></td></tr>
+</table>
+<p><b>要点</b>：两个都是研究参数组，<b>都不是实盘指令</b>。切换视角只是换一个「平行世界」看同一批票——持仓、触发区全都会变，所以 <b>Top1 收在底部折叠区并标注「候选研究组·非实盘」</b>，主区永远锁冻结基线。<b>没有哪个参数组是"该跟的"</b>。</p>
+
+<h2>4. 与 F1 的关系声明</h2>
+<ul>
+<li><b>两套独立引擎</b>：箱体引擎（eng_final.py）与 F1 引擎（f1_signal.py）独立运行、独立参数、互不共用持仓；</li>
+<li><b>F1 页出指令，本页出观察</b>：F1 页（/f1/）有仓位档（2.5%）、熔断、调仓日历——那些是操作体系；本页只有 fd 参考信号与温度计，<b>没有任何操作指令</b>；</li>
+<li><b>同一只票两边信号不同属正常</b>，互不保证、互不背书。</li>
+</ul>
+
+<h2>5. bk 为什么被折叠归档</h2>
+<p>bk = 突破买入信号（收盘上穿箱顶 + 0.25×ATR）。经穷举研究<b>已判死归档</b>：页面上所有 bk 内容都收进底部折叠区、整体置灰，钉死标注「<b>⛔ 已穷举归档 · 非信号 · 仅存档对照</b>」。它不参与接近触发提示、不参与任何计数强调，数据在 JSON 里原样保留只为历史账对照。<b>看到 bk 字样 = 存档，不是信号。</b></p>
+
+<h2>6. 术语小词典（页面黑话翻译）</h2>
+<table>
+<tr><th>黑话</th><th>白话</th></tr>
+<tr><td><b>fd / bk</b></td><td>fd=回归买入（牛市闸开放 + 收盘回踩箱底容忍带），有参考价值；bk=突破买入（收盘上穿箱顶+B×ATR），已穷举判死归档、非信号</td></tr>
+<tr><td><b>N / k / m / e</b></td><td>箱体四参数：N=主窗口 K 线根数（20）；k=箱宽阈值（&lt;k×ATR 才算箱，6.0）；m=连续确认根数（2）；e=箱底容忍带系数（0.2×箱高）</td></tr>
+<tr><td><b>seek（搜索中）/ locked（箱体锁定）</b></td><td>seek=窗口正在收窄计数中（seek_streak/seek_need）；locked=箱体已确认成立，等 fd 回踩或失效</td></tr>
+<tr><td><b>B×ATR 突破阈值 / X×ATR 失效阈值</b></td><td>B=0.25：收盘超箱顶 0.25×ATR 记 bk 触发（已归档）；X=0.75：价格离箱体超 0.75×ATR 或箱龄超 60 天 → 箱体作废回搜索态</td></tr>
+<tr><td><b>V1 收盘判定 vs V2 可实现价</b></td><td>触发按 V1（收盘价判定，盘中触摸不算）；记账按 V2（成交价按你真实下单能拿到的：止损=min(有效止损,开盘)、止盈=max(止盈,开盘)，跳空顺延下一根开盘）</td></tr>
+<tr><td><b>牛闸 / idx / MA50</b></td><td>idx=池内 144 只票当日等权收盘均价（自制池子大盘）；MA50=idx 的 50 日均线；idx&gt;MA50=牛闸开放 🟩，fd 只在开放时触发</td></tr>
+<tr><td><b>幸存者偏差</b></td><td>池=当前存续的 144 只票，回测收益估计 ≥+9pp 高估，所有统计务必打折看待</td></tr>
+<tr><td><b>主窗口 2025-06-01</b></td><td>长期统计（pf 等）只计入入场日 ≥2025-06-01 的交易；近30日区块是更短的近期快照，<b>近期≠长期</b></td></tr>
+<tr><td><b>pf（profit factor）</b></td><td>总盈利/总亏损的比值，&gt;1 为正期望方向，样本内口径、不代表未来</td></tr>
+</table>
+
+<footer>📄 依据《箱体页重设计 + 使用说明冻结规格 v1.0》（9 席位会终裁 2026-10-19）落定 · fd 本体+框架价值确证、bk 穷举归档 · 复现：PYTHONHASHSEED=42 python3 generate_page.py</footer>
+</body></html>

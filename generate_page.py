@@ -179,7 +179,7 @@ def step3_verify_sample(pool, out_runs):
 
 HTML_TMPL = """<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>📦 箱体引擎 · 丁导K线交易系统</title>
+<title>📦 箱体引擎 · 观察站（fd 信号源 + 市况温度计）</title>
 <style>
 body{background:#0d1117;color:#e6edf3;font-family:-apple-system,sans-serif;margin:0;padding:16px}
 h1{font-size:20px} a{color:#58a6ff;text-decoration:none}
@@ -197,64 +197,136 @@ td,th{border-bottom:1px solid #21262d;padding:4px 6px;text-align:left}
 .sfill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#16a34a55,#f59e0b55)}
 .sline{position:absolute;top:2px;font-size:10px;padding:0 4px}
 .sline.stop{left:0;color:#8b949e}.sline.trg{right:0;color:#f59e0b}
-.ptabs{margin:8px 0}.ptabs button{background:#161b22;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:4px 12px;margin-right:6px;cursor:pointer;font-size:12px}
-.ptabs button.on{color:#e6edf3;border-color:#58a6ff}
 footer{color:#8b949e;font-size:11px;margin-top:16px;line-height:1.6}
+details{margin:8px 0}details>summary{cursor:pointer;padding:6px 10px;background:#161b22;border:1px solid #30363d;border-radius:8px;font-size:13px}
+.arch>summary{border-style:dashed;color:#8b949e}
+.decl{background:#5a1e1e;border:1px solid #f85149;color:#ffb3b3;border-radius:8px;padding:8px 10px;margin:8px 0;font-size:13px;line-height:1.6}
+.decl details{margin:4px 0 0}.decl summary{background:none;border:none;color:#ffb3b3;padding:0;font-size:12px}
+.thermo{background:#102a1a;border:1px solid #16a34a;color:#c9d1d9;border-radius:8px;padding:10px;margin:8px 0;font-size:14px}
+.thermo.off{background:#2a1212;border-color:#f85149}
+.fdhead{border:1px solid #58a6ff;border-radius:8px;padding:8px 10px;margin:8px 0;font-size:13px;background:#0d1a2d}
+.warnbk{background:#24292e;border:1px solid #30363d;color:#8b949e;border-radius:6px;padding:6px 10px;font-size:12px;margin:6px 0}
+.bkcard{opacity:.55;filter:grayscale(.7);border-left:4px solid #30363d}
+.bktag{display:inline-block;background:#30363d;color:#8b949e;border-radius:4px;padding:1px 6px;font-size:11px;margin-left:6px}
+.fdtag{display:inline-block;background:#1f3a5f;color:#58a6ff;border-radius:4px;padding:1px 6px;font-size:11px;margin-left:6px}
+.warnfd{color:#f59e0b;font-size:12px}
+.linkbar{margin:10px 0;font-size:13px}
 </style></head><body>
-<h1>📦 箱体引擎 · 丁导K线交易系统</h1>
+<h1>📦 箱体引擎 · 观察站（fd 信号源 + 市况温度计）</h1>
 <div class="meta" id="meta">加载中…</div>
-<div style="background:#5a1e1e;border:1px solid #f85149;color:#ffb3b3;border-radius:8px;padding:10px;margin:8px 0;font-size:13px"><b>⚠️ 诚实声明（空头席复核 2026-10-15）</b>：本策略为防守型工具，收益与池贝塔强相关——剔除同期池等权涨幅后无独立超额；回测含幸存者偏差（池=当前存续票，估计 ≥+9pp 高估，务必打折看待）；年化指标曾因计算错误高估已修正。本页为本机复刻版：口径=V2 可实现出场（触发仍为 V1 收盘判定）+ 清洗后 144 标的池，与权威引擎 eng_final.py 同源同数。仓位与买卖决策请勿仅依赖本页。</div>
-<div class="ptabs" id="ptabs"></div>
-<div id="cards"></div>
-<div class="stat"><b>近30日已平交易</b><div id="stat" class="line"></div>
-<table id="hist"></table></div>
+<div class="decl">📦 <b>观察站——本页只看不操作，操作指令只在 F1 页（/f1/）</b>
+→ <a href="f1/index.html">去 F1 运行页</a> · <a href="f1/manual.html">📖 F1 说明书</a> · <a href="box/manual.html">📖 本页使用说明</a>
+<details><summary>展开诚实声明（空头席复核 2026-10-15）</summary><div style="margin-top:6px">本策略为防守型工具，收益与池贝塔强相关——剔除同期池等权涨幅后无独立超额；回测含幸存者偏差（池=当前存续票，估计 ≥+9pp 高估，务必打折看待）；年化指标曾因计算错误高估已修正。本页为本机复刻版：口径=V2 可实现出场（触发仍为 V1 收盘判定）+ 清洗后 144 标的池，与权威引擎 eng_final.py 同源同数。仓位与买卖决策请勿仅依赖本页。</div></details></div>
+<div class="thermo" id="thermo">温度计加载中…</div>
+<div class="fdhead"><b>fd 信号参考区</b>（冻结基线 N20/k6.0/m2/e0.2 · v1.0 验收参数）· <b>fd 信号 · 收盘判定 · 参考非指令</b></div>
+<div id="fdmain"></div>
+<details class="arch"><summary>⛔ bk 突破信号 · 已穷举归档 · 非信号 · 仅存档对照（点击展开）</summary>
+<div class="warnbk">bk 突破买入信号已经穷举研究判死归档：<b>非信号、不下单、不参与任何触发提示</b>。以下内容仅作引擎历史账存档对照，与 fd 主区无关。</div>
+<div id="bkcards"></div>
+<div class="stat"><b>bk 近30日已平交易（存档对照）</b><table id="bkhist"></table></div>
+</details>
+<details class="arch"><summary>🔬 研究对照 Top1（N15/k7.5/m2/e0.3 · 候选研究组 · 非实盘）（点击展开）</summary>
+<div class="warnbk">Top1 为 R2 回测候选参数组，<b>从未实盘授权</b>；与冻结基线是两套平行研究视角，<b>没有哪个是"该跟的"</b>。本区仅研究对照，不构成操作依据。</div>
+<div id="t1cards"></div>
+<div class="stat"><b>Top1 近30日已平交易（研究对照·非实盘）</b><div id="t1stat" class="line"></div><table id="t1hist"></table></div>
+</details>
+<div class="stat"><b>近30日绩效（冻结基线 · 负数如实展示）</b><div id="stat" class="line"></div>
+<div class="line">⚠️ 近期表现≠长期统计：近30日均值含 bk 归档单，主窗长期口径见下方主窗统计。</div>
+<table id="hist"></table><div id="mainstat" class="line" style="margin-top:6px"></div></div>
+<div class="linkbar">🔗 <a href="box/manual.html">📖 使用说明 manual.html</a> · <a href="f1/index.html">📊 F1 运行页</a> · <a href="f1/manual.html">📖 F1 说明书</a></div>
 <footer id="foot"></footer>
 <script>
-let DATA=null,CUR='baseline';
+const BULL_OPEN=__BULL_OPEN__;const BULL_ASOF='__BULL_ASOF__';
+let DATA=null;
 function render(){
-  const d=DATA,r=d.runs[CUR];
+  const d=DATA,r=d.runs.baseline,p=r.params;
   document.getElementById('meta').textContent='生成于 '+d.generated+' · 版本 '+d.version+
-    ' · 参数组 '+r.label+' N='+r.params.N+' k='+r.params.k+' m='+r.params.m+' e='+r.params.e+
-    ' · 牛市闸=idx>MA50 · 池='+d.pool.n+' 标的 · seed='+d.seed;
-  const tb=document.getElementById('ptabs');tb.innerHTML='';
-  Object.keys(d.runs).forEach(k=>{
-    const b=document.createElement('button');b.textContent=d.runs[k].label+' N'+r2(d.runs[k].params);
-    if(k===CUR)b.className='on';b.onclick=()=>{CUR=k;render();};tb.appendChild(b);});
-  const cs=document.getElementById('cards');cs.innerHTML='';
-  (r.cards||[]).forEach(c=>{
+    ' · 主区=冻结基线 N='+p.N+' k='+p.k+' m='+p.m+' e='+p.e+
+    ' · 池='+d.pool.n+' 标的 · seed='+d.seed+' · 牛闸快照='+BULL_ASOF;
+  const cs=r.cards||[];
+  const nLock=cs.filter(c=>c.mode==='箱体锁定').length,nSeek=cs.filter(c=>c.mode==='箱体搜索').length;
+  const th=document.getElementById('thermo');
+  th.className='thermo'+(BULL_OPEN?'':' off');
+  const mood=(!BULL_OPEN)?'牛闸关闭：非箱体策略的天气，fd 回踩信号不触发——只看不动。'
+    :(nLock>=15?'牛闸开放 + 锁定 '+nLock+' 张：池子普遍横盘蓄势，是箱体策略的天气。'
+    :'牛闸开放 + 锁定 '+nLock+' 张（少）：行情偏趋势、无箱可做，耐心等池子降温收窄。');
+  th.innerHTML='🌡️ 市况温度计：'+(BULL_OPEN?'🟩 牛闸开放（池均价 idx > MA50）':'🟥 牛闸关闭（池均价 idx < MA50）')+
+    ' · 箱体锁定 <b>'+nLock+'</b> 张 / 搜索中 '+nSeek+' 只<div class="line">'+mood+'（锁定多=普遍横盘蓄势，少=trending 无箱）· 牛闸快照日期 '+BULL_ASOF+'</div>';
+  const fm=document.getElementById('fdmain');fm.innerHTML='';
+  const e=p.e;
+  cs.forEach(c=>{
+    if(c.mode==='持仓中'&&c.kind==='bk')return;            // bk 不入 fd 主区（折叠区另渲染）
     const el=document.createElement('div');
     if(c.mode==='持仓中'){
       el.className='card hold';
-      el.innerHTML='<span class="tk">'+c.tkr+'</span> <span class="buy">['+(c.kind==='bk'?'突破持仓':'回归持仓')+']</span> '+c.mode+
+      el.innerHTML='<span class="tk">'+c.tkr+'</span> <span class="buy">[fd 回归持仓]</span> '+c.mode+
+        '<span class="fdtag">fd · 收盘判定 · 参考非指令</span>'+
         '<div class="line">买入 '+c.ep+' → 止盈 '+c.tp+' | 显示止损 '+c.disp+' | 有效止损 '+c.eff+
         ' | 已持 '+c.days+' 天 | 现价 '+c.last+'</div>';
     }else if(c.mode==='箱体锁定'){
       el.className='card lock';
       const pct=Math.max(0,Math.min(100,(c.pos_in_box||0.5)*100));
-      const near=(c.dist!==undefined&&c.dist<=1.5);
-      el.innerHTML='<span class="tk">'+c.tkr+'</span> '+c.mode+(near?' <span class="buy">⚡接近触发('+c.dist+'%)</span>':'')+
+      const rng=c.top-c.bot,zone=+(c.bot+e*rng).toFixed(4);
+      const near=(BULL_OPEN&&c.last<=zone);
+      el.innerHTML='<span class="tk">'+c.tkr+'</span> '+c.mode+
+        (near?' <span class="buy">⚡接近 fd 回踩观察区</span>':'')+
         '<div class="sbar"><div class="sfill" style="width:'+pct+'%"></div>'+
-        '<span class="sline stop">箱底 '+c.bot+'</span><span class="sline trg">触发 '+c.trig+'</span></div>'+
+        '<span class="sline stop">箱底 '+c.bot+'</span><span class="sline trg">箱顶 '+c.top+'</span></div>'+
         '<div class="line">箱顶 '+c.top+' / 箱底 '+c.bot+' | 箱龄 '+c.age+' 天 | 现价 '+c.last+
-        ' | 距突破触发 <b>'+c.dist+'%</b>（收盘判定，盘中触摸≠买入）</div>';
+        ' | fd 回踩观察区 ≤'+zone+'</div>'+
+        '<div class="warnfd">⚡=现价进入 fd 回踩观察区（收盘判定，盘中触摸≠买入）· 参考观察，非买入指令'+(BULL_OPEN?'':' · 牛闸关闭，fd 不触发')+'</div>';
     }else{
       el.className='card seek';
       el.innerHTML='<span class="tk">'+c.tkr+'</span> 箱体搜索 seek '+c.seek_streak+'/'+c.seek_need+
         '<div class="line">N='+c.N+' 窗口收紧计数中 · 现价 '+c.last+'</div>';
     }
-    cs.appendChild(el);});
+    fm.appendChild(el);});
+  const bkHold=cs.filter(c=>c.mode==='持仓中'&&c.kind==='bk');
+  const bc=document.getElementById('bkcards');bc.innerHTML='';
+  bkHold.forEach(c=>{
+    const el=document.createElement('div');el.className='card bkcard';
+    el.innerHTML='<span class="tk">'+c.tkr+'</span> [突破持仓] '+c.mode+'<span class="bktag">⛔ bk·已归档非信号</span>'+
+      '<div class="line">买入 '+c.ep+' → 止盈 '+c.tp+' | 显示止损 '+c.disp+' | 有效止损 '+c.eff+
+      ' | 已持 '+c.days+' 天 | 现价 '+c.last+'</div>';
+    bc.appendChild(el);});
+  function histTable(id,rows,bkMark){
+    const h=document.getElementById(id);
+    h.innerHTML='<tr><th>标的</th><th>买</th><th>卖</th><th>收益</th><th>原因</th><th>日期</th></tr>';
+    rows.forEach(x=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td>'+x.tkr+'</td><td class="buy">'+x.ep+'</td><td class="sell">'+x.xc+'</td>'+
+        '<td class="'+(x.r>0?'up':'dn')+'">'+(x.r>0?'+':'')+x.r+'%</td><td>'+x.why+
+        (bkMark&&x.kind==='bk'?' <span class="bktag">⛔bk·已归档非信号</span>':'')+'</td><td>'+x.xt+'</td>';
+      h.appendChild(tr);});
+  }
+  const rec=r.recent||[];
+  histTable('hist',rec.filter(x=>x.kind==='fd'),false);
+  histTable('bkhist',rec.filter(x=>x.kind==='bk'),true);
+  const fd=rec.filter(x=>x.kind==='fd'),fr=fd.map(x=>x.r);
   const s=r.stats||{};
-  document.getElementById('stat').textContent='共 '+s.total+' 笔 · 胜 '+s.wins+' 笔 · 单笔均值 '+s.mean+'%（含资金费，收盘判定口径，主窗 et≥2025-06-01）';
-  const h=document.getElementById('hist');
-  h.innerHTML='<tr><th>标的</th><th>买</th><th>卖</th><th>收益</th><th>原因</th><th>日期</th></tr>';
-  (r.recent||[]).forEach(x=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML='<td>'+x.tkr+'</td><td class="buy">'+x.ep+'</td><td class="sell">'+x.xc+'</td>'+
-      '<td class="'+(x.r>0?'up':'dn')+'">'+(x.r>0?'+':'')+x.r+'%</td><td>'+x.why+'</td><td>'+x.xt+'</td>';
-    h.appendChild(tr);});
+  document.getElementById('stat').innerHTML='fd 已平（客户端按 fd 行复算）：共 '+fd.length+' 笔 · 胜 '+
+    fr.filter(x=>x>0).length+' 笔 · 单笔均值 '+(fr.length?+(sum(fr)/fd.length).toFixed(2):0)+'%'+
+    '（含资金费，收盘判定口径）<br>全口径（含 bk 存档单）：共 '+s.total+' 笔 · 胜 '+s.wins+' 笔 · 单笔均值 '+s.mean+'%';
+  const ms=r.main_stats||{};
+  document.getElementById('mainstat').textContent='主窗（et≥'+(d.caliber?d.caliber.main_window.replace('入场日 et>=',''):'2025-06-01')+'）长期统计：n='+ms.n+' · pf='+ms.pf+' · 单笔均值 '+ms.mean+'% · 胜率 '+ms.win_pct+'%（含 bk 历史账，bk 已归档不再产生新信号）';
+  const t1=d.runs.top1||{};
+  const tc=document.getElementById('t1cards');tc.innerHTML='';
+  (t1.cards||[]).forEach(c=>{
+    const el=document.createElement('div');
+    const isBk=(c.mode==='持仓中'&&c.kind==='bk');
+    el.className='card '+(c.mode==='持仓中'?'hold':(c.mode==='箱体锁定'?'lock':'seek'))+(isBk?' bkcard':'');
+    el.innerHTML='<span class="tk">'+c.tkr+'</span> '+c.mode+(isBk?'<span class="bktag">⛔ bk·已归档非信号</span>':'')+
+      '<div class="line">'+(c.mode==='持仓中'?('买入 '+c.ep+' → 止盈 '+c.tp+' | 已持 '+c.days+' 天 | 现价 '+c.last):
+        (c.mode==='箱体锁定'?('箱顶 '+c.top+' / 箱底 '+c.bot+' | 箱龄 '+c.age+' 天 | 现价 '+c.last):
+        ('seek '+c.seek_streak+'/'+c.seek_need+' · 现价 '+c.last)))+'</div>';
+    tc.appendChild(el);});
+  const t1r=t1.recent||[],t1s=t1.stats||{};
+  histTable('t1hist',t1r,true);
+  document.getElementById('t1stat').textContent='Top1（非实盘）：共 '+t1s.total+' 笔 · 胜 '+t1s.wins+' 笔 · 单笔均值 '+t1s.mean+'%';
   document.getElementById('foot').innerHTML='seed='+d.seed+' · 口径：'+d.caliber.fill+'；触发：'+d.caliber.trigger+
     ' · 复现：PYTHONHASHSEED='+d.seed+' python3 generate_page.py';
 }
+function sum(a){return a.reduce((x,y)=>x+y,0)}
 function r2(p){return p.N+'/k'+p.k+'/m'+p.m+'/e'+p.e}
 fetch('box_live.json?ts='+Date.now()).then(r=>r.json()).then(d=>{DATA=d;render();})
  .catch(e=>{document.getElementById('meta').textContent='数据加载失败：'+e});
@@ -292,8 +364,14 @@ def main():
     with open(jp, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
     hp = os.path.join(OUT_DIR, 'index.html')
+    # 温度计牛闸：复用引擎既有 build_idx_bull（WO-3 禁止触碰 eng_final.py，仅渲染层推导）
+    bull = eng.build_idx_bull(pool)
+    last_dt = max(b['time'] for bars in pool.values() for b in bars)
+    bull_open = bool(bull.get(last_dt, False))
+    html = (HTML_TMPL.replace('__BULL_OPEN__', 'true' if bull_open else 'false')
+                      .replace('__BULL_ASOF__', last_dt))
     with open(hp, 'w') as f:
-        f.write(HTML_TMPL)
+        f.write(html)
     print('[4/4] 交付复制 → %s 与 %s' % (DELIVER_DIR, REPO_DIR), flush=True)
     for dst in (DELIVER_DIR, REPO_DIR):
         os.makedirs(dst, exist_ok=True)
