@@ -1,0 +1,97 @@
+{
+ "workorder": "fddual-check（用户想法 vs fd 原版：闸同源+三臂）",
+ "generated": "2026-10-19 16:59 UTC",
+ "d0": {
+  "fd_anchor": {
+   "n": 673,
+   "sum_r": 723.64,
+   "thick_n": 118,
+   "thick_sum": 2019.76
+  },
+  "md5": "f3f790a6e873e01b1966f8d5b996e0d3"
+ },
+ "gate_same_source": {
+  "comparable_days": 718,
+  "mismatch_all": 0,
+  "mismatch_main": 0,
+  "f1_caliber": "f1_signal.py: idx=池等权收盘均价, ma=rolling(50).mean()(min_periods=50), 闸关=idx<ma",
+  "box_caliber": "build_idx_bull: 同一 idx, ma=窗口截断(min(49,i)) MA50, 牛侧=idx>ma",
+  "verdict": "主窗不一致=0 → 双闸同源（同一 idx、同一 MA50）"
+ },
+ "fd_anchor_replay": {
+  "n": 673,
+  "sum_r": 723.64,
+  "frozen": "673/+723.64",
+  "ok": true
+ },
+ "fd_in_bull": {
+  "not_in_bull": 0,
+  "near_edge_lt05pct_all": 112,
+  "near_edge_lt05pct_sel": 51
+ },
+ "arms": {
+  "A_user": {
+   "n": 461,
+   "stats": {
+    "n": 461,
+    "median": -1.5926,
+    "win_pct": 39.26,
+    "mean": 1.7803,
+    "pf": 1.7046,
+    "sum_r": 820.74,
+    "thick": {
+     "r_ge": 8,
+     "n": 96,
+     "sum_r": 1643.85
+    }
+   },
+   "def_": "fd原版信号 ∩ 双闸±1日共振窗口"
+  },
+  "B_fd_orig": {
+   "n": 461,
+   "stats": {
+    "n": 461,
+    "median": -1.5926,
+    "win_pct": 39.26,
+    "mean": 1.7803,
+    "pf": 1.7046,
+    "sum_r": 820.74,
+    "thick": {
+     "r_ge": 8,
+     "n": 96,
+     "sum_r": 1643.85
+    }
+   },
+   "def_": "fd 原版（箱体内 fd, top1 参数）主窗筛选段"
+  },
+  "C_no_gate": {
+   "n": 1726,
+   "stats": {
+    "n": 1726,
+    "median": -2.4933,
+    "win_pct": 34.18,
+    "mean": 2.4453,
+    "pf": 1.7908,
+    "sum_r": 4220.53,
+    "thick": {
+     "r_ge": 8,
+     "n": 434,
+     "sum_r": 8789.66
+    }
+   },
+   "def_": "同规则忽略牛闸（独立fd扫描器 bullmap 全 True）"
+  }
+ },
+ "overlap_A_vs_B": 1.0,
+ "judgment": {
+  "gate_same": "主窗不一致=0，双闸=同一条件算两遍，坐实",
+  "increment": "重合率1.0000≥0.99 → 用户策略≈fd 原版复刻，真实增量=0",
+  "gate_value": {
+   "B": 820.74,
+   "C": 4220.53,
+   "note": "fd原版 vs 无门 sum_r 差=牛闸贡献（筛选段）"
+  }
+ },
+ "realc_note": "判读窗口 et≤2026-05-31；realC 已于 fd_indep 终验烧毁，本单不触碰不判读",
+ "runtime_sec": 5.3
+}
