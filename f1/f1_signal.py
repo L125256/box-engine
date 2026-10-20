@@ -1164,8 +1164,9 @@ def main():
         # 判定轮数据落盘后自动执行；只读+旁路落盘，不改引擎语义（异常不阻断判定轮）。
         try:
             import subprocess
-            subprocess.run([sys.executable,
-                            '/workspace/repo_ready/research/wo_mine/shadow_cells.py',
+            ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 引擎在 engine_f1/ 或 f1/，上级即仓库根
+            SHADOW_SCRIPT = os.path.join(ROOT, 'research', 'wo_mine', 'shadow_cells.py')
+            subprocess.run([sys.executable, SHADOW_SCRIPT,
                             '--auto'], timeout=1800, check=False)
         except Exception as _se:  # 挂接旁路：任何异常只登记，不影响 live 输出
             print(f'shadow_cells 挂接异常（不阻断）: {_se}')
@@ -1187,8 +1188,9 @@ def main():
         # _OPS5 当日未收盘盘中K剔除；异常不阻断快照轮）。
         try:
             import subprocess
-            subprocess.run([sys.executable,
-                            '/workspace/repo_ready/research/wo_mine/shadow_cells.py',
+            ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 引擎在 engine_f1/ 或 f1/，上级即仓库根
+            SHADOW_SCRIPT = os.path.join(ROOT, 'research', 'wo_mine', 'shadow_cells.py')
+            subprocess.run([sys.executable, SHADOW_SCRIPT,
                             '--auto'], timeout=1800, check=False)
         except Exception as _se2:  # 挂接旁路：任何异常只登记，不影响快照输出
             print(f'shadow_cells 快照轮挂接异常（不阻断）: {_se2}')
