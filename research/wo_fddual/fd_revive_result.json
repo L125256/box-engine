@@ -1,0 +1,2152 @@
+{
+ "workorder": "fd_revive（fd 复活专测，FD_REVIVE_SPEC_v1 冻结批准 2026-10-20 13:24）",
+ "spec": "FD_REVIVE_SPEC_v1 §2/§4/§5 逐字；运行件=research/wo_fddual/fd_revive_run.py（运行单指定路径；§6 原文 wo_fdbrk 以运行单为准）",
+ "generated": "2026-10-20 05:43 UTC",
+ "discount": "诚实折扣（规格 §3.3-4 强制，随一切结论携带）：realA/realB 数字 K5 已看过（数据已存在），窗内主判不是真样本外，替代方案强度严格小于 realC 一次成活；达标结论=「fd 出场结构增量成立，转影子候选」，不等于 fd 复活上线；放行仍走部署三道门+新预注册（R10 红线永不重开）。",
+ "d0": {
+  "snapshot_ver": "snapshot_20261019",
+  "snapshot_md5": "f3f790a6e873e01b1966f8d5b996e0d3",
+  "md5_ok": false,
+  "md5_deviation": "f3f790a6e873e01b1966f8d5b996e0d3 != frozen 33c8b9ec54d17537c3b7f1f6d8d47463; anchor/scan_ref/pool_n/last-bar 全对 → 重序列化假设，偏差披露不禁跑（dual_check.py 先例）",
+  "last_bar_consistent": true,
+  "pool_n": 144,
+  "anchor1_fd": {
+   "n": 673,
+   "sum_r": 723.64,
+   "thick_n": 118,
+   "thick_sum": 2019.76
+  },
+  "anchor1_ok": true,
+  "scan_ref_maxdiff": 0.0,
+  "reused": [
+   "load_pool",
+   "build_idx_bull",
+   "scan",
+   "collect",
+   "atrs"
+  ]
+ },
+ "anchor2_ctrl": {
+  "anchor": "K5 ctrl 语义=冻结臂 V-FD-A/E2/refresh，主窗 et>=2025-06-01",
+  "got": {
+   "n": 1802,
+   "mean": 1.1853,
+   "sum_r": 2135.92
+  },
+  "want": {
+   "n": 1802,
+   "mean": 1.1798,
+   "sum_r": 2125.96
+  },
+  "tol": "笔数逐位 / mean ±0.05 / sum_r ±0.05×n（§0.5 换算先例）",
+  "ok": true
+ },
+ "arms_book": {
+  "ctrl": {
+   "full": {
+    "n": 2755,
+    "sum_r": 4370.88
+   },
+   "realA": {
+    "n": 1249,
+    "sum_r": 2391.09
+   },
+   "realB": {
+    "n": 946,
+    "sum_r": 2273.37
+   }
+  },
+  "DA": {
+   "full": {
+    "n": 2781,
+    "sum_r": 5364.39
+   },
+   "realA": {
+    "n": 1260,
+    "sum_r": 2769.15
+   },
+   "realB": {
+    "n": 958,
+    "sum_r": 2691.58
+   }
+  },
+  "DB": {
+   "full": {
+    "n": 2680,
+    "sum_r": 4397.47
+   },
+   "realA": {
+    "n": 1215,
+    "sum_r": 2391.56
+   },
+   "realB": {
+    "n": 923,
+    "sum_r": 2268.07
+   }
+  }
+ },
+ "abs_sumR_diff": {
+  "DA": {
+   "realA": 378.06,
+   "realB": 418.21
+  },
+  "DB": {
+   "realA": 0.47,
+   "realB": -5.3
+  }
+ },
+ "thick_tkrs_n": 85,
+ "results": {
+  "DA": {
+   "label": "D-A 分批+保本（partial3r-breakeven）",
+   "legs": {
+    "J1": {
+     "realA": {
+      "n_paired": 1228,
+      "n_ctrl": 1249,
+      "n_arm": 1260,
+      "pair_rate": 0.9832
+     },
+     "delta": {
+      "n": 1228,
+      "mean": 0.335,
+      "sum_r": 411.37,
+      "median": 0.0,
+      "min": -26.2958,
+      "max": 105.6686,
+      "p10": -0.9892,
+      "p25": 0.0,
+      "p75": 0.0,
+      "p90": 1.6486,
+      "share_gt0": 14.5
+     },
+     "bootstrap": {
+      "reps": 2000,
+      "mean_block": 10,
+      "seed": 42,
+      "q05_sum_r": 8.12,
+      "p_le0": 0.0325
+     },
+     "pass_": true
+    },
+    "J2": {
+     "realB": {
+      "n_paired": 926,
+      "n_ctrl": 946,
+      "n_arm": 958,
+      "pair_rate": 0.9789
+     },
+     "delta": {
+      "n": 926,
+      "mean": 0.4618,
+      "sum_r": 427.61,
+      "median": 0.0,
+      "min": -44.4921,
+      "max": 43.1581,
+      "p10": -1.3368,
+      "p25": 0.0,
+      "p75": 0.0,
+      "p90": 2.3057,
+      "share_gt0": 15.01
+     },
+     "pass_": true
+    },
+    "J3": {
+     "years": {
+      "2024": {
+       "n": 613,
+       "sum_r": 173.75
+      },
+      "2025": {
+       "n": 1088,
+       "sum_r": 565.76
+      },
+      "2026": {
+       "n": 453,
+       "sum_r": 99.47
+      }
+     },
+     "pass_": true
+    },
+    "J4": {
+     "loto_n": 144,
+     "fails": [],
+     "n_fails": 0,
+     "min_mean": 0.228054,
+     "thick_ref": "fd 原版臂锚 thick(r>=8) 118 笔谱系票集 n=85",
+     "thick_fails": [],
+     "pass_": true
+    },
+    "J5": {
+     "shadow_start": "2026-10-20",
+     "n": 0,
+     "status": "只累计不判（n<20）",
+     "note": "影子采集未挂接（达标才挂）；n>=20 后按同判线判读一次封印",
+     "pass_": null
+    }
+   },
+   "verdict": "达标（fd 出场结构增量成立，转影子候选；J5 影子期 n<20 只累计不判，n>=20 后判读一次封印终审）",
+   "pair_gate": {
+    "gate": 0.85,
+    "realA_rate": 0.9832,
+    "ok": true
+   }
+  },
+  "DB": {
+   "label": "D-B hardcap 45bar（time45）",
+   "legs": {
+    "J1": {
+     "realA": {
+      "n_paired": 1193,
+      "n_ctrl": 1249,
+      "n_arm": 1215,
+      "pair_rate": 0.9819
+     },
+     "delta": {
+      "n": 1193,
+      "mean": -0.006,
+      "sum_r": -7.21,
+      "median": 0.0,
+      "min": -32.2052,
+      "max": 27.2903,
+      "p10": 0.0,
+      "p25": 0.0,
+      "p75": 0.0,
+      "p90": 0.0,
+      "share_gt0": 3.19
+     },
+     "bootstrap": {
+      "reps": 2000,
+      "mean_block": 10,
+      "seed": 42,
+      "q05_sum_r": -59.61,
+      "p_le0": 0.743
+     },
+     "pass_": false
+    },
+    "J2": {
+     "realB": {
+      "n_paired": 921,
+      "n_ctrl": 946,
+      "n_arm": 923,
+      "pair_rate": 0.9978
+     },
+     "delta": {
+      "n": 921,
+      "mean": 0.1548,
+      "sum_r": 142.61,
+      "median": 0.0,
+      "min": -34.0109,
+      "max": 37.8262,
+      "p10": 0.0,
+      "p25": 0.0,
+      "p75": 0.0,
+      "p90": 0.0,
+      "share_gt0": 5.43
+     },
+     "pass_": true
+    },
+    "J3": {
+     "years": {
+      "2024": {
+       "n": 617,
+       "sum_r": 239.55
+      },
+      "2025": {
+       "n": 1057,
+       "sum_r": -65.49
+      },
+      "2026": {
+       "n": 440,
+       "sum_r": -38.66
+      }
+     },
+     "pass_": false
+    },
+    "J4": {
+     "loto_n": 144,
+     "fails": [
+      {
+       "tkr": "AAOIUSDT",
+       "mean": -0.008817,
+       "n_paired": 1178,
+       "n_ctrl": 1234,
+       "n_arm": 1200
+      },
+      {
+       "tkr": "AMDUSDT",
+       "mean": -0.012037,
+       "n_paired": 1186,
+       "n_ctrl": 1243,
+       "n_arm": 1208
+      },
+      {
+       "tkr": "AMZNUSDT",
+       "mean": -0.01469,
+       "n_paired": 1194,
+       "n_ctrl": 1251,
+       "n_arm": 1216
+      },
+      {
+       "tkr": "ARMUSDT",
+       "mean": -0.012088,
+       "n_paired": 1181,
+       "n_ctrl": 1238,
+       "n_arm": 1203
+      },
+      {
+       "tkr": "ASTSUSDT",
+       "mean": -0.012108,
+       "n_paired": 1179,
+       "n_ctrl": 1238,
+       "n_arm": 1202
+      },
+      {
+       "tkr": "AVGOUSDT",
+       "mean": -0.016563,
+       "n_paired": 1174,
+       "n_ctrl": 1229,
+       "n_arm": 1195
+      },
+      {
+       "tkr": "BABAUSDT",
+       "mean": -0.012088,
+       "n_paired": 1181,
+       "n_ctrl": 1238,
+       "n_arm": 1203
+      },
+      {
+       "tkr": "BEUSDT",
+       "mean": -0.012006,
+       "n_paired": 1189,
+       "n_ctrl": 1246,
+       "n_arm": 1211
+      },
+      {
+       "tkr": "BMNRUSDT",
+       "mean": -0.019352,
+       "n_paired": 1202,
+       "n_ctrl": 1262,
+       "n_arm": 1225
+      },
+      {
+       "tkr": "BOTUSDT",
+       "mean": -0.006032,
+       "n_paired": 1196,
+       "n_ctrl": 1254,
+       "n_arm": 1219
+      }
+     ],
+     "n_fails": 99,
+     "min_mean": -0.044433,
+     "thick_ref": "fd 原版臂锚 thick(r>=8) 118 笔谱系票集 n=85",
+     "thick_fails": [
+      "AMDUSDT",
+      "ARMUSDT",
+      "ASTSUSDT",
+      "AVGOUSDT",
+      "BABAUSDT",
+      "BEUSDT",
+      "BMNRUSDT",
+      "BXUSDT",
+      "COHRUSDT",
+      "COINUSDT",
+      "CRCLUSDT",
+      "DELLUSDT",
+      "EBAYUSDT",
+      "EWJUSDT",
+      "EWTUSDT",
+      "EWZUSDT",
+      "GMEUSDT",
+      "GPROUSDT",
+      "GSUSDT",
+      "GTLBUSDT",
+      "HDUSDT",
+      "HIMSUSDT",
+      "INTWUSDT",
+      "IONQUSDT",
+      "KORUUSDT",
+      "KSTRUSDT",
+      "METAUSDT",
+      "MRNAUSDT",
+      "MRVLUSDT",
+      "MSFTUSDT",
+      "MSTRUSDT",
+      "NETUSDT",
+      "NOKUSDT",
+      "NOWUSDT",
+      "NVOUSDT",
+      "ORCLUSDT",
+      "PANWUSDT",
+      "PYPLUSDT",
+      "RDDTUSDT",
+      "SNOWUSDT",
+      "SOFIUSDT",
+      "SONYUSDT",
+      "SOXSUSDT",
+      "SQQQUSDT",
+      "TQQQUSDT",
+      "TSMUSDT",
+      "TTWOUSDT",
+      "TZAUSDT",
+      "URNMUSDT",
+      "UVXYUSDT",
+      "VRTUSDT",
+      "WENUSDT",
+      "XLEUSDT"
+     ],
+     "pass_": false
+    },
+    "J5": {
+     "shadow_start": "2026-10-20",
+     "n": 0,
+     "status": "只累计不判（n<20）",
+     "note": "影子采集未挂接（达标才挂）；n>=20 后按同判线判读一次封印",
+     "pass_": null
+    }
+   },
+   "verdict": "判死（J1–J4 任一不满足即维持 fd 原判死，归档附复活条件）",
+   "pair_gate": {
+    "gate": 0.85,
+    "realA_rate": 0.9819,
+    "ok": true
+   }
+  }
+ },
+ "loto_detail": {
+  "DA": {
+   "AAOIUSDT": {
+    "mean": 0.35242,
+    "n_paired": 1213,
+    "n_ctrl": 1234,
+    "n_arm": 1245
+   },
+   "AAPLUSDT": {
+    "mean": 0.325883,
+    "n_paired": 1201,
+    "n_ctrl": 1222,
+    "n_arm": 1233
+   },
+   "ADBEUSDT": {
+    "mean": 0.334464,
+    "n_paired": 1197,
+    "n_ctrl": 1216,
+    "n_arm": 1226
+   },
+   "ALABUSDT": {
+    "mean": 0.339514,
+    "n_paired": 1214,
+    "n_ctrl": 1236,
+    "n_arm": 1248
+   },
+   "AMATUSDT": {
+    "mean": 0.335684,
+    "n_paired": 1199,
+    "n_ctrl": 1220,
+    "n_arm": 1231
+   },
+   "AMDUSDT": {
+    "mean": 0.353356,
+    "n_paired": 1221,
+    "n_ctrl": 1243,
+    "n_arm": 1256
+   },
+   "AMZNUSDT": {
+    "mean": 0.336274,
+    "n_paired": 1229,
+    "n_ctrl": 1251,
+    "n_arm": 1264
+   },
+   "APPUSDT": {
+    "mean": 0.32494,
+    "n_paired": 1182,
+    "n_ctrl": 1202,
+    "n_arm": 1213
+   },
+   "ARMUSDT": {
+    "mean": 0.339019,
+    "n_paired": 1216,
+    "n_ctrl": 1238,
+    "n_arm": 1251
+   },
+   "ASMLUSDT": {
+    "mean": 0.298179,
+    "n_paired": 1164,
+    "n_ctrl": 1185,
+    "n_arm": 1196
+   },
+   "ASTSUSDT": {
+    "mean": 0.364562,
+    "n_paired": 1216,
+    "n_ctrl": 1238,
+    "n_arm": 1250
+   },
+   "AVGOUSDT": {
+    "mean": 0.338161,
+    "n_paired": 1208,
+    "n_ctrl": 1229,
+    "n_arm": 1242
+   },
+   "AXTIUSDT": {
+    "mean": 0.365123,
+    "n_paired": 1201,
+    "n_ctrl": 1222,
+    "n_arm": 1233
+   },
+   "BABAUSDT": {
+    "mean": 0.328768,
+    "n_paired": 1216,
+    "n_ctrl": 1238,
+    "n_arm": 1251
+   },
+   "BEUSDT": {
+    "mean": 0.331814,
+    "n_paired": 1224,
+    "n_ctrl": 1246,
+    "n_arm": 1259
+   },
+   "BMNRUSDT": {
+    "mean": 0.33754,
+    "n_paired": 1244,
+    "n_ctrl": 1262,
+    "n_arm": 1274
+   },
+   "BNCUSDT": {
+    "mean": 0.299392,
+    "n_paired": 1226,
+    "n_ctrl": 1247,
+    "n_arm": 1257
+   },
+   "BOTUSDT": {
+    "mean": 0.333636,
+    "n_paired": 1233,
+    "n_ctrl": 1254,
+    "n_arm": 1265
+   },
+   "BRKBUSDT": {
+    "mean": 0.334995,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "BXUSDT": {
+    "mean": 0.34456,
+    "n_paired": 1214,
+    "n_ctrl": 1235,
+    "n_arm": 1246
+   },
+   "CATUSDT": {
+    "mean": 0.331356,
+    "n_paired": 1192,
+    "n_ctrl": 1212,
+    "n_arm": 1223
+   },
+   "CBRSUSDT": {
+    "mean": 0.334995,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "CIENUSDT": {
+    "mean": 0.334264,
+    "n_paired": 1201,
+    "n_ctrl": 1222,
+    "n_arm": 1233
+   },
+   "COHRUSDT": {
+    "mean": 0.332916,
+    "n_paired": 1203,
+    "n_ctrl": 1224,
+    "n_arm": 1235
+   },
+   "COINUSDT": {
+    "mean": 0.312924,
+    "n_paired": 1213,
+    "n_ctrl": 1234,
+    "n_arm": 1247
+   },
+   "COSTUSDT": {
+    "mean": 0.29051,
+    "n_paired": 1184,
+    "n_ctrl": 1205,
+    "n_arm": 1217
+   },
+   "CRCLUSDT": {
+    "mean": 0.293517,
+    "n_paired": 1195,
+    "n_ctrl": 1219,
+    "n_arm": 1232
+   },
+   "CRDOUSDT": {
+    "mean": 0.323052,
+    "n_paired": 1210,
+    "n_ctrl": 1231,
+    "n_arm": 1244
+   },
+   "CRMUSDT": {
+    "mean": 0.331484,
+    "n_paired": 1189,
+    "n_ctrl": 1210,
+    "n_arm": 1220
+   },
+   "CRWDUSDT": {
+    "mean": 0.331395,
+    "n_paired": 1215,
+    "n_ctrl": 1237,
+    "n_arm": 1250
+   },
+   "CRWVUSDT": {
+    "mean": 0.331208,
+    "n_paired": 1205,
+    "n_ctrl": 1223,
+    "n_arm": 1234
+   },
+   "CSCOUSDT": {
+    "mean": 0.32813,
+    "n_paired": 1204,
+    "n_ctrl": 1225,
+    "n_arm": 1236
+   },
+   "DDOGUSDT": {
+    "mean": 0.334422,
+    "n_paired": 1212,
+    "n_ctrl": 1234,
+    "n_arm": 1247
+   },
+   "DELLUSDT": {
+    "mean": 0.328729,
+    "n_paired": 1219,
+    "n_ctrl": 1241,
+    "n_arm": 1254
+   },
+   "DISUSDT": {
+    "mean": 0.331622,
+    "n_paired": 1200,
+    "n_ctrl": 1221,
+    "n_arm": 1232
+   },
+   "DJTUSDT": {
+    "mean": 0.320899,
+    "n_paired": 1219,
+    "n_ctrl": 1241,
+    "n_arm": 1254
+   },
+   "DKNGUSDT": {
+    "mean": 0.340127,
+    "n_paired": 1222,
+    "n_ctrl": 1243,
+    "n_arm": 1254
+   },
+   "DRAMUSDT": {
+    "mean": 0.333636,
+    "n_paired": 1233,
+    "n_ctrl": 1254,
+    "n_arm": 1265
+   },
+   "EBAYUSDT": {
+    "mean": 0.335576,
+    "n_paired": 1221,
+    "n_ctrl": 1243,
+    "n_arm": 1256
+   },
+   "EWJUSDT": {
+    "mean": 0.341625,
+    "n_paired": 1221,
+    "n_ctrl": 1242,
+    "n_arm": 1253
+   },
+   "EWTUSDT": {
+    "mean": 0.335643,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "EWYUSDT": {
+    "mean": 0.34449,
+    "n_paired": 1216,
+    "n_ctrl": 1237,
+    "n_arm": 1248
+   },
+   "EWZUSDT": {
+    "mean": 0.336458,
+    "n_paired": 1223,
+    "n_ctrl": 1244,
+    "n_arm": 1255
+   },
+   "FLEXUSDT": {
+    "mean": 0.326028,
+    "n_paired": 1207,
+    "n_ctrl": 1228,
+    "n_arm": 1239
+   },
+   "FLNCUSDT": {
+    "mean": 0.330011,
+    "n_paired": 1227,
+    "n_ctrl": 1248,
+    "n_arm": 1259
+   },
+   "GDXUSDT": {
+    "mean": 0.333561,
+    "n_paired": 1203,
+    "n_ctrl": 1224,
+    "n_arm": 1235
+   },
+   "GEVUSDT": {
+    "mean": 0.297357,
+    "n_paired": 1167,
+    "n_ctrl": 1188,
+    "n_arm": 1199
+   },
+   "GLWUSDT": {
+    "mean": 0.331062,
+    "n_paired": 1225,
+    "n_ctrl": 1246,
+    "n_arm": 1257
+   },
+   "GMEUSDT": {
+    "mean": 0.341256,
+    "n_paired": 1217,
+    "n_ctrl": 1238,
+    "n_arm": 1249
+   },
+   "GOOGLUSDT": {
+    "mean": 0.331815,
+    "n_paired": 1204,
+    "n_ctrl": 1225,
+    "n_arm": 1236
+   },
+   "GPROUSDT": {
+    "mean": 0.238847,
+    "n_paired": 1224,
+    "n_ctrl": 1244,
+    "n_arm": 1254
+   },
+   "GSUSDT": {
+    "mean": 0.294202,
+    "n_paired": 1168,
+    "n_ctrl": 1189,
+    "n_arm": 1200
+   },
+   "GTLBUSDT": {
+    "mean": 0.330417,
+    "n_paired": 1218,
+    "n_ctrl": 1240,
+    "n_arm": 1253
+   },
+   "HDUSDT": {
+    "mean": 0.340738,
+    "n_paired": 1215,
+    "n_ctrl": 1237,
+    "n_arm": 1250
+   },
+   "HIMSUSDT": {
+    "mean": 0.344626,
+    "n_paired": 1215,
+    "n_ctrl": 1237,
+    "n_arm": 1250
+   },
+   "HOODUSDT": {
+    "mean": 0.296896,
+    "n_paired": 1195,
+    "n_ctrl": 1218,
+    "n_arm": 1231
+   },
+   "HPEUSDT": {
+    "mean": 0.337087,
+    "n_paired": 1227,
+    "n_ctrl": 1248,
+    "n_arm": 1259
+   },
+   "IBMUSDT": {
+    "mean": 0.316487,
+    "n_paired": 1200,
+    "n_ctrl": 1221,
+    "n_arm": 1232
+   },
+   "INTCUSDT": {
+    "mean": 0.330154,
+    "n_paired": 1136,
+    "n_ctrl": 1158,
+    "n_arm": 1169
+   },
+   "INTWUSDT": {
+    "mean": 0.351096,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "IONQUSDT": {
+    "mean": 0.316137,
+    "n_paired": 1223,
+    "n_ctrl": 1245,
+    "n_arm": 1258
+   },
+   "IRENUSDT": {
+    "mean": 0.334589,
+    "n_paired": 1228,
+    "n_ctrl": 1250,
+    "n_arm": 1263
+   },
+   "IWMUSDT": {
+    "mean": 0.324299,
+    "n_paired": 1206,
+    "n_ctrl": 1227,
+    "n_arm": 1238
+   },
+   "JPMUSDT": {
+    "mean": 0.331772,
+    "n_paired": 1196,
+    "n_ctrl": 1217,
+    "n_arm": 1228
+   },
+   "KLACUSDT": {
+    "mean": 0.319522,
+    "n_paired": 1205,
+    "n_ctrl": 1226,
+    "n_arm": 1237
+   },
+   "KORUUSDT": {
+    "mean": 0.334722,
+    "n_paired": 1229,
+    "n_ctrl": 1250,
+    "n_arm": 1261
+   },
+   "KOUSDT": {
+    "mean": 0.332731,
+    "n_paired": 1223,
+    "n_ctrl": 1244,
+    "n_arm": 1254
+   },
+   "KSTRUSDT": {
+    "mean": 0.32619,
+    "n_paired": 1219,
+    "n_ctrl": 1239,
+    "n_arm": 1249
+   },
+   "LITEUSDT": {
+    "mean": 0.367155,
+    "n_paired": 1194,
+    "n_ctrl": 1217,
+    "n_arm": 1228
+   },
+   "LLYUSDT": {
+    "mean": 0.327412,
+    "n_paired": 1215,
+    "n_ctrl": 1237,
+    "n_arm": 1247
+   },
+   "LRCXUSDT": {
+    "mean": 0.32903,
+    "n_paired": 1201,
+    "n_ctrl": 1222,
+    "n_arm": 1233
+   },
+   "MARAUSDT": {
+    "mean": 0.344251,
+    "n_paired": 1219,
+    "n_ctrl": 1241,
+    "n_arm": 1254
+   },
+   "MDBUSDT": {
+    "mean": 0.330082,
+    "n_paired": 1190,
+    "n_ctrl": 1211,
+    "n_arm": 1222
+   },
+   "METAUSDT": {
+    "mean": 0.383956,
+    "n_paired": 1220,
+    "n_ctrl": 1241,
+    "n_arm": 1254
+   },
+   "MRKUSDT": {
+    "mean": 0.333531,
+    "n_paired": 1200,
+    "n_ctrl": 1221,
+    "n_arm": 1232
+   },
+   "MRNAUSDT": {
+    "mean": 0.316224,
+    "n_paired": 1200,
+    "n_ctrl": 1220,
+    "n_arm": 1231
+   },
+   "MRVLUSDT": {
+    "mean": 0.334215,
+    "n_paired": 1221,
+    "n_ctrl": 1243,
+    "n_arm": 1256
+   },
+   "MSFTUSDT": {
+    "mean": 0.33764,
+    "n_paired": 1202,
+    "n_ctrl": 1223,
+    "n_arm": 1236
+   },
+   "MSTRUSDT": {
+    "mean": 0.326531,
+    "n_paired": 1203,
+    "n_ctrl": 1224,
+    "n_arm": 1237
+   },
+   "MUUSDT": {
+    "mean": 0.328034,
+    "n_paired": 1198,
+    "n_ctrl": 1219,
+    "n_arm": 1230
+   },
+   "MUUUSDT": {
+    "mean": 0.33445,
+    "n_paired": 1230,
+    "n_ctrl": 1251,
+    "n_arm": 1262
+   },
+   "MVLLUSDT": {
+    "mean": 0.34804,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "NBISUSDT": {
+    "mean": 0.32051,
+    "n_paired": 1219,
+    "n_ctrl": 1241,
+    "n_arm": 1254
+   },
+   "NETUSDT": {
+    "mean": 0.347029,
+    "n_paired": 1206,
+    "n_ctrl": 1227,
+    "n_arm": 1240
+   },
+   "NFLXUSDT": {
+    "mean": 0.333176,
+    "n_paired": 1214,
+    "n_ctrl": 1236,
+    "n_arm": 1249
+   },
+   "NOKUSDT": {
+    "mean": 0.344425,
+    "n_paired": 1225,
+    "n_ctrl": 1246,
+    "n_arm": 1257
+   },
+   "NOWUSDT": {
+    "mean": 0.340846,
+    "n_paired": 1208,
+    "n_ctrl": 1230,
+    "n_arm": 1243
+   },
+   "NVDAUSDT": {
+    "mean": 0.339819,
+    "n_paired": 1216,
+    "n_ctrl": 1238,
+    "n_arm": 1251
+   },
+   "NVOUSDT": {
+    "mean": 0.339063,
+    "n_paired": 1222,
+    "n_ctrl": 1243,
+    "n_arm": 1254
+   },
+   "ONDSUSDT": {
+    "mean": 0.361493,
+    "n_paired": 1226,
+    "n_ctrl": 1247,
+    "n_arm": 1258
+   },
+   "ORCLUSDT": {
+    "mean": 0.326166,
+    "n_paired": 1214,
+    "n_ctrl": 1236,
+    "n_arm": 1248
+   },
+   "PANWUSDT": {
+    "mean": 0.334509,
+    "n_paired": 1218,
+    "n_ctrl": 1240,
+    "n_arm": 1253
+   },
+   "PAYPUSDT": {
+    "mean": 0.315058,
+    "n_paired": 1241,
+    "n_ctrl": 1262,
+    "n_arm": 1273
+   },
+   "PDDUSDT": {
+    "mean": 0.335057,
+    "n_paired": 1222,
+    "n_ctrl": 1244,
+    "n_arm": 1257
+   },
+   "PENGUSDT": {
+    "mean": 0.330193,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "PLTRUSDT": {
+    "mean": 0.330094,
+    "n_paired": 1201,
+    "n_ctrl": 1222,
+    "n_arm": 1233
+   },
+   "PYPLUSDT": {
+    "mean": 0.336358,
+    "n_paired": 1220,
+    "n_ctrl": 1241,
+    "n_arm": 1253
+   },
+   "QCOMUSDT": {
+    "mean": 0.322436,
+    "n_paired": 1200,
+    "n_ctrl": 1221,
+    "n_arm": 1232
+   },
+   "QNTXUSDT": {
+    "mean": 0.334995,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "QQQUSDT": {
+    "mean": 0.332894,
+    "n_paired": 1214,
+    "n_ctrl": 1235,
+    "n_arm": 1248
+   },
+   "RDDTUSDT": {
+    "mean": 0.328333,
+    "n_paired": 1195,
+    "n_ctrl": 1216,
+    "n_arm": 1227
+   },
+   "RIVNUSDT": {
+    "mean": 0.325392,
+    "n_paired": 1198,
+    "n_ctrl": 1219,
+    "n_arm": 1230
+   },
+   "RKLBUSDT": {
+    "mean": 0.348336,
+    "n_paired": 1214,
+    "n_ctrl": 1235,
+    "n_arm": 1246
+   },
+   "SHAZUSDT": {
+    "mean": 0.333636,
+    "n_paired": 1233,
+    "n_ctrl": 1254,
+    "n_arm": 1265
+   },
+   "SHOPUSDT": {
+    "mean": 0.330479,
+    "n_paired": 1207,
+    "n_ctrl": 1228,
+    "n_arm": 1239
+   },
+   "SKHYUSDT": {
+    "mean": 0.334995,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "SMCIUSDT": {
+    "mean": 0.336639,
+    "n_paired": 1220,
+    "n_ctrl": 1241,
+    "n_arm": 1255
+   },
+   "SMHUSDT": {
+    "mean": 0.342774,
+    "n_paired": 1208,
+    "n_ctrl": 1228,
+    "n_arm": 1239
+   },
+   "SNDKUSDT": {
+    "mean": 0.36825,
+    "n_paired": 1226,
+    "n_ctrl": 1247,
+    "n_arm": 1259
+   },
+   "SNOWUSDT": {
+    "mean": 0.330361,
+    "n_paired": 1204,
+    "n_ctrl": 1225,
+    "n_arm": 1238
+   },
+   "SNXXUSDT": {
+    "mean": 0.333636,
+    "n_paired": 1233,
+    "n_ctrl": 1254,
+    "n_arm": 1265
+   },
+   "SOFIUSDT": {
+    "mean": 0.334394,
+    "n_paired": 1226,
+    "n_ctrl": 1246,
+    "n_arm": 1258
+   },
+   "SONYUSDT": {
+    "mean": 0.333555,
+    "n_paired": 1215,
+    "n_ctrl": 1236,
+    "n_arm": 1247
+   },
+   "SOXLUSDT": {
+    "mean": 0.335268,
+    "n_paired": 1227,
+    "n_ctrl": 1248,
+    "n_arm": 1259
+   },
+   "SOXSUSDT": {
+    "mean": 0.228054,
+    "n_paired": 1224,
+    "n_ctrl": 1241,
+    "n_arm": 1253
+   },
+   "SPCXUSDT": {
+    "mean": 0.334995,
+    "n_paired": 1228,
+    "n_ctrl": 1249,
+    "n_arm": 1260
+   },
+   "SPYUSDT": {
+    "mean": 0.367905,
+    "n_paired": 1210,
+    "n_ctrl": 1230,
+    "n_arm": 1242
+   },
+   "SQQQUSDT": {
+    "mean": 0.302036,
+    "n_paired": 1238,
+    "n_ctrl": 1259,
+    "n_arm": 1268
+   },
+   "STXXUSDT": {
+    "mean": 0.331838,
+    "n_paired": 1192,
+    "n_ctrl": 1212,
+    "n_arm": 1223
+   },
+   "TBTUSDT": {
+    "mean": 0.333483,
+    "n_paired": 1223,
+    "n_ctrl": 1243,
+    "n_arm": 1254
+   },
+   "TEAMUSDT": {
+    "mean": 0.337805,
+    "n_paired": 1194,
+    "n_ctrl": 1214,
+    "n_arm": 1226
+   },
+   "TEMUSDT": {
+    "mean": 0.33529,
+    "n_paired": 1218,
+    "n_ctrl": 1239,
+    "n_arm": 1252
+   },
+   "TERUSDT": {
+    "mean": 0.329541,
+    "n_paired": 1201,
+    "n_ctrl": 1222,
+    "n_arm": 1233
+   },
+   "TMFUSDT": {
+    "mean": 0.336776,
+    "n_paired": 1219,
+    "n_ctrl": 1241,
+    "n_arm": 1254
+   },
+   "TQQQUSDT": {
+    "mean": 0.340248,
+    "n_paired": 1226,
+    "n_ctrl": 1247,
+    "n_arm": 1258
+   },
+   "TSLAUSDT": {
+    "mean": 0.275918,
+    "n_paired": 1407,
+    "n_ctrl": 1445,
+    "n_arm": 1465
+   },
+   "TSMUSDT": {
+    "mean": 0.346938,
+    "n_paired": 1209,
+    "n_ctrl": 1230,
+    "n_arm": 1242
+   },
+   "TTWOUSDT": {
+    "mean": 0.349372,
+    "n_paired": 1209,
+    "n_ctrl": 1231,
+    "n_arm": 1243
+   },
+   "TXNUSDT": {
+    "mean": 0.334972,
+    "n_paired": 1195,
+    "n_ctrl": 1216,
+    "n_arm": 1227
+   },
+   "TZAUSDT": {
+    "mean": 0.310194,
+    "n_paired": 1239,
+    "n_ctrl": 1260,
+    "n_arm": 1273
+   },
+   "UBERUSDT": {
+    "mean": 0.321973,
+    "n_paired": 1220,
+    "n_ctrl": 1242,
+    "n_arm": 1254
+   },
+   "URNMUSDT": {
+    "mean": 0.338204,
+    "n_paired": 1224,
+    "n_ctrl": 1246,
+    "n_arm": 1259
+   },
+   "USARUSDT": {
+    "mean": 0.334341,
+    "n_paired": 1215,
+    "n_ctrl": 1237,
+    "n_arm": 1250
+   },
+   "UVXYUSDT": {
+    "mean": 0.292382,
+    "n_paired": 1241,
+    "n_ctrl": 1262,
+    "n_arm": 1274
+   },
+   "VRTUSDT": {
+    "mean": 0.334568,
+    "n_paired": 1220,
+    "n_ctrl": 1242,
+    "n_arm": 1255
+   },
+   "VSTUSDT": {
+    "mean": 0.338369,
+    "n_paired": 1208,
+    "n_ctrl": 1229,
+    "n_arm": 1242
+   },
+   "VUSDT": {
+    "mean": 0.331565,
+    "n_paired": 1197,
+    "n_ctrl": 1218,
+    "n_arm": 1229
+   },
+   "WDCUSDT": {
+    "mean": 0.33149,
+    "n_paired": 1203,
+    "n_ctrl": 1224,
+    "n_arm": 1235
+   },
+   "WENUSDT": {
+    "mean": 0.321925,
+    "n_paired": 1220,
+    "n_ctrl": 1239,
+    "n_arm": 1250
+   },
+   "WMTUSDT": {
+    "mean": 0.335001,
+    "n_paired": 1200,
+    "n_ctrl": 1221,
+    "n_arm": 1232
+   },
+   "XBIUSDT": {
+    "mean": 0.330817,
+    "n_paired": 1205,
+    "n_ctrl": 1226,
+    "n_arm": 1237
+   },
+   "XLEUSDT": {
+    "mean": 0.338228,
+    "n_paired": 1226,
+    "n_ctrl": 1247,
+    "n_arm": 1258
+   },
+   "ZMUSDT": {
+    "mean": 0.309109,
+    "n_paired": 1204,
+    "n_ctrl": 1225,
+    "n_arm": 1236
+   },
+   "ZSUSDT": {
+    "mean": 0.338368,
+    "n_paired": 1202,
+    "n_ctrl": 1223,
+    "n_arm": 1236
+   }
+  },
+  "DB": {
+   "AAOIUSDT": {
+    "mean": -0.008817,
+    "n_paired": 1178,
+    "n_ctrl": 1234,
+    "n_arm": 1200
+   },
+   "AAPLUSDT": {
+    "mean": 0.004954,
+    "n_paired": 1166,
+    "n_ctrl": 1222,
+    "n_arm": 1188
+   },
+   "ADBEUSDT": {
+    "mean": 0.004988,
+    "n_paired": 1158,
+    "n_ctrl": 1216,
+    "n_arm": 1181
+   },
+   "ALABUSDT": {
+    "mean": 0.004895,
+    "n_paired": 1180,
+    "n_ctrl": 1236,
+    "n_arm": 1202
+   },
+   "AMATUSDT": {
+    "mean": 0.01292,
+    "n_paired": 1165,
+    "n_ctrl": 1220,
+    "n_arm": 1186
+   },
+   "AMDUSDT": {
+    "mean": -0.012037,
+    "n_paired": 1186,
+    "n_ctrl": 1243,
+    "n_arm": 1208
+   },
+   "AMZNUSDT": {
+    "mean": -0.01469,
+    "n_paired": 1194,
+    "n_ctrl": 1251,
+    "n_arm": 1216
+   },
+   "APPUSDT": {
+    "mean": 0.005527,
+    "n_paired": 1148,
+    "n_ctrl": 1202,
+    "n_arm": 1169
+   },
+   "ARMUSDT": {
+    "mean": -0.012088,
+    "n_paired": 1181,
+    "n_ctrl": 1238,
+    "n_arm": 1203
+   },
+   "ASMLUSDT": {
+    "mean": 0.002122,
+    "n_paired": 1130,
+    "n_ctrl": 1185,
+    "n_arm": 1152
+   },
+   "ASTSUSDT": {
+    "mean": -0.012108,
+    "n_paired": 1179,
+    "n_ctrl": 1238,
+    "n_arm": 1202
+   },
+   "AVGOUSDT": {
+    "mean": -0.016563,
+    "n_paired": 1174,
+    "n_ctrl": 1229,
+    "n_arm": 1195
+   },
+   "AXTIUSDT": {
+    "mean": 0.004954,
+    "n_paired": 1166,
+    "n_ctrl": 1222,
+    "n_arm": 1188
+   },
+   "BABAUSDT": {
+    "mean": -0.012088,
+    "n_paired": 1181,
+    "n_ctrl": 1238,
+    "n_arm": 1203
+   },
+   "BEUSDT": {
+    "mean": -0.012006,
+    "n_paired": 1189,
+    "n_ctrl": 1246,
+    "n_arm": 1211
+   },
+   "BMNRUSDT": {
+    "mean": -0.019352,
+    "n_paired": 1202,
+    "n_ctrl": 1262,
+    "n_arm": 1225
+   },
+   "BNCUSDT": {
+    "mean": 0.015781,
+    "n_paired": 1190,
+    "n_ctrl": 1247,
+    "n_arm": 1212
+   },
+   "BOTUSDT": {
+    "mean": -0.006032,
+    "n_paired": 1196,
+    "n_ctrl": 1254,
+    "n_arm": 1219
+   },
+   "BRKBUSDT": {
+    "mean": -0.006047,
+    "n_paired": 1193,
+    "n_ctrl": 1249,
+    "n_arm": 1215
+   },
+   "BXUSDT": {
+    "mean": -0.00613,
+    "n_paired": 1177,
+    "n_ctrl": 1235,
+    "n_arm": 1200
+   },
+   "CATUSDT": {
+    "mean": 0.000524,
+    "n_paired": 1158,
+    "n_ctrl": 1212,
+    "n_arm": 1179
+   },
+   "CBRSUSDT": {
+    "mean": -0.006047,
+    "n_paired": 1193,
+    "n_ctrl": 1249,
+    "n_arm": 1215
+   },
+   "CIENUSDT": {
+    "mean": 0.004954,
+    "n_paired": 1166,
+    "n_ctrl": 1222,
+    "n_arm": 1188
+   },
+   "COHRUSDT": {
+    "mean": -0.003618,
+    "n_paired": 1168,
+    "n_ctrl": 1224,
+    "n_arm": 1190
+   },
+   "COINUSDT": {
+    "mean": -0.024234,
+    "n_paired": 1181,
+    "n_ctrl": 1234,
+    "n_arm": 1201
+   },
+   "COSTUSDT": {
+    "mean": -0.011328,
+    "n_paired": 1152,
+    "n_ctrl": 1205,
+    "n_arm": 1173
+   },
+   "CRCLUSDT": {
+    "mean": -0.01523,
+    "n_paired": 1162,
+    "n_ctrl": 1219,
+    "n_arm": 1184
+   },
+   "CRDOUSDT": {
+    "mean": -0.016535,
+    "n_paired": 1176,
+    "n_ctrl": 1231,
+    "n_arm": 1197
+   },
+   "CRMUSDT": {
+    "mean": 0.000241,
+    "n_paired": 1156,
+    "n_ctrl": 1210,
+    "n_arm": 1177
+   },
+   "CRWDUSDT": {
+    "mean": -0.012098,
+    "n_paired": 1180,
+    "n_ctrl": 1237,
+    "n_arm": 1202
+   },
+   "CRWVUSDT": {
+    "mean": -0.016933,
+    "n_paired": 1167,
+    "n_ctrl": 1223,
+    "n_arm": 1187
+   },
+   "CSCOUSDT": {
+    "mean": 0.001127,
+    "n_paired": 1170,
+    "n_ctrl": 1225,
+    "n_arm": 1192
+   },
+   "DDOGUSDT": {
+    "mean": -0.014802,
+    "n_paired": 1177,
+    "n_ctrl": 1234,
+    "n_arm": 1199
+   },
+   "DELLUSDT": {
+    "mean": -0.012057,
+    "n_paired": 1184,
+    "n_ctrl": 1241,
+    "n_arm": 1206
+   },
+   "DISUSDT": {
+    "mean": 0.008526,
+    "n_paired": 1164,
+    "n_ctrl": 1221,
+    "n_arm": 1187
+   },
+   "DJTUSDT": {
+    "mean": -0.012394,
+    "n_paired": 1185,
+    "n_ctrl": 1241,
+    "n_arm": 1206
+   },
+   "DKNGUSDT": {
+    "mean": -0.006497,
+    "n_paired": 1186,
+    "n_ctrl": 1243,
+    "n_arm": 1209
+   },
+   "DRAMUSDT": {
+    "mean": -0.006032,
+    "n_paired": 1196,
+    "n_ctrl": 1254,
+    "n_arm": 1219
+   },
+   "EBAYUSDT": {
+    "mean": -0.021179,
+    "n_paired": 1184,
+    "n_ctrl": 1243,
+    "n_arm": 1207
+   },
+   "EWJUSDT": {
+    "mean": -0.008552,
+    "n_paired": 1187,
+    "n_ctrl": 1242,
+    "n_arm": 1209
+   },
+   "EWTUSDT": {
+    "mean": -0.006057,
+    "n_paired": 1191,
+    "n_ctrl": 1249,
+    "n_arm": 1214
+   },
+   "EWYUSDT": {
+    "mean": -0.014657,
+    "n_paired": 1181,
+    "n_ctrl": 1237,
+    "n_arm": 1203
+   },
+   "EWZUSDT": {
+    "mean": -0.006083,
+    "n_paired": 1186,
+    "n_ctrl": 1244,
+    "n_arm": 1209
+   },
+   "FLEXUSDT": {
+    "mean": 0.004929,
+    "n_paired": 1172,
+    "n_ctrl": 1228,
+    "n_arm": 1194
+   },
+   "FLNCUSDT": {
+    "mean": -0.006063,
+    "n_paired": 1190,
+    "n_ctrl": 1248,
+    "n_arm": 1213
+   },
+   "GDXUSDT": {
+    "mean": 0.005041,
+    "n_paired": 1167,
+    "n_ctrl": 1224,
+    "n_arm": 1190
+   },
+   "GEVUSDT": {
+    "mean": 0.010483,
+    "n_paired": 1135,
+    "n_ctrl": 1188,
+    "n_arm": 1156
+   },
+   "GLWUSDT": {
+    "mean": -0.006063,
+    "n_paired": 1190,
+    "n_ctrl": 1246,
+    "n_arm": 1212
+   },
+   "GMEUSDT": {
+    "mean": -0.007525,
+    "n_paired": 1181,
+    "n_ctrl": 1238,
+    "n_arm": 1204
+   },
+   "GOOGLUSDT": {
+    "mean": 0.00495,
+    "n_paired": 1167,
+    "n_ctrl": 1225,
+    "n_arm": 1190
+   },
+   "GPROUSDT": {
+    "mean": -0.006083,
+    "n_paired": 1186,
+    "n_ctrl": 1244,
+    "n_arm": 1209
+   },
+   "GSUSDT": {
+    "mean": -0.007491,
+    "n_paired": 1134,
+    "n_ctrl": 1189,
+    "n_arm": 1156
+   },
+   "GTLBUSDT": {
+    "mean": -0.002937,
+    "n_paired": 1184,
+    "n_ctrl": 1240,
+    "n_arm": 1205
+   },
+   "HDUSDT": {
+    "mean": -0.012294,
+    "n_paired": 1180,
+    "n_ctrl": 1237,
+    "n_arm": 1202
+   },
+   "HIMSUSDT": {
+    "mean": -0.012118,
+    "n_paired": 1178,
+    "n_ctrl": 1237,
+    "n_arm": 1201
+   },
+   "HOODUSDT": {
+    "mean": -0.02284,
+    "n_paired": 1160,
+    "n_ctrl": 1218,
+    "n_arm": 1183
+   },
+   "HPEUSDT": {
+    "mean": -0.006063,
+    "n_paired": 1190,
+    "n_ctrl": 1248,
+    "n_arm": 1213
+   },
+   "IBMUSDT": {
+    "mean": 0.012909,
+    "n_paired": 1166,
+    "n_ctrl": 1221,
+    "n_arm": 1187
+   },
+   "INTCUSDT": {
+    "mean": 0.007626,
+    "n_paired": 1109,
+    "n_ctrl": 1158,
+    "n_arm": 1132
+   },
+   "INTWUSDT": {
+    "mean": -0.006057,
+    "n_paired": 1191,
+    "n_ctrl": 1249,
+    "n_arm": 1214
+   },
+   "IONQUSDT": {
+    "mean": -0.012037,
+    "n_paired": 1186,
+    "n_ctrl": 1245,
+    "n_arm": 1209
+   },
+   "IRENUSDT": {
+    "mean": -0.011986,
+    "n_paired": 1191,
+    "n_ctrl": 1250,
+    "n_arm": 1214
+   },
+   "IWMUSDT": {
+    "mean": 0.004933,
+    "n_paired": 1171,
+    "n_ctrl": 1227,
+    "n_arm": 1193
+   },
+   "JPMUSDT": {
+    "mean": -0.001293,
+    "n_paired": 1161,
+    "n_ctrl": 1217,
+    "n_arm": 1183
+   },
+   "KLACUSDT": {
+    "mean": 0.004937,
+    "n_paired": 1170,
+    "n_ctrl": 1226,
+    "n_arm": 1192
+   },
+   "KORUUSDT": {
+    "mean": -0.006052,
+    "n_paired": 1192,
+    "n_ctrl": 1250,
+    "n_arm": 1215
+   },
+   "KOUSDT": {
+    "mean": -0.007238,
+    "n_paired": 1186,
+    "n_ctrl": 1244,
+    "n_arm": 1209
+   },
+   "KSTRUSDT": {
+    "mean": -0.010468,
+    "n_paired": 1183,
+    "n_ctrl": 1239,
+    "n_arm": 1205
+   },
+   "LITEUSDT": {
+    "mean": 0.005239,
+    "n_paired": 1162,
+    "n_ctrl": 1217,
+    "n_arm": 1184
+   },
+   "LLYUSDT": {
+    "mean": 0.007749,
+    "n_paired": 1172,
+    "n_ctrl": 1237,
+    "n_arm": 1197
+   },
+   "LRCXUSDT": {
+    "mean": 0.004954,
+    "n_paired": 1166,
+    "n_ctrl": 1222,
+    "n_arm": 1188
+   },
+   "MARAUSDT": {
+    "mean": -0.02633,
+    "n_paired": 1183,
+    "n_ctrl": 1241,
+    "n_arm": 1206
+   },
+   "MDBUSDT": {
+    "mean": 0.015688,
+    "n_paired": 1155,
+    "n_ctrl": 1211,
+    "n_arm": 1177
+   },
+   "METAUSDT": {
+    "mean": -0.01071,
+    "n_paired": 1181,
+    "n_ctrl": 1241,
+    "n_arm": 1203
+   },
+   "MRKUSDT": {
+    "mean": -0.001116,
+    "n_paired": 1163,
+    "n_ctrl": 1221,
+    "n_arm": 1186
+   },
+   "MRNAUSDT": {
+    "mean": -0.006753,
+    "n_paired": 1162,
+    "n_ctrl": 1220,
+    "n_arm": 1185
+   },
+   "MRVLUSDT": {
+    "mean": -0.004017,
+    "n_paired": 1187,
+    "n_ctrl": 1243,
+    "n_arm": 1209
+   },
+   "MSFTUSDT": {
+    "mean": -0.012794,
+    "n_paired": 1168,
+    "n_ctrl": 1223,
+    "n_arm": 1189
+   },
+   "MSTRUSDT": {
+    "mean": -0.008692,
+    "n_paired": 1170,
+    "n_ctrl": 1224,
+    "n_arm": 1190
+   },
+   "MUUSDT": {
+    "mean": 0.004967,
+    "n_paired": 1163,
+    "n_ctrl": 1219,
+    "n_arm": 1185
+   },
+   "MUUUSDT": {
+    "mean": -0.006047,
+    "n_paired": 1193,
+    "n_ctrl": 1251,
+    "n_arm": 1216
+   },
+   "MVLLUSDT": {
+    "mean": 0.011932,
+    "n_paired": 1192,
+    "n_ctrl": 1249,
+    "n_arm": 1214
+   },
+   "NBISUSDT": {
+    "mean": -0.012057,
+    "n_paired": 1184,
+    "n_ctrl": 1241,
+    "n_arm": 1206
+   },
+   "NETUSDT": {
+    "mean": -0.016591,
+    "n_paired": 1172,
+    "n_ctrl": 1227,
+    "n_arm": 1193
+   },
+   "NFLXUSDT": {
+    "mean": -0.00886,
+    "n_paired": 1181,
+    "n_ctrl": 1236,
+    "n_arm": 1202
+   },
+   "NOKUSDT": {
+    "mean": -0.010151,
+    "n_paired": 1189,
+    "n_ctrl": 1246,
+    "n_arm": 1212
+   },
+   "NOWUSDT": {
+    "mean": -0.012191,
+    "n_paired": 1171,
+    "n_ctrl": 1230,
+    "n_arm": 1194
+   },
+   "NVDAUSDT": {
+    "mean": -0.012088,
+    "n_paired": 1181,
+    "n_ctrl": 1238,
+    "n_arm": 1203
+   },
+   "NVOUSDT": {
+    "mean": -0.014737,
+    "n_paired": 1185,
+    "n_ctrl": 1243,
+    "n_arm": 1208
+   },
+   "ONDSUSDT": {
+    "mean": -0.006068,
+    "n_paired": 1189,
+    "n_ctrl": 1247,
+    "n_arm": 1212
+   },
+   "ORCLUSDT": {
+    "mean": -0.012108,
+    "n_paired": 1179,
+    "n_ctrl": 1236,
+    "n_arm": 1201
+   },
+   "PANWUSDT": {
+    "mean": -0.006122,
+    "n_paired": 1184,
+    "n_ctrl": 1240,
+    "n_arm": 1205
+   },
+   "PAYPUSDT": {
+    "mean": 0.003484,
+    "n_paired": 1207,
+    "n_ctrl": 1262,
+    "n_arm": 1228
+   },
+   "PDDUSDT": {
+    "mean": -0.015957,
+    "n_paired": 1187,
+    "n_ctrl": 1244,
+    "n_arm": 1210
+   },
+   "PENGUSDT": {
+    "mean": -0.009534,
+    "n_paired": 1191,
+    "n_ctrl": 1249,
+    "n_arm": 1214
+   },
+   "PLTRUSDT": {
+    "mean": 0.003272,
+    "n_paired": 1167,
+    "n_ctrl": 1222,
+    "n_arm": 1189
+   },
+   "PYPLUSDT": {
+    "mean": -0.012077,
+    "n_paired": 1182,
+    "n_ctrl": 1241,
+    "n_arm": 1205
+   },
+   "QCOMUSDT": {
+    "mean": 0.010324,
+    "n_paired": 1169,
+    "n_ctrl": 1221,
+    "n_arm": 1189
+   },
+   "QNTXUSDT": {
+    "mean": -0.006047,
+    "n_paired": 1193,
+    "n_ctrl": 1249,
+    "n_arm": 1215
+   },
+   "QQQUSDT": {
+    "mean": -0.016507,
+    "n_paired": 1178,
+    "n_ctrl": 1235,
+    "n_arm": 1200
+   },
+   "RDDTUSDT": {
+    "mean": -0.00769,
+    "n_paired": 1160,
+    "n_ctrl": 1216,
+    "n_arm": 1182
+   },
+   "RIVNUSDT": {
+    "mean": 0.004976,
+    "n_paired": 1161,
+    "n_ctrl": 1219,
+    "n_arm": 1184
+   },
+   "RKLBUSDT": {
+    "mean": -0.006119,
+    "n_paired": 1179,
+    "n_ctrl": 1235,
+    "n_arm": 1201
+   },
+   "SHAZUSDT": {
+    "mean": -0.006032,
+    "n_paired": 1196,
+    "n_ctrl": 1254,
+    "n_arm": 1219
+   },
+   "SHOPUSDT": {
+    "mean": 0.004937,
+    "n_paired": 1170,
+    "n_ctrl": 1228,
+    "n_arm": 1193
+   },
+   "SKHYUSDT": {
+    "mean": -0.006047,
+    "n_paired": 1193,
+    "n_ctrl": 1249,
+    "n_arm": 1215
+   },
+   "SMCIUSDT": {
+    "mean": 0.015169,
+    "n_paired": 1182,
+    "n_ctrl": 1241,
+    "n_arm": 1205
+   },
+   "SMHUSDT": {
+    "mean": -0.010549,
+    "n_paired": 1174,
+    "n_ctrl": 1228,
+    "n_arm": 1195
+   },
+   "SNDKUSDT": {
+    "mean": 0.004871,
+    "n_paired": 1186,
+    "n_ctrl": 1247,
+    "n_arm": 1209
+   },
+   "SNOWUSDT": {
+    "mean": -0.01662,
+    "n_paired": 1170,
+    "n_ctrl": 1225,
+    "n_arm": 1191
+   },
+   "SNXXUSDT": {
+    "mean": -0.006032,
+    "n_paired": 1196,
+    "n_ctrl": 1254,
+    "n_arm": 1219
+   },
+   "SOFIUSDT": {
+    "mean": -0.016212,
+    "n_paired": 1188,
+    "n_ctrl": 1246,
+    "n_arm": 1211
+   },
+   "SONYUSDT": {
+    "mean": -0.003013,
+    "n_paired": 1179,
+    "n_ctrl": 1236,
+    "n_arm": 1201
+   },
+   "SOXLUSDT": {
+    "mean": -0.028947,
+    "n_paired": 1192,
+    "n_ctrl": 1248,
+    "n_arm": 1214
+   },
+   "SOXSUSDT": {
+    "mean": -0.044433,
+    "n_paired": 1165,
+    "n_ctrl": 1241,
+    "n_arm": 1192
+   },
+   "SPCXUSDT": {
+    "mean": -0.006047,
+    "n_paired": 1193,
+    "n_ctrl": 1249,
+    "n_arm": 1215
+   },
+   "SPYUSDT": {
+    "mean": 0.002055,
+    "n_paired": 1171,
+    "n_ctrl": 1230,
+    "n_arm": 1193
+   },
+   "SQQQUSDT": {
+    "mean": -0.014863,
+    "n_paired": 1192,
+    "n_ctrl": 1259,
+    "n_arm": 1218
+   },
+   "STXXUSDT": {
+    "mean": 0.000524,
+    "n_paired": 1158,
+    "n_ctrl": 1212,
+    "n_arm": 1179
+   },
+   "TBTUSDT": {
+    "mean": -0.006497,
+    "n_paired": 1186,
+    "n_ctrl": 1243,
+    "n_arm": 1208
+   },
+   "TEAMUSDT": {
+    "mean": 0.017992,
+    "n_paired": 1158,
+    "n_ctrl": 1214,
+    "n_arm": 1180
+   },
+   "TEMUSDT": {
+    "mean": -0.012098,
+    "n_paired": 1180,
+    "n_ctrl": 1239,
+    "n_arm": 1203
+   },
+   "TERUSDT": {
+    "mean": 0.004954,
+    "n_paired": 1166,
+    "n_ctrl": 1222,
+    "n_arm": 1188
+   },
+   "TMFUSDT": {
+    "mean": -0.012077,
+    "n_paired": 1182,
+    "n_ctrl": 1241,
+    "n_arm": 1205
+   },
+   "TQQQUSDT": {
+    "mean": -0.006068,
+    "n_paired": 1189,
+    "n_ctrl": 1247,
+    "n_arm": 1212
+   },
+   "TSLAUSDT": {
+    "mean": 0.082373,
+    "n_paired": 1348,
+    "n_ctrl": 1445,
+    "n_arm": 1382
+   },
+   "TSMUSDT": {
+    "mean": -0.016577,
+    "n_paired": 1173,
+    "n_ctrl": 1230,
+    "n_arm": 1195
+   },
+   "TTWOUSDT": {
+    "mean": -0.004174,
+    "n_paired": 1175,
+    "n_ctrl": 1231,
+    "n_arm": 1196
+   },
+   "TXNUSDT": {
+    "mean": 0.00498,
+    "n_paired": 1160,
+    "n_ctrl": 1216,
+    "n_arm": 1182
+   },
+   "TZAUSDT": {
+    "mean": -0.020007,
+    "n_paired": 1190,
+    "n_ctrl": 1260,
+    "n_arm": 1217
+   },
+   "UBERUSDT": {
+    "mean": -0.006568,
+    "n_paired": 1185,
+    "n_ctrl": 1242,
+    "n_arm": 1207
+   },
+   "URNMUSDT": {
+    "mean": -0.005559,
+    "n_paired": 1189,
+    "n_ctrl": 1246,
+    "n_arm": 1212
+   },
+   "USARUSDT": {
+    "mean": -0.012098,
+    "n_paired": 1180,
+    "n_ctrl": 1237,
+    "n_arm": 1202
+   },
+   "UVXYUSDT": {
+    "mean": -0.014355,
+    "n_paired": 1193,
+    "n_ctrl": 1262,
+    "n_arm": 1219
+   },
+   "VRTUSDT": {
+    "mean": -0.012047,
+    "n_paired": 1185,
+    "n_ctrl": 1242,
+    "n_arm": 1207
+   },
+   "VSTUSDT": {
+    "mean": -0.005682,
+    "n_paired": 1175,
+    "n_ctrl": 1229,
+    "n_arm": 1196
+   },
+   "VUSDT": {
+    "mean": 0.006673,
+    "n_paired": 1165,
+    "n_ctrl": 1218,
+    "n_arm": 1186
+   },
+   "WDCUSDT": {
+    "mean": 0.004946,
+    "n_paired": 1168,
+    "n_ctrl": 1224,
+    "n_arm": 1190
+   },
+   "WENUSDT": {
+    "mean": -0.004515,
+    "n_paired": 1183,
+    "n_ctrl": 1239,
+    "n_arm": 1205
+   },
+   "WMTUSDT": {
+    "mean": 0.002676,
+    "n_paired": 1163,
+    "n_ctrl": 1221,
+    "n_arm": 1186
+   },
+   "XBIUSDT": {
+    "mean": 0.004946,
+    "n_paired": 1168,
+    "n_ctrl": 1226,
+    "n_arm": 1191
+   },
+   "XLEUSDT": {
+    "mean": -0.002521,
+    "n_paired": 1190,
+    "n_ctrl": 1247,
+    "n_arm": 1213
+   },
+   "ZMUSDT": {
+    "mean": 0.00495,
+    "n_paired": 1167,
+    "n_ctrl": 1225,
+    "n_arm": 1190
+   },
+   "ZSUSDT": {
+    "mean": -0.010917,
+    "n_paired": 1169,
+    "n_ctrl": 1223,
+    "n_arm": 1189
+   }
+  }
+ },
+ "realC_note": "realC（2026-06-01→2026-10-18）烧窗禁触：不入判线，任何判线表无 realC 列；对照臂锚② et>=MAIN 全窗复现属图谱记账引用（K5 先例）",
+ "runtime_sec": 155.0
+}
