@@ -126,3 +126,35 @@
 - 本地不回归：两处 `AUTHORITY_SHA.json` sha 对表 PASS（batch=SHADOW-PATH-20261020 未动）；判定轮同款旁路行 `python3 research/wo_mine/shadow_cells.py --auto` rc=0、幂等 +0、S5 reg-D0 hit（状态文件仅 updated_at 顶新，已还原 HEAD）。
 
 - 移交：结果交交易分析团队终裁追认（登记级）。
+
+## ⑨ 三轮修复终态独立终验（工程保障团队单 agent 5 席全席，2026-10-21 01:00–01:40）
+
+- 依据：/tmp/fulltest2_report.md 缺陷清单+治理铁律 5e 主理人禁手令（主理人两次代写事故 D2'/D11 已证伪，本轮一切修复文本由工程保障团队产出）；沙箱 /tmp/fulltest3+fresh /tmp/f1work（只读远端、零 push）。
+
+### ⑨-1 主理人三处修复独立终验（逐字取 scheduler-api 现版+实测）
+
+| 项 | 判定 | 实证 |
+|---|---|---|
+| a) mkdir 4 影子目录 | **PASS 实证** | 逐字重放 exit=0，research/{wo_mine,wo_fddual,wo_fdbrk,eng_wt_rc} 四目录全落地（eng_wt_rc 与 curl -o 路径逐位一致）；mkdir -p 级联覆盖 wo_unlock 父目录 |
+| b) tar.gz 行 | **PASS 实证** | URL 在注释之前、raw Accept 头在位；curl 实测拉回真 gzip 2,114,469B，tar 解包 176 件正常 |
+| c) cand+= 行 | **PASS 实证** | ast.parse OK；7 条 (repo_path, local_path) 二元组逐条核对无误；第 5/6 步整条 python3 -c 命令 bash -n OK |
+
+### ⑨-2 全文逐行扫描+新缺陷发现与修复（本轮核心产出）
+
+扫描器：25→27 条 curl URL 完整性、mkdir 覆盖、2 个 python 块 ast.parse、全部 shell 行与整条命令 bash -n、影子 9 依赖清单比对——静态层零问题（D6 双拉 dneg 维持观察项：二次 -f 拉取幂等无害）。**端到端实跑揪出两个静态扫描不可见的致命缺陷（前两轮体检只验「落盘可解析」从未实跑旁路，即为漏网根因）**：
+
+| # | 位置 | 现象 | 修复（本轮产出，scheduler-api update 锚点替换+回读逐字一致+新增行 bash -n 三步全做） | 级别 |
+|---|---|---|---|---|
+| D12 | 第 2 步拉码清单 | shadow_cells.py `d0_check`（云端沙箱每轮 state 全新必跑）硬依赖 `_HERE/domains.json`（:201,:285）与 `FACTBOOK_BATCH1.jsonl`（:243），均不在拉码清单 → FileNotFoundError → 影子全家（S1-S5）**每轮静默灭**（旁路 check=False 不阻断）；S5 `s5_d0` 另需 `/tmp/box_cache_fresh` 冻结副本（:674 缺即 SystemExit 停工），prompt 未建 | 补拉 2 条（domains.json 1,201,255B+FACTBOOK_BATCH1.jsonl 63,675B 实测可拉）+tar 后补建冻结副本解包行（`mkdir -p /tmp/box_cache_fresh && tar -xzf … --strip-components=1`，与第 3 步 live 刷新隔离，承 _OPS7 禁 live 代跑 D0） | 致命（影子链） |
+| D13 | 第 2 步 16 条主拉码行 | 无 `-f`：瞬态 401（本轮实测复现：GitHub 返回 `Bad credentials` 112B 错误体）经 `-o` **逐字覆盖引擎/池文件**，且错误体恰为合法 Python dict 字面量 → `python3 f1_signal.py` 静默 no-op exit=0 → 全轮假 PASS（v2 实测 16 文件全被污染、引擎零产物零报错） | 16 条统一 `curl -fsS`+`|| rm -f 目标`（与影子行既有防污模式同构）；实测同轮瞬态 401 下影子行正确拒污、主行污染，修复后污染转为响亮缺席（第 3/4 步报错→按纪律报告终止），fail-open→fail-closed | 致命（主链） |
+
+### ⑨-3 端到端实证 v3（/tmp/fulltest3，最终版 prompt 14,533 字符逐字执行）
+
+- 第 1+2 步：27/27 拉码落盘（26 件+tar.gz），`/tmp/box_cache_fresh` 176 件解包成功。
+- 第 4 步快照轮（第 3 步以快照解包模拟缓存数据态）：引擎 `snapshot ok(只读) round=20:30` **exit=0**；影子旁路自动触发——D0 all_pass=True（标签零漂移/ATLAS 锚/S4 重放三断言 hit）、S1/S2/S3 reg-D0 全 hit（n_registered 各 3）、S4 SUSPENDED（§4 补样 0/4 设计内）、S5 D0 hit（realA 复放 n_paired=1228/pair_rate=0.9832/mean=0.335/sum_r=411.37 四位 diff=0）、S5 reg-D0 hit。
+- 第 5 步回传选择干跑（禁写远端，put 桩化仅本地）：快照轮命中 7 件=主产物+影子 6 件；shadow_days.jsonl 缺席为设计内（n_matured=0 不落盘，exists 容错语义保持）。
+- 诚实标注（R2/R7）：①判定轮 live 分支受本地时刻限制未实跑（旁路与快照轮同一 subprocess 入口，S5 挂接点 f1_signal:1194-1203 快照/判定同款，判定轮证据沿用 ⑧-3 rc=0）；②真实云端 PUT 回传/第 6 步双通道验收未实测（禁写远端）；③远端 `f1/forward_ic_days.jsonl` 本轮实测 404（v1 实测 01:05 尚在，此后被仓库外侧删除，非本沙箱所为）——`-f||rm` 下优雅降级（`load_ic_days()` 缺失容错返回空表，前瞻累计自愈重积累），已移交交易分析团队知悉；④GitHub API 本地高频重放会触发限流（v2/v3 各复现一次），云端每轮 27 条单次串行间隔小时级，风险低但「-f 拒污」已把该风险从静默降为有界失败。
+
+### ⑨-4 结论
+
+云端任务 12769301 prompt 现版（14,533 字符，D12+D13 修复后）**可以上线**：三处主理人修复独立终验全 PASS，静态扫描+端到端实跑双通道零已知问题，S1-S5 登记行为+退出码全链实证 PASS。结果移交交易分析团队全场景终验。
