@@ -43,6 +43,10 @@ BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
 多轮口径（WO-R13-03）：展示多轮、判定一轮。20:30/00:30/04:30 = 只读快照（输出 f1_live_intraday.json，
       不写 f1_state.json、不出 top5）；判定轮 = 日K落定后现行 09:25 一轮。
       未落定的当日 bar 由 guard_last_bar() 标记 intraday 并拒绝进入周调仓锚定与信号判定。
+判定轮 bar 选择口径（WO-DECBAR · 2026-10-20，唯一依据 METHOD_BOOK_DECBAR.md）：
+      判定轮入口 trim_and_guard() 剔除数据源当日未收盘 forming 盘中K并基于最后完整日 bar 判定；
+      拒绝收窄为 R-陈旧（>7 自然日）与 R-错位（工作日轮次>4 日/落周末）两条 fail-closed；
+      快照轮 guard_last_bar 语义不动；回放/熔断/成交语义零改动。永久回归锚 DECBAR-20261020。
 
 市场宽度（WO-BREADTH-01 · 2026-10-19）：meta.breadth = {pct, n_above, n_total, ma_window, min_periods}，
       = 池内「当日有K线」标的中 close > 自身 MA50（简单滚动，窗口50、min_periods=40）的比例(%)，
@@ -633,15 +637,21 @@ def check_data_integrity(data, syms):
 def current_signal(data, F, syms, tier_idx=0,
                    freeze_until_date=None, freeze_days_left=0, allow_intraday=False):
     check_data_integrity(data, syms)     # WO-V6：guard 前置（DataFrame 构造前）
-    cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
+    cal_raw = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
+    # WO-R13-03 防污染 guard → WO-DECBAR（DECBAR-20261020）：cal 用 trim 后日历，
+    # guard 拒绝条件同步替换为 R-陈旧/R-错位两判；asof/is_signal_day 按最后完整日。
+    # forming 盘中K剔除不再构成拒绝理由；R-陈旧/R-错位 fail-closed（allow_intraday
+    # 不再旁路任何拒绝——陈旧/错位宁拒勿漏，参数保留仅兼容旧调用方签名）。
+    _g = trim_and_guard(cal_raw)
+    if not _g['settled']:
+        raise RuntimeError('拒绝判定：' + _g['reason'])
+    cal = (pd.DatetimeIndex([d for d in cal_raw
+                             if d < pd.Timestamp(_g['today_utc_date'])])
+           if _g['trimmed'] else cal_raw)
     close = pd.DataFrame({s: data[s]['close'] for s in syms}).reindex(cal)
     idx = close.mean(axis=1)
     idx_ma = idx.rolling(MA_REG).mean()
     med_ret = close.pct_change().median(axis=1)
-    # WO-R13-03 防污染 guard：最后一根K若未落定（部分K），拒绝产出判定结论
-    _g = guard_last_bar(cal)
-    if not _g['settled'] and not allow_intraday:
-        raise RuntimeError('拒绝判定：' + _g['reason'])
     t = cal[-1]
     gate_on = bool(not pd.isna(idx_ma.iloc[-1]) and idx.iloc[-1] < idx_ma.iloc[-1])
     sig_days = week_first_days(cal)
@@ -725,6 +735,62 @@ def guard_last_bar(cal, now=None):
                        f'最后一根K日期 {last.date()} >= 当前 UTC 日 {today_utc.date()}：'
                        '未收盘的部分K（intraday），禁止进入周调仓锚定与信号判定'),
             'settle_rule': f'日K {DAILY_BAR_SETTLE_UTC_HOUR:02d}:00 UTC（北京 08:00）落定'}
+
+
+def trim_and_guard(cal, now=None):
+    """WO-DECBAR（METHOD_BOOK_DECBAR.md §二，永久回归锚 DECBAR-20261020）：
+    判定轮 bar 选择/拒绝语义——剔除（trim）当日未收盘 forming 盘中K并基于最后完整日
+    bar 判定，而不是因数据源含当日盘中 bar 就整轮拒绝；拒绝仅保留两条（fail-closed，
+    宁拒勿漏，任一命中即拒）：
+    - R-陈旧：today_utc − last_complete > 7 自然日（数据陈旧/断源/断更；
+      依据：正常最坏 3 日（跨周末）→ 4 日（单 NY 假日）→ 6 日（9/11 极端闭市）→ 7 日兜底）
+    - R-错位：today_utc 为工作日 且（距 last_complete > 4 自然日 或 last_complete 落在周末）
+      （周调仓时序错位：本应已有更新的已收盘 bar 却缺失）；命中且 R-陈旧未命中时
+      日志标 CALENDAR_SUSPECT（NY 连续假日如圣诞周可能误伤，留人工核）
+    通过 → settled=True、asof=last_complete；trimmed 非空时 f1_guard.log 记
+    TRIM_INTRADAY{trimmed, last_complete}（append-only 可审计，合规席条款）。
+    不变的部分：check_data_integrity 前置拒绝、探活 DEGRADED 冻结、sha 对表闸门、
+    _emit_frozen 冻结产出、快照轮 guard_last_bar（settled 判定展示语义）全不动；
+    回放/熔断/成交语义零改动。"""
+    now = pd.Timestamp.now(tz='UTC') if now is None else pd.Timestamp(now)
+    if now.tzinfo is None:
+        now = now.tz_localize('UTC')
+    now = now.tz_convert('UTC')
+    today_utc = now.normalize().tz_localize(None)
+    trimmed = [str(pd.Timestamp(d).date()) for d in cal
+               if pd.Timestamp(d).normalize() >= today_utc]
+    cal_settled = pd.DatetimeIndex(
+        [d for d in cal if pd.Timestamp(d).normalize() < today_utc])
+    if len(cal_settled) == 0:
+        return {'settled': False, 'check': 'NO_SETTLED_BAR', 'trimmed': trimmed,
+                'today_utc_date': str(today_utc.date()), 'last_complete': None,
+                'reason': '剔除 forming 盘中K后无任何完整日K，禁止进入周调仓锚定与信号判定'}
+    last_complete = pd.Timestamp(cal_settled[-1]).normalize()
+    gap = int((today_utc - last_complete).days)
+    is_weekday = bool(today_utc.dayofweek < 5)          # 周一~五（NY 假日未知时宁严）
+    weekend_last = bool(last_complete.dayofweek >= 5)   # last_complete 落在周六/周日
+    stale = bool(gap > 7)                               # R-陈旧
+    misaligned = bool(is_weekday and (gap > 4 or weekend_last))   # R-错位
+    base = {'trimmed': trimmed, 'today_utc_date': str(today_utc.date()),
+            'last_complete': str(last_complete.date()), 'gap_days': gap,
+            'settle_rule': f'日K {DAILY_BAR_SETTLE_UTC_HOUR:02d}:00 UTC（北京 08:00）落定'}
+    if stale or misaligned:
+        if misaligned and not stale:
+            _log_guard('CALENDAR_SUSPECT', dict(base, check='R_MISALIGN'))
+        check = 'R_STALE' if stale else 'R_MISALIGN'
+        reason = (f'数据陈旧：最后完整日 {last_complete.date()} 距今 {gap} 自然日 > 7 '
+                  f'（R-陈旧，疑似断源/断更），禁止进入周调仓锚定与信号判定'
+                  if stale else
+                  f'周调仓时序错位：最后完整日 {last_complete.date()} 距今 {gap} 自然日'
+                  f'{">4 或落在周末" if weekend_last else ">4"}（今日为工作日），'
+                  '本应已有更新的已收盘 bar 却缺失（R-错位），禁止进入周调仓锚定与信号判定')
+        return dict(base, settled=False, check=check, reason=reason)
+    if trimmed:
+        _log_guard('TRIM_INTRADAY', {'trimmed': trimmed,
+                                     'last_complete': str(last_complete.date())})
+    return dict(base, settled=True, check='OK', asof=str(last_complete.date()),
+                reason=('剔除 forming 盘中K后基于最后完整日判定'
+                        if trimmed else '无 forming 盘中K，基于最后完整日判定'))
 
 
 def push_plan(mode, asof, round_id, last_push=None):
@@ -954,13 +1020,20 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True
     data = load_data(cache)
     syms = build_pool(data)
     check_data_integrity(data, syms)     # WO-V6：guard 前置（build_factors/replay 构造 DataFrame 前）
-    F = build_factors(data)
-    # WO-R13-03：入口先过 guard；未落定则拒绝判定（不写 f1_live.json、不写 f1_state.json）
+    # WO-R13-03：入口先过 guard → WO-DECBAR（DECBAR-20261020）：先 trim（剔除数据源
+    # 当日未收盘 forming 盘中K，load_data 后、build_factors/replay 前），再对 cal_settled
+    # 走 R-陈旧/R-错位两判；未过则拒绝判定（不写 f1_live.json、不写 f1_state.json）。
+    # 判定/回放/熔断/宽度一律只吃剔除后的 cal_settled（最后完整日口径）；
+    # 回放/熔断/成交语义零改动（replay 只看完整 bar，天然兼容）。
     _cal0 = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
-    _g = guard_last_bar(_cal0)
-    if not _g['settled'] and not allow_intraday:
+    _g = trim_and_guard(_cal0)
+    if not _g['settled']:
         _log_guard('REFUSE_DECIDE', _g)
         raise RuntimeError('拒绝判定：' + _g['reason'])
+    if _g['trimmed']:
+        _cut = pd.Timestamp(_g['today_utc_date'])
+        data = {s: d[d.index < _cut] for s, d in data.items()}
+    F = build_factors(data)
     rp = replay(data, F, syms, slot=SLOTS[0])
 
     # ⑧ CB3 基准=R7 v1 冻结快照常量 9.07，live 不再重算覆盖（原重算机制废除，主管席裁定）；
@@ -1021,6 +1094,12 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True
         'monitor': {'recent_stops': recent_stops,
                     'notes': ['止损−8%硬截断(V2口径)', '崩市=池单日中位跌幅<−5%次日清仓',
                               'regime闸=idx<MA50清仓持币', 'CB3基准=9.07（v1 冻结快照，重算值仅对账）']},
+        # WO-DECBAR（DECBAR-20261020）：guard/trim 血缘落盘（锚验收断言字段）
+        'guard': {'rule': 'trim_and_guard（METHOD_BOOK_DECBAR.md §二）',
+                  'trimmed_intraday': _g['trimmed'],
+                  'last_complete': _g['last_complete'],
+                  'gap_days': _g['gap_days'],
+                  'check': _g['check']},
     }
     out['meta']['source'] = {
         'primary': 'kxiandaoyan',
@@ -1060,8 +1139,10 @@ def main():
             out = run_live(out_json=cli_out, allow_intraday='--allow-intraday' in sys.argv)
         except RuntimeError as e:                      # WO-R13-03 guard 拒绝判定
             print(f'live REFUSED: {e}')
-            print('说明：日K 于 00:00 UTC（北京 08:00）落定；请在落定后重跑判定轮，'
-                  '或改用 `snapshot` 只读盘中快照。确需强判定请加 --allow-intraday（仅演练用）。')
+            print('说明：判定轮只吃完整日K（数据源当日 forming 盘中K自动剔除，'
+                  'WO-DECBAR / DECBAR-20261020）；拒绝仅出现在 R-陈旧（最后完整日距今>7 自然日）'
+                  '或 R-错位（工作日轮次>4 日/落周末）两类 fail-closed 场景，'
+                  '请检查数据源最新完整 vintage 后重跑。')
             sys.exit(2)
         bk = out['breakers']['overall']
         st = out['state']
