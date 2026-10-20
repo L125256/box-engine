@@ -55,6 +55,21 @@
   /tmp/box_cache_fresh（缺失即停工重锚，禁以 live 数据代跑 D0）；前瞻采集=
   live 唯一数据态（S1-S4 同源 _cache_dir()）。
 
+【当日读数登记层（用户指令 2026-10-20 14:27：影子计数每天必须有可见进度，用现有数据
+当日登记）】
+- S1-S3：f1/shadow_reg_S{1,2,3}.jsonl 逐日登记当日因子截面读数（round_asof/域标签/
+  因子值/信号读数/成熟状态）；fwd5 未成熟=pending，IC 成熟入 shadow_days.jsonl（判读
+  唯一输入，零改动）后登记行同步转 matured；当日域标签≠本格域=domain_excluded（登记
+  可见、不入判读样本——因子研究席不跨域条款只约束判读采集）。
+- 窗内历史日补登记 backfill=true（2026-10-18 起有真实面板数据的日子）；禁回填 FW0
+  之前任何日子（预注册红线）。
+- 状态双计数：n_registered（已登记日数，每天可见 +1，用户看进度）/ n_matured（成熟
+  数，判读用）——判读线语义不变（SH-4/SH-5/§3 数字冻结不动）。
+- S5：f1/fd_revive_days.jsonl 复用扩型——type=reg_day 逐日扫描读数登记 + type=pair
+  pending/matured 两态（pending 行不落临时 r：持仓中 r 为临时值，入册即伪读数，
+  _OPS6 不破）；n_registered=已登记扫描日数，n_matured=已平仓配对数（J5 判读单位，
+  语义不变）。
+
 用法：python3 research/wo_mine/shadow_cells.py [--auto] [--d0]
 产出：f1/shadow_state.json + f1/shadow_days.jsonl（+判读时 f1/shadow_readout_*.json）
      + f1/fd_revive_state.json + f1/fd_revive_days.jsonl（S5 格，判读时 f1/fd_revive_readout_*.json）
@@ -100,6 +115,9 @@ ATLAS_ANCHORS = {   # ATLAS_v1.md 底层读数（D0 断言源；S1/S2/S3=域内�
     'S2': {'variant_id': 'Q3-rev-5', 'domain': '弱躁', 'anchor': 0.10875},
     'S3': {'variant_id': 'Q1-brk-pos-20', 'domain': '牛躁', 'anchor': 0.1126},
 }
+# ---- 当日读数登记层（用户指令 2026-10-20 14:27：每天必须有可见进度，当日登记）----
+REG_F = {cid: os.path.join(STATEDIR, f'shadow_reg_{cid}.jsonl')
+         for cid in ATLAS_ANCHORS}
 
 # 延迟重导入（首次调用 ~20s，常驻判定轮可接受）
 _ENG_LOADED = False
@@ -434,6 +452,117 @@ def collect_factor_cells(state):
     return counts
 
 
+def load_reg(cid):
+    """登记层读取：f1/shadow_reg_<cell>.jsonl（当日读数登记，type=reg）。"""
+    if not os.path.exists(REG_F[cid]):
+        return []
+    out = []
+    with open(REG_F[cid]) as f:
+        for line in f:
+            try:
+                out.append(json.loads(line))
+            except Exception:
+                continue
+    return out
+
+
+def register_factor_readings(state):
+    """当日读数登记层（用户指令 2026-10-20 14:27）：影子窗内每个有真实面板数据的
+    交易日，把当日因子截面读数逐格落 f1/shadow_reg_<cell>.jsonl——round_asof/域标签/
+    因子值/信号读数/成熟状态；fwd5 未成熟=pending，IC 成熟入 shadow_days.jsonl（判读
+    唯一输入，零改动）后登记行原位同步 matured；当日域标签≠本格域=domain_excluded
+    （登记可见、不入判读样本）。窗内历史日（FW0 起、运行日前）backfill=true；
+    禁回填 FW0 之前（预注册红线）。返回 {cid: {n_registered, n_matured, ...}}。"""
+    import pandas as pd
+    MC, B1, B2 = _eng()
+    P = factor_panels(B2)
+    lab = B1.pool_d1('full144')
+    fw = pd.Timestamp(FW0)
+    run_day = time.strftime('%Y-%m-%d', time.gmtime())
+    rasof = _round_asof() or run_day
+    matured_idx = {(d['cell'], d['date']): d for d in load_days()}
+    summary = {}
+    for cid, spec in ATLAS_ANCHORS.items():
+        regs = load_reg(cid)
+        have = {r['date'] for r in regs}
+        new_rows = []
+        n_backfill = 0
+        if not state['cells'][cid].get('sealed'):
+            fa = factor_series(P, spec['variant_id']).sort_index()
+            for t, row in fa[fa.index >= fw].iterrows():
+                d = str(pd.Timestamp(t).date())
+                vals = row.dropna()
+                if not len(vals) or d in have:   # 无真实面板数据的日子不登记
+                    continue
+                key = (cid, d)
+                maturity, ic = 'pending', None
+                if key in matured_idx:
+                    maturity, ic = 'matured', matured_idx[key]['ic']
+                elif lab.get(d) != spec['domain']:
+                    maturity = 'domain_excluded'
+                rec = {'type': 'reg', 'cell': cid, 'variant_id': spec['variant_id'],
+                       'date': d, 'round_asof': rasof,
+                       'domain_label': lab.get(d), 'cell_domain': spec['domain'],
+                       'n_names': int(len(vals)),
+                       'factor': {k: round(float(v), 6) for k, v in vals.items()},
+                       'signal': {'factor_mean': round(float(vals.mean()), 6),
+                                  'factor_median': round(float(vals.median()), 6)},
+                       'maturity': maturity, 'backfill': bool(d < run_day),
+                       'registered_at': time.strftime('%F %T')}
+                if ic is not None:
+                    rec['ic'] = ic
+                new_rows.append(rec)
+                if rec['backfill']:
+                    n_backfill += 1
+        changed = False
+        for r in regs:                            # pending 登记行成熟原位转正
+            key = (r.get('cell'), r.get('date'))
+            if r.get('maturity') == 'pending' and key in matured_idx:
+                r['maturity'] = 'matured'
+                r['ic'] = matured_idx[key]['ic']
+                changed = True
+        if new_rows or changed:
+            with open(REG_F[cid], 'w') as f:      # 原位转正需重写；新行为追加语义
+                for r in regs:
+                    f.write(json.dumps(r, ensure_ascii=False) + '\n')
+                for r in new_rows:
+                    f.write(json.dumps(r, ensure_ascii=False) + '\n')
+            regs = load_reg(cid)
+        summary[cid] = {'n_registered': len(regs),
+                        'n_matured': len([r for r in regs if r.get('maturity') == 'matured']),
+                        'new_this_run': len(new_rows), 'backfill': n_backfill}
+    return summary
+
+
+def reg_integrity_check(state, s5_ok=True):
+    """登记层 D0 断言（用户指令 2026-10-20 14:27 工单件④）：窗内回填后 S1-S3 各
+    n_registered≥2（2026-10-18/10-19）、S5 n_registered≥1；成熟判读零改动断言
+    （n_matured==judge n==shadow_days.jsonl 成熟 IC 行数——判读输入未变，登记层
+    只增进度可见性）。任一 FAIL 即停工（batch 谱系停工条款）。"""
+    ok = True
+    for cid in ATLAS_ANCHORS:
+        g = state['cells'][cid]
+        n_reg, n_mat = g.get('n_registered', 0), g.get('n_matured', 0)
+        n_days_judge = g.get('accumulation', {}).get('n_days', 0)
+        n_days_file = len([d for d in load_days() if d['cell'] == cid])
+        zero_change = bool(n_mat == n_days_judge == n_days_file)
+        hit = bool(n_reg >= 2 and zero_change)
+        ok = ok and hit
+        print(f"shadow {cid} reg-D0: n_registered={n_reg}(≥2) n_matured={n_mat} "
+              f"判读零改动={'hit' if zero_change else 'MISS'} → {'hit' if hit else 'MISS'}")
+    g5 = state['cells'].get('S5', {})
+    if s5_ok and g5.get('n_registered') is not None:
+        hit5 = bool(g5['n_registered'] >= 1)
+        ok = ok and hit5
+        print(f"shadow S5 reg-D0: n_registered={g5['n_registered']}(≥1日) "
+              f"n_matured={g5.get('n_matured', 0)}/{S5_N_LINE}(配对) → "
+              f"{'hit' if hit5 else 'MISS'}")
+    else:
+        print('shadow S5 reg-D0: 本轮未执行（S5 旁路异常，不阻断 S1-S3 断言）')
+    if not ok:
+        raise SystemExit('shadow 登记层 D0 MISS——停工（batch 谱系停工条款）')
+
+
 def judge_factor_cell(cid, days):
     """§3 判线（数字冻结）：达标三腿 IC>0 ∧ t≥2 ∧ 命中率≥60%；失败=IC<0（n≥20）
     或早判死（n≥10 ∧ IC<0 ∧ t≤−2）；其余只累计（SH-6）。返回 (action, detail)。"""
@@ -607,29 +736,81 @@ def s5_collect(state):
     _fd_load_cache(CF, _cache_dir())
     pool, bull, _ = CF.pool_bull()
     trimmed = _fd_trim_intraday(pool)
-    arms = s5_scan_pool(FR, CF, settled_only=True)
-    c = {(t['tkr'], t['et']): t for t in arms['ctrl'] if t['et'] >= S5_FW}
-    a = {(t['tkr'], t['et']): t for t in arms['DA'] if t['et'] >= S5_FW}
-    done = {(r['tkr'], r['et']) for r in s5_load_rows()}
-    new_rows = []
-    for k in sorted(c.keys() & a.keys()):
-        if k in done:
-            continue
-        new_rows.append({'cell': 'S5', 'tkr': k[0], 'et': k[1],
-                         'r_da': round(a[k]['r'], 4), 'r_ctrl': round(c[k]['r'], 4),
-                         'delta': round(a[k]['r'] - c[k]['r'], 4),
-                         'why_da': a[k]['why'], 'why_ctrl': c[k]['why'],
-                         'collected_at': time.strftime('%F %T')})
-    if new_rows:
-        with open(FD_DAYS_F, 'a') as f:
-            for r in new_rows:
-                f.write(json.dumps(r, ensure_ascii=False) + '\n')
+    arms_all = s5_scan_pool(FR, CF, settled_only=False)
+    c_all = {(t['tkr'], t['et']): t for t in arms_all['ctrl'] if t['et'] >= S5_FW}
+    a_all = {(t['tkr'], t['et']): t for t in arms_all['DA'] if t['et'] >= S5_FW}
+    c = {k: t for k, t in c_all.items() if t['why'] != '数据末'}   # _OPS6 已平仓两臂
+    a = {k: t for k, t in a_all.items() if t['why'] != '数据末'}
     rows = s5_load_rows()
-    deltas = [r['delta'] for r in rows]
+    settled_done = {(r['tkr'], r['et']) for r in rows if r.get('type', 'pair') == 'pair'
+                    and r.get('maturity', 'matured') == 'matured'}
+    pending_have = {(r['tkr'], r['et']) for r in rows
+                    if r.get('type') == 'pair' and r.get('maturity') == 'pending'}
+    run_day = time.strftime('%Y-%m-%d', time.gmtime())
+    rasof = _round_asof() or run_day
+    new_settled, upgraded = [], set()
+    for k in sorted(c.keys() & a.keys()):
+        if k in settled_done or k in upgraded:
+            continue
+        row = {'type': 'pair', 'cell': 'S5', 'tkr': k[0], 'et': k[1],
+               'r_da': round(a[k]['r'], 4), 'r_ctrl': round(c[k]['r'], 4),
+               'delta': round(a[k]['r'] - c[k]['r'], 4),
+               'why_da': a[k]['why'], 'why_ctrl': c[k]['why'],
+               'maturity': 'matured', 'collected_at': time.strftime('%F %T')}
+        if k in pending_have:                      # pending 登记行原位转正
+            upgraded.add(k)
+            for r in rows:
+                if (r.get('tkr'), r.get('et')) == k and r.get('maturity') == 'pending':
+                    r.clear()
+                    r.update(row)
+        else:
+            new_settled.append(row)
+    # 当日信号登记（pending 不落临时 r——持仓中 r 为临时值，入册即伪读数，_OPS6 不破）
+    pending_keys = (c_all.keys() & a_all.keys()) - (c.keys() & a.keys())
+    new_pending = []
+    for k in sorted(pending_keys):
+        if k in pending_have or k in settled_done or k in upgraded:
+            continue
+        new_pending.append({'type': 'pair', 'cell': 'S5', 'tkr': k[0], 'et': k[1],
+                            'round_asof': rasof, 'maturity': 'pending',
+                            'registered_at': time.strftime('%F %T')})
+    # 当日扫描读数登记行（type=reg_day：每天可见 +1，用现有数据当日登记）
+    reg_done = {r.get('date') for r in rows if r.get('type') == 'reg_day'}
+    new_reg_day = None
+    if run_day not in reg_done:
+        new_reg_day = {'type': 'reg_day', 'cell': 'S5', 'date': run_day,
+                       'round_asof': rasof,
+                       'domain_label': 'fd池（pool_bull 全池 ctrl/DA 两臂）',
+                       'signal': {'scan_tail': max((bars[-1]['time'] for bars in pool.values()
+                                                    if bars), default=None),
+                                  'intraday_trimmed_bars': trimmed,
+                                  'n_pairs_settled': len(c.keys() & a.keys()),
+                                  'n_pairs_pending': len(pending_keys),
+                                  'new_settled_this_run': len(new_settled),
+                                  'new_pending_this_run': len(new_pending)},
+                       'maturity': 'pending', 'backfill': False,
+                       'registered_at': time.strftime('%F %T')}
+    if upgraded or new_settled or new_pending or new_reg_day:
+        with open(FD_DAYS_F, 'w') as f:            # 原位转正需重写；其余为追加语义
+            for r in rows:
+                f.write(json.dumps(r, ensure_ascii=False) + '\n')
+            for r in new_settled + new_pending:
+                f.write(json.dumps(r, ensure_ascii=False) + '\n')
+            if new_reg_day:
+                f.write(json.dumps(new_reg_day, ensure_ascii=False) + '\n')
+    rows = s5_load_rows()
+    # J5 判读输入=已平仓配对（matured 行）——与原 n 计数语义逐位一致，零改动
+    deltas = [r['delta'] for r in rows if r.get('type', 'pair') == 'pair'
+              and r.get('maturity', 'matured') == 'matured']
     n = len(deltas)
+    n_reg_day = len([r for r in rows if r.get('type') == 'reg_day'])
+    n_pair_pending = len([r for r in rows if r.get('type') == 'pair'
+                          and r.get('maturity') == 'pending'])
     mean = round(sum(deltas) / n, 4) if n else None
-    g.update({'n': n, 'delta_mean': mean,
-              'new_rows_this_run': len(new_rows),
+    g.update({'n': n, 'n_matured': n, 'n_registered': n_reg_day,
+              'n_pairs_pending': n_pair_pending, 'delta_mean': mean,
+              'new_settled_this_run': len(new_settled),
+              'new_pending_this_run': len(new_pending),
               'intraday_trimmed_bars': trimmed,
               'last_scan_tail': max((bars[-1]['time'] for bars in pool.values() if bars),
                                     default=None)})
@@ -656,8 +837,10 @@ def s5_collect(state):
             g['rejudge_next_from'] = _s5_next_quarter(readout['readout_at'][:10])
         print(f"[SHADOW-S5] 判读封印：{verdict}（{note}）")
     else:
-        print(f"shadow S5: ACCUMULATING n={n}/{S5_N_LINE}（本轮新增 {len(new_rows)}，"
-              f"盘中剔除 bar {trimmed}）——n<20 只累计不判（SH-6 同款）")
+        print(f"shadow S5: ACCUMULATING n_matured={n}/{S5_N_LINE}(配对) "
+              f"n_registered={n_reg_day}日（本轮新成熟 {len(new_settled)}，"
+              f"新登记 pending {len(new_pending)}，盘中剔除 bar {trimmed}）"
+              "——n<20 只累计不判（SH-6 同款）")
     s5_write_fd_state(state)
 
 
@@ -672,6 +855,11 @@ def s5_write_fd_state(state):
                       'hook': 'engine_f1/f1_signal.py + f1/f1_signal.py 判定轮/快照轮 --auto subprocess 旁路（异常不阻断）'},
           'window_from': S5_FW,
           'n': g.get('n', 0), 'n_line': S5_N_LINE,
+          'n_registered': g.get('n_registered', 0),
+          'n_registered_unit': '已登记扫描日数（每天可见 +1，用户指令 2026-10-20 14:27）',
+          'n_matured': g.get('n_matured', g.get('n', 0)),
+          'n_matured_unit': '已平仓配对数（J5 判读单位，判读线语义不变）',
+          'n_pairs_pending': g.get('n_pairs_pending', 0),
           'delta_mean': g.get('delta_mean'),
           'sealed': bool(g.get('sealed')), 'verdict': g.get('verdict'),
           'sealed_at': g.get('sealed_at'),
@@ -731,16 +919,30 @@ def run(auto=False, d0_only=False):
         if action == 'READOUT':
             do_factor_readout(cid, det, state)
         else:
-            print(f"shadow {cid}: ACCUMULATING {det['n_days']}/{MIN_READOUT_DAYS}"
-                  f"（本轮新增 {counts[cid]}）——数据不足，不判读只累计（SH-6）")
+            print(f"shadow {cid}: ACCUMULATING n_matured={det['n_days']}/{MIN_READOUT_DAYS}"
+                  f"（本轮新增成熟 {counts[cid]}）——数据不足，不判读只累计（SH-6）")
+    # 当日读数登记层（用户指令 2026-10-20 14:27）：n_registered 每天可见 +1，
+    # n_matured=判读用成熟数——判读输入（shadow_days.jsonl 成熟 IC 行）零改动
+    reg_sum = register_factor_readings(state)
+    for cid in ATLAS_ANCHORS:
+        g = state['cells'][cid]
+        g['n_registered'] = reg_sum[cid]['n_registered']
+        g['n_matured'] = reg_sum[cid]['n_matured']
+        print(f"shadow {cid} 登记: n_registered={g['n_registered']}"
+              f"（本轮 +{reg_sum[cid]['new_this_run']}，backfill {reg_sum[cid]['backfill']}）"
+              f" n_matured={g['n_matured']}/{MIN_READOUT_DAYS}")
     # S5=fd-da（FD_REVIVE_SPEC_v1 §4 J5 + 终裁 2026-10-20 影子挂接授权）：
     # 旁路采集异常不阻断 S1-S4 既有格（SH-1 同款旁路纪律）；D0 MISS 属停工条款不吞
+    _s5_ok = True
     try:
         s5_collect(state)
     except SystemExit:
         raise
     except Exception as _s5e:
+        _s5_ok = False
         print(f'shadow S5 采集异常（不阻断）: {_s5e}')
+    # 登记层 D0 断言（工单件④：回填后 S1-S3 各≥2、S5≥1；判读零改动）
+    reg_integrity_check(state, s5_ok=_s5_ok)
     sealed = [c for c, g in state['cells'].items() if g.get('sealed')]
     state['state'] = 'SEALED_ALL' if len(sealed) == len(state['cells']) else 'ACCUMULATING'  # S5 并入=5 格
     state['updated_at'] = time.strftime('%F %T')
