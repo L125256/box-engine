@@ -1,0 +1,144 @@
+{
+ "ts": "2026-10-20 18:35:21",
+ "spec": "METHOD_BOOK_W2A §七 D0 五锚（一发验证，不过禁跑）",
+ "checks": {
+  "fd_ctrl_meanR": {
+   "got": {
+    "n": 1802,
+    "meanR": 1.1853
+   },
+   "want": {
+    "n": 1802,
+    "meanR": 1.1798
+   },
+   "tol": "n 逐位 / mean ±0.05",
+   "verdict": "hit"
+  },
+  "fd_DA_meanR": {
+   "got": {
+    "n": 1816,
+    "meanR": 1.493
+   },
+   "want": {
+    "n": 1816,
+    "meanR": 1.493
+   },
+   "tol": "n 逐位 / mean ±0.05",
+   "verdict": "hit"
+  },
+  "c4_lineage": {
+   "got": {
+    "maxdiff": 0.0,
+    "identical": true,
+    "ref_t": 4.758517872143934,
+    "ref_n": 318,
+    "mine_n": 318
+   },
+   "want": {
+    "maxdiff": 0,
+    "identical": true
+   },
+   "tol": "maxdiff=0 且 n 逐位",
+   "verdict": "hit"
+  },
+  "armC_FULL_avoid": {
+   "got": {
+    "old131": 43.7883,
+    "full144": 69.7292
+   },
+   "want": {
+    "old131": 43.7883,
+    "full144": 69.7292
+   },
+   "tol": "±0.05",
+   "verdict": "hit"
+  },
+  "k1p70_grid6": {
+   "detail": {
+    "old131|p70": {
+     "got": [
+      128.2103,
+      13.04,
+      237
+     ],
+     "want": [
+      128.2103,
+      13.04,
+      237
+     ],
+     "verdict": "hit"
+    },
+    "old131|p75": {
+     "got": [
+      111.2115,
+      11.04,
+      177
+     ],
+     "want": [
+      111.2115,
+      11.04,
+      177
+     ],
+     "verdict": "hit"
+    },
+    "old131|p80": {
+     "got": [
+      -8.7673,
+      49.08,
+      155
+     ],
+     "want": [
+      -8.7673,
+      49.08,
+      155
+     ],
+     "verdict": "hit"
+    },
+    "full144|p70": {
+     "got": [
+      100.7821,
+      19.46,
+      237
+     ],
+     "want": [
+      100.7821,
+      19.46,
+      237
+     ],
+     "verdict": "hit"
+    },
+    "full144|p75": {
+     "got": [
+      128.8728,
+      28.88,
+      155
+     ],
+     "want": [
+      128.8728,
+      28.88,
+      155
+     ],
+     "verdict": "hit"
+    },
+    "full144|p80": {
+     "got": [
+      189.6599,
+      27.9,
+      134
+     ],
+     "want": [
+      189.6599,
+      27.9,
+      null
+     ],
+     "verdict": "hit"
+    }
+   },
+   "k1p70_own_d0": "hit",
+   "tol": "avoid ±0.0001 / mdd_red ±0.01 / OFF_days 逐位",
+   "verdict": "hit"
+  }
+ },
+ "all_pass": true,
+ "runtime_sec": 14.4
+}
