@@ -1,0 +1,468 @@
+{
+ "ts": "2026-10-21 07:08:45",
+ "spec": "METHOD_BOOK_W3 §六运行单（Pool(32)，预算 4 变体冻结）",
+ "cache": "/tmp/box_cache_w2a",
+ "n_factbook_rows": 50,
+ "fdr": {
+  "m_batch": 4,
+  "m_merged_ref": 126,
+  "registered": [
+   {
+    "variant_id": "w3a-g80-ruowen-arm",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.621,
+    "p_kind": "boot_p_one_sided（域内日超额 ≤0 频率，块长10 B1000 seed42）",
+    "note": "锚定域=弱稳格（§一.1：仅弱稳入批内 FDR m=4；其余三域=邻域补全记账不入拒绝域）",
+    "q_m4": 0.621,
+    "q_merged_ref_m126": 0.293056,
+    "fdr_note": "批内 m=4 为判读口径（§一.4 预注册）；q_merged_ref_m126=合并参考列（86+36+4，只作多重度量披露，禁择优引用）"
+   },
+   {
+    "variant_id": "w3a-rev5-ruowen-arm",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.196,
+    "p_kind": "boot_p_one_sided（域内日超额 ≤0 频率，块长10 B1000 seed42）",
+    "note": "锚定域=弱稳格（§一.1：仅弱稳入批内 FDR m=4；其余三域=邻域补全记账不入拒绝域）",
+    "q_m4": 0.261333,
+    "q_merged_ref_m126": 0.107374,
+    "fdr_note": "批内 m=4 为判读口径（§一.4 预注册）；q_merged_ref_m126=合并参考列（86+36+4，只作多重度量披露，禁择优引用）"
+   },
+   {
+    "variant_id": "w3a-brk20-ruowen-arm",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.071,
+    "p_kind": "boot_p_one_sided（域内日超额 ≤0 频率，块长10 B1000 seed42）",
+    "note": "锚定域=弱稳格（§一.1：仅弱稳入批内 FDR m=4；其余三域=邻域补全记账不入拒绝域）",
+    "q_m4": 0.142,
+    "q_merged_ref_m126": 0.051901,
+    "fdr_note": "批内 m=4 为判读口径（§一.4 预注册）；q_merged_ref_m126=合并参考列（86+36+4，只作多重度量披露，禁择优引用）"
+   },
+   {
+    "variant_id": "armc-s10-ruowen-nofee",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.03,
+    "p_kind": "boot_p_one_sided（域内日超额 ≤0 频率，块长10 B1000 seed42）",
+    "note": "锚定域=弱稳格（§一.1：仅弱稳入批内 FDR m=4；其余三域=邻域补全记账不入拒绝域）",
+    "q_m4": 0.12,
+    "q_merged_ref_m126": 0.027794,
+    "fdr_note": "批内 m=4 为判读口径（§一.4 预注册）；q_merged_ref_m126=合并参考列（86+36+4，只作多重度量披露，禁择优引用）"
+   }
+  ],
+  "note": "批内 FDR m=4 为判读口径；合并参考列 m=126 只披露（§一.4 预注册）"
+ },
+ "d0_gate": {
+  "ts": "2026-10-21 06:54:35",
+  "spec": "METHOD_BOOK_W3 §六 D0 五锚（一发验证，不过禁跑）",
+  "cache": "/tmp/box_cache_w2a",
+  "checks": {
+   "fd_DA_meanR": {
+    "got": {
+     "n": 1816,
+     "meanR": 1.493
+    },
+    "want": {
+     "n": 1816,
+     "meanR": 1.493
+    },
+    "tol": "n 逐位 / mean ±0.05",
+    "verdict": "hit"
+   },
+   "fd_ctrl_meanR": {
+    "got": {
+     "n": 1802,
+     "meanR": 1.1853
+    },
+    "want": {
+     "n": 1802,
+     "meanR": 1.1798
+    },
+    "tol": "n 逐位 / mean ±0.05",
+    "verdict": "hit"
+   },
+   "w2_weak_event_anchors": {
+    "detail": {
+     "ex-g80-ruowen": {
+      "got": {
+       "n_days": 20,
+       "n_sig": 38,
+       "mean_r": 9.4931,
+       "cushion": 2.43,
+       "p": 0.0
+      },
+      "want": {
+       "cushion": 2.43,
+       "n_days": 20,
+       "n_sig": 38,
+       "p": 0.0
+      },
+      "verdict": "hit"
+     },
+     "ex-rev5-ruowen": {
+      "got": {
+       "n_days": 48,
+       "n_sig": 127,
+       "mean_r": 6.1842,
+       "cushion": 2.58,
+       "p": 0.0
+      },
+      "want": {
+       "cushion": 2.58,
+       "n_days": 48,
+       "n_sig": 127,
+       "p": 0.0
+      },
+      "verdict": "hit"
+     },
+     "ex-brk20-ruowen": {
+      "got": {
+       "n_days": 31,
+       "n_sig": 83,
+       "mean_r": 4.666,
+       "cushion": 2.95,
+       "p": 0.001
+      },
+      "want": {
+       "cushion": 2.95,
+       "n_days": 31,
+       "n_sig": 83,
+       "p": 0.001
+      },
+      "verdict": "hit"
+     }
+    },
+    "tol": "n 逐位 / 垫 ±0.05 / p 逐位",
+    "verdict": "hit"
+   },
+   "armC_pb5": {
+    "FULL_avoid": {
+     "got": {
+      "old131": 43.7883,
+      "full144": 69.7292
+     },
+     "want": {
+      "old131": 43.7883,
+      "full144": 69.7292
+     },
+     "tol": "±0.05",
+     "verdict": "hit"
+    },
+    "s10_ruowen_weak_cell": {
+     "got": {
+      "n_days": 64,
+      "n_sig": 12,
+      "cushion_x": 170.32,
+      "ci": [
+       -3.6e-05,
+       0.004968
+      ],
+      "p": 0.031,
+      "q_replay": 0.065647
+     },
+     "want": {
+      "n_days": 64,
+      "n_sig": 12,
+      "cushion_x": 170.32,
+      "ci": [
+       -3.6e-05,
+       0.004968
+      ],
+      "p": 0.031,
+      "q": 0.065647
+     },
+     "tol": "n 逐位 / 垫 ±0.05 / CI ±1e-6 / p,q 逐位",
+     "verdict": "hit"
+    },
+    "verdict": "hit"
+   },
+   "gate_and_snapshot": {
+    "gate_thr": {
+     "got": {
+      "old131": 1.0359095406560563,
+      "full144": 1.2266534247386358
+     },
+     "want": {
+      "old131": 1.0359095406560563,
+      "full144": 1.2266534247386358
+     },
+     "tol": "逐位",
+     "verdict": "hit"
+    },
+    "snapshot": {
+     "got": {
+      "ledger_md5": "f3f790a6e873e01b1966f8d5b996e0d3",
+      "perfile_agg": "2b2c9572e054bfac04ad77444277c65c",
+      "n_files": 176
+     },
+     "want": {
+      "ledger_md5_frozen": "33c8b9ec54d17537c3b7f1f6d8d47463",
+      "perfile_agg_frozen": "2b2c9572e054bfac04ad77444277c65c"
+     },
+     "verdict": "hit_with_registered_deviation",
+     "note": "G9：ledger≠冻结值=在库先例重序列化偏差（D0_RESULT.json md5_clarification + dual_check.py L17-22），perfile_agg 逐位命中=batch0 workdir 冻结 vintage 同一性，fd 双锚逐位复现为实质硬闸；perfile_agg 不符即停机"
+    },
+    "verdict": "hit"
+   }
+  },
+  "all_pass": true,
+  "runtime_sec": 31.7
+ },
+ "judgment": [
+  {
+   "variant_id": "w3a-g80-ruowen-arm",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C5": false,
+   "C6": false,
+   "n_ge_60": true,
+   "domain_competent": false,
+   "mdd_base_weak": -11.29,
+   "final": "判死",
+   "revive_condition": "复活条件（§五 预写，R4 非空判）：(a) 影子窗样本自然滚动——域日 n≥60 且影子配对信号 n≥20 后，按本规格同判线机械复判（每自然季至多一次）；(b) 用户批准 v2 新预注册新预算；(c) RC-数据：f_real 真实费基回填（RG3 联动）之日以真实费基复核，只补数据不改判线。禁以任何「差一点」叙述复活。",
+   "discount_note": ""
+  },
+  {
+   "variant_id": "w3a-rev5-ruowen-arm",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C5": false,
+   "C6": false,
+   "n_ge_60": true,
+   "domain_competent": false,
+   "mdd_base_weak": -11.29,
+   "final": "判死",
+   "revive_condition": "复活条件（§五 预写，R4 非空判）：(a) 影子窗样本自然滚动——域日 n≥60 且影子配对信号 n≥20 后，按本规格同判线机械复判（每自然季至多一次）；(b) 用户批准 v2 新预注册新预算；(c) RC-数据：f_real 真实费基回填（RG3 联动）之日以真实费基复核，只补数据不改判线。禁以任何「差一点」叙述复活。",
+   "discount_note": ""
+  },
+  {
+   "variant_id": "w3a-brk20-ruowen-arm",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C5": false,
+   "C6": false,
+   "n_ge_60": true,
+   "domain_competent": false,
+   "mdd_base_weak": -11.29,
+   "final": "判死",
+   "revive_condition": "复活条件（§五 预写，R4 非空判）：(a) 影子窗样本自然滚动——域日 n≥60 且影子配对信号 n≥20 后，按本规格同判线机械复判（每自然季至多一次）；(b) 用户批准 v2 新预注册新预算；(c) RC-数据：f_real 真实费基回填（RG3 联动）之日以真实费基复核，只补数据不改判线。禁以任何「差一点」叙述复活。",
+   "discount_note": ""
+  },
+  {
+   "variant_id": "armc-s10-ruowen-nofee",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C5": true,
+   "C6": false,
+   "n_ge_60": true,
+   "domain_competent": false,
+   "mdd_base_weak": -11.29,
+   "final": "判死",
+   "revive_condition": "复活条件（§五 预写，R4 非空判）：败因假设证伪归档（现行费率 C2 仍败=「PB-5×1.5 费压吃掉超额」证伪，armc-s10-ruowen 归档「费压不敏感·超额不足」判死维持）；复活=(a) RC-数据 f_real 回填复核；(b) v2 新预注册。CI 贴零（|CI 低|<1e-4）不构成复活理由——贴零=赔率不利，预注册于此。",
+   "discount_note": ""
+  }
+ ],
+ "old131_direction_count": [
+  {
+   "variant_id": "w3a-g80-ruowen-arm",
+   "old131_weak_excess_pp": -40.92,
+   "full144_weak_excess_pp": -59.09,
+   "same_direction": true
+  },
+  {
+   "variant_id": "w3a-rev5-ruowen-arm",
+   "old131_weak_excess_pp": -29.45,
+   "full144_weak_excess_pp": -8.67,
+   "same_direction": true
+  },
+  {
+   "variant_id": "w3a-brk20-ruowen-arm",
+   "old131_weak_excess_pp": -65.15,
+   "full144_weak_excess_pp": -70.45,
+   "same_direction": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen-nofee",
+   "old131_weak_excess_pp": 19.26,
+   "full144_weak_excess_pp": 12.35,
+   "same_direction": true
+  }
+ ],
+ "copy_diff_log": [
+  {
+   "id": "G1",
+   "item": "mine_common.simulate 费参数路径（fee/fund=None→DE.FEE_SIDE=0.0005/FUNDING=0.0003 默认路径逐字，§4.2 spec）",
+   "diff": "零改动（import 复用）"
+  },
+  {
+   "id": "G2",
+   "item": "D-A 出场 batch3_run.py:844-882 mk_partial(True) 逐字拷贝（batch3_run.py mk_partial(True)（_fd_exit_fns 注入 K5-fd-exit-partial3r-breakeven））",
+   "diff": "D1 拆日推进：离线 while→逐 bar 状态机（half_done/eff2/pending），逐 bar 语义逐字；D2 内嵌 FEE=0.03%/bar（按入场名义、入 r）→臂级现金资金费 FUNDING=0.0003/bar 逐半仓（同值不改，基=逐 bar 实价，登记）；D3 逐笔 r 额外计提 FEE_SIDE=0.0005（平仓侧，§3.1 逐字）；D4 出场结构四件（3R 收盘判定出半/eff2=ep/tp=ep+3.5669×ATR14(入场日) 冻结/30bar 硬顶/触发价出域顺延下一 bar open）逐字未动"
+  },
+  {
+   "id": "G3",
+   "item": "K2 仓位骨架 batch3_run.py:384-398（k2_simulate）逐字：budget=min(DE.SLOT×权益, max(cash,0))、缺开盘价顺延有价日、mark=close.ffill 估值、FEE_SIDE 双边",
+   "diff": "入场时点=信号日收盘 ep=close[t]（§3.1 规定；K2 原为次日开盘）；权益基=当日收盘权益（§3.1 权益(t)；K2 原为 eq_prev）"
+  },
+  {
+   "id": "G4",
+   "item": "armC 定义 batch1_run.py:930-959（g2=(vol20>thr80)&(idx<idx_ma) + mode=s3）+ W2A §5.1 域掩码（wave2_run.py:524-536 cond=(g2&lab==域).shift(1)）逐字",
+   "diff": "唯二差异=费参数（PB-5→现行 None，§4.2）与域掩码锚定弱稳（§4.2 域掩码承继 W2 V27 逐字）"
+  },
+  {
+   "id": "G5",
+   "item": "信号定义 wave2_run.py:326-343 逐字：g80=现行引擎四因子 cross_scores+门内掩码 vol20[t]≤thr80（p80 未触发 pause）；rev5=−ret5；brk20=C/H.rolling(20).max().shift(1)−1；top5 非 NaN",
+   "diff": "零改动（唯一域过滤差异按 §3.1）"
+  },
+  {
+   "id": "G6",
+   "item": "§3.1 伪代码「if lab[t−1日]≠弱稳: continue」操作化（R7 登记）",
+   "diff": "域过滤=唯一开仓域：开新仓仅弱稳（lab=d1_labels lag=1，lab[t] 即 t−1 日状态，k2_simulate:419 同读法）；持仓 D-A 推进与逐日净值全窗执行——§一.1 要求各臂产 D1 四域格，邻域格需全窗净值，字面 continue 将使三域无产出"
+  },
+  {
+   "id": "G7",
+   "item": "eng_final 权威引擎加载路径",
+   "diff": "/tmp/eng_wt_rc 本环境缺失→research/eng_wt_rc（eng_final.py md5=f59ddf73c18dcc2adcd3f5e374748631，与 engine_snapshot/eng_final.py 逐位同，wave2 同源）"
+  },
+  {
+   "id": "G8",
+   "item": "C5-lag 操作化（R7 登记）",
+   "diff": "lag 臂（方向 A=域过滤 lab.shift 多一天；方向 B=off.shift(2) §4.2 逐字）弱稳日超额方向与主臂同向（MINE_SPEC §5.2-C5「结论方向不翻转」）；lag_FULL_avoid 另存披露"
+  },
+  {
+   "id": "G9",
+   "item": "快照 md5 账本口径",
+   "diff": "ledger md5=33c8b9ec…（fdbrk 冻结）在本数据态账本不复现——在库先例：D0_RESULT.json md5_clarification（verdict：计算范围+聚合公式双重差异，数据态实质一致以锚逐位复现为准）+ dual_check.py L17-22（md5 偏差披露、实质对拍硬闸）。本件硬闸=perfile_agg 逐位=2b2c9572…（batch0 workdir 冻结锚）+fd 双锚逐位复现"
+  }
+ ],
+ "detail": {
+  "drops": [
+   "AXTIUSDT",
+   "SOFIUSDT",
+   "PENGUSDT",
+   "JPMUSDT",
+   "IWMUSDT",
+   "TMFUSDT",
+   "AXTIUSDT",
+   "RDDTUSDT",
+   "CRWDUSDT",
+   "BABAUSDT",
+   "MRNAUSDT",
+   "XBIUSDT",
+   "SKHYUSDT",
+   "SNOWUSDT",
+   "SHAZUSDT",
+   "SOXLUSDT",
+   "METAUSDT",
+   "BRKBUSDT",
+   "TEAMUSDT",
+   "KLACUSDT"
+  ],
+  "c5": {
+   "w3a-g80-ruowen-arm": {
+    "full_weak_mean_excess": -0.000129,
+    "yearly_mean": {
+     "2025": 0.001071,
+     "2026": -0.000472
+    },
+    "yearly_flip": true,
+    "loto_pass_n": 9,
+    "loto_pass": false,
+    "lag_same_direction": false,
+    "lag_FULL_avoid_pp": -75.8623
+   },
+   "w3a-rev5-ruowen-arm": {
+    "full_weak_mean_excess": 0.001532,
+    "yearly_mean": {
+     "2025": -0.007611,
+     "2026": 0.004145
+    },
+    "yearly_flip": true,
+    "loto_pass_n": 20,
+    "loto_pass": true,
+    "lag_same_direction": false,
+    "lag_FULL_avoid_pp": -89.6089
+   },
+   "w3a-brk20-ruowen-arm": {
+    "full_weak_mean_excess": 0.000883,
+    "yearly_mean": {
+     "2025": -0.004483,
+     "2026": 0.002416
+    },
+    "yearly_flip": true,
+    "loto_pass_n": 20,
+    "loto_pass": true,
+    "lag_same_direction": false,
+    "lag_FULL_avoid_pp": -105.7857
+   },
+   "armc-s10-ruowen-nofee": {
+    "full_weak_mean_excess": 0.002013,
+    "yearly_mean": {
+     "2025": 0.0,
+     "2026": 0.002629
+    },
+    "yearly_flip": false,
+    "loto_pass_n": 20,
+    "loto_pass": true,
+    "lag_same_direction": true,
+    "lag_FULL_avoid_pp": 35.7684
+   }
+  },
+  "band_wins": {
+   "full144": {
+    "牛稳": 45.83333333333333,
+    "牛躁": 35.0,
+    "弱稳": 44.44444444444444,
+    "弱躁": 26.666666666666668
+   },
+   "old131": {
+    "牛稳": 46.25,
+    "牛躁": 36.53846153846154,
+    "弱稳": 30.0,
+    "弱躁": 34.61538461538461
+   }
+  },
+  "n_jobs": 162,
+  "wall_secs": 159.3
+ },
+ "engine_md5_unchanged": {
+  "/workspace/repo_ready/engine_f1/f1_backtest_v2.py": "6d4c3c229351bccac7fa3d4ee7acf550",
+  "/workspace/repo_ready/engine_f1/f1_datasource.py": "e81499b2d1c11f12e8036132b86b9e77",
+  "/workspace/repo_ready/engine_f1/f1_generate.py": "e9b6916f310b234aedb7909165c4e5e4",
+  "/workspace/repo_ready/engine_f1/f1_signal.py": "4fc038dab9906a5c99299229a84ab1db",
+  "/workspace/repo_ready/engine_f1/replay_breakers_r13.py": "401fe37c081020d91819693377a5e194",
+  "/workspace/repo_ready/engine_f1/run_checks.py": "46022b0fcd30412b1d6777acbd0fef64",
+  "/workspace/repo_ready/engine_f1/run_r13_selftest.py": "3984cfda36da6beac4623bef93011bb8",
+  "/workspace/repo_ready/engine_f1/run_scenario_checks.py": "0c027dc0d8ba126bd76125f82f468a04",
+  "/workspace/repo_ready/engine_f1/sync_archive.py": "8dba136ff7e56c54c707f810a4ccb16c",
+  "/workspace/repo_ready/f1/f1_datasource.py": "e81499b2d1c11f12e8036132b86b9e77",
+  "/workspace/repo_ready/f1/f1_generate.py": "e9b6916f310b234aedb7909165c4e5e4",
+  "/workspace/repo_ready/f1/f1_signal.py": "4fc038dab9906a5c99299229a84ab1db",
+  "/workspace/repo_ready/f1/replay_breakers_r13.py": "401fe37c081020d91819693377a5e194",
+  "/workspace/repo_ready/f1/run_checks.py": "46022b0fcd30412b1d6777acbd0fef64",
+  "/workspace/repo_ready/f1/run_r13_selftest.py": "3984cfda36da6beac4623bef93011bb8",
+  "/workspace/repo_ready/f1/run_scenario_checks.py": "9040dce04e99438a5e47085c1086a327",
+  "/workspace/repo_ready/f1/sync_archive.py": "8dba136ff7e56c54c707f810a4ccb16c"
+ },
+ "r10_note": "本运行不产出任何「域读数→仓位」映射（R10 红线全程）",
+ "ruling_note": "判线结果交交易分析团队终裁（用户工单）；本件只产图谱证据与影子候选资格",
+ "runtime_sec": 159.3
+}
