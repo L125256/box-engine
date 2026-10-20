@@ -21,6 +21,14 @@
   不输出任何中间读数；补齐=获得入图谱资格，不等于 old131 胜任。
 - 双池纪律（§3）：S4 在 old131 补齐前只对 full144 单池读数；补齐后两池均入影子，
   影子「达标」要求双池同向。S1-S3 仅 full144 域格。
+- S5=fd-da 格（FD_REVIVE_SPEC_v1 §4 J5 + 交易分析团队终裁 2026-10-20 影子挂接授权，
+  判线承继 J5 冻结数字）：每日旁路采集 fd 分批+保本出场（D-A）前瞻同信号配对 ΔR
+  （入场 scan_fd_exit 零改动 + 出场 _fd_exit_fns D-A/ctrl 逐字 + pair_stats/
+  delta_summary 逐字，全部复用 research/wo_fddual/fd_revive_run.py）；判线=
+  n≥20 配对前瞻信号 Δ meanR>0，判读一次封印 sealed=true，n<20 只累计不判；
+  判死后复活路径(a)=按同判线机械复判每自然季至多一次；影子读数不回写部署姿态
+  （R10）。施工登记项 f1/fd_revive_state.json（比照 SH-3，n 计数/sealed/季度
+  复判时间戳字段）+ f1/fd_revive_days.jsonl 逐笔读数。
 
 【骨架承继】research/wo_unlock/forward_readout.py（FR 谱系）：仓库根相对路径
 （__file__ 上溯两级，env 可覆盖，禁绝对路径）、引擎快照缓存首跑自动解包、状态文件
@@ -36,9 +44,20 @@
   段数（episode）；S4 判读触发以主格池 full144 事件≥3 为准，old131 随双池纪律并入。
 - _OPS4 S4 判读输出含三态：达标/失败（§3 两条失败路径）/未达标（事件≥3 但三腿
   未全过且未触发失败路径——n≥事件门即判即封印，无中间态留窗）。
+- _OPS5 S5 扫描口径（WO-DECBAR 判定轮 bar 选择承继）：剔除数据尾日=运行日的
+  未收盘盘中 bar（当日盘中伪出场不入册），只用最后完整日收盘数据扫描；D0 复放
+  用冻结副本（尾日 2026-10-18 全完整），不受影响。
+- _OPS6 S5 影子读数只计「已平仓」配对信号：D-A/ctrl 两臂出场均已发生（why≠数据末）
+  方入计数——持仓中交易的 r 为临时值，入册即伪读数（fd_revive_run 回测口径为
+  全历史窗，此差异为本格前瞻化操作化，提请终裁追认）。
+- _OPS7 S5 fd 谱系装载回落：eng_final 优先 /tmp/eng_wt_rc（fd_revive_run 在库口径），
+  /tmp 失忆时回落仓库内 research/eng_wt_rc（同件）；D0 数据=冻结快照内容副本
+  /tmp/box_cache_fresh（缺失即停工重锚，禁以 live 数据代跑 D0）；前瞻采集=
+  live 唯一数据态（S1-S4 同源 _cache_dir()）。
 
 用法：python3 research/wo_mine/shadow_cells.py [--auto] [--d0]
 产出：f1/shadow_state.json + f1/shadow_days.jsonl（+判读时 f1/shadow_readout_*.json）
+     + f1/fd_revive_state.json + f1/fd_revive_days.jsonl（S5 格，判读时 f1/fd_revive_readout_*.json）
 """
 import json
 import os
@@ -67,6 +86,15 @@ DAYS_F = os.path.join(STATEDIR, 'shadow_days.jsonl')
 ROUND_F = os.path.join(ROOT, 'f1', 'f1_live.json')   # 判定轮产物（血缘只读）
 SNAPSHOT_TAR = os.path.join(ROOT, 'engine_snapshot', 'box_cache_snapshot.tar.gz')
 SPEC_F = os.path.join(_HERE, 'SHADOW_SPEC_v1.md')
+# ---- S5=fd-da（FD_REVIVE_SPEC_v1 §4 J5 冻结 + 终裁 2026-10-20 影子挂接授权）----
+S5_FW = '2026-10-20'                     # §3.1④ 影子窗起点（快照尾日次日，晚于规格冻结时刻）
+S5_N_LINE = 20                           # J5 冻结：n≥20 配对前瞻信号
+FD_FRESH_CACHE = '/tmp/box_cache_fresh'  # D0 冻结快照内容副本（fd_revive_run 同款）
+FD_ENG_TMP = '/tmp/eng_wt_rc'            # eng_final 优先路径（fd_revive_run 在库口径）
+FD_ENG_REPO = os.path.join(ROOT, 'research', 'eng_wt_rc')   # /tmp 失忆回落（_OPS7）
+FD_STATE_F = os.path.join(STATEDIR, 'fd_revive_state.json') # 终裁施工登记项（比照 SH-3）
+FD_DAYS_F = os.path.join(STATEDIR, 'fd_revive_days.jsonl')  # S5 逐笔读数（比照 shadow_days.jsonl）
+FD_RESULT_F = os.path.join(ROOT, 'research', 'wo_fddual', 'fd_revive_result.json')
 ATLAS_ANCHORS = {   # ATLAS_v1.md 底层读数（D0 断言源；S1/S2/S3=域内日 IC 均值，6 位小数）
     'S1': {'variant_id': 'Q3-rev-liq', 'domain': '弱躁', 'anchor': 0.133685},
     'S2': {'variant_id': 'Q3-rev-5', 'domain': '弱躁', 'anchor': 0.10875},
@@ -456,6 +484,207 @@ def do_factor_readout(cid, det, state):
     print(f"[SHADOW-{cid}] 判读封印：{det['verdict']}（{det['verdict_note']}）")
 
 
+# ------------------------------------------------------------- S5=fd-da 格（fd_revive_run 逐字复用）
+_fd = None
+
+
+def _fd_eng():
+    """fd 谱系装载（_OPS7）：fd_revive_run.py 逐字复用——入场 scan_fd_exit 零改动、
+    出场 _fd_exit_fns（D-A=partial3r-breakeven / ctrl）逐字、pair_stats/delta_summary
+    逐字、_w_main Pool 任务逐字。禁另写任何出场/配对逻辑。"""
+    global _fd
+    if _fd is None:
+        if not os.path.isdir(FD_ENG_TMP) and os.path.isdir(FD_ENG_REPO):
+            sys.path.insert(0, FD_ENG_REPO)          # /tmp 失忆回落（同件）
+        sys.path.insert(0, os.path.join(ROOT, 'research', 'wo_fddual'))
+        import fd_revive_run as FR
+        import common_fdbrk as CF
+        _fd = (FR, CF)
+    return _fd
+
+
+def _fd_load_cache(CF, cache):
+    """数据态切换（common_fdbrk 单例重置）：D0=冻结副本（realA 逐位对拍）；
+    前瞻=live 唯一数据态（S1-S4 同源 _cache_dir()）。"""
+    if CF.CACHE != cache or CF._pool is not None:
+        CF.CACHE = cache
+        CF._pool = CF._bull = CF._idxv = None
+
+
+def _fd_trim_intraday(pool):
+    """_OPS5（WO-DECBAR 判定轮口径承继）：剔除数据尾日≥运行日的未收盘盘中 bar，
+    只用最后完整日收盘数据扫描。返回剔除 bar 数（登记用）。"""
+    today = time.strftime('%Y-%m-%d', time.gmtime())
+    n = 0
+    for bars in pool.values():
+        while bars and bars[-1]['time'] >= today:
+            bars.pop()
+            n += 1
+    return n
+
+
+def s5_scan_pool(FR, CF, arms=('ctrl', 'DA'), settled_only=False):
+    """全池两臂扫描（fd_revive_run._w_main 逐字经 Pool(32)，R8 并行铁律；
+    DB 不入 S5——§5-2 禁第三方向）。settled_only（_OPS6）：影子前瞻只保留两臂
+    出场均已发生的信号（why≠数据末），持仓中不入计数。"""
+    from multiprocessing import get_context
+    jobs = [(arm, tk) for arm in arms for tk in sorted(CF.pool_bull()[0])]
+    out = {a: [] for a in arms}
+    with get_context('fork').Pool(32) as p:
+        for arm, tk, lst in p.map(FR._w_main, jobs, chunksize=4):
+            out[arm].extend(lst)
+    if settled_only:
+        out = {a: [t for t in lst if t['why'] != '数据末'] for a, lst in out.items()}
+    return out
+
+
+def s5_d0(FR, CF):
+    """S5 D0（工单件⑥ S5 腿）：S5 采集机器逐字复放 realA 配对段（冻结副本，
+    窗=CF.MAIN..CF.TRUNC）vs fd_revive_result.json results.DA.legs.J1 逐位 diff=0
+    （n_paired/pair_rate/mean/sum_r 四位）。任一 MISS 即停工（batch 谱系条款）。"""
+    if not (os.path.isdir(FD_FRESH_CACHE) and os.listdir(FD_FRESH_CACHE)):
+        raise SystemExit('shadow S5 D0: 冻结快照内容副本 /tmp/box_cache_fresh 缺失——'
+                         '停工重锚（禁以 live 数据代跑 D0，_OPS7）')
+    _fd_load_cache(CF, FD_FRESH_CACHE)
+    arms = s5_scan_pool(FR, CF, settled_only=False)
+    ref = json.load(open(FD_RESULT_F))['results']['DA']['legs']['J1']
+    dA, pA = FR.pair_stats(arms['ctrl'], arms['DA'], CF.MAIN, CF.TRUNC)
+    sA = FR.delta_summary(dA)
+    got = {'n_paired': pA['n_paired'], 'pair_rate': pA['pair_rate'],
+           'mean': sA['mean'], 'sum_r': sA['sum_r']}
+    want = {'n_paired': ref['realA']['n_paired'], 'pair_rate': ref['realA']['pair_rate'],
+            'mean': ref['delta']['mean'], 'sum_r': ref['delta']['sum_r']}
+    diff = {k: round(got[k] - want[k], 10) for k in got}
+    hit = all(v == 0.0 for v in diff.values())
+    out = {'name': 's5_realA_replay_diff0', 'window': [CF.MAIN, CF.TRUNC],
+           'lineage': ('S5 机器=fd_revive_run.py 逐字复用（scan_fd_exit 入场零改动+'
+                       '_fd_exit_fns D-A/ctrl 出场逐字+pair_stats/delta_summary 逐字）；'
+                       '数据=冻结快照内容副本 /tmp/box_cache_fresh'),
+           'got': got, 'want': want, 'diff': diff,
+           'verdict': 'hit' if hit else 'MISS', 'ran_at': time.strftime('%F %T')}
+    print(f"shadow S5 D0: {out['verdict']}（realA 复放 got={got} vs result.json want={want}）")
+    return out
+
+
+def _s5_next_quarter(dstr):
+    """复活路径(a)：下一自然季首日（判死后季度滚动复判窗起点）。"""
+    y, m = int(dstr[:4]), int(dstr[5:7])
+    qm = ((m - 1) // 3) * 3 + 4                     # 下一季首月（4/7/10，跨年进 1）
+    if qm > 12:
+        y, qm = y + 1, 1
+    return f'{y:04d}-{qm:02d}-01'
+
+
+def s5_load_rows():
+    if not os.path.exists(FD_DAYS_F):
+        return []
+    out = []
+    with open(FD_DAYS_F) as f:
+        for line in f:
+            try:
+                out.append(json.loads(line))
+            except Exception:
+                continue
+    return out
+
+
+def s5_collect(state):
+    """S5=fd-da 每日旁路采集（终裁 2026-10-20 授权）：live 数据态 + _OPS5 盘中剔除 +
+    _OPS6 已平仓过滤，前瞻窗 S5_FW 起同信号 (tkr,et) 配对 ΔR 逐笔落
+    fd_revive_days.jsonl（比照 SH-3）；J5 冻结判线 n≥20 Δ meanR>0 一次封印；
+    状态落 fd_revive_state.json（n 计数/sealed/季度复判时间戳，比照 SH-3）。"""
+    FR, CF = _fd_eng()
+    g = state['cells'].setdefault('S5', {'status': 'ACCUMULATING', 'sealed': False})
+    if g.get('sealed'):
+        print('shadow S5: 已封印（判读一次，禁重复判读）——只登记不采集')
+        return
+    # D0 首跑（不过即停工）
+    if g.get('d0', {}).get('verdict') != 'hit':
+        g['d0'] = s5_d0(FR, CF)
+        if g['d0']['verdict'] != 'hit':
+            raise SystemExit('shadow S5 D0 MISS——停工（禁带病出数，batch 谱系条款）')
+    # 前瞻采集（live 唯一数据态）
+    _fd_load_cache(CF, _cache_dir())
+    pool, bull, _ = CF.pool_bull()
+    trimmed = _fd_trim_intraday(pool)
+    arms = s5_scan_pool(FR, CF, settled_only=True)
+    c = {(t['tkr'], t['et']): t for t in arms['ctrl'] if t['et'] >= S5_FW}
+    a = {(t['tkr'], t['et']): t for t in arms['DA'] if t['et'] >= S5_FW}
+    done = {(r['tkr'], r['et']) for r in s5_load_rows()}
+    new_rows = []
+    for k in sorted(c.keys() & a.keys()):
+        if k in done:
+            continue
+        new_rows.append({'cell': 'S5', 'tkr': k[0], 'et': k[1],
+                         'r_da': round(a[k]['r'], 4), 'r_ctrl': round(c[k]['r'], 4),
+                         'delta': round(a[k]['r'] - c[k]['r'], 4),
+                         'why_da': a[k]['why'], 'why_ctrl': c[k]['why'],
+                         'collected_at': time.strftime('%F %T')})
+    if new_rows:
+        with open(FD_DAYS_F, 'a') as f:
+            for r in new_rows:
+                f.write(json.dumps(r, ensure_ascii=False) + '\n')
+    rows = s5_load_rows()
+    deltas = [r['delta'] for r in rows]
+    n = len(deltas)
+    mean = round(sum(deltas) / n, 4) if n else None
+    g.update({'n': n, 'delta_mean': mean,
+              'new_rows_this_run': len(new_rows),
+              'intraday_trimmed_bars': trimmed,
+              'last_scan_tail': max((bars[-1]['time'] for bars in pool.values() if bars),
+                                    default=None)})
+    # J5 冻结判线：n≥20 配对 Δ meanR>0 → 一次封印（n<20 只累计不判，SH-6 同款）
+    if n >= S5_N_LINE:
+        verdict = 'PASS' if mean > 0 else 'FAIL'
+        note = ('J5 达标：n≥20 配对前瞻 Δ meanR>0（影子候选终审资格；影子达标≠放行，R10）'
+                if verdict == 'PASS' else
+                'J5 判死：n≥20 配对前瞻 Δ meanR≤0（维持 fd 原判死结论；复活路径(a)=同判线'
+                '机械复判每自然季至多一次，或(b)=用户批准 v2 新预注册）')
+        readout = {'readout_at': time.strftime('%F %T'), 'cell': 'S5',
+                   'cell_id': 'FD|K5-fd-exit-partial3r-breakeven vs K5-fd-exit-ctrl|同信号配对|fd-da',
+                   'judgment_basis': 'FD_REVIVE_SPEC_v1 §4 J5（数字冻结）+ 交易分析团队终裁 2026-10-20',
+                   'window_from': S5_FW, 'n_paired': n, 'delta_meanR': mean,
+                   'r10_note': '影子读数不回写部署姿态（R10）；达标≠放行',
+                   'verdict': verdict, 'verdict_note': note,
+                   'seal': {'sealed': True, 'rule': '判读一次封印，禁重复判读'}}
+        with open(os.path.join(STATEDIR, f"fd_revive_readout_S5_{readout['readout_at'][:10]}.json"),
+                  'w') as f:
+            json.dump(readout, f, ensure_ascii=False, indent=1)
+        g.update({'sealed': True, 'sealed_at': readout['readout_at'], 'verdict': verdict,
+                  'last_readout': readout})
+        if verdict == 'FAIL':                       # 复活路径(a)季度复判窗登记（≤1/季）
+            g['rejudge_next_from'] = _s5_next_quarter(readout['readout_at'][:10])
+        print(f"[SHADOW-S5] 判读封印：{verdict}（{note}）")
+    else:
+        print(f"shadow S5: ACCUMULATING n={n}/{S5_N_LINE}（本轮新增 {len(new_rows)}，"
+              f"盘中剔除 bar {trimmed}）——n<20 只累计不判（SH-6 同款）")
+    s5_write_fd_state(state)
+
+
+def s5_write_fd_state(state):
+    """施工登记项 f1/fd_revive_state.json（终裁要求，比照 SH-3）：n 计数/sealed/
+    季度复判时间戳字段；运行产物不入库（云端轮回传）。"""
+    g = state['cells'].get('S5', {})
+    fs = {'protocol': 'FD_REVIVE_SPEC_v1 §4 J5（数字冻结）+ 交易分析团队终裁 2026-10-20'
+                       '（影子挂接授权，S5 格判线承继 J5 冻结数字）',
+          'cell': 'S5=fd-da（K5-fd-exit-partial3r-breakeven vs K5-fd-exit-ctrl 同信号配对 ΔR）',
+          'lineage': {'collector': 'research/wo_mine/shadow_cells.py s5_*（fd_revive_run.py 逐字复用，_OPS5/6/7）',
+                      'hook': 'engine_f1/f1_signal.py + f1/f1_signal.py 判定轮/快照轮 --auto subprocess 旁路（异常不阻断）'},
+          'window_from': S5_FW,
+          'n': g.get('n', 0), 'n_line': S5_N_LINE,
+          'delta_mean': g.get('delta_mean'),
+          'sealed': bool(g.get('sealed')), 'verdict': g.get('verdict'),
+          'sealed_at': g.get('sealed_at'),
+          'rejudge': {'rule': '判死后复活路径(a)：影子窗样本自然滚动，同判线机械复判，每自然季至多一次',
+                      'max_per_quarter': 1,
+                      'last_rejudge_at': g.get('rejudge_last_at'),
+                      'next_window_from': g.get('rejudge_next_from')},
+          'd0': g.get('d0'),
+          'r10_note': '影子读数不回写部署姿态（R10）；影子达标≠放行，放行仍走部署三道门+新预注册',
+          'updated_at': time.strftime('%F %T')}
+    json.dump(fs, open(FD_STATE_F, 'w'), ensure_ascii=False, indent=1)
+
+
 # ------------------------------------------------------------- 主入口
 def run(auto=False, d0_only=False):
     os.makedirs(STATEDIR, exist_ok=True)
@@ -468,10 +697,12 @@ def run(auto=False, d0_only=False):
                  'cells': {**{cid: {'status': 'ACCUMULATING', 'sealed': False}
                               for cid in ATLAS_ANCHORS},
                            'S4': {'gate_state': 'SUSPENDED', 'sealed': False,
-                                  'status': 'SUSPENDED（§4 补样未达门）'}}}
+                                  'status': 'SUSPENDED（§4 补样未达门）'},
+                           'S5': {'status': 'ACCUMULATING', 'sealed': False}}}
     # 上面一行防呆占位删除——S4 格初始化见下
     state['cells'].setdefault('S4', {'gate_state': 'SUSPENDED', 'sealed': False,
                                      'status': 'SUSPENDED（§4 补样未达门）'})
+    state['cells'].setdefault('S5', {'status': 'ACCUMULATING', 'sealed': False})
     if state.get('state') == 'SEALED_ALL':
         print(f"shadow_cells: 全格已封印，退出")
         return state
@@ -502,8 +733,16 @@ def run(auto=False, d0_only=False):
         else:
             print(f"shadow {cid}: ACCUMULATING {det['n_days']}/{MIN_READOUT_DAYS}"
                   f"（本轮新增 {counts[cid]}）——数据不足，不判读只累计（SH-6）")
+    # S5=fd-da（FD_REVIVE_SPEC_v1 §4 J5 + 终裁 2026-10-20 影子挂接授权）：
+    # 旁路采集异常不阻断 S1-S4 既有格（SH-1 同款旁路纪律）；D0 MISS 属停工条款不吞
+    try:
+        s5_collect(state)
+    except SystemExit:
+        raise
+    except Exception as _s5e:
+        print(f'shadow S5 采集异常（不阻断）: {_s5e}')
     sealed = [c for c, g in state['cells'].items() if g.get('sealed')]
-    state['state'] = 'SEALED_ALL' if len(sealed) == 4 else 'ACCUMULATING'
+    state['state'] = 'SEALED_ALL' if len(sealed) == len(state['cells']) else 'ACCUMULATING'  # S5 并入=5 格
     state['updated_at'] = time.strftime('%F %T')
     with open(STATE_F, 'w') as f:
         json.dump(state, f, ensure_ascii=False, indent=1)
