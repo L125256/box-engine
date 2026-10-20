@@ -1,0 +1,123 @@
+{
+ "ts": "2026-10-20 18:48:53",
+ "spec": "W2B_SPEC §5（冻结）",
+ "inventory": {
+  "verdict": "funding 字段双源全无 => 判死；funding 列维持 0.03%/bar 常数记账（FUNDING=0.0003 @ engine_f1/f1_signal.py:68，未改动）",
+  "archived_at": "2026-10-18T16:45:33Z",
+  "revival_conditions": [
+   "① 境外交易所 API（Binance/Bybit 等）在可达环境实测通过（云端沙箱实测后才可启用，本轮未启用不计入判死依据）",
+   "② 导演站新增 funding 端点——由心跳/全量探测自动发现（tools/w1_probe_rerun.py 每次会话 57 路径复跑 + tools/w1_heartbeat.py 每次会话 3 端点心跳）"
+  ],
+  "box_cache_files": 176,
+  "box_cache_files_with_funding_field": [],
+  "probe_fetched_at": "2026-10-20T10:45:36Z",
+  "probe_funding_alive_endpoints": [],
+  "sentinel_note": "w1_probe_rerun.py 本会话复跑（57 路径），funding 端点活 JSON=0 → 复活条件①②均未满足，funding 数据源维持 R9 判死"
+ },
+ "dataset_rebuild": {
+  "trio_complete": true,
+  "trio": {
+   "gate_funding_eq_dir": true,
+   "funding_eq.jsonl": true,
+   "_manifest.json": true
+  },
+  "n_symbols_registered_gap": 176
+ },
+ "fee_calib": {
+  "f_real_status": "不可构造【数据受限·R5·非死】（funding 数据源 R9 判死维持，有数标的=0，禁代理顶替）——§5.3 冻结对拍（f_const vs f_real）本轮不可执行，如实登记；替代路径=费参数敏感扫描（下）",
+  "fd_line": {
+   "anchor": "fd_result final.main n=1802 meanR=1.1798（本批 D0 重放 hit）",
+   "f_const_meanR": 1.1853,
+   "sweep_per_bar_fee": {
+    "0.02%": {
+     "n": 1802,
+     "meanR": 1.2903
+    },
+    "0.03%": {
+     "n": 1802,
+     "meanR": 1.1853
+    },
+    "0.04%": {
+     "n": 1802,
+     "meanR": 1.0804
+    }
+   },
+   "delta_meanR_per_001pp_fee": -0.1049,
+   "ctrl_tol_005_verdict": "费敏感（|Δ|>0.05）",
+   "note": "替代路径读数【非 f_real 对拍·R7 标注】：f_real 不可构造，本读数=费参数在 ±0.01pp 邻域的敏感系数；fd 线 FEE 参数化若需常态化=引擎费常数改动，另立新工单"
+  },
+  "dneg_line": {
+   "old131": {
+    "sweep": {
+     "0.0002": {
+      "base_ret_pp": 134.4351,
+      "armC_ret_pp": 177.6093,
+      "avoid_pp": 43.1742,
+      "base_mdd": -30.6,
+      "armC_mdd": -24.49
+     },
+     "0.0003": {
+      "base_ret_pp": 129.9176,
+      "armC_ret_pp": 172.4543,
+      "avoid_pp": 42.5367,
+      "base_mdd": -31.07,
+      "armC_mdd": -24.86
+     },
+     "0.0004": {
+      "base_ret_pp": 125.4827,
+      "armC_ret_pp": 167.3884,
+      "avoid_pp": 41.9057,
+      "base_mdd": -31.54,
+      "armC_mdd": -25.23
+     }
+    },
+    "delta_avoid_pp_per_001pp_funding": -0.6342,
+    "ctrl_tol_005_verdict": "费敏感（|Δ|>0.05）",
+    "anchor_note": "f_const=0.0003 档=单变量扫描参照档（默认费基 FEE_SIDE，非 D0 锚④费压臂）；sweep 内三档同费同闸仅 fund 变"
+   },
+   "full144": {
+    "sweep": {
+     "0.0002": {
+      "base_ret_pp": 148.5557,
+      "armC_ret_pp": 219.7114,
+      "avoid_pp": 71.1557,
+      "base_mdd": -33.14,
+      "armC_mdd": -28.34
+     },
+     "0.0003": {
+      "base_ret_pp": 143.8839,
+      "armC_ret_pp": 213.4835,
+      "avoid_pp": 69.5996,
+      "base_mdd": -33.55,
+      "armC_mdd": -28.68
+     },
+     "0.0004": {
+      "base_ret_pp": 139.2953,
+      "armC_ret_pp": 207.369,
+      "avoid_pp": 68.0737,
+      "base_mdd": -33.96,
+      "armC_mdd": -29.02
+     }
+    },
+    "delta_avoid_pp_per_001pp_funding": -1.541,
+    "ctrl_tol_005_verdict": "费敏感（|Δ|>0.05）",
+    "anchor_note": "f_const=0.0003 档=单变量扫描参照档（默认费基 FEE_SIDE，非 D0 锚④费压臂）；sweep 内三档同费同闸仅 fund 变"
+   }
+  },
+  "verdict": "费敏感成立（附敏感系数如上；受影响判读格=K5/fd 系全部 meanR 读数与 D-A 复活五件套，按风控席加敏感注记不改封印判读）"
+ },
+ "engine_untouched_check": {
+  "before": {
+   "dneg_engine.py": "1f39953023878bacc7ca3621359507e5",
+   "common_fdbrk.py": "33675548eaf640386a04dab5de91c6a5"
+  },
+  "after": {
+   "dneg_engine.py": "1f39953023878bacc7ca3621359507e5",
+   "common_fdbrk.py": "33675548eaf640386a04dab5de91c6a5"
+  },
+  "ok": true,
+  "note": "红线自查：引擎文件 md5 前后一致（禁改费常数）"
+ },
+ "r10_note": "本运行不产出任何「域读数→仓位」映射（R10）",
+ "runtime_sec": 18.6
+}
