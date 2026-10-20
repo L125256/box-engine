@@ -1170,6 +1170,40 @@ def main():
                             '--auto'], timeout=1800, check=False)
         except Exception as _se:  # 挂接旁路：任何异常只登记，不影响 live 输出
             print(f'shadow_cells 挂接异常（不阻断）: {_se}')
+        # DEPLOY_SPEC_v1 §3.1-② 分域增强折扣计算器（f1/enhancement_state.json 产数）：
+        # 判定轮 shadow_cells 旁路之后同款 subprocess 旁路（异常不阻断判定轮）。
+        try:
+            import subprocess
+            ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 引擎在 engine_f1/ 或 f1/，上级即仓库根
+            ENH_SCRIPT = os.path.join(ROOT, 'research', 'wo_mine', 'enhance_discount.py')
+            subprocess.run([sys.executable, ENH_SCRIPT,
+                            '--auto'], timeout=300, check=False)
+        except Exception as _ene:  # 挂接旁路：任何异常只登记，不影响 live 输出
+            print(f'enhance_discount 挂接异常（不阻断）: {_ene}')
+        # ENHANCE-MERGE-20261021（遗留②修复·DEPLOY_SPEC_v1 §3.1-③④ 消费通道补挂）：
+        # 判定轮由本文件直产 f1_live.json（R14 口径统一唯一入口，不经 f1_generate.py），
+        # 渲染层并入挂点随之迁到本处——必须在 enhance_discount 旁路（产数）之后执行，
+        # 保证 meta.enhancement 携带本轮新鲜值；仅读旁路产物拼接 meta，判定主逻辑/
+        # 参数/榜单零改动；读取失败=meta.enhancement=null（页面显示「增强层未上线」）。
+        try:
+            _out_path = cli_out or OUT_JSON_DEFAULT or '/workspace/f1_web/f1_live.json'
+            with open(_out_path) as _mf:
+                _live = json.load(_mf)
+            _ef = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                               'f1', 'enhancement_state.json')
+            try:
+                with open(_ef) as _sf:
+                    _live.setdefault('meta', {})['enhancement'] = json.load(_sf)
+            except Exception:
+                _live.setdefault('meta', {})['enhancement'] = None
+            _tmp = _out_path + '.tmp'
+            with open(_tmp, 'w') as _wf:
+                json.dump(_live, _wf, ensure_ascii=False, indent=1)
+            os.replace(_tmp, _out_path)
+            print('enhancement 并入: meta.enhancement='
+                  + ('有' if _live['meta']['enhancement'] else 'null（增强层未上线）'))
+        except Exception as _me:  # 并入旁路：任何异常只登记，不影响判定轮输出
+            print(f'enhancement 并入异常（不阻断）: {_me}')
     elif mode == 'snapshot':
         # WO-R13-03 只读盘中快照：--round {20:30|00:30|04:30}
         rnd = sys.argv[sys.argv.index('--round') + 1] if '--round' in sys.argv else '20:30'
@@ -1194,6 +1228,16 @@ def main():
                             '--auto'], timeout=1800, check=False)
         except Exception as _se2:  # 挂接旁路：任何异常只登记，不影响快照输出
             print(f'shadow_cells 快照轮挂接异常（不阻断）: {_se2}')
+        # DEPLOY_SPEC_v1 §3.1-② 分域增强折扣计算器（快照轮同款旁路，幂等落盘；
+        # 异常不阻断快照轮）。
+        try:
+            import subprocess
+            ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 引擎在 engine_f1/ 或 f1/，上级即仓库根
+            ENH_SCRIPT = os.path.join(ROOT, 'research', 'wo_mine', 'enhance_discount.py')
+            subprocess.run([sys.executable, ENH_SCRIPT,
+                            '--auto'], timeout=300, check=False)
+        except Exception as _ene2:  # 挂接旁路：任何异常只登记，不影响快照输出
+            print(f'enhance_discount 快照轮挂接异常（不阻断）: {_ene2}')
     elif mode == 'replay':
         slot = float(sys.argv[sys.argv.index('--slot') + 1]) if '--slot' in sys.argv else SLOTS[0]
         data = load_data()
