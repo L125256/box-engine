@@ -22,8 +22,34 @@ import f1_signal  # noqa: E402
 OUT = os.path.join(HERE, 'f1_live.json')
 
 
+def merge_enhancement(out_json):
+    """DEPLOY_SPEC_v1 §3.1-③ 渲染并入：若存在 f1/enhancement_state.json 则并入
+    f1_live.json → meta.enhancement（渲染层拼接，学 meta.breadth 先例；f1_signal.py
+    引擎主逻辑零改动；无该文件时 meta.enhancement=null，页面显示「增强层未上线」）。"""
+    import json
+    root = os.path.dirname(HERE)                       # 仓库根（engine_f1/ 或 f1/ 的上级）
+    state_f = os.path.join(root, 'f1', 'enhancement_state.json')
+    try:
+        with open(out_json) as f:
+            live = json.load(f)
+    except Exception as _e:
+        print(f'enhancement 并入跳过（f1_live.json 读取失败，不阻断）: {_e}')
+        return
+    try:
+        with open(state_f) as f:
+            live.setdefault('meta', {})['enhancement'] = json.load(f)
+    except Exception:
+        live.setdefault('meta', {})['enhancement'] = None
+    tmp = out_json + '.tmp'
+    with open(tmp, 'w') as f:
+        json.dump(live, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, out_json)
+    print(f"enhancement 并入: meta.enhancement={'有' if live['meta']['enhancement'] else 'null（增强层未上线）'}")
+
+
 def main():
     out = f1_signal.run_live(out_json=OUT)
+    merge_enhancement(OUT)
     bk = out['breakers']['overall']
     sig = out['signal']
     st = out['state']
