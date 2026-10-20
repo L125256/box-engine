@@ -1,0 +1,107 @@
+{
+ "ts": "2026-10-20 18:53:27",
+ "manifest": {
+  "_doc": "gate_spread_EWZ manifest（W2B_SPEC §6.2 冻结口径）",
+  "generated_at": "2026-10-20 18:53:27",
+  "source_A": {
+   "path": "/tmp/box_cache_w2a/EWZUSDT.json",
+   "md5": "a982e0a79d79f687370fd426a7fddeea",
+   "n_bars": 700,
+   "first": "2024-03-04",
+   "last": "2026-10-18",
+   "source": "box_cache 现货缓存（导演站谱系快照）"
+  },
+  "source_B_gate": {
+   "probes": [
+    {
+     "url": "https://api.gateio.ws/api/v4/spot/currency_pairs",
+     "total_pairs": 2205,
+     "ewz_matches": []
+    }
+   ],
+   "verdict": "Gate.io 全部 2205 个现货交易对中无任何 EWZ 系对（EWZUSDT/EWZ_USDT candlesticks 实测均 INVALID_CURRENCY_PAIR）→ B 源缺失【数据受限·R5·非死】",
+   "available": false
+  },
+  "source_Bp_dy_fallback": {
+   "url": "https://www.kxiandaoyan.com/api/kline/EWZUSDT?limit=2000",
+   "code": "EWZUSDT",
+   "name": "iShares MSCI巴西ETF",
+   "market": "futures",
+   "period": "1d",
+   "fetched_at": "2026-10-20T10:53:27Z",
+   "n_bars": 2000,
+   "first": "2019-01-04",
+   "last": "2026-10-20",
+   "source": "导演站实时 API（kxiandaoyan；symbols_reconcile 谱系同源）",
+   "bar_date_convention": "北京日期+盘后延伸+周日合成bar（dy_symbols_241.json _lineage 登记）",
+   "honest_label": "B'=同源不同 vintage（导演站），非两市场价差——两市场口径因 Gate 缺 EWZ 对而不可得【数据受限·R5·非死】，复活条件=Gate 上架 EWZ 系对或提供 EWZ_USDT 命名端点"
+  },
+  "schema": "gate_spread_EWZ.jsonl 逐日行 {ts,close_A,close_B,abs_gap,rel_gap_bp,vol_A,vol_B,low_liq}；rel_gap_bp=200×(A−B)/(A+B)（对称相对价差）",
+  "adjustment_declaration": "两源均为原始日K无复权标记（A=导演站谱系缓存，B'=同源实时；口径声明一致，无需停机核对）",
+  "low_liq_p10_volA": 8021.01,
+  "per_file_md5": {
+   "gate_spread_EWZ.jsonl": "c553e63e9b236620203d71b145005799"
+  },
+  "descriptive": {
+   "A_close": {
+    "n": 700,
+    "mean": 29.784601285714285,
+    "median": 27.862000000000002,
+    "std": 5.687639736207143,
+    "p5": 22.328795,
+    "p50": 27.862000000000002,
+    "p95": 39.101299999999995
+   },
+   "B_close": {
+    "n": 700,
+    "mean": 29.785158428571428,
+    "median": 27.862000000000002,
+    "std": 5.688926633935008,
+    "p5": 22.328795,
+    "p50": 27.862000000000002,
+    "p95": 39.101299999999995
+   },
+   "abs_gap": {
+    "n": 700,
+    "mean": 0.0005571428571428579,
+    "median": 0.0,
+    "std": 0.014740614447359883,
+    "p5": 0.0,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "abs_gap_max": {
+    "value": 0.39000000000000057,
+    "date": "2026-10-18"
+   },
+   "rel_gap_bp": {
+    "n": 700,
+    "mean": -0.0012985499525529844,
+    "median": 0.0,
+    "std": 0.0343564023944992,
+    "p5": 0.0,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "low_liq_share_pct": 10.0,
+   "low_liq_n": 70,
+   "abs_rel_gap_gt_50bp_days": 0,
+   "low_liq_abs_gap_mean": 0.0,
+   "all_abs_gap_mean": 0.000557,
+   "low_liq_note": "低量日价差单列统计（防低量日假价差污染均值）；low_liq 口径=A 源 volume==0 或 <A 全样本 P10（【口径操作化·R7】）"
+  },
+  "missing_days_vs_Bp": [],
+  "n_missing_days_vs_Bp": 0,
+  "completeness_gate": {
+   "n_aligned": 700,
+   "threshold_n": 500,
+   "coverage_basis": "两源交易日并集（非自然日历）",
+   "post_realA_complete": true,
+   "post_realA_missing_days": [],
+   "n_post_missing": 0,
+   "verdict": "PASS"
+  },
+  "r10_note": "数据件不产出任何「域读数→仓位」映射（R10）"
+ },
+ "runtime_sec": 3.5
+}
