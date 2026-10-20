@@ -2,12 +2,12 @@
  "meta": {
   "workorder": "R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）",
   "seed": 42,
-  "generated": "2026-10-21 00:33:56",
-  "engine_sha256": "a7e552f2f4c3aeb41f9fe7f27ad5767344d0114f2e83a9c439a4d201404ca097",
+  "generated": "2026-10-21 04:32:50",
+  "engine_sha256": "8a53b2523c07150a746ee1ed1885d24afded5e3d11f178c3c2a0a9ab26f8a667",
   "pool_n": 144,
   "breadth": {
-   "pct": 27.08,
-   "n_above": 39,
+   "pct": 28.47,
+   "n_above": 41,
    "n_total": 144,
    "ma_window": 50,
    "min_periods": 40
@@ -15,9 +15,9 @@
   "mode": "intraday_snapshot",
   "operable": false,
   "data_source": "主源单源模式",
-  "round_id": "00:30",
+  "round_id": "04:30",
   "round_tz": "北京时间",
-  "round_semantic": "美股盘中（夏令时约 12:30 ET）",
+  "round_semantic": "美股收盘附近：夏令时=收盘后 30 分钟快照；冬令时=收盘前 30 分钟快照（语义随 DST 漂移，页面按窗口改标）",
   "dst_note": "北京时刻全年固定（无夏令时）；美股夏令时窗口 = 3 月第二个周日 ~ 11 月第一个周日。04:30 轮在夏令时窗口内=收盘后快照，窗口外（冬令时）=收盘前 30 分钟快照。",
   "asof_settled": "2026-10-19",
   "total_exposure_pct": 12.5,
@@ -80,7 +80,7 @@
   },
   "holdings": [],
   "crash_watch": {
-   "pool_med_ret_intraday": 0.0057,
+   "pool_med_ret_intraday": 0.0029,
    "line": -0.05,
    "triggered_estimate": false,
    "kind": "预估（部分K·未落定），不触发任何动作"
@@ -139,7 +139,7 @@
  },
  "push": {
   "push": true,
-  "key": "intraday:2026-10-19:00:30",
+  "key": "intraday:2026-10-19:04:30",
   "kind": "intraday",
   "label": "盘中快照·不可操作",
   "carries_decision": false,
