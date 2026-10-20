@@ -1160,7 +1160,7 @@ def main():
                             '--auto'], timeout=1800, check=False)
         except Exception as _fe:  # 挂接旁路：任何异常只登记，不影响 live 输出
             print(f'forward_readout 挂接异常（不阻断）: {_fe}')
-        # SHADOW_SPEC_v1 §6-2 四胜任格影子计数器（S1-S3 因子格/S4 换门事件格）：
+        # SHADOW_SPEC_v1 §6-2 影子计数器（S1-S3 因子格/S4 换门事件格/S5=fd-da 格——S5 经本同款旁路采集，FD_REVIVE 终裁 2026-10-20 授权）：
         # 判定轮数据落盘后自动执行；只读+旁路落盘，不改引擎语义（异常不阻断判定轮）。
         try:
             import subprocess
@@ -1182,6 +1182,16 @@ def main():
               f"holdings={len(sn['holdings'])} 预演总灯={out['snapshot']['breaker_preview']['overall']['light']} "
               f"push={out['push']['push']}({out['push']['label']}) "
               f"writes={out['writes']}")
+        # SHADOW S5=fd-da（FD_REVIVE_SPEC_v1 §4 J5 + 交易分析团队终裁 2026-10-20 影子挂接授权）：
+        # 快照轮同款 subprocess 旁路（与判定轮 SH-1 同一采集件，幂等去重；
+        # _OPS5 当日未收盘盘中K剔除；异常不阻断快照轮）。
+        try:
+            import subprocess
+            subprocess.run([sys.executable,
+                            '/workspace/repo_ready/research/wo_mine/shadow_cells.py',
+                            '--auto'], timeout=1800, check=False)
+        except Exception as _se2:  # 挂接旁路：任何异常只登记，不影响快照输出
+            print(f'shadow_cells 快照轮挂接异常（不阻断）: {_se2}')
     elif mode == 'replay':
         slot = float(sys.argv[sys.argv.index('--slot') + 1]) if '--slot' in sys.argv else SLOTS[0]
         data = load_data()
