@@ -1,0 +1,56 @@
+{
+ "protocol": "FD_REVIVE_SPEC_v1 §4 J5（数字冻结）+ 交易分析团队终裁 2026-10-20（影子挂接授权，S5 格判线承继 J5 冻结数字）",
+ "cell": "S5=fd-da（K5-fd-exit-partial3r-breakeven vs K5-fd-exit-ctrl 同信号配对 ΔR）",
+ "lineage": {
+  "collector": "research/wo_mine/shadow_cells.py s5_*（fd_revive_run.py 逐字复用，_OPS5/6/7）",
+  "hook": "engine_f1/f1_signal.py + f1/f1_signal.py 判定轮/快照轮 --auto subprocess 旁路（异常不阻断）"
+ },
+ "window_from": "2026-10-20",
+ "n": 0,
+ "n_line": 20,
+ "n_registered": 1,
+ "n_registered_unit": "已登记扫描日数（每天可见 +1，用户指令 2026-10-20 14:27）",
+ "n_matured": 0,
+ "n_matured_unit": "已平仓配对数（J5 判读单位，判读线语义不变）",
+ "n_pairs_pending": 0,
+ "delta_mean": null,
+ "sealed": false,
+ "verdict": null,
+ "sealed_at": null,
+ "rejudge": {
+  "rule": "判死后复活路径(a)：影子窗样本自然滚动，同判线机械复判，每自然季至多一次",
+  "max_per_quarter": 1,
+  "last_rejudge_at": null,
+  "next_window_from": null
+ },
+ "d0": {
+  "name": "s5_realA_replay_diff0",
+  "window": [
+   "2025-06-01",
+   "2026-05-31"
+  ],
+  "lineage": "S5 机器=fd_revive_run.py 逐字复用（scan_fd_exit 入场零改动+_fd_exit_fns D-A/ctrl 出场逐字+pair_stats/delta_summary 逐字）；数据=冻结快照内容副本 /tmp/box_cache_fresh",
+  "got": {
+   "n_paired": 1228,
+   "pair_rate": 0.9832,
+   "mean": 0.335,
+   "sum_r": 411.37
+  },
+  "want": {
+   "n_paired": 1228,
+   "pair_rate": 0.9832,
+   "mean": 0.335,
+   "sum_r": 411.37
+  },
+  "diff": {
+   "n_paired": 0,
+   "pair_rate": 0.0,
+   "mean": 0.0,
+   "sum_r": 0.0
+  },
+  "verdict": "hit",
+  "ran_at": "2026-10-20 14:07:29"
+ },
+ "r10_note": "影子读数不回写部署姿态（R10）；影子达标≠放行，放行仍走部署三道门+新预注册",
+ "updated_at": "2026-10-20 14:41:53"
+}
