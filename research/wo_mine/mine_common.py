@@ -24,7 +24,12 @@ import sys
 import numpy as np
 import pandas as pd
 
-REPO = '/workspace/repo_ready'
+# 仓库根：env 覆盖优先，缺省 __file__ 相对解析（shadow_cells.py :83-85 同款：
+# _HERE=research/wo_mine，上两级=仓库根；禁绝对路径硬编码——云端 /tmp/f1work
+# 布局 SHADOW-PATH-20261020 遗留修复）
+_HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.environ.get('SHADOW_REPO_ROOT') or \
+    os.path.dirname(os.path.dirname(_HERE))
 sys.path.insert(0, os.path.join(REPO, 'research', 'wo_dneg'))
 import dneg_engine as DE
 
@@ -56,7 +61,12 @@ def build_ctx():
     pools = DE.build_pools(data)
     F = DE.build_factors(data)
     # 引擎同源池一致性（f1_signal.build_pool=cleaned_pool kept 144）
-    sys.path.insert(0, os.path.join(REPO, 'engine_f1'))
+    # 引擎目录：本地 engine_f1/ 优先（原行为），云端布局引擎在 f1/（SHADOW-PATH-20261020
+    # 遗留修复：REPO 引用点云端可解析，禁绝对路径硬编码）
+    _eng_dir = os.path.join(REPO, 'engine_f1')
+    if not os.path.isfile(os.path.join(_eng_dir, 'f1_signal.py')):
+        _eng_dir = os.path.join(REPO, 'f1')
+    sys.path.insert(0, _eng_dir)
     os.environ.setdefault('F1_CACHE', CACHE)
     os.environ.setdefault('F1_POOL', os.path.join(REPO, 'engine_snapshot', 'cleaned_pool.json'))
     import f1_signal as eng
