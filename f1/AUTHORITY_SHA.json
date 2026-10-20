@@ -1,11 +1,11 @@
 {
- "workorder": "R15 sha 对表防复发闸门（旧引擎产物混入交付链·防复发）+ WO-DECBAR 引擎修复（判定轮 bar 选择口径，METHOD_BOOK_DECBAR.md）",
- "batch": "DECBAR-20261020",
- "generated": "2026-10-20",
- "note": "运行时校验产数据引擎文件 sha256 == 本表登记值（f1_signal.check_engine_authority，run_live 判定轮入口前置）；不一致/文件缺失/本表缺失 = fail-closed 拒绝产出+REFUSE_ENGINE_SHA 报警。改引擎=新工单，须同步重生成本表。登记基准=本单 commit（含所列文件最终版）。本批改动：f1_signal.py 新增 trim_and_guard（剔除 forming 盘中K，R-陈旧/R-错位两判，锚 DECBAR-20261020）；f1_datasource.py / f1_backtest_v2.py 零改动（sha 沿袭上批 WO-AUDITFIX-01-2026-10-19）。",
- "files": {
-  "f1_signal.py": "dc72783486daf4b2fad018645e560525b2276e5593684c54cb61bc2e9ecd63b6",
-  "f1_datasource.py": "c263444785e80e2c7377f0e5fdcd2f33a420792904d497dca83e98c56b758ebd",
-  "f1_backtest_v2.py": "48aa668da1e5b6eb9c49ef3671a4463e33bf55774d9a70f57268d5a5ea790712"
- }
+  "workorder": "R15 sha 对表防复发闸门（旧引擎产物混入交付链·防复发）+ WO-DECBAR 引擎修复（判定轮 bar 选择口径，METHOD_BOOK_DECBAR.md）",
+  "batch": "S5-PATCH-20261020",
+  "generated": "2026-10-20",
+  "note": "运行时校验产数据引擎文件 sha256 == 本表登记值（f1_signal.check_engine_authority，run_live 判定轮入口前置）；不一致/文件缺失/本表缺失 = fail-closed 拒绝产出+REFUSE_ENGINE_SHA 报警。改引擎=新工单，须同步重生成本表。登记基准=本单 commit（含所列文件最终版）。本批改动：f1_signal.py 新增 trim_and_guard（剔除 forming 盘中K，R-陈旧/R-错位两判，锚 DECBAR-20261020）；f1_datasource.py / f1_backtest_v2.py 零改动（sha 沿袭上批 WO-AUDITFIX-01-2026-10-19）。；S5 影子挂接补登：f1_signal.py 增快照轮 --auto 旁路（12 行），登记 dc727834→bfbbeba414f0（batch=S5-PATCH-20261020，推送前 D0 自检抓到）。",
+  "files": {
+    "f1_signal.py": "bfbbeba414f0d75808a49eff158809aef24dcf601432ea896131099f78bc0db1",
+    "f1_datasource.py": "c263444785e80e2c7377f0e5fdcd2f33a420792904d497dca83e98c56b758ebd",
+    "f1_backtest_v2.py": "48aa668da1e5b6eb9c49ef3671a4463e33bf55774d9a70f57268d5a5ea790712"
+  }
 }
