@@ -1,0 +1,145 @@
+{
+ "state": "ACCUMULATING",
+ "created_at": "2026-10-20 05:08:16",
+ "protocol": "SHADOW_SPEC_v1（2026-10-20 预注册冻结；SH-1..SH-6+§3 判线+§4 补样）",
+ "window_from": "2026-10-18",
+ "round_asof": "2026-10-19",
+ "cells": {
+  "S1": {
+   "status": "ACCUMULATING",
+   "sealed": false,
+   "accumulation": {
+    "n_days": 0,
+    "ic_mean": null,
+    "ic_t": null,
+    "hit_rate": null,
+    "target": 20,
+    "early_death_line": 10
+   },
+   "new_rows_this_run": 0
+  },
+  "S2": {
+   "status": "ACCUMULATING",
+   "sealed": false,
+   "accumulation": {
+    "n_days": 0,
+    "ic_mean": null,
+    "ic_t": null,
+    "hit_rate": null,
+    "target": 20,
+    "early_death_line": 10
+   },
+   "new_rows_this_run": 0
+  },
+  "S3": {
+   "status": "ACCUMULATING",
+   "sealed": false,
+   "accumulation": {
+    "n_days": 0,
+    "ic_mean": null,
+    "ic_t": null,
+    "hit_rate": null,
+    "target": 20,
+    "early_death_line": 10
+   },
+   "new_rows_this_run": 0
+  },
+  "S4": {
+   "gate_state": "SUSPENDED",
+   "sealed": false,
+   "status": "SUSPENDED（§4 补样未达门）",
+   "replenish": {
+    "fw_old131_weak_days": 0,
+    "need": 4,
+    "days": [],
+    "n_days_if_completed": 56,
+    "unit": "old131 池 lag=1 域标签=弱稳 的真实交易日（ATLAS n_days 同单位）",
+    "updated_at": "2026-10-20 11:56:26"
+   }
+  }
+ },
+ "d0": {
+  "ran_at": "2026-10-20 05:08:49",
+  "checks": [
+   {
+    "name": "d1_labels_zero_drift",
+    "assert_window": "MS_REALA 2025-06-01 起",
+    "n_common": 429,
+    "n_diff": 0,
+    "out_of_window_diff_registered": 0,
+    "verdict": "hit"
+   },
+   {
+    "name": "atlas_anchor_diff0",
+    "window": [
+     "2025-06-02",
+     "2026-10-17"
+    ],
+    "cells": {
+     "S1": {
+      "variant_id": "Q3-rev-liq",
+      "domain": "弱躁",
+      "n_days": 71,
+      "ic_mean_6dp": 0.133685,
+      "atlas_anchor": 0.133685,
+      "diff": 0.0,
+      "backtest_hit_rate": 0.6056,
+      "verdict": "hit"
+     },
+     "S2": {
+      "variant_id": "Q3-rev-5",
+      "domain": "弱躁",
+      "n_days": 87,
+      "ic_mean_6dp": 0.10875,
+      "atlas_anchor": 0.10875,
+      "diff": 0.0,
+      "backtest_hit_rate": 0.6552,
+      "verdict": "hit"
+     },
+     "S3": {
+      "variant_id": "Q1-brk-pos-20",
+      "domain": "牛躁",
+      "n_days": 73,
+      "ic_mean_6dp": 0.1126,
+      "atlas_anchor": 0.1126,
+      "diff": 0.0,
+      "backtest_hit_rate": 0.6712,
+      "verdict": "hit"
+     }
+    },
+    "verdict": "hit"
+   },
+   {
+    "name": "s4_replay_factbook_batch1",
+    "tol": 0.01,
+    "pools": {
+     "full144": {
+      "replay_avoid": 189.6599,
+      "replay_mdd_red": 27.9,
+      "factbook1_avoid": 189.6599,
+      "factbook1_mdd_red": 27.9,
+      "verdict": "hit"
+     },
+     "old131": {
+      "replay_avoid": -8.7673,
+      "replay_mdd_red": 49.08,
+      "factbook1_avoid": -8.7673,
+      "factbook1_mdd_red": 49.08,
+      "verdict": "hit"
+     }
+    },
+    "verdict": "hit"
+   },
+   {
+    "name": "s4_replenish_baseline",
+    "atlas_n_days": 56,
+    "replenish_need": 4,
+    "target_n_days": 60,
+    "verdict": "hit"
+   }
+  ],
+  "all_pass": true,
+  "lineage": "SHADOW_SPEC_v1 工单件⑥：shadow 首跑读数与 ATLAS 底层数据 diff=0"
+ },
+ "updated_at": "2026-10-20 11:56:27"
+}
