@@ -16,7 +16,9 @@
     "target": 20,
     "early_death_line": 10
    },
-   "new_rows_this_run": 0
+   "new_rows_this_run": 0,
+   "n_registered": 3,
+   "n_matured": 0
   },
   "S2": {
    "status": "ACCUMULATING",
@@ -29,7 +31,9 @@
     "target": 20,
     "early_death_line": 10
    },
-   "new_rows_this_run": 0
+   "new_rows_this_run": 0,
+   "n_registered": 3,
+   "n_matured": 0
   },
   "S3": {
    "status": "ACCUMULATING",
@@ -42,7 +46,9 @@
     "target": 20,
     "early_death_line": 10
    },
-   "new_rows_this_run": 0
+   "new_rows_this_run": 0,
+   "n_registered": 3,
+   "n_matured": 0
   },
   "S4": {
    "gate_state": "SUSPENDED",
@@ -54,8 +60,50 @@
     "days": [],
     "n_days_if_completed": 56,
     "unit": "old131 池 lag=1 域标签=弱稳 的真实交易日（ATLAS n_days 同单位）",
-    "updated_at": "2026-10-20 11:56:26"
+    "updated_at": "2026-10-20 14:41:46"
    }
+  },
+  "S5": {
+   "status": "ACCUMULATING",
+   "sealed": false,
+   "d0": {
+    "name": "s5_realA_replay_diff0",
+    "window": [
+     "2025-06-01",
+     "2026-05-31"
+    ],
+    "lineage": "S5 机器=fd_revive_run.py 逐字复用（scan_fd_exit 入场零改动+_fd_exit_fns D-A/ctrl 出场逐字+pair_stats/delta_summary 逐字）；数据=冻结快照内容副本 /tmp/box_cache_fresh",
+    "got": {
+     "n_paired": 1228,
+     "pair_rate": 0.9832,
+     "mean": 0.335,
+     "sum_r": 411.37
+    },
+    "want": {
+     "n_paired": 1228,
+     "pair_rate": 0.9832,
+     "mean": 0.335,
+     "sum_r": 411.37
+    },
+    "diff": {
+     "n_paired": 0,
+     "pair_rate": 0.0,
+     "mean": 0.0,
+     "sum_r": 0.0
+    },
+    "verdict": "hit",
+    "ran_at": "2026-10-20 14:07:29"
+   },
+   "n": 0,
+   "delta_mean": null,
+   "new_rows_this_run": 0,
+   "intraday_trimmed_bars": 144,
+   "last_scan_tail": "2026-10-19",
+   "n_matured": 0,
+   "n_registered": 1,
+   "n_pairs_pending": 0,
+   "new_settled_this_run": 0,
+   "new_pending_this_run": 0
   }
  },
  "d0": {
@@ -141,5 +189,5 @@
   "all_pass": true,
   "lineage": "SHADOW_SPEC_v1 工单件⑥：shadow 首跑读数与 ATLAS 底层数据 diff=0"
  },
- "updated_at": "2026-10-20 11:56:27"
+ "updated_at": "2026-10-20 14:41:53"
 }
