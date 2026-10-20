@@ -1,0 +1,2215 @@
+{
+ "ts": "2026-10-20 18:44:01",
+ "budget": {
+  "D1": 16,
+  "D2": 8,
+  "D3": 8,
+  "D4": 4,
+  "total": 36,
+  "note": "METHOD_BOOK_W2A §七 冻结预算逐字；36 变体一次性登记禁加号"
+ },
+ "n_factbook_rows": 156,
+ "fdr": {
+  "m_total": 36,
+  "n_registered_cells": 32,
+  "n_q_le_010": 18,
+  "registered": [
+   {
+    "vid": "ex-rev5-niuwen",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 0.0,
+    "q": 0.0
+   },
+   {
+    "vid": "ex-rev5-niunao",
+    "pool": "full144",
+    "domain": "牛躁",
+    "p": 0.08,
+    "q": 0.137143
+   },
+   {
+    "vid": "ex-rev5-ruowen",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.0,
+    "q": 0.0
+   },
+   {
+    "vid": "ex-rev5-ruozao",
+    "pool": "full144",
+    "domain": "弱躁",
+    "p": 0.071,
+    "q": 0.1332
+   },
+   {
+    "vid": "ex-revliq-niuwen",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 0.074,
+    "q": 0.1332
+   },
+   {
+    "vid": "ex-revliq-niunao",
+    "pool": "full144",
+    "domain": "牛躁",
+    "p": 0.341,
+    "q": 0.472154
+   },
+   {
+    "vid": "ex-revliq-ruowen",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.094,
+    "q": 0.153818
+   },
+   {
+    "vid": "ex-revliq-ruozao",
+    "pool": "full144",
+    "domain": "弱躁",
+    "p": 0.043,
+    "q": 0.086
+   },
+   {
+    "vid": "ex-brk20-niuwen",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 0.0,
+    "q": 0.0
+   },
+   {
+    "vid": "ex-brk20-niunao",
+    "pool": "full144",
+    "domain": "牛躁",
+    "p": 0.881,
+    "q": 1.0
+   },
+   {
+    "vid": "ex-brk20-ruowen",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.001,
+    "q": 0.002571
+   },
+   {
+    "vid": "ex-brk20-ruozao",
+    "pool": "full144",
+    "domain": "弱躁",
+    "p": 0.896,
+    "q": 1.0
+   },
+   {
+    "vid": "ex-g80-niuwen",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 0.017,
+    "q": 0.03825
+   },
+   {
+    "vid": "ex-g80-niunao",
+    "pool": "full144",
+    "domain": "牛躁",
+    "p": 0.001,
+    "q": 0.002571
+   },
+   {
+    "vid": "ex-g80-ruowen",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.0,
+    "q": 0.0
+   },
+   {
+    "vid": "ex-g80-ruozao",
+    "pool": "full144",
+    "domain": "弱躁",
+    "p": 0.012,
+    "q": 0.0288
+   },
+   {
+    "vid": "armc-s10-niuwen",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 0.151,
+    "q": 0.236348
+   },
+   {
+    "vid": "armc-s10-niunao",
+    "pool": "full144",
+    "domain": "牛躁",
+    "p": 0.251,
+    "q": 0.3765
+   },
+   {
+    "vid": "armc-s10-ruowen",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.031,
+    "q": 0.065647
+   },
+   {
+    "vid": "armc-s10-ruozao",
+    "pool": "full144",
+    "domain": "弱躁",
+    "p": 0.957,
+    "q": 1.0
+   },
+   {
+    "vid": "armc-s05-niuwen",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 0.99,
+    "q": 1.0
+   },
+   {
+    "vid": "armc-s05-niunao",
+    "pool": "full144",
+    "domain": "牛躁",
+    "p": 0.911,
+    "q": 1.0
+   },
+   {
+    "vid": "armc-s05-ruowen",
+    "pool": "full144",
+    "domain": "弱稳",
+    "p": 0.397,
+    "q": 0.529333
+   },
+   {
+    "vid": "armc-s05-ruozao",
+    "pool": "full144",
+    "domain": "弱躁",
+    "p": 0.276,
+    "q": 0.39744
+   },
+   {
+    "vid": "c4-w60-ew-fwd5",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 2.5390769601311165e-05,
+    "q": 7.9e-05
+   },
+   {
+    "vid": "c4-w60-ew-fwd20",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 3.111249559364126e-10,
+    "q": 0.0
+   },
+   {
+    "vid": "c4-w60-med-fwd5",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 2.639470877157918e-05,
+    "q": 7.9e-05
+   },
+   {
+    "vid": "c4-w60-med-fwd20",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 3.508011013029444e-10,
+    "q": 0.0
+   },
+   {
+    "vid": "c4-w120-ew-fwd5",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 6.557825048665895e-06,
+    "q": 2.4e-05
+   },
+   {
+    "vid": "c4-w120-ew-fwd20",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 1.6087901427343333e-13,
+    "q": 0.0
+   },
+   {
+    "vid": "c4-w120-med-fwd5",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 5.924671960948706e-06,
+    "q": 2.4e-05
+   },
+   {
+    "vid": "c4-w120-med-fwd20",
+    "pool": "full144",
+    "domain": "牛稳",
+    "p": 1.059791310474371e-13,
+    "q": 0.0
+   }
+  ],
+  "note": "批内 FDR m=36（BH q=0.10）：登记假设格=方向①16 锚定域 + 方向③8 牛稳格 + 方向②8 full144 主口径格=32；D4 四读数件无 p 不入拒绝域；探针/邻域/old131 伴行格只记账（§3.1 预算登记+§5.4 双池纪律）"
+ },
+ "d0_gate": {
+  "ts": "2026-10-20 18:35:21",
+  "spec": "METHOD_BOOK_W2A §七 D0 五锚（一发验证，不过禁跑）",
+  "checks": {
+   "fd_ctrl_meanR": {
+    "got": {
+     "n": 1802,
+     "meanR": 1.1853
+    },
+    "want": {
+     "n": 1802,
+     "meanR": 1.1798
+    },
+    "tol": "n 逐位 / mean ±0.05",
+    "verdict": "hit"
+   },
+   "fd_DA_meanR": {
+    "got": {
+     "n": 1816,
+     "meanR": 1.493
+    },
+    "want": {
+     "n": 1816,
+     "meanR": 1.493
+    },
+    "tol": "n 逐位 / mean ±0.05",
+    "verdict": "hit"
+   },
+   "c4_lineage": {
+    "got": {
+     "maxdiff": 0.0,
+     "identical": true,
+     "ref_t": 4.758517872143934,
+     "ref_n": 318,
+     "mine_n": 318
+    },
+    "want": {
+     "maxdiff": 0,
+     "identical": true
+    },
+    "tol": "maxdiff=0 且 n 逐位",
+    "verdict": "hit"
+   },
+   "armC_FULL_avoid": {
+    "got": {
+     "old131": 43.7883,
+     "full144": 69.7292
+    },
+    "want": {
+     "old131": 43.7883,
+     "full144": 69.7292
+    },
+    "tol": "±0.05",
+    "verdict": "hit"
+   },
+   "k1p70_grid6": {
+    "detail": {
+     "old131|p70": {
+      "got": [
+       128.2103,
+       13.04,
+       237
+      ],
+      "want": [
+       128.2103,
+       13.04,
+       237
+      ],
+      "verdict": "hit"
+     },
+     "old131|p75": {
+      "got": [
+       111.2115,
+       11.04,
+       177
+      ],
+      "want": [
+       111.2115,
+       11.04,
+       177
+      ],
+      "verdict": "hit"
+     },
+     "old131|p80": {
+      "got": [
+       -8.7673,
+       49.08,
+       155
+      ],
+      "want": [
+       -8.7673,
+       49.08,
+       155
+      ],
+      "verdict": "hit"
+     },
+     "full144|p70": {
+      "got": [
+       100.7821,
+       19.46,
+       237
+      ],
+      "want": [
+       100.7821,
+       19.46,
+       237
+      ],
+      "verdict": "hit"
+     },
+     "full144|p75": {
+      "got": [
+       128.8728,
+       28.88,
+       155
+      ],
+      "want": [
+       128.8728,
+       28.88,
+       155
+      ],
+      "verdict": "hit"
+     },
+     "full144|p80": {
+      "got": [
+       189.6599,
+       27.9,
+       134
+      ],
+      "want": [
+       189.6599,
+       27.9,
+       null
+      ],
+      "verdict": "hit"
+     }
+    },
+    "k1p70_own_d0": "hit",
+    "tol": "avoid ±0.0001 / mdd_red ±0.01 / OFF_days 逐位",
+    "verdict": "hit"
+   }
+  },
+  "all_pass": true,
+  "runtime_sec": 14.4
+ },
+ "judgment": [
+  {
+   "variant_id": "ex-rev5-niuwen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-rev5-niunao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-rev5-ruowen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": false,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-rev5-ruozao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-revliq-niuwen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-revliq-niunao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-revliq-ruowen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": false,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-revliq-ruozao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-brk20-niuwen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-brk20-niunao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-brk20-ruowen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": false,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-brk20-ruozao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-g80-niuwen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": false,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": true,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-g80-niunao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": false,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-g80-ruowen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": false,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "ex-g80-ruozao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": false,
+   "note": "C1/C3 事件式族无净值曲线未计算（batch3 K5 同先例，如实登记）"
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": true,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": false,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": false,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "old131",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "old131",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "old131",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "old131",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niuwen",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-niunao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": true,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruowen",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s10-ruozao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": false,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niuwen",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-niunao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruowen",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": true,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C1": true,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "armc-s05-ruozao",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C1": false,
+   "C2": false,
+   "C3": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd5",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd5",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd5",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd5",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd20",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd20",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd20",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w60-ew-fwd20",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-med-fwd5",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-med-fwd5",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-med-fwd5",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w60-med-fwd5",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-med-fwd20",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-med-fwd20",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w60-med-fwd20",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w60-med-fwd20",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd5",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd5",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd5",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd5",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd20",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd20",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd20",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w120-ew-fwd20",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-med-fwd5",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-med-fwd5",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-med-fwd5",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": true,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w120-med-fwd5",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-med-fwd20",
+   "pool": "full144",
+   "domain": "牛稳",
+   "C2": true,
+   "C4": false,
+   "C6": true,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-med-fwd20",
+   "pool": "full144",
+   "domain": "牛躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  },
+  {
+   "variant_id": "c4-w120-med-fwd20",
+   "pool": "full144",
+   "domain": "弱稳",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": false
+  },
+  {
+   "variant_id": "c4-w120-med-fwd20",
+   "pool": "full144",
+   "domain": "弱躁",
+   "C2": false,
+   "C4": false,
+   "C6": false,
+   "domain_competent_ic": false,
+   "n_ge_60": true
+  }
+ ],
+ "r10_note": "本运行不产出任何「域读数→仓位」映射（R10）",
+ "ruling_note": "本批只出图谱证据与影子候选资格，正式生死判读待首席终裁（R7 强弱同屏）",
+ "detail": {
+  "D1": {
+   "rev5": {
+    "n_trades": 889,
+    "placebo": {
+     "牛稳": 2.4408,
+     "牛躁": 2.298,
+     "弱稳": 6.1842,
+     "弱躁": 2.0271
+    }
+   },
+   "revliq": {
+    "n_trades": 639,
+    "placebo": {
+     "牛稳": 0.7648,
+     "牛躁": 0.2188,
+     "弱稳": 0.9258,
+     "弱躁": 2.2285
+    }
+   },
+   "brk20": {
+    "n_trades": 778,
+    "placebo": {
+     "牛稳": 3.6566,
+     "牛躁": -0.8456,
+     "弱稳": 4.666,
+     "弱躁": -0.6101
+    }
+   },
+   "g80": {
+    "n_trades": 297,
+    "placebo": {
+     "牛稳": 4.4665,
+     "牛躁": 6.2577,
+     "弱稳": 9.4931,
+     "弱躁": 3.193
+    }
+   },
+   "wall_secs": 19.1
+  },
+  "D2": {
+   "armc-s10-niuwen|old131": {
+    "FULL_avoid": 5.8969,
+    "FULL_mdd_red": 19.28,
+    "HOLDOUT_avoid": 3.4897,
+    "lag_FULL_avoid": 0.0,
+    "lag_HOLDOUT_avoid": 0.0,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s10-niunao|old131": {
+    "FULL_avoid": 9.7504,
+    "FULL_mdd_red": 9.36,
+    "HOLDOUT_avoid": 5.3212,
+    "lag_FULL_avoid": 0.0,
+    "lag_HOLDOUT_avoid": 0.0,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s10-ruowen|old131": {
+    "FULL_avoid": 32.3997,
+    "FULL_mdd_red": 0.0,
+    "HOLDOUT_avoid": 0.0169,
+    "lag_FULL_avoid": 32.3997,
+    "lag_HOLDOUT_avoid": 0.0169,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s10-ruozao|old131": {
+    "FULL_avoid": -0.4124,
+    "FULL_mdd_red": -1.68,
+    "HOLDOUT_avoid": -0.4168,
+    "lag_FULL_avoid": 1.3772,
+    "lag_HOLDOUT_avoid": 0.5583,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-niuwen|old131": {
+    "FULL_avoid": -63.7397,
+    "FULL_mdd_red": 57.19,
+    "HOLDOUT_avoid": -6.5345,
+    "lag_FULL_avoid": -66.6693,
+    "lag_HOLDOUT_avoid": -8.7874,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-niunao|old131": {
+    "FULL_avoid": -63.4405,
+    "FULL_mdd_red": 48.27,
+    "HOLDOUT_avoid": -6.4483,
+    "lag_FULL_avoid": -66.6693,
+    "lag_HOLDOUT_avoid": -8.7874,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-ruowen|old131": {
+    "FULL_avoid": -55.3817,
+    "FULL_mdd_red": 42.93,
+    "HOLDOUT_avoid": -8.7834,
+    "lag_FULL_avoid": -55.3817,
+    "lag_HOLDOUT_avoid": -8.7834,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-ruozao|old131": {
+    "FULL_avoid": -66.7806,
+    "FULL_mdd_red": 41.93,
+    "HOLDOUT_avoid": -8.9483,
+    "lag_FULL_avoid": -66.1647,
+    "lag_HOLDOUT_avoid": -8.5024,
+    "T1_off_mean_realB_pp": -0.5051,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.7156,
+    "T1_off_n_realC": 32,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "old131|base_realC": {
+    "ret_pp": -23.4541,
+    "mdd_pct": -23.89,
+    "n_days": 139
+   },
+   "armc-s10-niuwen|full144": {
+    "FULL_avoid": 1.0169,
+    "FULL_mdd_red": 0.0,
+    "HOLDOUT_avoid": 0.0,
+    "lag_FULL_avoid": 0.0,
+    "lag_HOLDOUT_avoid": 0.0,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s10-niunao|full144": {
+    "FULL_avoid": 24.0346,
+    "FULL_mdd_red": 15.29,
+    "HOLDOUT_avoid": 13.1748,
+    "lag_FULL_avoid": 0.0,
+    "lag_HOLDOUT_avoid": 0.0,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s10-ruowen|full144": {
+    "FULL_avoid": 20.6752,
+    "FULL_mdd_red": 0.0,
+    "HOLDOUT_avoid": -0.002,
+    "lag_FULL_avoid": 34.3799,
+    "lag_HOLDOUT_avoid": 0.0181,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s10-ruozao|full144": {
+    "FULL_avoid": 1.8371,
+    "FULL_mdd_red": 0.03,
+    "HOLDOUT_avoid": 0.6078,
+    "lag_FULL_avoid": 1.556,
+    "lag_HOLDOUT_avoid": 0.5989,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-niuwen|full144": {
+    "FULL_avoid": -74.6971,
+    "FULL_mdd_red": 42.25,
+    "HOLDOUT_avoid": -12.7876,
+    "lag_FULL_avoid": -75.034,
+    "lag_HOLDOUT_avoid": -12.7876,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-niunao|full144": {
+    "FULL_avoid": -66.0845,
+    "FULL_mdd_red": 52.67,
+    "HOLDOUT_avoid": -6.2924,
+    "lag_FULL_avoid": -75.034,
+    "lag_HOLDOUT_avoid": -12.7876,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-ruowen|full144": {
+    "FULL_avoid": -68.158,
+    "FULL_mdd_red": 42.25,
+    "HOLDOUT_avoid": -12.7882,
+    "lag_FULL_avoid": -63.3696,
+    "lag_HOLDOUT_avoid": -12.7835,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "armc-s05-ruozao|full144": {
+    "FULL_avoid": -74.4116,
+    "FULL_mdd_red": 42.28,
+    "HOLDOUT_avoid": -12.4899,
+    "lag_FULL_avoid": -74.485,
+    "lag_HOLDOUT_avoid": -12.492,
+    "T1_off_mean_realB_pp": -0.0742,
+    "T1_off_n_realB": 10,
+    "T1_off_mean_realC_pp": -0.9848,
+    "T1_off_n_realC": 21,
+    "T3_realB_off_share_pct": 16.39
+   },
+   "full144|base_realC": {
+    "ret_pp": -27.6848,
+    "mdd_pct": -28.5,
+    "n_days": 139
+   },
+   "wall_secs": 107.2
+  },
+  "D3": {
+   "c4-w60-ew-fwd5": {
+    "vid": "c4-w60-ew-fwd5",
+    "w": 60,
+    "den": "ew",
+    "hz": "fwd5",
+    "t_ext": 4.1064354504298795,
+    "n_ext": 330,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 5.2153,
+      "n": 148
+     },
+     "2026": {
+      "t": 1.3735,
+      "n": 182
+     }
+    },
+    "yearly_flip": false,
+    "t_lag1": 4.294705215078955,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.1395657181605555,
+     "placebo_p": 0.01,
+     "map_invalid": false,
+     "placebo_p50": 0.06617678265605702
+    }
+   },
+   "c4-w60-ew-fwd20": {
+    "vid": "c4-w60-ew-fwd20",
+    "w": 60,
+    "den": "ew",
+    "hz": "fwd20",
+    "t_ext": 6.376351358290342,
+    "n_ext": 327,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 17.6959,
+      "n": 148
+     },
+     "2026": {
+      "t": -0.2645,
+      "n": 179
+     }
+    },
+    "yearly_flip": true,
+    "t_lag1": 6.5251556357385745,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.24844821999549282,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.06337293391273566
+    }
+   },
+   "c4-w60-med-fwd5": {
+    "vid": "c4-w60-med-fwd5",
+    "w": 60,
+    "den": "med",
+    "hz": "fwd5",
+    "t_ext": 4.0970021374234795,
+    "n_ext": 330,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 5.3698,
+      "n": 148
+     },
+     "2026": {
+      "t": 1.3043,
+      "n": 182
+     }
+    },
+    "yearly_flip": false,
+    "t_lag1": 4.313058589690681,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.14170245776831972,
+     "placebo_p": 0.01,
+     "map_invalid": false,
+     "placebo_p50": 0.06672636257240927
+    }
+   },
+   "c4-w60-med-fwd20": {
+    "vid": "c4-w60-med-fwd20",
+    "w": 60,
+    "den": "med",
+    "hz": "fwd20",
+    "t_ext": 6.355632271860951,
+    "n_ext": 327,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 17.819,
+      "n": 148
+     },
+     "2026": {
+      "t": -0.3508,
+      "n": 179
+     }
+    },
+    "yearly_flip": true,
+    "t_lag1": 6.506840841718798,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.24733970424476706,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.06445338666512188
+    }
+   },
+   "c4-w120-ew-fwd5": {
+    "vid": "c4-w120-ew-fwd5",
+    "w": 120,
+    "den": "ew",
+    "hz": "fwd5",
+    "t_ext": 4.425480546578675,
+    "n_ext": 330,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 3.555,
+      "n": 148
+     },
+     "2026": {
+      "t": 2.7965,
+      "n": 182
+     }
+    },
+    "yearly_flip": false,
+    "t_lag1": 4.48167574674645,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.11818409028196175,
+     "placebo_p": 0.07,
+     "map_invalid": true,
+     "placebo_p50": 0.06746687728024309
+    }
+   },
+   "c4-w120-ew-fwd20": {
+    "vid": "c4-w120-ew-fwd20",
+    "w": 120,
+    "den": "ew",
+    "hz": "fwd20",
+    "t_ext": 7.598978386755803,
+    "n_ext": 327,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 9.4226,
+      "n": 148
+     },
+     "2026": {
+      "t": 3.0149,
+      "n": 179
+     }
+    },
+    "yearly_flip": false,
+    "t_lag1": 7.780551801155631,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.201771343325947,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.05923814269225977
+    }
+   },
+   "c4-w120-med-fwd5": {
+    "vid": "c4-w120-med-fwd5",
+    "w": 120,
+    "den": "med",
+    "hz": "fwd5",
+    "t_ext": 4.448662142938757,
+    "n_ext": 330,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 3.5652,
+      "n": 148
+     },
+     "2026": {
+      "t": 2.8179,
+      "n": 182
+     }
+    },
+    "yearly_flip": false,
+    "t_lag1": 4.496052805170802,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.11596198731430533,
+     "placebo_p": 0.07,
+     "map_invalid": true,
+     "placebo_p50": 0.06754547170853417
+    }
+   },
+   "c4-w120-med-fwd20": {
+    "vid": "c4-w120-med-fwd20",
+    "w": 120,
+    "den": "med",
+    "hz": "fwd20",
+    "t_ext": 7.662431169555912,
+    "n_ext": 327,
+    "loto_pass": true,
+    "yearly": {
+     "2025": {
+      "t": 9.4262,
+      "n": 148
+     },
+     "2026": {
+      "t": 3.0815,
+      "n": 179
+     }
+    },
+    "yearly_flip": false,
+    "t_lag1": 7.826785106988785,
+    "lag_flip": false,
+    "placebo": {
+     "statistic": "四域 IC 均值极差（MS_REALA 窗内）",
+     "obs": 0.2027444997963258,
+     "placebo_p": 0.0,
+     "map_invalid": false,
+     "placebo_p50": 0.06092428532274115
+    }
+   },
+   "wall_secs": 17.5
+  },
+  "D4": {
+   "slope": {
+    "old131": {
+     "points": [
+      {
+       "tier": "p80",
+       "OFF": 155,
+       "mdd_red": 49.08,
+       "avoid_pp": -8.7673
+      },
+      {
+       "tier": "p75",
+       "OFF": 177,
+       "mdd_red": 11.04,
+       "avoid_pp": 111.2115
+      },
+      {
+       "tier": "p70",
+       "OFF": 237,
+       "mdd_red": 13.04,
+       "avoid_pp": 128.2103
+      }
+     ],
+     "ols_slope_mddred_per_day": -0.3398,
+     "ols_slope_avoid_per_day": 1.3778,
+     "segments": {
+      "p80->p75": {
+       "d_OFF": 22,
+       "dmdd_per_day": -1.7291,
+       "davoid_per_day": 5.4536
+      },
+      "p75->p70": {
+       "d_OFF": 60,
+       "dmdd_per_day": 0.0333,
+       "davoid_per_day": 0.2833
+      }
+     }
+    },
+    "full144": {
+     "points": [
+      {
+       "tier": "p80",
+       "OFF": 134,
+       "mdd_red": 27.9,
+       "avoid_pp": 189.6599
+      },
+      {
+       "tier": "p75",
+       "OFF": 155,
+       "mdd_red": 28.88,
+       "avoid_pp": 128.8728
+      },
+      {
+       "tier": "p70",
+       "OFF": 237,
+       "mdd_red": 19.46,
+       "avoid_pp": 100.7821
+      }
+     ],
+     "ols_slope_mddred_per_day": -0.0912,
+     "ols_slope_avoid_per_day": -0.7165,
+     "segments": {
+      "p80->p75": {
+       "d_OFF": 21,
+       "dmdd_per_day": 0.0467,
+       "davoid_per_day": -2.8946
+      },
+      "p75->p70": {
+       "d_OFF": 82,
+       "dmdd_per_day": -0.1149,
+       "davoid_per_day": -0.3426
+      }
+     }
+    }
+   },
+   "wall_secs": 0.0
+  }
+ },
+ "runtime_sec": 0.0
+}
