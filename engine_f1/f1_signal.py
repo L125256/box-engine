@@ -1155,8 +1155,9 @@ def main():
         # 判定轮数据落盘后自动执行；只读+旁路落盘，不改引擎语义（异常不阻断判定轮）。
         try:
             import subprocess
-            subprocess.run([sys.executable,
-                            '/workspace/repo_ready/research/wo_unlock/forward_readout.py',
+            ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 引擎在 engine_f1/ 或 f1/，上级即仓库根
+            FW_SCRIPT = os.path.join(ROOT, 'research', 'wo_unlock', 'forward_readout.py')
+            subprocess.run([sys.executable, FW_SCRIPT,
                             '--auto'], timeout=1800, check=False)
         except Exception as _fe:  # 挂接旁路：任何异常只登记，不影响 live 输出
             print(f'forward_readout 挂接异常（不阻断）: {_fe}')
