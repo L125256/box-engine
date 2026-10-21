@@ -90,10 +90,12 @@ check('①模板文案：牛闸快照（落定K）标注在页（meta 行+温度
 print('==== ② S5 三行渲染+兜底（B-01）====')
 
 
-def harness(json_path):
-    r = subprocess.run(['node', os.path.join(ROOT, 'f1', 'render_harness.cjs'),
-                        os.path.join(ROOT, 'f1', 'index.html'), json_path],
-                       capture_output=True, text=True, timeout=60)
+def harness(json_path, state_path=None):
+    cmd = ['node', os.path.join(ROOT, 'f1', 'render_harness.cjs'),
+           os.path.join(ROOT, 'f1', 'index.html'), json_path]
+    if state_path:
+        cmd.append(state_path)
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
     out = json.loads(r.stdout[r.stdout.index('RENDER_JSON_START') + 17:])
     return r, out['enh']['innerHTML']
 
@@ -161,6 +163,53 @@ _, h2 = harness(tmp)
 check('②缺字段兜底「—」且零报错',
       '📊 —' in h2 and '💰 —' in h2 and '实际仓位金额=—' in h2)
 
+# ---------------- ②b 缓存免疫三态（2026-10-22）----------------
+print('==== ②b 缓存免疫三态（双保险：state?ts 独立通道+择新渲染+🎯兜底行）====')
+_d3 = json.load(open(os.path.join(ROOT, 'f1', 'f1_live.json')))
+# 新制 state 构造（含 symbols 三字段，与本批 enhancement_state.json 同制）
+_new_state = {'generated': '2026-10-21 23:20:00', 'asof': '2026-10-20',
+              'cells': {'S1': {'name': 'S1 反转·弱躁域', 'domain': '弱躁域', 'tier': 'POOL_CAP',
+                               'coef': 50, 'n_days': 0, 'deployed': True, 'domain_active': False,
+                               'symbols_scope': '模拟池内', 'symbols_note': '本期读数分前 5（参考）',
+                               'symbols_top': [{'sym': 'SOXSUSDT', 'val': 0.124},
+                                               {'sym': 'UVXYUSDT', 'val': 0.091}]},
+                        'S5': {'name': 'S5 fd 出场增强', 'domain': '全域', 'tier': 'FULL',
+                               'tier_name': '满额档',
+                               'coef': 100, 'n_days': 0, 'deployed': True, 'domain_active': True,
+                               'pos_pct': 0.5, 'realtime': {'has_event': False, 'text': 'S5 今日实时信号：无出场事件（配对累计 n=0）'},
+                               'full_note': '本格满额=FULL 100%（0.5%/格）'}}}
+_state_f = os.path.join(tempfile.mkdtemp(), 'state_new.json')
+json.dump(_new_state, open(_state_f, 'w'), ensure_ascii=False)
+# 态1：新 JSON（meta.enhancement=新制）→ 🎯 行+新档位正常渲染
+_d3.setdefault('meta', {})['enhancement'] = json.loads(json.dumps(_new_state))
+_t1 = os.path.join(tempfile.mkdtemp(), 't1.json'); json.dump(_d3, open(_t1, 'w'), ensure_ascii=False)
+_r1, _h1 = harness(_t1, _state_f)
+check('②b 态1 新 JSON：🎯 行+POOL_CAP 档位+标的名单在场，零 JS 报错',
+      '🎯 本格标的' in _h1 and 'SOXSUSDT' in _h1 and '单池封顶' in _h1
+      and _r1.returncode == 0 and 'Error' not in _r1.stderr)
+# 态2：旧缓存 JSON（meta.enhancement=旧制 T0/25% 无 symbols）+ state 独立通道=新制 → 兜底渲染新制
+_old = json.loads(json.dumps(_d3))
+_old['meta']['enhancement'] = {'generated': '2026-10-20 08:30:00', 'asof': '2026-10-19',
+                               'cells': {'S1': {'name': 'S1 反转·弱躁域', 'domain': '弱躁域', 'tier': 'T0',
+                                                'coef': 25, 'n_days': 0, 'deployed': True, 'domain_active': False},
+                                         'S5': {'name': 'S5 fd 出场增强', 'domain': '全域', 'tier': 'T0',
+                                                'coef': 25, 'n_days': 0, 'deployed': True, 'domain_active': True}}}
+_t2 = os.path.join(tempfile.mkdtemp(), 't2.json'); json.dump(_old, open(_t2, 'w'), ensure_ascii=False)
+_r2, _h2b = harness(_t2, _state_f)
+check('②b 态2 旧缓存 JSON：state 通道择新兜底，渲染新制 FULL/POOL_CAP+🎯 名单，零 JS 报错',
+      'SOXSUSDT' in _h2b and '满额档' in _h2b and 'T0' not in _h2b
+      and _r2.returncode == 0 and 'Error' not in _r2.stderr)
+# 态3：双通道都缺 symbols → 提示行「🎯 本格标的：本轮回传未含名单（asof=…）」
+_miss = json.loads(json.dumps(_d3))
+for _c in _miss['meta']['enhancement']['cells'].values():
+    for _k in ('symbols_note', 'symbols_top', 'symbols_scope'):
+        _c.pop(_k, None)
+_t3 = os.path.join(tempfile.mkdtemp(), 't3.json'); json.dump(_miss, open(_t3, 'w'), ensure_ascii=False)
+_r3, _h3 = harness(_t3)   # 不传三参 → state 通道 404 模拟双缺
+check('②b 态3 双缺 symbols：提示行在场（禁止静默空白），零 JS 报错',
+      '🎯 本格标的' in _h3 and '本轮回传未含名单（asof=' in _h3
+      and _r3.returncode == 0 and 'Error' not in _r3.stderr)
+
 # ---------------- ③ §7.9 五场景 + v1.6 + 双副本 ----------------
 print('==== ③ 台账 §7.9 五场景 + v1.6（军规补丁）====')
 led_e = open(os.path.join(ROOT, 'engine_f1', 'F1_台账口径_v1.md')).read()
@@ -171,7 +220,9 @@ five = ['「箱体闸和 F1 闸为什么不一致」', '「影子期呢」', '�
 check('③§7.9 五场景全部在位', all(s in led_e for s in five),
       str([s for s in five if s not in led_e]))
 check('③§7.9 章节在位（v1.6 增补）', '### 7.9 双闸与温度计新场景（v1.6 增补）' in led_e)
-check('③版本头 v1.6 行在位', led_e.contains if False else '- 版本：v1.6（' in led_e)
+check('③§7.11 随批检查清单第 4 条（v1.8 缓存免疫教训）在位',
+      '所有数据文件取数必须带防缓存参数' in led_e)
+check('③版本头 v1.8 行在位（随批次同步更新）', '- 版本：v1.8（' in led_e)
 
 # ---------------- ④ manual §3 标题 ----------------
 print('==== ④ f1 manual §3 标题（F-01）====')
