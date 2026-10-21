@@ -161,7 +161,7 @@ function render(){
   document.getElementById('mon').innerHTML=(re.length?mt+'</table>':'<div class="line">回放期无止损事件</div>')+
     '<div class="warnline">止损线是 −8%（相对买入价）；跳空日实际亏损可能更大（例：2026-09-09 GPRO 实亏 −12.2%）——开盘价已低于止损价时只能按开盘价卖，这是口径内的正常损耗，不要因为「卖低了」而不卖。</div>'+
     '<div class="line">月报每月首个交易日随信号更新 · 详细口径见页底技术详情；各术语见说明书 §9 词典</div>';
-  /* ---- 🧩 分域增强（DEPLOY_SPEC_v1 §3.2/§4：卡片数据源=meta.enhancement.cells，折扣数字一律读 JSON 不写死；无字段显示「增强层未上线」不报错）---- */
+  /* ---- 🧩 分域增强（PLAN_FINAL_20261021 新制：卡片数据源=meta.enhancement.cells，档位数字一律读 JSON 不写死；无字段显示「增强层未上线」不报错）---- */
   renderEnhancement(m);
   /* ---- 页脚：技术详情折叠 + 免责声明降级 ---- */
   document.getElementById('foot').innerHTML=
@@ -179,14 +179,16 @@ function render(){
     ' · 引擎锁定：repo_ready/engine_f1/f1_signal.py · 验收：DEPLOY_REPORT.md</details>'+
     '<details><summary>诚实声明（完整版）</summary>⚠️ 诚实声明（R11\' 上线方案）：F1 base 裸奔四因子带闸版，回测含幸存者偏差（池=当前存续票，已被现实证明活着的票），真实收益会打折；收益与池贝塔强相关。上线起步仓位仅 12.5%（单票 2.5%），熔断降档自动、升档由人工复核后解锁。本页为本机信号引擎输出：口径=V2 可实现出场（成交价按你真实下单能拿到的价格）+ 滑点 0.05%/边 + 资金费 0.03%/bar。仓位与买卖决策请勿仅依赖本页。</details>';
 }
-/* ---- 🧩 分域增强渲染（DEPLOY_SPEC_v1 §3.2 排序 S1→S2→S3→S5→S4；§4 逐字文案）---- */
+/* ---- 🧩 分域增强渲染（PLAN_FINAL_20261021 §2.1#1/#4 新制口径：排序 S1→S2→S3→S5→S4；
+        tier ∈ {FULL,POOL_CAP,FROZEN,OFFLINE}；数值一律从 JSON 填充，HTML 不写死档位数字；
+        无字段显示「增强层未上线」不报错）---- */
 function renderEnhancement(m){
   const sec=document.getElementById('enhsec'),box=document.getElementById('enh');
   sec.style.display='';
   const E=m.enhancement;
-  if(!E||!E.cells){box.innerHTML='<div class="line">增强层未上线</div>';return;}
-  /* stale（§5-⑦）：>48h 显示「⚠ 增强层数据未更新（最后：<日期>）——档位冻结按旧值执行」 */
+  if(!E||!E.cells){box.innerHTML='<div class="line">增强层未上线</div>'+(E&&E.deploy_rule?'<div class="line">'+E.deploy_rule+'</div>':'');return;}
   let h='';
+  if(E.deploy_rule)h+='<div class="line">部署铁律：'+E.deploy_rule+'</div>';
   const gen=E.generated||E.asof||'';
   const ageH=(Date.now()-new Date(gen.replace(' ','T')).getTime())/36e5;
   if(!isNaN(ageH)&&ageH>48)
@@ -195,40 +197,46 @@ function renderEnhancement(m){
   h+='<div class="line">联动（单向让位·冲突一律听 F1）：F1 市场总开关='+(lk.f1_gate==='closed'?'关闭':'开放')+
      ' · F1 健康总灯='+(lk.f1_breaker_light||'未知')+
      ' · 增强层冻结='+(lk.enhanced_frozen?'是（冻结开新仓）':'否')+'</div>';
-  const TIER_BADGE={'T0':'y','T1':'y','T2':'g','T3':'y','T4':'r'};
+  const TIER_BADGE={'FULL':'g','POOL_CAP':'g','FROZEN':'y','OFFLINE':'r'};
   const ORDER=['S1','S2','S3','S5','S4'];
   ORDER.forEach(cid=>{
     const c=E.cells[cid];if(!c)return;
     const coef=c.coef,tn=c.tier_name||('档位'+(c.tier||'')),n=(c.n_days==null?'—':c.n_days);
-    /* §4 逐字文案：数值一律从 JSON 填充，HTML 不写死折扣数字 */
+    /* 新制文案（PLAN_FINAL §2.1#4 逐字）：数值一律从 JSON 填充 */
     let base;
-    if(cid==='S1')base='反转·弱躁域｜当前：'+tn+' 折扣 '+coef+'%｜n='+n+'/20｜仅当弱躁域激活时有意义｜单池证据·置信上限 50%';
-    else if(cid==='S2')base='反转粗筛·弱躁域｜当前：'+tn+' 折扣 '+coef+'%｜n='+n+'/20｜仅当弱躁域激活时有意义｜单池证据·置信上限 50%';
-    else if(cid==='S3')base='突破回踩·牛躁域｜当前：'+tn+' 折扣 '+coef+'%｜n='+n+'/20｜仅当牛躁域激活时有意义｜单池证据·置信上限 50%';
-    else if(cid==='S5')base='fd 出场增强·全域｜当前：'+tn+' 折扣 '+coef+'%｜n='+n+'/20 配对｜作用于本层持仓出场，不动 F1 持仓';
+    if(cid==='S1')base='反转·弱躁域｜当前：'+tn+' '+coef+'%｜单池满额 '+coef+'%·双池解锁另议｜仅当弱躁域激活时有意义｜单池证据·置信上限 50%';
+    else if(cid==='S2')base='反转粗筛·弱躁域｜当前：'+tn+' '+coef+'%｜单池满额 '+coef+'%·双池解锁另议｜仅当弱躁域激活时有意义｜单池证据·置信上限 50%';
+    else if(cid==='S3')base='突破回踩·牛躁域｜当前：'+tn+' '+coef+'%｜单池满额 '+coef+'%·双池解锁另议｜仅当牛躁域激活时有意义｜单池证据·置信上限 50%';
+    else if(cid==='S5')base='fd 出场增强·全域｜当前：'+tn+' '+coef+'%（0.5% 基线×'+coef+'%）｜'+(c.tier==='FULL'?'满额运行·执照复审 '+(c.review_due||'—')+' 到期':'')+'｜作用于本层持仓出场，不动 F1 持仓';
     else if(cid==='S4'){const nd=(c.n_need||60)-(c.n_days||0);
-      base='高波停门·弱稳域｜补样中（old131 n='+(c.n_days==null?'—':c.n_days)+'/'+(c.n_need||60)+'，差 '+nd+' 天）｜未部署·不占用仓位';}
-    /* 状态分支：封印切换（n≥20）＞早死线（T4）＞基础文案；非激活态追加行 */
+      base='高波停门·弱稳域｜补样中（old131 '+(c.n_days==null?'—':c.n_days)+'/'+(c.n_need||60)+'，差 '+nd+' 天）｜样本门·未部署·不占用仓位';}
+    /* 证据监控计数（执照复审数据源，非爬档）：S4 补样门计数除外 */
+    const ev=(cid!=='S4')?'<div class="line">证据持续监控：n='+n+'（执照复审数据源，判读封印与否见下方状态）</div>':'';
+    /* 状态分支：封印切换＞劣化线下线（OFFLINE）＞基础文案；非激活态追加行 */
     let note;
     if(c.sealed&&cid!=='S4'){
-      const concl=c.verdict==='PASS'?'达标':'判死';
-      note='本格已完成 n≥20 终审判读并封印：结论='+concl+'，档位='+(c.tier||'')+'，判读全文见 shadow_readout_'+cid+'.json';
-    }else if(c.tier==='T4'){
-      note='⚠ 本格已触发早死线（n≥10 前瞻证据方向翻转）——仓位已归零下线，等待季度机械复判；历史卡片保留作负事实展示';
+      const concl=c.verdict==='PASS'?'达标（重重检测通过·满额部署）':'判死';
+      const passPhrase=(c.verdict==='PASS')
+        ?(cid==='S5'?'；满额运行·执照复审 '+(c.review_due||'—')+' 到期'
+                    :'；单池满额 '+coef+'%·双池解锁另议')
+        :'';
+      note='本格判读已封印：结论='+concl+'，档位='+(c.tier||'')+passPhrase+'，判读全文见 shadow_readout_'+cid+'.json';
+    }else if(c.tier==='OFFLINE'){
+      note='⚠ 本格已触发实盘劣化线（n≥10 ∧ t≤−2 方向翻转）——当日归零下线，卡片转负事实展示；仅季度机械复判（同判线）可复活回满额';
     }else note=base;
-    let card='<div class="card" style="border-left:4px solid '+(c.tier==='T4'?'#f85149':c.tier==='T2'?'#16a34a':!c.deployed?'#30363d':'#f59e0b')+'">'+
+    let card='<div class="card" style="border-left:4px solid '+(c.tier==='OFFLINE'?'#f85149':(c.tier==='FULL'||c.tier==='POOL_CAP')?'#16a34a':!c.deployed?'#30363d':'#f59e0b')+'">'+
       '<b>'+c.name+'</b> <span class="badge">'+c.domain+'</span>'+
-      (c.deployed?' <span class="badge">折扣档位：'+tn+' · '+coef+'%</span>'
+      (c.deployed?' <span class="badge">部署档位：'+tn+' · '+coef+'%</span>'
                  :' <span class="badge">灰态·未部署</span>')+
-      '<div class="line">当前域状态：'+(cid==='S4'?(c.status||'SUSPENDED'):(c.domain_active?'当前域激活':'当前域未激活'))+
-      (c.sealed?' · 已封印':'')+'</div>'+
-      '<div class="line">'+note+'</div>'+
-      (!c.domain_active&&cid!=='S4'&&!c.sealed&&c.tier!=='T4'?'<div class="line">当前域未激活——本格读数冻结，仅作展示，不产生信号</div>':'')+
+      '<div class="line">当前域状态：'+(cid==='S4'?(c.status||'SUSPENDED'):(c.domain_active?'当前域激活':'当前域未激活（=FROZEN，本格读数冻结仅展示）'))+
+      (c.sealed?' · 判读已封印':'')+'</div>'+
+      '<div class="line">'+note+'</div>'+ev+
+      (!c.domain_active&&cid!=='S4'&&!c.sealed&&c.tier!=='OFFLINE'?'<div class="line">当前域未激活——本格读数冻结，仅作展示，不产生信号</div>':'')+
       (c.status&&c.status.indexOf('安全侧默认')>=0?'<div class="line">'+c.status+'</div>':'')+
       '</div>';
     h+=card;});
-  /* 总免责声明行（§4 区块底部，逐字） */
-  h+='<div class="line">分域增强=F1 主引擎之外的实验插件层，独立小仓（单格≤0.5%、合计≤2%）按影子表现动态折减；本区块不是买入指令、不构成 F1 榜单的一部分；两引擎冲突时一律听 F1；影子读数带不确定性，档位仅代表证据强度不代表收益承诺。</div>';
+  /* 总免责声明行（PLAN_FINAL §2.1#4 逐字） */
+  h+='<div class="line">分域增强=F1 主引擎之外的实验插件层，按重重检测满额部署（无任何时间等待），实盘劣化线自动降停（n≥10 ∧ t≤−2 当日归零），6 个月强制复审；单格≤0.5%、合计≤2%；本区块不是买入指令、不构成 F1 榜单的一部分；两引擎冲突时一律听 F1；档位仅代表证据强度不代表收益承诺。</div>';
   if(E.fee_note)h+='<div class="line">'+E.fee_note+'</div>';
   box.innerHTML=h;
 }
