@@ -375,10 +375,32 @@ def run(auto=False):
     with open(tmp, 'w') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     os.replace(tmp, OUT_F)
+    _merge_into_live(out)
     summary = ' '.join(f"{cid}:{c['tier'] or '灰'}{c['coef']}%" for cid, c in cells.items())
     print(f"enhance_discount: asof={asof} inputs_ok={inputs_ok} fail_streak={fail_streak} "
           f"frozen={linkage['enhanced_frozen']} | {summary} -> {os.path.relpath(OUT_F, ROOT)}")
     return out
+
+
+def _merge_into_live(state):
+    """缓存免疫修复（2026-10-22）：本件写完 enhancement_state.json 后**立即**并入
+    f1_live.json → meta.enhancement（f1_generate.merge_enhancement 同款逻辑原位内联，
+    修时序缺口：旧链路只在 09:25 判定轮由 f1_generate 并入一次，本件 23:20 更新 state
+    后 f1_live.json 无人回写 → 页面读 meta.enhancement 渲染旧制一整天）。
+    R10 定性不变：meta.enhancement=渲染拼接字段（学 meta.breadth 先例），非 F1 参数/
+    仓位/榜单；本件对 f1_live.json 只动 meta.enhancement 一个键，其余逐字节不动；
+    容错不阻断（f1_live.json 缺失/坏 JSON 时跳过，判定轮 f1_generate 兜底再并入）。"""
+    try:
+        with open(ROUND_F) as f:
+            live = json.load(f)
+        live.setdefault('meta', {})['enhancement'] = state
+        tmp = ROUND_F + '.tmp'
+        with open(tmp, 'w') as f:
+            json.dump(live, f, ensure_ascii=False, indent=1)
+        os.replace(tmp, ROUND_F)
+        print(f"enhance_discount: meta.enhancement 并入 {os.path.relpath(ROUND_F, ROOT)}")
+    except Exception as _e:
+        print(f"enhance_discount: meta.enhancement 并入跳过（不阻断）: {_e}")
 
 
 if __name__ == '__main__':
