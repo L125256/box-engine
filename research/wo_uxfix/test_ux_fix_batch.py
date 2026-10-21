@@ -197,7 +197,7 @@ _old['meta']['enhancement'] = {'generated': '2026-10-20 08:30:00', 'asof': '2026
 _t2 = os.path.join(tempfile.mkdtemp(), 't2.json'); json.dump(_old, open(_t2, 'w'), ensure_ascii=False)
 _r2, _h2b = harness(_t2, _state_f)
 check('②b 态2 旧缓存 JSON：state 通道择新兜底，渲染新制 FULL/POOL_CAP+🎯 名单，零 JS 报错',
-      'SOXSUSDT' in _h2b and '满额档' in _h2b and 'T0' not in _h2b
+      'SOXSUSDT' in _h2b and '满额档' in _h2b and 'T0' not in _h2b and '系数 25%' not in _h2b
       and _r2.returncode == 0 and 'Error' not in _r2.stderr)
 # 态3：双通道都缺 symbols → 提示行「🎯 本格标的：本轮回传未含名单（asof=…）」
 _miss = json.loads(json.dumps(_d3))
