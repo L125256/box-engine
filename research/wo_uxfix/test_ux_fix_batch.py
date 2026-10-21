@@ -99,13 +99,57 @@ def harness(json_path):
 
 
 r, h = harness(os.path.join(ROOT, 'f1', 'f1_live.json'))
-check('②S5 实时信号行（无出场事件·逐字）',
-      'S5 今日实时信号：无出场事件（配对累计 n=0/20）' in h)
-check('②S5 T2 满额白话行（逐字）',
-      '本格满额=转正档 100%（0.5% 全额）；与 S1-S3 单池格封顶 50% 不同' in h)
-check('②S5 实际仓位金额行（0.125%=0.5%×25%，读 JSON 拼接）',
-      '实际仓位金额=0.125%（=基线 0.5%/格×档位 25%）' in h)
 check('②渲染零 JS 报错', r.returncode == 0 and 'Error' not in r.stderr)
+# ②S5 三行断言（新制口径，方法书 v1.1 §二·补遗/A4-3：S5 满额=FULL 100%·pos_pct=0.5%/格；
+# 旧 0.125%=旧制 25% 档过渡态实测，自 v1.1 起不得再作期望值）。渲染输入用本批新制
+# enhance_discount 产物构造（仓库内 f1_live.json 为旧制云端轮回传件，待下轮云端刷新）。
+sys.path.insert(0, os.path.join(ROOT, 'research', 'wo_mine'))
+import enhance_discount as ED   # noqa: E402
+_t = tempfile.mkdtemp(prefix='uxfix_s5_')
+os.makedirs(os.path.join(_t, 'f1'))
+json.dump({'cells': {'S1': {'status': 'ACCUMULATING', 'sealed': False,
+                            'accumulation': {'n_days': 12, 'ic_mean': 0.05, 'ic_t': 1.0, 'hit_rate': 0.55}},
+                     'S2': {'status': 'ACCUMULATING', 'sealed': False,
+                            'accumulation': {'n_days': 8}},
+                     'S3': {'status': 'ACCUMULATING', 'sealed': False,
+                            'accumulation': {'n_days': 15, 'ic_mean': 0.03, 'ic_t': 1.5, 'hit_rate': 0.58}},
+                     'S4': {'gate_state': 'SUSPENDED', 'sealed': False,
+                            'replenish': {'fw_old131_weak_days': 1}},
+                     'S5': {'status': 'ACCUMULATING', 'sealed': False, 'n_matured': 0,
+                            'accumulation': {'n_days': 0}}},
+           'round_asof': '2026-10-20'}, open(os.path.join(_t, 'f1', 'shadow_state.json'), 'w'))
+json.dump({'n_matured': 0, 'sealed': False}, open(os.path.join(_t, 'f1', 'fd_revive_state.json'), 'w'))
+open(os.path.join(_t, 'f1', 'fd_revive_days.jsonl'), 'w').close()
+json.dump({'signal': {'asof': '2026-10-20', 'gate': {'on_holdcash': False}},
+           'breakers': {'overall': {'light': 'green'}}},
+          open(os.path.join(_t, 'f1', 'f1_live.json'), 'w'))
+for _cid, _dom in (('S1', '弱躁'), ('S2', '弱躁'), ('S3', '牛躁')):
+    with open(os.path.join(_t, 'f1', f'shadow_reg_{_cid}.jsonl'), 'w') as _f:
+        _f.write(json.dumps({'domain_label': _dom, 'cell_domain': _dom}, ensure_ascii=False) + '\n')
+_ED_OLD = (ED.ROOT, ED.STATEDIR, ED.SHADOW_STATE_F, ED.FD_STATE_F, ED.FD_DAYS_F, ED.ROUND_F, ED.OUT_F)
+ED.ROOT = _t; ED.STATEDIR = os.path.join(_t, 'f1')
+ED.SHADOW_STATE_F = os.path.join(ED.STATEDIR, 'shadow_state.json')
+ED.FD_STATE_F = os.path.join(ED.STATEDIR, 'fd_revive_state.json')
+ED.FD_DAYS_F = os.path.join(ED.STATEDIR, 'fd_revive_days.jsonl')
+ED.ROUND_F = os.path.join(ED.STATEDIR, 'f1_live.json')
+ED.OUT_F = os.path.join(ED.STATEDIR, 'enhancement_state.json')
+_enh = ED.run(auto=True)
+ED.ROOT, ED.STATEDIR, ED.SHADOW_STATE_F, ED.FD_STATE_F, ED.FD_DAYS_F, ED.ROUND_F, ED.OUT_F = _ED_OLD
+import shutil as _sh
+_sh.rmtree(_t, ignore_errors=True)
+_d = json.load(open(os.path.join(ROOT, 'f1', 'f1_live.json')))
+_d.setdefault('meta', {})['enhancement'] = _enh
+_tmp_new = os.path.join(tempfile.mkdtemp(), 'new_enh.json')
+json.dump(_d, open(_tmp_new, 'w'), ensure_ascii=False)
+_rn, _hn = harness(_tmp_new)
+check('②S5 实时信号行（无出场事件·新制措辞，无 n=X/20 模板）',
+      'S5 今日实时信号：无出场事件（配对累计 n=0）' in _hn
+      and 'n=0/20' not in _hn)
+check('②S5 满额白话行（新制逐字：FULL 100%·0.5%/格）',
+      '本格满额=FULL 100%（0.5%/格）；与 S1-S3 单池封顶 50%（0.25%/格）不同' in _hn)
+check('②S5 实际仓位金额行（0.5%=0.5%/格×系数 100%，新制期望值）',
+      '实际仓位金额=0.5%（=基线 0.5%/格×系数 100%）' in _hn)
+check('②新制渲染零 JS 报错', _rn.returncode == 0 and 'Error' not in _rn.stderr)
 d = json.load(open(os.path.join(ROOT, 'f1', 'f1_live.json')))
 e = d['meta']['enhancement']
 for c in e['cells'].values():
