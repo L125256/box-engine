@@ -60,7 +60,7 @@
     "days": [],
     "n_days_if_completed": 56,
     "unit": "old131 池 lag=1 域标签=弱稳 的真实交易日（ATLAS n_days 同单位）",
-    "updated_at": "2026-10-21 08:30:28"
+    "updated_at": "2026-10-21 20:36:21"
    }
   },
   "S5": {
@@ -205,5 +205,5 @@
   "all_pass": true,
   "lineage": "SHADOW_SPEC_v1 工单件⑥：shadow 首跑读数与 ATLAS 底层数据 diff=0"
  },
- "updated_at": "2026-10-21 08:30:41"
+ "updated_at": "2026-10-21 20:36:31"
 }
