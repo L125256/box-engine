@@ -1,0 +1,1 @@
+# forward_ic_days.jsonl 空台账占位（FW-IC-404-20261021：D17 外部误删后重建；load_ic_days 逐行 json.loads 容错，非 JSON 行自动跳过，后续判定轮按既有格式追加）
