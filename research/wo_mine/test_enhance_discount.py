@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-test_enhance_discount.py — 分域增强插件层·测试席五组测试（PLAN_FINAL_20261021 新制版）
+test_enhance_discount.py — 分域增强插件层·测试席五组测试（工单件⑤验收）
 ================================================================================
-① 新制档位单测（构造影子读数逐档断言：S5 满额 FULL/S1-S3 POOL_CAP 50/劣化线归零
-   OFFLINE/域未激活 FROZEN/S4 灰态 + 无爬档断言）
+① 折扣档位表五态单测（构造影子读数逐档断言：T0/T1/T2(单池封顶50)/T3/T4 + S5/S4）
 ② 旁路异常不阻断断言（enhance_discount 对残缺输入不抛出 + subprocess 挂接 check=False）
-③ 页面本地渲染无 JS 报错 + 新口径逐字 + 无字段兜底（render_harness.cjs）
-④ 双手册章节渲染断言（新制白话）
-⑤ 引擎回归（f1_signal.py diff 删除行=0 断言[meta 展示行除外] + sha 闸门双登记同步 +
-   资金费降级回归承继）
+③ 页面本地渲染无 JS 报错 + 无字段兜底（render_harness.cjs）
+④ 双手册章节渲染断言
+⑤ 资金费降级回归（信号零变化断言：S1-S3/S5 判定管线资金费前置过滤=零命中；
+   引擎 f1_signal.py 费常数 0.03%/bar 行不动；本单 diff 仅 main() 挂接段）
 运行：python3 research/wo_mine/test_enhance_discount.py
 """
-import hashlib
 import json
 import os
 import re
@@ -90,87 +88,94 @@ LIVE_OK = {'signal': {'asof': '2026-10-19', 'gate': {'on_holdcash': False}},
 REG_OK = {'S1': [{'domain_label': '弱躁', 'cell_domain': '弱躁'}],
           'S2': [{'domain_label': '弱躁', 'cell_domain': '弱躁'}],
           'S3': [{'domain_label': '弱躁', 'cell_domain': '牛躁'}]}
-S4_SUSP = {'gate_state': 'SUSPENDED', 'sealed': False,
-           'replenish': {'fw_old131_weak_days': 0}}
 
-# ---------------- ① 新制档位单测（S5 满额/单池 50/劣化线归零/域未激活 FROZEN） ----------------
-print('==== ① 新制档位单测 ====')
-# S5 满额：sealed PASS → FULL 100%（0.5% 基线×100%，即刻无等待）
+# ---------------- ① 折扣档位表五态单测（构造影子读数逐档断言） ----------------
+print('==== ① 折扣档位表五态单测 ====')
+# T0 25%：n<10
+t = make_tree({'S1': shadow_cell(n=5), 'S2': shadow_cell(), 'S3': shadow_cell(),
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False, 'replenish': {'fw_old131_weak_days': 0}},
+               'S5': shadow_cell(n=5)},
+              fd_state={'n_matured': 5, 'sealed': False}, fd_days=[], live=LIVE_OK, regs=REG_OK)
+o = run_in(t)
+c = o['cells']['S1']
+check('①T0 n<10 → 观察档 25%', c['tier'] == 'T0' and c['coef'] == 25, str(c['coef']))
+check('①S4 SUSPENDED 灰态不部署', o['cells']['S4']['deployed'] is False and o['cells']['S4']['coef'] == 0)
+check('①linkage 闸开灯绿不冻结', o['linkage']['enhanced_frozen'] is False)
+shutil.rmtree(t)
+
+# T1 50%：n≥10 且早死未触发（IC>0）
+t = make_tree({'S1': shadow_cell(n=12, ic_mean=0.05, ic_t=1.0, hit_rate=0.55),
+               'S2': shadow_cell(), 'S3': shadow_cell(),
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False},
+               'S5': shadow_cell(n=5)},
+              fd_state={'n_matured': 12, 'sealed': False, 'delta_mean': 0.1},
+              fd_days=[], live=LIVE_OK, regs=REG_OK)
+o = run_in(t)
+check('①T1 n≥10 无早死 → 试运行档 50%',
+      o['cells']['S1']['tier'] == 'T1' and o['cells']['S1']['coef'] == 50)
+check('①S5 n≥10 → T1（J5 n≥20 未至只累计）', o['cells']['S5']['tier'] == 'T1')
+shutil.rmtree(t)
+
+# T2 100%→单池封顶 50%：sealed PASS
 t = make_tree({'S1': shadow_cell(n=20, ic_mean=0.08, ic_t=3.0, hit_rate=0.7, sealed=True, verdict='PASS'),
                'S2': shadow_cell(), 'S3': shadow_cell(),
-               'S4': S4_SUSP, 'S5': shadow_cell(n=20)},
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False},
+               'S5': shadow_cell(n=5)},
               fd_state={'n_matured': 20, 'sealed': True, 'verdict': 'PASS', 'delta_mean': 0.2},
               fd_days=[], live=LIVE_OK, regs=REG_OK)
 o = run_in(t)
-c5 = o['cells']['S5']
-check('①S5 满额：sealed PASS → FULL 100%（0.5% 基线×100%，即刻 T2→FULL）',
-      c5['tier'] == 'FULL' and c5['coef'] == 100 and c5['deployed'] is True,
-      f"{c5['tier']}/{c5['coef']}")
-check('①S5 执照复审到期日=2027-04-21（满额部署日 2026-10-21+6 个月）',
-      c5.get('review_due') == '2027-04-21', str(c5.get('review_due')))
-c1 = o['cells']['S1']
-check('①S1-S3 单池满额：sealed PASS → POOL_CAP 50%（证据折扣保留）',
-      c1['tier'] == 'POOL_CAP' and c1['coef'] == 50 and c1['deployed'] is True)
-check('①S2 未封印 → FROZEN 0%（重重检测未收口不部署，无 T0/T1 爬档）',
-      o['cells']['S2']['tier'] == 'FROZEN' and o['cells']['S2']['coef'] == 0)
-check('①n 计数保留（执照复审数据源）', c1['n_days'] == 20 and c5['n_days'] == 20)
+check('①T2 单池封顶：S1 sealed PASS → T2 但 coef=50%',
+      o['cells']['S1']['tier'] == 'T2' and o['cells']['S1']['coef'] == 50,
+      str(o['cells']['S1']['coef']))
+check('①S5 全域格 T2 满档 100%',
+      o['cells']['S5']['tier'] == 'T2' and o['cells']['S5']['coef'] == 100)
 shutil.rmtree(t)
 
-# 实盘劣化线归零：n≥10 ∧ t≤−2 ∧ IC<0 → OFFLINE 0%（未封印也当日归零）
+# T3 25%：sealed NOT_PASS（主腿过辅助腿弱同型）+ 未封印命中率<60 防御分支
+t = make_tree({'S1': shadow_cell(n=20, ic_mean=0.08, ic_t=3.0, hit_rate=0.5, sealed=True, verdict='NOT_PASS'),
+               'S2': shadow_cell(), 'S3': shadow_cell(),
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False},
+               'S5': shadow_cell(n=5)},
+              fd_state={'n_matured': 5, 'sealed': False}, fd_days=[], live=LIVE_OK, regs=REG_OK)
+o = run_in(t)
+check('①T3 sealed NOT_PASS → 降档 25%',
+      o['cells']['S1']['tier'] == 'T3' and o['cells']['S1']['coef'] == 25)
+check('①T3 未封印 n≥20 主腿过命中<60 → T3（防御分支同表）',
+      ED.tier_factor_cell(20, 0.08, 3.0, 0.5, False, None)[0] == 'T3')
+shutil.rmtree(t)
+
+# T4 0%：早死线（n≥10 ∧ t≤−2 ∧ IC<0）+ sealed FAIL + S5 J5 判死
 t = make_tree({'S1': shadow_cell(n=10, ic_mean=-0.05, ic_t=-2.5, hit_rate=0.3),
                'S2': shadow_cell(n=20, ic_mean=-0.02, ic_t=-1.0, hit_rate=0.4, sealed=True, verdict='FAIL'),
-               'S3': shadow_cell(), 'S4': S4_SUSP, 'S5': shadow_cell(n=20)},
+               'S3': shadow_cell(),
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False},
+               'S5': shadow_cell(n=20)},
               fd_state={'n_matured': 20, 'sealed': False, 'delta_mean': -0.1},
               fd_days=[], live=LIVE_OK, regs=REG_OK)
 o = run_in(t)
-check('①劣化线 n≥10∧t≤−2∧IC<0 → OFFLINE 当日归零（早死线承继改造）',
-      o['cells']['S1']['tier'] == 'OFFLINE' and o['cells']['S1']['coef'] == 0)
-check('①sealed FAIL → OFFLINE', o['cells']['S2']['tier'] == 'OFFLINE')
-check('①S5 n≥20 Δ≤0 → OFFLINE（J5 判死）', o['cells']['S5']['tier'] == 'OFFLINE')
+check('①T4 早死线 → 0%',
+      o['cells']['S1']['tier'] == 'T4' and o['cells']['S1']['coef'] == 0)
+check('①T4 sealed FAIL → 0%', o['cells']['S2']['tier'] == 'T4')
+check('①S5 n≥20 Δ≤0 → T4（J5 判死）', o['cells']['S5']['tier'] == 'T4')
 shutil.rmtree(t)
 
-# 边界：n≥10 但 t>−2 → 不归零（FROZEN 非 OFFLINE）；NOT_PASS → FROZEN；域未激活 → FROZEN
-check('①n≥10 但 t>−2 不触发劣化线（数字冻结逐字）',
-      ED.tier_factor_cell(12, -0.01, -1.0, 0.4, False, None) == ('FROZEN', ED.TIERS['FROZEN'][0]) or
-      ED.tier_factor_cell(12, -0.01, -1.0, 0.4, False, None)[0] == 'FROZEN')
-check('①sealed NOT_PASS → FROZEN（三腿未全过，复审窗重读）',
-      ED.tier_factor_cell(20, 0.08, 3.0, 0.5, True, 'NOT_PASS')[0] == 'FROZEN')
-t = make_tree({'S1': shadow_cell(n=20, ic_mean=0.08, ic_t=3.0, hit_rate=0.7, sealed=True, verdict='PASS'),
-               'S2': shadow_cell(), 'S3': shadow_cell(), 'S4': S4_SUSP, 'S5': shadow_cell(n=5)},
-              fd_state={'n_matured': 5, 'sealed': False},
-              fd_days=[], live=LIVE_OK,
-              regs={'S1': [{'domain_label': '牛躁', 'cell_domain': '弱躁'}],  # 域标签≠本格域
-                    'S2': [{'domain_label': '弱躁', 'cell_domain': '弱躁'}],
-                    'S3': [{'domain_label': '弱躁', 'cell_domain': '牛躁'}]})
-o = run_in(t)
-check('①域未激活=FROZEN（S1 sealed PASS 但域标签不符 → FROZEN 0% 仅展示）',
-      o['cells']['S1']['tier'] == 'FROZEN' and o['cells']['S1']['coef'] == 0
-      and o['cells']['S1']['deployed'] is False)
-check('①S4 SUSPENDED 灰态 FROZEN 不部署（样本门非影子期，新制不解）',
-      o['cells']['S4']['tier'] == 'FROZEN' and o['cells']['S4']['coef'] == 0
-      and o['cells']['S4']['deployed'] is False)
-shutil.rmtree(t)
-
-# §2.5 单向让位联动 + §5-⑦ 安全侧默认
+# 早死防御：n≥10 但 t>−2 → 不判死（T1）
+check('①n≥10 但 t>−2 不触发早死',
+      ED.tier_factor_cell(12, -0.01, -1.0, 0.4, False, None)[0] == 'T1')
+# §2.5 单向让位联动
 lk = ED.build_linkage({'signal': {'gate': {'on_holdcash': True}},
                        'breakers': {'overall': {'light': 'green'}}})
 check('①§2.5-1 闸关 → 冻结开新仓', lk['enhanced_frozen'] is True)
 lk = ED.build_linkage({'signal': {'gate': {'on_holdcash': False}},
                        'breakers': {'overall': {'light': 'red'}}})
 check('①§2.5-2 红灯 → 整体冻结', lk['enhanced_frozen'] is True)
+# §5-⑦ 连续 5 轮失败安全侧默认
 t = make_tree(None, live=LIVE_OK, out_prev={'inputs_ok': False, 'fail_streak': 4})
 o = run_in(t)
-check('①§5-⑦ 连续 5 轮输入失败 → 全降 FROZEN + 冻结（新制保守化承继）',
+check('①§5-⑦ 连续 5 轮输入失败 → 全降 T0 + 冻结',
       o['safe_default'] is True and o['linkage']['enhanced_frozen'] is True
-      and all(c['tier'] == 'FROZEN' for cid, c in o['cells'].items() if c['deployed']))
+      and all(c['tier'] == 'T0' for cid, c in o['cells'].items() if c['deployed']))
 shutil.rmtree(t)
-
-# 无爬档断言：旧 T0-T4 查表废除 + 输出 tier 域收敛
-check('①旧 T0-T4 档位表废除，新表 tier ∈ {FULL,POOL_CAP,FROZEN,OFFLINE}',
-      set(ED.TIERS) == {'FULL', 'POOL_CAP', 'FROZEN', 'OFFLINE'}
-      and 'PLAN_FINAL_20261021' in ED.TIER_TABLE_VERSION)
-check('①总敞口上限口径不变（0.5% 基线/2% 总帽分母承继）',
-      ED.BASELINE_PCT == 0.5 and ED.TOTAL_CAP_PCT == 2.0)
 
 # ---------------- ② 旁路异常不阻断断言 ----------------
 print('==== ② 旁路异常不阻断 ====')
@@ -188,66 +193,27 @@ check('②挂接为 subprocess check=False（异常不阻断）',
       and src.count("enhance_discount 挂接异常（不阻断）") == 1
       and src.count("enhance_discount 快照轮挂接异常（不阻断）") == 1)
 
-# ---------------- ③ 页面本地渲染无 JS 报错 + 新口径逐字 + 无字段兜底 ----------------
+# ---------------- ③ 页面本地渲染无 JS 报错 + 无字段兜底 ----------------
 print('==== ③ 页面渲染（render_harness）====')
-# 构造新制口径合成 enhancement（覆盖 FULL/POOL_CAP/FROZEN/OFFLINE/S4 灰态五分支）
-SYNTH_ENH = {
-    'generated': '2026-10-21 09:30:00', 'asof': '2026-10-20',
-    'deploy_rule': '重重检测四层全过=当日满额部署（无任何时间等待）',
-    'cells': {
-        'S1': {'tier': 'POOL_CAP', 'tier_name': '单池满额档', 'coef': 50, 'n_days': 20,
-               'sealed': True, 'verdict': 'PASS', 'domain': '弱躁', 'name': 'S1 反转',
-               'domain_active': True, 'deployed': True, 'review_due': '2027-04-21',
-               'status': '单池满额档（重重检测四层全过）'},
-        'S2': {'tier': 'FROZEN', 'tier_name': '冻结档', 'coef': 0, 'n_days': 8,
-               'sealed': False, 'verdict': None, 'domain': '弱躁', 'name': 'S2 反转粗筛',
-               'domain_active': False, 'deployed': False, 'review_due': None,
-               'status': '冻结档（重重检测未收口）'},
-        'S3': {'tier': 'OFFLINE', 'tier_name': '下线', 'coef': 0, 'n_days': 10,
-               'sealed': False, 'verdict': None, 'domain': '牛躁', 'name': 'S3 突破回踩',
-               'domain_active': True, 'deployed': False, 'review_due': None,
-               'status': '下线（实盘劣化线触发）'},
-        'S5': {'tier': 'FULL', 'tier_name': '满额档', 'coef': 100, 'n_days': 20,
-               'sealed': True, 'verdict': 'PASS', 'domain': '全域', 'name': 'S5 fd 出场增强',
-               'domain_active': True, 'deployed': True, 'review_due': '2027-04-21',
-               'status': '满额档（重重检测四层全过）'},
-        'S4': {'tier': 'FROZEN', 'tier_name': '冻结档', 'coef': 0, 'n_days': 56, 'n_need': 60,
-               'sealed': False, 'verdict': None, 'domain': '弱稳', 'name': 'S4 高波停门',
-               'domain_active': False, 'deployed': False,
-               'status': 'SUSPENDED（补样未达 60 日样本门）'},
-    },
-    'linkage': {'f1_gate': 'open', 'f1_breaker_light': 'green', 'enhanced_frozen': False},
-    'fee_note': '资金费=背景常数 0.03%/bar 仅事后披露，不参与判定',
-}
-_live = json.load(open(os.path.join(ROOT, 'f1', 'f1_live.json')))
-_live.setdefault('meta', {})['enhancement'] = SYNTH_ENH
-tmp = os.path.join(tempfile.mkdtemp(), 'synth.json')
-json.dump(_live, open(tmp, 'w'), ensure_ascii=False)
 rh = subprocess.run(['node', os.path.join(ROOT, 'f1', 'render_harness.cjs'),
-                     os.path.join(ROOT, 'f1', 'index.html'), tmp],
+                     os.path.join(ROOT, 'f1', 'index.html'),
+                     os.path.join(ROOT, 'f1', 'f1_live.json')],
                     capture_output=True, text=True, timeout=60)
 check('③渲染执行零 JS 报错（stderr 无 Error）', rh.returncode == 0 and 'Error' not in rh.stderr,
       rh.stderr[:120])
 out = rh.stdout[rh.stdout.index('RENDER_JSON_START') + 17:]
 d = json.loads(out)
 enh = d['enh']['innerHTML']
-check('③S5 新口径逐字：满额运行·执照复审 2027-04-21 到期',
-      '满额运行·执照复审 2027-04-21 到期' in enh)
-check('③S1-S3 新口径逐字：单池满额 50%·双池解锁另议', '单池满额 50%·双池解锁另议' in enh)
-check('③劣化线下线分支：当日归零+负事实展示+季度复判',
-      '当日归零下线' in enh and '负事实展示' in enh and '季度机械复判' in enh)
-check('③S4 灰态不变：样本门·未部署·不占用仓位', '样本门·未部署·不占用仓位' in enh)
-check('③总免责声明新口径逐字（重重检测满额部署/劣化线自动降停/6 个月强制复审）',
-      '按重重检测满额部署' in enh and '实盘劣化线自动降停' in enh and '6 个月强制复审' in enh)
-check('③旧字样零残留（折扣/影子//20 爬档）',
-      '折扣' not in enh and '影子' not in enh and '/20' not in enh)
-# 无字段兜底
+check('③区块渲染：档位/免责/灰态逐字在页',
+      '折扣 25%' in enh and '观察档' in enh
+      and '分域增强=F1 主引擎之外的实验插件层' in enh
+      and '未部署·不占用仓位' in enh and '高波停门·弱稳域' in enh)
 _no = json.load(open(os.path.join(ROOT, 'f1', 'f1_live.json')))
 _no.get('meta', {}).pop('enhancement', None)   # 旧 JSON：仅缺 enhancement 字段
-tmp2 = os.path.join(tempfile.mkdtemp(), 'noenh.json')
-json.dump(_no, open(tmp2, 'w'), ensure_ascii=False)
+tmp = os.path.join(tempfile.mkdtemp(), 'noenh.json')
+json.dump(_no, open(tmp, 'w'), ensure_ascii=False)
 rh2 = subprocess.run(['node', os.path.join(ROOT, 'f1', 'render_harness.cjs'),
-                      os.path.join(ROOT, 'f1', 'index.html'), tmp2],
+                      os.path.join(ROOT, 'f1', 'index.html'), tmp],
                      capture_output=True, text=True, timeout=60)
 d2 = json.loads(rh2.stdout[rh2.stdout.index('RENDER_JSON_START') + 17:])
 check('③旧 JSON 无 enhancement 字段 → 「增强层未上线」不报错',
@@ -257,62 +223,52 @@ check('③旧 JSON 无 enhancement 字段 → 「增强层未上线」不报错'
 print('==== ④ 双手册章节 ====')
 m1 = open(os.path.join(ROOT, 'f1', 'manual.html')).read()
 m2 = open(os.path.join(ROOT, 'box', 'manual.html')).read()
-check('④f1 手册分域增强章节新制白话（重重检测当日满额/劣化线/复审）',
-      '<h2>8. 分域增强插件' in m1 and '当日满额部署' in m1
-      and 'n≥10 且 t≤−2 且方向翻转' in m1 and '6 个月强制复审硬期限' in m1
+check('④f1 手册「分域增强插件」章节（四问逐字）',
+      '<h2>8. 分域增强插件' in m1 and '这是什么</b>：F1 主引擎之外，我们另外开了几张很小的'
+      and '折扣越低=证据越弱；显示 ⚠ = 已停用' in m1
       and '绝不能因此少买或不买 F1 榜单' in m1 and '任何冲突听 F1。' in m1)
-check('④f1 手册旧字样零残留（影子/折扣/爬坡档位）',
-      '影子' not in m1 and '折扣' not in m1 and '爬档' not in m1)
 check('④f1 手册术语词典编号顺延 §8→§9', '<h2>9. 术语小词典' in m1)
-check('④box 手册双闸分离段（收盘/盘中+三道门+四要素怎么看）',
-      '双闸分离' in m2 and '收盘纪律' in m2 and '盘中实时' in m2
-      and '混格式拒载' in m2 and '覆盖率门 ≥80%' in m2
-      and '闸名｜池口径｜数据日期｜样本数' in m2)
-check('④box 手册 fd 关系节新口径（满额部署·非试运行）',
-      '重重检测四层全过当日满额部署' in m2)
+check('④box 手册「与 F1 分域增强的关系」短节（§6.2 逐字）',
+      '与 F1 分域增强的关系' in m2
+      and 'fd 出场结构已被选为 F1 页『分域增强』实验格 S5' in m2
+      and '箱体页本身<b>不部署任何仓位</b>' in m2 and '操作依据唯一=F1' in m2)
 
-# ---------------- ⑤ 引擎回归（f1_signal.py 若动：删除行=0 断言 + sha 双登记同步） ----------------
-print('==== ⑤ 引擎回归 ====')
-git = subprocess.run(['git', '-C', ROOT, 'diff', '--',
-                      'f1/f1_signal.py', 'engine_f1/f1_signal.py'],
-                     capture_output=True, text=True).stdout
-removed = [l for l in git.splitlines()
-           if l.startswith('-') and l.strip() and not l.startswith('---')]
-# D4 允许的唯一删除=两条旧 generated meta 展示行 ×双副本（engine_f1+f1 各 2 条）；
-# 判定主逻辑删除行必须=0
-allowed = [l for l in removed if "'generated': pd.Timestamp.now()" in l]
-check('⑤引擎删除行=0（仅允许 D4 generated meta 展示行替换，判定主逻辑零删除）',
-      len(removed) == len(allowed) and len(removed) == 4,
-      f'删除行数={len(removed)} 允许={len(allowed)}')
-added_generated = [l for l in git.splitlines()
-                   if l.startswith('+') and '北京时间' in l]
-check('⑤D4 generated=utcnow+8+「北京时间」后缀（判定轮+快照轮两处×双副本）',
-      len(added_generated) == 4)
-check('⑤D10 快照轮入口挂 check_engine_authority（fail-closed exit=2）',
-      "snapshot REFUSED" in src and src.count('check_engine_authority') == 3)  # 1 def+run_live+snapshot
-# sha 双登记同步：登记表值 == 实际文件 sha == 双副本一致
-reg = json.load(open(os.path.join(ROOT, 'engine_f1', 'AUTHORITY_SHA.json')))
-sha_authority = hashlib.sha256(
-    open(os.path.join(ROOT, 'engine_f1', 'f1_signal.py'), 'rb').read()).hexdigest()
-sha_archive = hashlib.sha256(
-    open(os.path.join(ROOT, 'f1', 'f1_signal.py'), 'rb').read()).hexdigest()
-check('⑤sha 闸门双登记同步（登记表值=实际 sha=归档副本 sha）',
-      reg['files']['f1_signal.py'] == sha_authority == sha_archive,
-      f"registry={reg['files']['f1_signal.py'][:12]} actual={sha_authority[:12]}")
-check('⑤sha 登记批次=PLANFINAL-PATCH-20261021', reg['batch'] == 'PLANFINAL-PATCH-20261021')
-# 资金费降级回归承继（信号零变化断言）
+# ---------------- ⑤ 资金费降级回归（信号零变化断言） ----------------
+print('==== ⑤ 资金费降级回归 ====')
+# 5a：S1-S3 IC 判定管线（mine_common.xsec_ic_series / batch2_run）资金费前置过滤=零命中
 ic_src = open(os.path.join(HERE, 'mine_common.py')).read()
 ic_fn = ic_src[ic_src.index('def xsec_ic_series'):ic_src.index('def tstat')]
 check('⑤a S1-S3 IC 管线（xsec_ic_series）无资金费过滤步骤',
       not re.search(r'fund|funding|资金费', ic_fn, re.I))
-# ⑤c：引擎费常数 0.03%/bar 一行不动
+b2 = open(os.path.join(HERE, 'batch2_run.py')).read()
+check('⑤a batch2 面板/因子管线零资金费引用', not re.search(r'fund|funding|资金费', b2, re.I))
+# 5b：S5 Δ meanR 管线（fd_revive_run 判定路径）资金费前置过滤=零命中
+fd = open(os.path.join(ROOT, 'research', 'wo_fddual', 'fd_revive_run.py')).read()
+check('⑤b S5 Δ meanR 管线无资金费过滤（仅双边费 0.03%/bar 出场记账）',
+      not re.search(r'funding|资金费', fd, re.I) and 'FEE' in fd)
+# 5c：引擎 f1_signal.py 费常数 0.03%/bar 一行不动（本单 diff 不触及费常数行）
+# 基线缺陷随手修（UX 修复批 2026-10-21）：原 `git diff`（工作区 vs index）在已 commit
+# 场景恒为空、测不到上批提交的引擎改动——基线改 HEAD~1（本单 commit 前后对比）。
+git = subprocess.run(['git', '-C', ROOT, 'diff', 'HEAD~1', '--',
+                      'f1/f1_signal.py', 'engine_f1/f1_signal.py'],
+                     capture_output=True, text=True).stdout
 removed_fee = [l for l in git.splitlines() if l.startswith('-') and '0.03' in l]
 added_fee = [l for l in git.splitlines() if l.startswith('+') and '0.03' in l]
 check('⑤c 引擎费常数 0.03%/bar 零改动（diff 无费常数行增删）', not removed_fee and not added_fee)
-# ⑤e：新制判线数字承继断言（零新判线）
-check('⑤e 判线冻结承继（t=−2.0 劣化线/J5 n20/POOL_CAP 50 = SHADOW_SPEC/J5/终裁数字）',
-      ED.TIERS['POOL_CAP'] == ('单池满额档', 50) and ED.TIERS['FULL'] == ('满额档', 100)
-      and ED.REVIEW_DUE == '2027-04-21')
+# 5d：本单 f1_signal.py diff 仅 main() CLI 挂接段（四因子/闸/熔断主逻辑零改动）
+# （HEAD~1 基线下豁免 FW-READOUT-PATH-20261021 已备案的 forward_readout 绝对路径
+#   →__file__ 相对解析替换块（6 删除行：路径 2 + subprocess.run 调用行 4），
+#   sha 8a53b252→7da41c80 已登记，零判定逻辑改动）
+_fw_replaced = ('forward_readout.py', 'subprocess.run([sys.executable,')
+removed_logic = [l for l in git.splitlines()
+                 if l.startswith('-') and l.strip() and not l.startswith('---')
+                 and not any(k in l for k in _fw_replaced)]
+check('⑤d f1_signal.py 判定主逻辑零删除（diff 仅新增挂接行）', not removed_logic,
+      f'删除行数={len(removed_logic)}')
+# 5e：判线数字承继断言（零新判线——本件常量=SHADOW_SPEC/J5 冻结值）
+check('⑤e 判线冻结承继（t=2.0/命中 0.60/n20/早死 10 = SHADOW_SPEC §3 数字）',
+      ED.TIERS == {'T0': ('观察档', 25), 'T1': ('试运行档', 50), 'T2': ('转正档', 100),
+                   'T3': ('降档', 25), 'T4': ('下线', 0)} and ED.SINGLE_POOL_CAP == 50)
 
 print(f"\n==== 汇总：PASS={len(PASS)} FAIL={len(FAIL)} ====")
 if FAIL:
