@@ -194,14 +194,29 @@ def build_s5_realtime(fd_state, fd_days, n5):
         last = events[-1]
         tkr = last.get('tkr') or last.get('sym') or last.get('symbol') or '—'
         return {'has_event': True, 'date': last.get('date'),
-                'text': f'S5 出场信号：{tkr} 已按 1/3 分批止盈+余仓保本执行（增强层内，不动 F1）'}
+                'text': f'【该动了】出场信号：{tkr}——按 S5 规则：先把这只票增强层小仓卖掉 1/3（分批止盈，落袋利润），'
+                        f'剩余仓位把卖出线抬到买入成本价（保本卖，最差不亏本）。只动增强层小仓，F1 主仓完全不用动。'}
     return {'has_event': False, 'date': None,
-            'text': f'S5 今日实时信号：无出场事件（配对累计 n={n5}）'}
+            'text': f'S5 今日实时信号：无出场事件（配对累计 n={n5}）——今天增强层小仓不用做任何操作'}
+
+
+def symbols_top_from_reg(reg, k=5):
+    """本格标的行·数据源（整改 2026-10-21：用户立法准绳「重要信息页面肉眼可见」）。
+    零新判线：只如实转述 shadow_reg 最新登记行已有的因子读数——因子值降序前 k 只。
+    方向依据【设计推断，回测锚实证承继】：S1/S2 反转因子（-ret5）与 S3 位置因子
+    （C/H20max-1）均为 IC>0 正向格（ATLAS 锚 IC 全正），因子值高=fwd5 期望收益高的
+    多头侧候选。性质=参考读数（推导值），非买入指令，非 F1 榜单。"""
+    f = (reg or {}).get('factor') or {}
+    if not f:
+        return []
+    return [{'sym': s, 'val': v} for s, v in
+            sorted(f.items(), key=lambda kv: kv[1], reverse=True)[:k]]
 
 
 def build_cells(shadow, fd_state, fd_days):
     """五格折扣状态（§3.1 字段：tier/coef/n_days/sealed/status + 页面五字段渲染
-    所需的 name/domain/domain_active/verdict/deployed）。"""
+    所需的 name/domain/domain_active/verdict/deployed）。整改 2026-10-21 追加
+    symbols_* 字段：每格当前标的可见性（用户两连问之一「到底增强哪个标」）。"""
     cells = {}
     sc = (shadow or {}).get('cells', {})
     # S1-S3：档位查表 + 域状态（当日登记行域标签 vs 本格域——ATLAS D1 口径零改动）
@@ -231,6 +246,15 @@ def build_cells(shadow, fd_state, fd_days):
             'pool': meta['pool'], 'domain_active': domain_active,
             'deployed': True, 'tier_note': tnote,
             'pos_pct': round(BASELINE_PCT * coef / 100, 3),   # B-01 实际仓位金额
+            # 整改 2026-10-21：本格标的可见行（零新判线，转述 shadow_reg 最新行）
+            'symbols_scope': (f"{meta['pool']}·本行打分 {last.get('n_names', '—')} 只"
+                              if (last or {}).get('factor')
+                              else f"{meta['pool']}（暂无当日因子读数）"),
+            'symbols_top': symbols_top_from_reg(last),
+            'symbols_note': (f"因子记分牌格——不绑定单一标的：对池内 {last.get('n_names', '—')} 只逐日打分，"
+                             f"分高者为多头侧候选（最新读数 {last.get('date', '—')}，参考·推导值·非指令）"
+                             if (last or {}).get('factor')
+                             else '因子记分牌格——暂无当日因子读数（数据源 shadow_reg_%s.jsonl）' % cid),
         }
     # S5：fd_revive_state.json（n_matured=J5 判读单位）+ fd_revive_days.jsonl 登记计数
     meta = CELL_META['S5']
@@ -250,7 +274,12 @@ def build_cells(shadow, fd_state, fd_days):
         'pos_pct': round(BASELINE_PCT * TIERS[tier][1] / 100, 3),   # B-01 实际仓位金额（新制：S5=0.5/格）
         # B-01：S5 实时信号状态行 + 满额白话（UX_REPORT §G-1/§G-3 文案，新制措辞）
         'realtime': build_s5_realtime(fd_state, fd_days, n5),
-        'full_note': '本格满额=FULL 100%（0.5%/格）；与 S1-S3 单池封顶 50%（0.25%/格）不同',
+        'full_note': '本格满额=FULL 100%（0.5%/格）；与 S1-S3 单池封顶 50%（0.25%/格）不同'
+                     '（白话：S5 这格买入最多用账户总资金的 0.5%，S1-S3 三格每格最多 0.25%）',
+        # 整改 2026-10-21：S5 服务对象白话（用户问「S5 服务对象=哪些持仓」）
+        'targets_note': '服务对象=增强层自己按 S5 规则买入的小仓（1/3 分批止盈+余仓保本只动这些仓）；'
+                        '增强层当前处于信号登记观察期、尚未开通实际开仓执行（无增强层持仓记录）；'
+                        'F1 主仓持仓不在本格服务范围（DEPLOY_SPEC §1：作用对象=增强层自己的仓，不动 F1 持仓）',
     }
     # S4：灰态垫底（§3.2 排序）
     meta = CELL_META['S4']
@@ -270,6 +299,8 @@ def build_cells(shadow, fd_state, fd_days):
         'deployed': deployed4,
         'replenish_need': rep.get('need', 4),
         'replenish_have': rep.get('fw_old131_weak_days', 0),
+        # 整改 2026-10-21：S4=纪律格无标的对象
+        'symbols_note': '纪律格——本格不买任何标的：它是「高波动日暂停开新仓」的换门规则，没有持仓对象',
     }
     return cells
 
