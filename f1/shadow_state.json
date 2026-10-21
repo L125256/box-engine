@@ -7,41 +7,129 @@
  "cells": {
   "S1": {
    "status": "ACCUMULATING",
-   "sealed": false
+   "sealed": false,
+   "accumulation": {
+    "n_days": 0,
+    "ic_mean": null,
+    "ic_t": null,
+    "hit_rate": null,
+    "target": 20,
+    "early_death_line": 10
+   },
+   "new_rows_this_run": 0,
+   "n_registered": 4,
+   "n_matured": 0
   },
   "S2": {
    "status": "ACCUMULATING",
-   "sealed": false
+   "sealed": false,
+   "accumulation": {
+    "n_days": 0,
+    "ic_mean": null,
+    "ic_t": null,
+    "hit_rate": null,
+    "target": 20,
+    "early_death_line": 10
+   },
+   "new_rows_this_run": 0,
+   "n_registered": 4,
+   "n_matured": 0
   },
   "S3": {
    "status": "ACCUMULATING",
-   "sealed": false
+   "sealed": false,
+   "accumulation": {
+    "n_days": 0,
+    "ic_mean": null,
+    "ic_t": null,
+    "hit_rate": null,
+    "target": 20,
+    "early_death_line": 10
+   },
+   "new_rows_this_run": 0,
+   "n_registered": 4,
+   "n_matured": 0
   },
   "S4": {
    "gate_state": "SUSPENDED",
    "sealed": false,
-   "status": "SUSPENDED（§4 补样未达门）"
+   "status": "SUSPENDED（§4 补样未达门）",
+   "replenish": {
+    "fw_old131_weak_days": 0,
+    "need": 4,
+    "days": [],
+    "n_days_if_completed": 56,
+    "unit": "old131 池 lag=1 域标签=弱稳 的真实交易日（ATLAS n_days 同单位）",
+    "updated_at": "2026-10-21 08:30:28"
+   }
   },
   "S5": {
    "status": "ACCUMULATING",
-   "sealed": false
+   "sealed": false,
+   "d0": {
+    "name": "s5_realA_replay_diff0",
+    "window": [
+     "2025-06-01",
+     "2026-05-31"
+    ],
+    "lineage": "S5 机器=fd_revive_run.py 逐字复用（scan_fd_exit 入场零改动+_fd_exit_fns D-A/ctrl 出场逐字+pair_stats/delta_summary 逐字）；数据=冻结快照内容副本 /tmp/box_cache_fresh",
+    "got": {
+     "n_paired": 1228,
+     "pair_rate": 0.9832,
+     "mean": 0.335,
+     "sum_r": 411.37
+    },
+    "want": {
+     "n_paired": 1228,
+     "pair_rate": 0.9832,
+     "mean": 0.335,
+     "sum_r": 411.37
+    },
+    "diff": {
+     "n_paired": 0,
+     "pair_rate": 0.0,
+     "mean": 0.0,
+     "sum_r": 0.0
+    },
+    "verdict": "hit",
+    "ran_at": "2026-10-21 08:30:35"
+   },
+   "n": 0,
+   "n_matured": 0,
+   "n_registered": 1,
+   "n_pairs_pending": 0,
+   "delta_mean": null,
+   "new_settled_this_run": 0,
+   "new_pending_this_run": 0,
+   "intraday_trimmed_bars": 144,
+   "last_scan_tail": "2026-10-20"
   }
  },
  "d0": {
-  "ran_at": "2026-10-21 04:33:40",
+  "ran_at": "2026-10-21 08:30:28",
   "checks": [
    {
     "name": "d1_labels_zero_drift",
     "assert_window": "MS_REALA 2025-06-01 起",
-    "n_common": 428,
+    "n_common": 429,
     "n_diff": 0,
-    "out_of_window_diff_registered": 1,
+    "out_of_window_diff_registered": 3,
     "verdict": "hit",
     "early_sample": [
      [
-      "2024-04-05",
-      null,
-      "弱稳"
+      "2024-04-09",
+      "弱稳",
+      null
+     ],
+     [
+      "2024-04-08",
+      "弱稳",
+      null
+     ],
+     [
+      "2024-04-10",
+      "弱稳",
+      null
      ]
     ]
    },
@@ -97,14 +185,14 @@
       "verdict": "hit"
      },
      "old131": {
-      "replay_avoid": -8.7571,
-      "replay_mdd_red": 49.21,
+      "replay_avoid": -8.7673,
+      "replay_mdd_red": 49.08,
       "factbook1_avoid": -8.7673,
       "factbook1_mdd_red": 49.08,
-      "verdict": "MISS"
+      "verdict": "hit"
      }
     },
-    "verdict": "MISS"
+    "verdict": "hit"
    },
    {
     "name": "s4_replenish_baseline",
@@ -114,7 +202,8 @@
     "verdict": "hit"
    }
   ],
-  "all_pass": false,
+  "all_pass": true,
   "lineage": "SHADOW_SPEC_v1 工单件⑥：shadow 首跑读数与 ATLAS 底层数据 diff=0"
- }
+ },
+ "updated_at": "2026-10-21 08:30:41"
 }
