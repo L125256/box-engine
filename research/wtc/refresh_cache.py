@@ -3,8 +3,11 @@
 # 复用 /tmp/build_cache.py 逻辑：kx_client 拉日线 limit=700，失败跳过（保留旧缓存）。
 # 池 = 存档面板标的（剔除稀疏标的） ∪ 清洗池 144 标的（保证权威池完整）。
 # 只写 /tmp/box_cache/*.json 与 /tmp/wtc/refresh_report.json，不改其他目录。
-import sys, os, json, time
+import sys, os, json, time, logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
+log = logging.getLogger('wtc')
 
 # 自足性 WO：默认用仓库内 lib/kx_client.py；env KX_CLIENT_DIR 可指旧机目录
 _KX_DIR = os.environ.get('KX_CLIENT_DIR') or os.path.join(
@@ -16,6 +19,9 @@ _REPO = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__))
 CACHE_DIR = os.environ.get('BOX_CACHE_DIR', '/tmp/box_cache')
 REPORT = os.environ.get('BOX_REFRESH_REPORT', '/tmp/wtc/refresh_report.json')
 POOL_FILE = os.environ.get('BOX_POOL', os.path.join(_REPO, 'engine_snapshot', 'cleaned_pool.json'))
+# 存档面板默认用随仓快照（engine_snapshot/archive/）；env PANEL_FILE 可覆盖（云端无此文件时回退清洗池，不中断）
+PANEL_FILE = os.environ.get('PANEL_FILE',
+                            os.path.join(_REPO, 'engine_snapshot', 'archive', '2026-10-10.json'))
 EXCLUDE_SPARSE = ['BSPUSDT', 'FWDIUSDT', 'BBXUSDT', 'BITOUSDT', 'STRCUSDT']
 WORKERS = int(os.environ.get('BOX_WORKERS', '32'))
 
@@ -23,10 +29,13 @@ WORKERS = int(os.environ.get('BOX_WORKERS', '32'))
 def build_pool():
     pool = set()
     try:
-        d = json.load(open('/root/.codebuddy/artifact/kx-combo/archive/2026-10-10.json'))
+        d = json.load(open(PANEL_FILE))
         pool |= {r['sym'] for r in d['rows']}
+    except FileNotFoundError:
+        # 路径不存在属预期回退场景（云端无快照），info 级记录，仅用清洗池，不中断
+        log.info('存档面板不存在(%s)，仅用清洗池回退', PANEL_FILE)
     except Exception as e:
-        print(f'[warn] 存档面板读取失败({e})，仅用清洗池', flush=True)
+        log.warning('存档面板读取异常(%s)，仅用清洗池回退', e)
     pool -= set(EXCLUDE_SPARSE)
     try:
         cp = json.load(open(POOL_FILE))
