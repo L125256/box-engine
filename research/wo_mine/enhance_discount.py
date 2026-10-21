@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-enhance_discount.py — 分域增强插件层·档位计算器（PLAN_FINAL_20261021 §2.1#1 照抄施工件）
+enhance_discount.py — 分域增强插件层·折扣计算器（DEPLOY_SPEC_v1 §2/§3.1 照抄施工件）
 ================================================================================
-【唯一依据】research/wo_mine/PLAN_FINAL_20261021.md（2026-10-21 交易分析团队最终计划书，
-首席策略官·何执舟终裁批准）。本件=新制档位计算器：输入=影子 state 文件；逻辑=新制档位
-映射（S5=FULL 满额 100%、S1–S3=POOL_CAP 单池满额 50%、S4/域未激活=FROZEN、判死/劣化线
-=OFFLINE 0%；纯映射，零新判线）；输出=f1/enhancement_state.json（运行产物不入库，
-云端轮回传，比照 fd_revive_state 先例）。旧 T0-T4 爬档查表（时间等待的仓位化身）废除。
+【唯一依据】research/wo_mine/DEPLOY_SPEC_v1.md（2026-10-21 预注册冻结，首席策略官
+·何执舟终裁批准）。本件=§3.1-② 新增·折扣计算器：输入=影子 state 文件；逻辑=§2.2
+档位表查表（纯映射，零新判线）；输出=f1/enhancement_state.json（运行产物不入库，
+云端轮回传，比照 fd_revive_state 先例）。
 
 【架构定性（§0/§2.4，逐字承继）】本层=F1 之外的增强插件层（independent add-on），
 不是 F1 内部权重；折扣分母=账户总权益，独立于 F1 的 12.5% 敞口，两层数学不相加进
@@ -59,28 +58,25 @@ FD_DAYS_F = os.path.join(STATEDIR, 'fd_revive_days.jsonl')
 ROUND_F = os.path.join(STATEDIR, 'f1_live.json')            # 判定轮产物（血缘只读）
 OUT_F = os.path.join(STATEDIR, 'enhancement_state.json')    # 运行产物不入库（云端轮回传）
 
-# ---- 档位表（PLAN_FINAL_20261021 §1.1/§1.2/§2.1#1 逐字照抄；新部署铁律·影子期废除，
-#      判线数字零新增全部冻结承继）----
-TIER_TABLE_VERSION = 'PLAN_FINAL_20261021 §2.1#1（新部署铁律·影子期废除，2026-10-21 终裁冻结；旧 T0-T4 爬档查表废除）'
-JUDGMENT_BASIS = ('重重检测四层全过=当日满额部署（预注册判线全过+双机对拍+审计+首席终裁；'
-                  'PLAN_FINAL_20261021 §1.1/§8.6 铁律）；复审判线数字冻结承继 SHADOW_SPEC_v1 '
-                  '§3（IC>0 ∧ t≥2 ∧ 命中率≥60%；实盘劣化线 n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 '
-                  'avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 '
-                  'Δ meanR>0）——零新判线；n≥20 判读改挂「执照复审窗口」不再作部署前置，'
-                  'n 计数保留=执照复审数据源')
-TIERS = {   # 新制档 → (档位名, 系数%)（PLAN_FINAL_20261021 §2.1#1 逐字映射）
-    'FULL': ('满额档', 100),
-    'POOL_CAP': ('单池满额档', 50),
-    'FROZEN': ('冻结档', 0),
-    'OFFLINE': ('下线', 0),
+# ---- 档位表（DEPLOY_SPEC_v1 §2.2 批准即冻结；数字=新增预注册 25/50/100/0）----
+TIER_TABLE_VERSION = 'DEPLOY_SPEC_v1 §2.2（2026-10-21 预注册冻结）'
+JUDGMENT_BASIS = ('SHADOW_SPEC_v1 §3（数字冻结：IC>0 ∧ t≥2 ∧ 命中率≥60%；早死 '
+                  'n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）'
+                  '+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）——零新判线')
+TIERS = {   # 档 → (档位名, 系数%)（§2.2 逐字）
+    'T0': ('观察档', 25),
+    'T1': ('试运行档', 50),
+    'T2': ('转正档', 100),
+    'T3': ('降档', 25),
+    'T4': ('下线', 0),
 }
-REVIEW_DUE = '2027-04-21'   # 执照复审窗=满额部署日 2026-10-21 起算 6 个月（§1.3 保守席条件③冻结）
-BASELINE_PCT = 0.5          # §2.1 增强基线仓位（每格 0.5%，冻结承继）
-TOTAL_CAP_PCT = 2.0         # §2.1 增强层总敞口上限 2.0%（分母纪律承继不变）
+SINGLE_POOL_CAP = 50        # §2.2 单池封顶注：S1-S3 T2 上限按 50% 执行（=T1 系数封顶）
+BASELINE_PCT = 0.5          # §2.1 增强基线仓位（每格 0.5%，冻结）
+TOTAL_CAP_PCT = 2.0         # §2.1 增强层总敞口上限 2.0%
 FEE_NOTE = '资金费=背景常数 0.03%/bar 仅事后披露，不参与判定'   # §3.1 逐字
 SAFE_STREAK_LINE = 5        # §5-⑦ 连续 5 轮失败自动全部降 T0 并冻结开新仓
 CARD_ORDER = ['S1', 'S2', 'S3', 'S5', 'S4']    # §3.2 排序：S4 灰态垫底
-SINGLE_POOL_CELLS = {'S1', 'S2', 'S3'}         # 单池格（§1.2 证据折扣：单池=一半证据）
+SINGLE_POOL_CELLS = {'S1', 'S2', 'S3'}         # §2.2 单池格
 CELL_META = {   # §1 格子卡登记表（名称/域，供页面五字段渲染；域标签=ATLAS D1 口径零改动）
     'S1': {'name': 'S1 反转', 'variant': 'Q3-rev-liq', 'domain': '弱躁', 'pool': 'full144 单池'},
     'S2': {'name': 'S2 反转粗筛', 'variant': 'Q3-rev-5', 'domain': '弱躁', 'pool': 'full144 单池'},
@@ -118,62 +114,89 @@ def _load_jsonl(path):
 
 # ------------------------------------------------------------- 查表（§2.2 纯映射）
 def tier_factor_cell(n, ic_mean, ic_t, hit_rate, sealed, verdict):
-    """S1-S3 因子格新制查表（PLAN_FINAL_20261021 §2.1#1 逐字照抄；判线数字全部承继
-    SHADOW_SPEC_v1 §3 冻结值，n≥20 判读改挂执照复审窗、不再作部署前置——无时间等待：
-    重重检测四层全过（=封印 PASS）当日 POOL_CAP 满额（单池证据·50% 封顶=证据折扣，
-    双池解锁另走预注册）；未封印一律 FROZEN 不部署（非爬坡等待，n 计数保留=执照复审
-    数据源）；实盘劣化线 n≥10 ∧ t≤−2 ∧ IC<0（SH-5 改造版）触发=OFFLINE 当日归零）。"""
+    """S1-S3 因子格档位查表（§2.2，判线数字全部承继 SHADOW_SPEC_v1 §3 冻结值）。
+    返回 (tier, note)。已封印格=终审档位固定（§5-⑤：达标→T2（单池封顶 50%）、
+    命中率弱→T3、判死→T4；NOT_PASS=三腿未全过非失败路径，归 T3 下一复审窗重读）。"""
     if sealed:
         if verdict == 'PASS':
-            return 'POOL_CAP', f'重重检测四层全过：当日满额部署（单池证据·POOL_CAP 封顶 50%·双池解锁另议；执照复审 {REVIEW_DUE} 到期）'
+            return 'T2', 'n≥20 三腿达标（单池证据·T2 系数封顶 50%）'
         if verdict == 'FAIL':
-            return 'OFFLINE', '判读封印：判死（§3 失败路径）——仓位归零下线，卡片转负事实展示'
-        return 'FROZEN', '判读封印：三腿未全过（未过重重检测不部署；下一执照复审窗重读）'
-    # 实盘劣化线（SH-5 冻结数字，n≥10 早死线改造版）→ 当日归零
+            return 'T4', '判读封印：判死（§3 失败路径）'
+        return 'T3', '判读封印：未达标（三腿未全过，下一复审窗季度重读）'
+    # 未封印：n≥10 早死线（SH-5 冻结）→ T4
     if n >= 10 and ic_mean is not None and ic_mean < 0 \
             and ic_t is not None and ic_t <= -2.0:
-        return 'OFFLINE', '实盘劣化线触发（n≥10 ∧ t≤−2 ∧ IC<0）——仓位当日归零下线'
-    return 'FROZEN', '重重检测未收口（判读封印前不部署；n 计数保留=执照复审数据源）'
+        return 'T4', '早死线触发（n≥10 ∧ t≤−2 ∧ IC<0）——仓位归零下线'
+    if n >= 20:
+        # 防御分支：n≥20 未封印（正常应已由 shadow_cells 判读封印）——同表查档不判读
+        if ic_mean is not None and ic_mean < 0:
+            return 'T4', 'n≥20 IC<0（判死线，待 shadow_cells 判读封印）'
+        if ic_mean is not None and ic_mean > 0 and ic_t is not None and ic_t >= 2.0:
+            if hit_rate is not None and hit_rate >= 0.60:
+                return 'T2', 'n≥20 三腿达标（待封印；单池封顶 50%）'
+            return 'T3', 'n≥20 主腿过、命中率<60%（待封印；下一复审窗重读）'
+        return 'T3', 'n≥20 三腿未全过（待封印；下一复审窗重读）'
+    if n >= 10:
+        return 'T1', 'n≥10 且早死判据未触发'
+    return 'T0', '登记即部署起点（n<10）'
 
 
 def tier_s5_cell(n, delta_mean, sealed, verdict):
-    """S5=fd-da 格新制查表（PLAN_FINAL_20261021 §2.1#1+S5 升 T2 终裁 16:08 承继：
-    S5=FULL 满额 0.5% 基线×100% 即刻生效，无时间等待；判线=J5 冻结 n≥20 配对
-    Δ meanR>0 改挂执照复审窗；S5 无 n≥10 早死条款，判死仅 n≥20 Δ≤0，
-    方法书未定义处不自行新增）。"""
+    """S5=fd-da 格档位查表（§2.2，判线=J5 冻结：n≥20 配对 Δ meanR>0；n<20 只累计
+    不判——S5 无 n≥10 早死条款，判死仅 n≥20 Δ≤0，方法书未定义处不自行新增）。"""
     if sealed:
         if verdict == 'PASS':
-            return 'FULL', f'重重检测四层全过：当日满额部署（0.5% 基线×100%·执照复审 {REVIEW_DUE} 到期）'
-        return 'OFFLINE', '判读封印：判死（J5：n≥20 Δ meanR≤0）——仓位归零下线'
+            return 'T2', 'n≥20 配对 Δ meanR>0（J5 达标；全域格无单池封顶）'
+        return 'T4', '判读封印：判死（J5：n≥20 Δ meanR≤0）'
     if n >= 20:
         if delta_mean is not None and delta_mean > 0:
-            return 'FROZEN', 'n≥20 Δ meanR>0（判线达标，待重重检测后续层收口封印；n 计数保留=执照复审数据源）'
-        return 'OFFLINE', 'n≥20 Δ meanR≤0（J5 判死线，待 shadow_cells 判读封印）——当日归零'
-    return 'FROZEN', '重重检测未收口（判读封印前不部署；n 计数保留=执照复审数据源）'
+            return 'T2', 'n≥20 Δ meanR>0（待封印）'
+        return 'T4', 'n≥20 Δ meanR≤0（判死线，待 shadow_cells 判读封印）'
+    if n >= 10:
+        return 'T1', 'n≥10（J5 判读线 n≥20 未至，只累计不判）'
+    return 'T0', '登记即部署起点（n<10）'
 
 
 def tier_s4_cell(g):
-    """S4 专属（§1.2 承继+新制档位）：SUSPENDED 期=灰态 FROZEN 不部署——卡因是**样本门**
-    非影子期，新制不解（PLAN_FINAL §1.2 逐字：补齐后走重重检测）；ACTIVE 未封印=FROZEN
-    不部署；封印 PASS=POOL_CAP（单池格 50%）；FAIL=OFFLINE；NOT_PASS=FROZEN。
-    gate_state 未知=安全侧灰态不部署。"""
+    """S4 专属（§2.2 注）：SUSPENDED 期=灰态不部署（不占用仓位）；ACTIVE 后按
+    事件格判线走同表（事件≥3 次判读）。gate_state 未知=安全侧灰态不部署。"""
     gs = g.get('gate_state')
     if gs == 'SUSPENDED' or gs is None \
             or (not g.get('sealed') and g.get('status', '').startswith('SUSPENDED')):
-        return 'FROZEN', 0, 'SUSPENDED（补样未达 60 日样本门，未部署·仅展示；样本门非影子期，新制不解）', False
+        return None, 0, 'SUSPENDED（补样未达 60 日门，未部署·仅展示）', False
     if g.get('sealed'):
         v = g.get('verdict')
         if v == 'PASS':
-            return 'POOL_CAP', 50, '重重检测四层全过：当日满额部署（单池证据·POOL_CAP 封顶 50%）', True
+            return 'T2', 100, '判读封印：事件三腿达标 ∧ 双池同向', True
         if v == 'FAIL':
-            return 'OFFLINE', 0, '判读封印：事件腿翻转（§3 失败路径）——仓位归零下线', True
-        return 'FROZEN', 0, '判读封印：未达标（下一执照复审窗重读）', True
+            return 'T4', 0, '判读封印：事件腿翻转（§3 失败路径）', True
+        return 'T3', 25, '判读封印：未达标（下一复审窗重读）', True
     rep = g.get('replenish', {})
-    return 'FROZEN', 0, (f"ACTIVE（old131 补样 {rep.get('fw_old131_weak_days', 0)}/4 达门，"
-                         "事件<3 次只累计不判；未过重重检测不部署）"), True
+    return 'T0', 25, (f"ACTIVE（old131 补样 {rep.get('fw_old131_weak_days', 0)}/4 达门，"
+                      "事件<3 次只累计不判）"), True
 
 
 # ------------------------------------------------------------- 组装
+def build_s5_realtime(fd_state, fd_days, n5):
+    """S5 实时信号状态行（UX_REPORT §G-1 逐字文案，工单 B-01；数据源=fd_revive_state/
+    fd_revive_days 现有字段，缺事件行=无出场事件兜底）。判线/出场规则零新增：
+    文案只如实转述，1/3 分批止盈+余仓保本=K5-fd-exit-partial3r-breakeven 登记口径。"""
+    try:
+        nline = int((fd_state or {}).get('n_line', 20) or 20)
+    except Exception:
+        nline = 20
+    events = [r for r in (fd_days or [])
+              if r.get('type') not in ('reg_day', None)
+              and (r.get('tkr') or r.get('sym') or r.get('symbol'))]
+    if events:
+        last = events[-1]
+        tkr = last.get('tkr') or last.get('sym') or last.get('symbol') or '—'
+        return {'has_event': True, 'date': last.get('date'),
+                'text': f'S5 出场信号：{tkr} 已按 1/3 分批止盈+余仓保本执行（增强层内，不动 F1）'}
+    return {'has_event': False, 'date': None,
+            'text': f'S5 今日实时信号：无出场事件（配对累计 n={n5}/{nline}）'}
+
+
 def build_cells(shadow, fd_state, fd_days):
     """五格折扣状态（§3.1 字段：tier/coef/n_days/sealed/status + 页面五字段渲染
     所需的 name/domain/domain_active/verdict/deployed）。"""
@@ -189,25 +212,21 @@ def build_cells(shadow, fd_state, fd_days):
                                        accum.get('hit_rate'), bool(g.get('sealed')),
                                        g.get('verdict'))
         coef = TIERS[tier][1]
+        if tier == 'T2' and cid in SINGLE_POOL_CELLS:
+            coef = min(coef, SINGLE_POOL_CAP)   # §2.2 单池封顶注：T2 上限按 50% 执行
         # 域状态：最新当日登记行（shadow_reg_S*.jsonl 现有字段 domain_label/cell_domain）
         regs = _load_jsonl(os.path.join(STATEDIR, f'shadow_reg_{cid}.jsonl')) or []
         last = regs[-1] if regs else {}
         domain_active = bool(last) and last.get('domain_label') == meta['domain']
-        # 域未激活=FROZEN（PLAN_FINAL §2.1#1 逐字）：本格读数冻结仅展示不产生信号
-        base_tier, base_coef = tier, coef
-        if not domain_active:
-            tier, coef = 'FROZEN', 0
         cells[cid] = {
             'tier': tier, 'tier_name': TIERS[tier][0], 'coef': coef,
-            'base_tier': base_tier, 'base_coef': base_coef,
             'n_days': n, 'n_registered': g.get('n_registered', len(regs)),
             'sealed': bool(g.get('sealed')), 'verdict': g.get('verdict'),
             'status': f"{TIERS[tier][0]}（{tnote}）",
             'name': meta['name'], 'variant': meta['variant'], 'domain': meta['domain'],
             'pool': meta['pool'], 'domain_active': domain_active,
-            'deployed': tier in ('FULL', 'POOL_CAP'),
-            'review_due': REVIEW_DUE if tier in ('FULL', 'POOL_CAP') else None,
-            'tier_note': tnote,
+            'deployed': True, 'tier_note': tnote,
+            'pos_pct': round(BASELINE_PCT * coef / 100, 3),   # B-01 实际仓位金额
         }
     # S5：fd_revive_state.json（n_matured=J5 判读单位）+ fd_revive_days.jsonl 登记计数
     meta = CELL_META['S5']
@@ -223,9 +242,11 @@ def build_cells(shadow, fd_state, fd_days):
         'status': f"{TIERS[tier][0]}（{tnote}）",
         'name': meta['name'], 'variant': meta['variant'], 'domain': meta['domain'],
         'pool': meta['pool'], 'domain_active': True,   # 全域格（出场叠加）
-        'deployed': tier in ('FULL', 'POOL_CAP'),
-        'review_due': REVIEW_DUE if tier == 'FULL' else None,
-        'tier_note': tnote,
+        'deployed': True, 'tier_note': tnote,
+        'pos_pct': round(BASELINE_PCT * TIERS[tier][1] / 100, 3),   # B-01 实际仓位金额
+        # B-01：S5 实时信号状态行 + T2 满额白话（UX_REPORT §G-1/§G-3 逐字文案）
+        'realtime': build_s5_realtime(fd_state, fd_days, n5),
+        'full_note': '本格满额=转正档 100%（0.5% 全额）；与 S1-S3 单池格封顶 50% 不同',
     }
     # S4：灰态垫底（§3.2 排序）
     meta = CELL_META['S4']
@@ -233,7 +254,7 @@ def build_cells(shadow, fd_state, fd_days):
     tier4, coef4, status4, deployed4 = tier_s4_cell(g4)
     rep = g4.get('replenish') or {}
     cells['S4'] = {
-        'tier': tier4, 'tier_name': TIERS[tier4][0],
+        'tier': tier4, 'tier_name': TIERS[tier4][0] if tier4 else None,
         'coef': coef4,
         'n_days': (56 + rep.get('fw_old131_weak_days', 0))
                   if rep else None,   # old131 n_days=56+补样（ATLAS 冻结基线）
@@ -265,13 +286,12 @@ def build_linkage(live):
 
 
 def apply_safe_default(cells, frozen):
-    """§5-⑦ 安全侧默认（新制承继改造）：连续 5 轮失败自动全部降 FROZEN（0%）并冻结开新仓
-    （自动只往风险小的方向动：FROZEN=旧 T0 语义的零仓保守化，绝无向上动作）。"""
+    """§5-⑦ 安全侧默认：连续 5 轮失败自动全部降 T0 并冻结开新仓。"""
     for cid, c in cells.items():
         if c.get('deployed'):
-            c.update({'tier': 'FROZEN', 'tier_name': TIERS['FROZEN'][0], 'coef': TIERS['FROZEN'][1],
-                      'deployed': False,
-                      'status': '安全侧默认（连续 5 轮输入失败，全部降 FROZEN 并冻结开新仓；'
+            c.update({'tier': 'T0', 'tier_name': TIERS['T0'][0], 'coef': TIERS['T0'][1],
+                      'pos_pct': round(BASELINE_PCT * TIERS['T0'][1] / 100, 3),
+                      'status': '安全侧默认（连续 5 轮输入失败，全部降 T0 并冻结开新仓；'
                                 '档位冻结按旧值执行至管线恢复）'})
     return {'enhanced_frozen': True, 'safe_default': True, **({} if not frozen else {})}
 
@@ -298,15 +318,13 @@ def run(auto=False):
     out = {
         'generated': time.strftime('%F %T'),
         'asof': asof,
-        'protocol': 'PLAN_FINAL_20261021（新部署铁律·影子期废除；分域增强插件层 F1 外独立 '
-                    'add-on，R10 不回写）',
+        'protocol': 'DEPLOY_SPEC_v1（分域增强插件层·影子折扣制；F1 外独立 add-on，R10 不回写）',
         'judgment_basis': JUDGMENT_BASIS,
         'tier_table_version': TIER_TABLE_VERSION,
         'fee_note': FEE_NOTE,
-        'deploy_rule': '重重检测四层全过=当日满额部署（无任何时间等待）；实盘劣化线 '
-                       'n≥10∧t≤−2 当日归零自动降停；6 个月强制复审（到期未复审=自动降半仓）',
         'positioning': {'baseline_pct_per_cell': BASELINE_PCT,
                         'total_cap_pct': TOTAL_CAP_PCT,
+                        'single_pool_cap_coef': SINGLE_POOL_CAP,
                         'denominator': '账户总权益（独立于 F1 的 12.5% 敞口；两层数学不相加进任何熔断阈值计算）'},
         'inputs_ok': inputs_ok,
         'fail_streak': fail_streak,
