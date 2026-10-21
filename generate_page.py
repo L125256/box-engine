@@ -3,7 +3,7 @@
 # 流程：32线程刷缓存 → import 本机权威引擎 eng_final.py（禁止修改，仅复用）跑两组冻结参数
 #       → 状态机影子扫描输出当前箱体卡片（与引擎交易键集合断言一致）→ 渲染同款风格 HTML + JSON
 # 复现：PYTHONHASHSEED=42 python3 /tmp/web_build/generate_page.py
-import sys, os, json, importlib.util, random, datetime, shutil
+import sys, os, json, importlib.util, random, datetime, shutil, re, tempfile
 
 SEED = 42
 random.seed(SEED)
@@ -33,6 +33,89 @@ B, X, Q, AMAX, FEE = 0.25, 0.75, 30, 60, 0.03
 # 按生成时北京时间小时打 round_type 标，防止 21:00 轮被误读为当日收盘判定。
 RT_JUDGE = '判定级'
 RT_SNAP  = '盘中快照·不可操作'
+
+# ---- 数据卫生三道门 + 覆盖率门（PLAN_FINAL_20261021 §2.1#2 照抄施工；双闸分离终裁 2026-10-21）----
+# 依据：/tmp/audit_reopen/RESULT.json（42 组陈旧 bar 伪开实证）+ audit_dirty（dirty 口径
+# ret5d −0.79 vs clean +4.61 蒙对实证）。门全部在加载层，eng_final.py 信号逻辑零改动。
+GATE_POOL_FLOOR = 144      # 门3·池样本数下限（clean 144 冻结口径）
+GATE_COVER_MIN = 0.80      # 覆盖率门 ≥80%：当日 bar 覆盖率 <80% → 闸值作废沿用上一收盘值并标注
+GATE_NAME = '箱体牛闸（盘中实时·箱体闸）'   # 四要素之一：闸名（与 F1 闸收盘纪律分离，两闸独立算互不影响）
+
+
+def _norm_time(t):
+    """门1·日期归一化：bar time 归一 date-only（'YYYY-MM-DD[ T]HH:MM[:SS]' → 'YYYY-MM-DD'）。
+    不可解析 → AssertionError（拒载）。"""
+    s = str(t).strip()
+    d = s.split(' ')[0].split('T')[0]
+    datetime.date.fromisoformat(d)          # 不可解析即 ValueError → 拒载
+    return d
+
+
+def hygienic_load_pool(cache, eng):
+    """三道门装载（generate_page.py 加载层，PLAN_FINAL §2.1#2 逐字）：
+    门1 日期归一化：全部 bar 的 time 归一为 date-only 后落临时缓存目录；
+    门2 混格式拒载：同一票内出现多种原始 time 格式（date-only 与 datetime 混写）→
+        AssertionError 拒载（exit≠0）——混格式即上游数据病，禁止静默修补蒙混；
+    门3 池样本数下限：清洗后池 < GATE_POOL_FLOOR（144）→ 拒载（exit≠0）。
+    清洗/keep-drop 判定逐字复用 eng_final.load_pool（对归一化后数据，信号序列零改动）。"""
+    tmp = tempfile.mkdtemp(prefix='box_hyg_')
+    try:
+        for f in sorted(os.listdir(cache)):
+            if not f.endswith('.json'):
+                continue
+            d = json.load(open(os.path.join(cache, f)))
+            if isinstance(d, dict):
+                d = d.get('bars_d', d)
+            fmts = set()
+            norm = []
+            for b in d:
+                raw = str(b['time']).strip()
+                fmts.add('date' if re.fullmatch(r'\d{4}-\d{2}-\d{2}', raw) else 'datetime')
+                nb = dict(b)
+                nb['time'] = _norm_time(b['time'])
+                norm.append(nb)
+            if len(fmts) > 1:
+                raise AssertionError(
+                    f'[卫生门2·混格式拒载] {f}: 原始 time 混格式 {sorted(fmts)} —— 拒载 exit≠0'
+                    '（audit_reopen：42 组陈旧 bar 伪开实证，禁止静默归一蒙混）')
+            with open(os.path.join(tmp, f), 'w') as fo:
+                json.dump(norm, fo)
+        kept, dropped = eng.load_pool(tmp)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    if len(kept) < GATE_POOL_FLOOR:
+        raise AssertionError(
+            f'[卫生门3·池样本数下限] 清洗后池 {len(kept)} < {GATE_POOL_FLOOR}'
+            '（clean 144 冻结口径）—— 拒载 exit≠0')
+    return kept, dropped
+
+
+def gate_meta_for(pool):
+    """闸值元数据（页面口径四要素：闸名｜池口径｜数据日期｜样本数）+ 覆盖率门 ≥80%：
+    逐日回溯取第一个「bar 覆盖率 ≥80%」的日期作闸值基准日；最新日不足 80% → 闸值作废
+    沿用上一收盘值并标注 inherited=True；样本数=该日 idx 贡献标的数（逐字记录）。
+    无任何合格日期 → 拒载 exit≠0（无可用收盘基准，fail-closed）。"""
+    n_pool = len(pool)
+    counts = {}
+    for bars in pool.values():
+        for b in bars:
+            counts[b['time']] = counts.get(b['time'], 0) + 1
+    if not counts:
+        raise AssertionError('[卫生门·覆盖率] 池为空——无可用收盘基准，拒载 exit≠0')
+    latest = max(counts)
+    for dt in sorted(counts, reverse=True):
+        n = counts[dt]
+        if n / n_pool >= GATE_COVER_MIN:
+            return dict(gate_name=GATE_NAME,
+                        pool=f'clean {n_pool}（混格式归一清洗后口径）',
+                        data_date=dt, n_samples=n,
+                        coverage_pct=round(n / n_pool * 100, 1),
+                        latest_date=latest,
+                        latest_coverage_pct=round(counts[latest] / n_pool * 100, 1),
+                        cover_min_pct=round(GATE_COVER_MIN * 100),
+                        inherited=(dt != latest))
+    raise AssertionError(
+        f'[卫生门·覆盖率] 全部日期 bar 覆盖率 <{GATE_COVER_MIN:.0%} —— 闸值无可用收盘基准，拒载 exit≠0')
 
 
 def round_type_for_hour(hour):
@@ -133,7 +216,9 @@ def scan_state(eng, bars, bull, params):
 
 def step2_engine_scan():
     eng = load_module("eng_final", os.path.join(ENG_DIR, "eng_final.py"))
-    pool, dropped = eng.load_pool(CACHE_DIR)
+    # 加载层走数据卫生三道门（门1 归一化/门2 混格式拒载/门3 池样本数下限）——eng_final.py 零改动
+    pool, dropped = hygienic_load_pool(CACHE_DIR, eng)
+    gate_meta = gate_meta_for(pool)          # 四要素 + 覆盖率门（沿用上一收盘值则标注）
     bull = eng.build_idx_bull(pool)
     out_runs = {}
     for key, rd in RUNS.items():
@@ -165,7 +250,7 @@ def step2_engine_scan():
                                  for t in recent],
                              stats=st,
                              main_stats=eng.stats(trs_main))
-    return eng, pool, dropped, out_runs
+    return eng, pool, dropped, out_runs, gate_meta
 
 
 def step3_verify_sample(pool, out_runs):
@@ -236,7 +321,7 @@ details{margin:8px 0}details>summary{cursor:pointer;padding:6px 10px;background:
 → <a href="f1/index.html">去 F1 运行页</a> · <a href="f1/manual.html">📖 F1 说明书</a> · <a href="box/manual.html">📖 本页使用说明</a>
 <details><summary>展开诚实声明（空头席复核 2026-10-15）</summary><div style="margin-top:6px">本策略为防守型工具，收益与池贝塔强相关——剔除同期池等权涨幅后无独立超额；回测含幸存者偏差（池=当前存续票，估计 ≥+9pp 高估，务必打折看待）；年化指标曾因计算错误高估已修正。本页为本机复刻版：口径=V2 可实现出场（触发仍为 V1 收盘判定）+ 清洗后 144 标的池，与权威引擎 eng_final.py 同源同数。仓位与买卖决策请勿仅依赖本页。</div></details></div>
 <div class="thermo" id="thermo">温度计加载中…</div>
-<div class="fdhead"><b>fd 信号参考区</b>（冻结基线 N20/k6.0/m2/e0.2 · v1.0 验收参数）· <b>fd 信号 · 收盘判定 · 参考非指令</b></div>
+<div class="fdhead"><b>fd 信号参考区</b>（冻结基线 N20/k6.0/m2/e0.2 · v1.0 验收参数）· <b>fd 信号 · 收盘判定 · 参考非指令</b><div class="line" id="fdgate">闸口径四要素：加载中…</div></div>
 <div id="fdmain"></div>
 <details class="arch"><summary>⛔ bk 突破信号 · 已穷举归档 · 非信号 · 仅存档对照（点击展开）</summary>
 <div class="warnbk">bk 突破买入信号已经穷举研究判死归档：<b>非信号、不下单、不参与任何触发提示</b>。以下内容仅作引擎历史账存档对照，与 fd 主区无关。</div>
@@ -267,15 +352,26 @@ function render(){
     '</span> · 21:00 轮为盘中快照，仅供参考，fd 信号一律以收盘判定为准';
   const cs=r.cards||[];
   const nLock=cs.filter(c=>c.mode==='箱体锁定').length,nSeek=cs.filter(c=>c.mode==='箱体搜索').length;
+  const e=p.e;
+  /* fd 激活观察区计数：与牛闸独立（双闸分离·两闸各自独立算互不影响；触发仍按收盘判定） */
+  const nAct=cs.filter(c=>c.mode==='箱体锁定'&&(c.last<=c.bot+e*(c.top-c.bot))).length;
+  /* 口径四要素（闸名｜池口径｜数据日期｜样本数）：缺字段兜底「—」，不报错 */
+  const gm=d.gate_meta||{};
+  const g4=(gm.gate_name||'箱体牛闸（盘中实时·箱体闸）')+'｜池口径='+(gm.pool||('clean '+d.pool.n+'（清洗后口径）'))+
+    '｜数据日期='+(gm.data_date||BULL_ASOF)+'｜样本数='+(gm.n_samples==null?'—':gm.n_samples)+
+    '｜当日覆盖率='+(gm.latest_coverage_pct==null?'—':gm.latest_coverage_pct+'%')+
+    (gm.inherited?'（⚠ 当日覆盖率<'+(gm.cover_min_pct||80)+'%，闸值作废沿用上一收盘值 '+gm.data_date+'）':'');
   const th=document.getElementById('thermo');
   th.className='thermo'+(BULL_OPEN?'':' off');
-  const mood=(!BULL_OPEN)?'牛闸关闭：非箱体策略的天气，fd 回踩信号不触发——只看不动。'
+  const mood=(!BULL_OPEN)?'牛闸关闭：fd 触发条件之一未满足（触发仍按收盘判定），fd 观察区照常计数——两闸独立（本页=箱体闸盘中实时，F1 页=F1 闸收盘纪律），互不影响。'
     :(nLock>=15?'牛闸开放 + 锁定 '+nLock+' 张：池子普遍横盘蓄势，是箱体策略的天气。'
     :'牛闸开放 + 锁定 '+nLock+' 张（少）：行情偏趋势、无箱可做，耐心等池子降温收窄。');
-  th.innerHTML='🌡️ 市况温度计：'+(BULL_OPEN?'🟩 牛闸开放（池均价 idx > MA50）':'🟥 牛闸关闭（池均价 idx < MA50）')+
-    ' · 箱体锁定 <b>'+nLock+'</b> 张 / 搜索中 '+nSeek+' 只<div class="line">'+mood+'（锁定多=普遍横盘蓄势，少=trending 无箱）· 牛闸快照日期 '+BULL_ASOF+'</div>';
+  th.innerHTML='🌡️ 市况温度计（clean 口径）：'+(BULL_OPEN?'🟩 牛闸开放（池均价 idx > MA50）':'🟥 牛闸关闭（池均价 idx < MA50）')+
+    ' · 箱体锁定 <b>'+nLock+'</b> 张 / 搜索中 '+nSeek+' 只 · <b>'+(BULL_OPEN?'开':'关')+'+fd 激活 '+nAct+' 只（观察区）</b>'+
+    '<div class="line">'+mood+'（锁定多=普遍横盘蓄势，少=trending 无箱）· 牛闸快照日期 '+BULL_ASOF+'</div>'+
+    '<div class="line">闸口径四要素：'+g4+'</div>';
+  document.getElementById('fdgate').textContent='闸口径四要素：'+g4+'（fd 触发判定另含箱体锁定与收盘回踩条件，与温度计闸独立）';
   const fm=document.getElementById('fdmain');fm.innerHTML='';
-  const e=p.e;
   cs.forEach(c=>{
     if(c.mode==='持仓中'&&c.kind==='bk')return;            // bk 不入 fd 主区（折叠区另渲染）
     const el=document.createElement('div');
@@ -289,14 +385,14 @@ function render(){
       el.className='card lock';
       const pct=Math.max(0,Math.min(100,(c.pos_in_box||0.5)*100));
       const rng=c.top-c.bot,zone=+(c.bot+e*rng).toFixed(4);
-      const near=(BULL_OPEN&&c.last<=zone);
+      const near=(c.last<=zone);   /* 观察区计数与牛闸独立（双闸分离）；触发仍按收盘判定 */
       el.innerHTML='<span class="tk">'+c.tkr+'</span> '+c.mode+
         (near?' <span class="buy">⚡接近 fd 回踩观察区</span>':'')+
         '<div class="sbar"><div class="sfill" style="width:'+pct+'%"></div>'+
         '<span class="sline stop">箱底 '+c.bot+'</span><span class="sline trg">箱顶 '+c.top+'</span></div>'+
         '<div class="line">箱顶 '+c.top+' / 箱底 '+c.bot+' | 箱龄 '+c.age+' 天 | 现价 '+c.last+
         ' | fd 回踩观察区 ≤'+zone+'</div>'+
-        '<div class="warnfd">⚡=现价进入 fd 回踩观察区（收盘判定，盘中触摸≠买入）· 参考观察，非买入指令'+(BULL_OPEN?'':' · 牛闸关闭，fd 不触发')+'</div>';
+        '<div class="warnfd">⚡=现价进入 fd 回踩观察区（收盘判定，盘中触摸≠买入）· 参考观察，非买入指令'+(BULL_OPEN?'':' · 牛闸关闭（触发条件未满足，观察照常）')+'</div>';
     }else{
       el.className='card seek';
       el.innerHTML='<span class="tk">'+c.tkr+'</span> 箱体搜索 seek '+c.seek_streak+'/'+c.seek_need+
@@ -361,7 +457,7 @@ def main():
     print('[1/4] 32线程刷新行情缓存…', flush=True)
     step1_refresh_cache()
     print('[2/4] 引擎扫描（baseline + top1 两组冻结参数）…', flush=True)
-    eng, pool, dropped, runs = step2_engine_scan()
+    eng, pool, dropped, runs, gate_meta = step2_engine_scan()
     checks = step3_verify_sample(pool, runs)
     print('[3/4] 抽样核对：', json.dumps(checks, ensure_ascii=False), flush=True)
     bj_hour = (datetime.datetime.utcnow() + datetime.timedelta(hours=8)).hour
@@ -381,6 +477,7 @@ def main():
             idx='池内标的等权收盘均价 > MA50 牛闸',
             main_window='入场日 et>=%s' % MAIN_WINDOW),
         pool=dict(n=len(pool), dropped=dropped),
+        gate_meta=gate_meta,   # 闸值口径四要素（闸名｜池口径｜数据日期｜样本数）+覆盖率门标注
         runs={k: dict(label=v['label'], params=v['params'], stats=v['stats'],
                       main_stats=v['main_stats'], cards=v['cards'], recent=v['recent'])
               for k, v in runs.items()},
@@ -389,9 +486,10 @@ def main():
     with open(jp, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
     hp = os.path.join(OUT_DIR, 'index.html')
-    # 温度计牛闸：复用引擎既有 build_idx_bull（WO-3 禁止触碰 eng_final.py，仅渲染层推导）
+    # 温度计牛闸：复用引擎既有 build_idx_bull（WO-3 禁止触碰 eng_final.py，仅渲染层推导）；
+    # 闸值基准日=gate_meta.data_date（覆盖率门 ≥80%：<80% 已沿用上一收盘值并在页面标注）
     bull = eng.build_idx_bull(pool)
-    last_dt = max(b['time'] for bars in pool.values() for b in bars)
+    last_dt = gate_meta['data_date']
     bull_open = bool(bull.get(last_dt, False))
     html = (HTML_TMPL.replace('__BULL_OPEN__', 'true' if bull_open else 'false')
                       .replace('__BULL_ASOF__', last_dt))
