@@ -905,7 +905,8 @@ def run_snapshot(out_json=None, cache=CACHE, round_id='20:30'):
                      last_push=st.get('last_push'))
     out = {
         'meta': {'workorder': 'R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）',
-                 'seed': SEED, 'generated': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+                 'seed': SEED,
+                 'generated': (pd.Timestamp.utcnow() + pd.Timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S') + ' 北京时间',   # D4-20261021：时区显示修正
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
                  'breadth': calc_breadth(data, syms),
                  'mode': 'intraday_snapshot', 'operable': False,
@@ -1062,7 +1063,8 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True
     recent_stops = rp['stops'][-10:]
     out = {
         'meta': {'workorder': "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
-                 'seed': SEED, 'generated': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+                 'seed': SEED,
+                 'generated': (pd.Timestamp.utcnow() + pd.Timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S') + ' 北京时间',   # D4-20261021：时区显示修正
                  'engine_sha256': engine_sha256(), 'pool_n': len(syms),
                  'breadth': calc_breadth(data, syms),
                  'caliber': 'V2可实现出场（成交价=当根open，止损跳空按open否则按stop价）+滑点0.05%/边+资金费0.03%/bar',
@@ -1207,6 +1209,12 @@ def main():
             print(f'enhancement 并入异常（不阻断）: {_me}')
     elif mode == 'snapshot':
         # WO-R13-03 只读盘中快照：--round {20:30|00:30|04:30}
+        # D10-20261021：快照轮入口同挂 sha 对表闸门（与判定轮同 fail-closed 拒绝语义）
+        try:
+            check_engine_authority()
+        except RuntimeError as e:
+            print(f'snapshot REFUSED: {e}')
+            sys.exit(2)
         rnd = sys.argv[sys.argv.index('--round') + 1] if '--round' in sys.argv else '20:30'
         if rnd not in INTRADAY_ROUNDS or rnd == 'DECIDE':
             print(f'未知轮次 {rnd}；可选：20:30 / 00:30 / 04:30')
