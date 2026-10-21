@@ -3,7 +3,7 @@
 # 流程：32线程刷缓存 → import 本机权威引擎 eng_final.py（禁止修改，仅复用）跑两组冻结参数
 #       → 状态机影子扫描输出当前箱体卡片（与引擎交易键集合断言一致）→ 渲染同款风格 HTML + JSON
 # 复现：PYTHONHASHSEED=42 python3 /tmp/web_build/generate_page.py
-import sys, os, json, importlib.util, random, datetime, shutil
+import sys, os, json, importlib.util, random, datetime, shutil, re, tempfile
 
 SEED = 42
 random.seed(SEED)
@@ -68,6 +68,90 @@ def _log_box_guard(kind, payload):
             f.write(json.dumps(rec, ensure_ascii=False, default=str) + '\n')
     except Exception:
         pass
+
+
+# ---- 数据卫生三道门 + 闸值四要素（PLAN_FINAL §2.1#2 原施工件；A3-4 修复：该二函数
+#      曾被 UX 批次 commit ae8e501 重构时从本文件误除，本处自 12a91d7 逐字恢复并重接
+#      装载链：hygienic_load_pool → trim_and_guard_pool，两闸串联口径不变）----
+GATE_POOL_FLOOR = 144      # 门3·池样本数下限（clean 144 冻结口径）
+GATE_COVER_MIN = 0.80      # 覆盖率门 ≥80%：当日 bar 覆盖率 <80% → 闸值作废沿用上一收盘值并标注
+GATE_NAME = '箱体牛闸（盘中实时·箱体闸）'   # 四要素之一：闸名（与 F1 闸收盘纪律分离，两闸独立算互不影响）
+
+
+def _norm_time(t):
+    """门1·日期归一化：bar time 归一 date-only（'YYYY-MM-DD[ T]HH:MM[:SS]' → 'YYYY-MM-DD'）。
+    不可解析 → AssertionError（拒载）。"""
+    s = str(t).strip()
+    d = s.split(' ')[0].split('T')[0]
+    datetime.date.fromisoformat(d)          # 不可解析即 ValueError → 拒载
+    return d
+
+
+def hygienic_load_pool(cache, eng):
+    """三道门装载（generate_page.py 加载层，PLAN_FINAL §2.1#2 逐字）：
+    门1 日期归一化：全部 bar 的 time 归一为 date-only 后落临时缓存目录；
+    门2 混格式拒载：同一票内出现多种原始 time 格式（date-only 与 datetime 混写）→
+        AssertionError 拒载（exit≠0）——混格式即上游数据病，禁止静默修补蒙混；
+    门3 池样本数下限：清洗后池 < GATE_POOL_FLOOR（144）→ 拒载（exit≠0）。
+    清洗/keep-drop 判定逐字复用 eng_final.load_pool（对归一化后数据，信号序列零改动）。"""
+    tmp = tempfile.mkdtemp(prefix='box_hyg_')
+    try:
+        for f in sorted(os.listdir(cache)):
+            if not f.endswith('.json'):
+                continue
+            d = json.load(open(os.path.join(cache, f)))
+            if isinstance(d, dict):
+                d = d.get('bars_d', d)
+            fmts = set()
+            norm = []
+            for b in d:
+                raw = str(b['time']).strip()
+                fmts.add('date' if re.fullmatch(r'\d{4}-\d{2}-\d{2}', raw) else 'datetime')
+                nb = dict(b)
+                nb['time'] = _norm_time(b['time'])
+                norm.append(nb)
+            if len(fmts) > 1:
+                raise AssertionError(
+                    f'[卫生门2·混格式拒载] {f}: 原始 time 混格式 {sorted(fmts)} —— 拒载 exit≠0'
+                    '（audit_reopen：42 组陈旧 bar 伪开实证，禁止静默归一蒙混）')
+            with open(os.path.join(tmp, f), 'w') as fo:
+                json.dump(norm, fo)
+        kept, dropped = eng.load_pool(tmp)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    if len(kept) < GATE_POOL_FLOOR:
+        raise AssertionError(
+            f'[卫生门3·池样本数下限] 清洗后池 {len(kept)} < {GATE_POOL_FLOOR}'
+            '（clean 144 冻结口径）—— 拒载 exit≠0')
+    return kept, dropped
+
+
+def gate_meta_for(pool):
+    """闸值元数据（页面口径四要素：闸名｜池口径｜数据日期｜样本数）+ 覆盖率门 ≥80%：
+    逐日回溯取第一个「bar 覆盖率 ≥80%」的日期作闸值基准日；最新日不足 80% → 闸值作废
+    沿用上一收盘值并标注 inherited=True；样本数=该日 idx 贡献标的数（逐字记录）。
+    无任何合格日期 → 拒载 exit≠0（无可用收盘基准，fail-closed）。"""
+    n_pool = len(pool)
+    counts = {}
+    for bars in pool.values():
+        for b in bars:
+            counts[b['time']] = counts.get(b['time'], 0) + 1
+    if not counts:
+        raise AssertionError('[卫生门·覆盖率] 池为空——无可用收盘基准，拒载 exit≠0')
+    latest = max(counts)
+    for dt in sorted(counts, reverse=True):
+        n = counts[dt]
+        if n / n_pool >= GATE_COVER_MIN:
+            return dict(gate_name=GATE_NAME,
+                        pool=f'clean {n_pool}（混格式归一清洗后口径）',
+                        data_date=dt, n_samples=n,
+                        coverage_pct=round(n / n_pool * 100, 1),
+                        latest_date=latest,
+                        latest_coverage_pct=round(counts[latest] / n_pool * 100, 1),
+                        cover_min_pct=round(GATE_COVER_MIN * 100),
+                        inherited=(dt != latest))
+    raise AssertionError(
+        f'[卫生门·覆盖率] 全部日期 bar 覆盖率 <{GATE_COVER_MIN:.0%} —— 闸值无可用收盘基准，拒载 exit≠0')
 
 
 def trim_and_guard_pool(pool, now=None):
@@ -198,9 +282,11 @@ def scan_state(eng, bars, bull, params):
 
 def step2_engine_scan():
     eng = load_module("eng_final", os.path.join(ENG_DIR, "eng_final.py"))
-    pool, dropped = eng.load_pool(CACHE_DIR)
+    # A3-4 修复：装载层走三道门（日期归一/混格式拒载/池下限，PLAN_FINAL §2.1#2 恢复）
+    pool, dropped = hygienic_load_pool(CACHE_DIR, eng)
     # WO-UX-A01：forming-K 剔除在数据加载层（缓存装载后、build_idx_bull 之前）
     pool, bull_guard = trim_and_guard_pool(pool)
+    gate_meta = gate_meta_for(pool)   # 四要素 + 覆盖率门（沿用上一收盘值则标注 inherited=True）
     bull = eng.build_idx_bull(pool)
     out_runs = {}
     for key, rd in RUNS.items():
@@ -232,7 +318,7 @@ def step2_engine_scan():
                                  for t in recent],
                              stats=st,
                              main_stats=eng.stats(trs_main))
-    return eng, pool, dropped, out_runs, bull_guard
+    return eng, pool, dropped, out_runs, bull_guard, gate_meta
 
 
 def step3_verify_sample(pool, out_runs):
@@ -428,7 +514,7 @@ def main():
     print('[1/4] 32线程刷新行情缓存…', flush=True)
     step1_refresh_cache()
     print('[2/4] 引擎扫描（baseline + top1 两组冻结参数）…', flush=True)
-    eng, pool, dropped, runs, bull_guard = step2_engine_scan()
+    eng, pool, dropped, runs, bull_guard, gate_meta = step2_engine_scan()
     checks = step3_verify_sample(pool, runs)
     print('[3/4] 抽样核对：', json.dumps(checks, ensure_ascii=False), flush=True)
     bj_hour = (datetime.datetime.utcnow() + datetime.timedelta(hours=8)).hour
@@ -448,6 +534,7 @@ def main():
             idx='池内标的等权收盘均价 > MA50 牛闸',
             main_window='入场日 et>=%s' % MAIN_WINDOW),
         pool=dict(n=len(pool), dropped=dropped),
+        gate_meta=gate_meta,   # 闸值口径四要素（闸名｜池口径｜数据日期｜样本数）+覆盖率门标注（A3-4 恢复）
         bull_guard={k: bull_guard[k] for k in
                     ('trimmed', 'today_utc_date', 'last_complete', 'check', 'reason')
                     if k in bull_guard},   # WO-UX-A01 trim 审计字段
