@@ -273,7 +273,7 @@ m1 = open(os.path.join(ROOT, 'f1', 'manual.html')).read()
 m2 = open(os.path.join(ROOT, 'box', 'manual.html')).read()
 check('④f1 手册「分域增强插件」章节（四问逐字）',
       '<h2>8. 分域增强插件' in m1 and '这是什么</b>：F1 主引擎之外，我们另外开了几张很小的'
-      and '折扣越低=证据越弱；显示 ⚠ = 已停用' in m1
+      and '旧制的「25% 观察档 / 0.125% 折扣仓」已废除，页面上不再出现' in m1
       and '绝不能因此少买或不买 F1 榜单' in m1 and '任何冲突听 F1。' in m1)
 check('④f1 手册术语词典编号顺延 §8→§9', '<h2>9. 术语小词典' in m1)
 check('④box 手册「与 F1 分域增强的关系」短节（§6.2 逐字）',
@@ -319,6 +319,52 @@ check('⑤e 判线冻结承继（t=2.0/命中 0.60/n20/早死 10 = SHADOW_SPEC �
       ED.TIERS == {'FULL': ('满额档', 100), 'POOL_CAP': ('单池封顶', 50),
                    'FROZEN': ('冻结', 0), 'OFFLINE': ('下线', 0)}
       and ED.SINGLE_POOL_CAP == 50 and ED.BASELINE_PCT == 0.5)
+
+# ---------------- ⑥ 本格标的可见性（整改 2026-10-21：用户立法准绳「重要信息页面肉眼可见」） ----------------
+print('\n==== ⑥ 本格标的可见性（symbols 字段整改） ====')
+# 6a：S1-S3 最新登记行因子降序前 5 → symbols_top（零新判线：转述 shadow_reg 已有读数）
+_reg_factor = {'AAOIUSDT': 0.07, 'BBBUSDT': 0.21, 'CCCUSDT': -0.1, 'DDDUSDT': 0.15,
+               'EEEUSDT': 0.03, 'FFFUSDT': 0.99, 'GGGUSDT': 0.0}
+_regs6 = {cid: [{'domain_label': '弱躁', 'cell_domain': '弱躁' if cid != 'S3' else '牛躁',
+                 'date': '2026-10-21', 'n_names': 7, 'factor': _reg_factor}]
+          for cid in ('S1', 'S2', 'S3')}
+t = make_tree({'S1': shadow_cell(n=5), 'S2': shadow_cell(), 'S3': shadow_cell(),
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False, 'replenish': {'fw_old131_weak_days': 0}},
+               'S5': shadow_cell(n=5)},
+              fd_state={'n_matured': 5, 'sealed': False}, fd_days=[], live=LIVE_OK, regs=_regs6)
+o = run_in(t)
+check('⑥a S1 symbols_top=因子值降序前 5（数量封顶 5）',
+      [x['sym'] for x in o['cells']['S1']['symbols_top']] ==
+      ['FFFUSDT', 'BBBUSDT', 'DDDUSDT', 'AAOIUSDT', 'EEEUSDT'],
+      str([x['sym'] for x in o['cells']['S1']['symbols_top']]))
+check('⑥b S1-S3 三格 symbols_note/scope 均存在且含「因子记分牌格」与读数日期',
+      all('因子记分牌格' in o['cells'][cid]['symbols_note']
+          and '2026-10-21' in o['cells'][cid]['symbols_note']
+          and o['cells'][cid]['symbols_scope'] for cid in ('S1', 'S2', 'S3')))
+# 6c：登记行缺 factor 字段（旧夹具/残行）→ symbols_top=[] 兜底不抛错
+t = make_tree({'S1': shadow_cell(n=5), 'S2': shadow_cell(), 'S3': shadow_cell(),
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False, 'replenish': {'fw_old131_weak_days': 0}},
+               'S5': shadow_cell(n=5)},
+              fd_state={'n_matured': 5, 'sealed': False}, fd_days=[], live=LIVE_OK, regs=REG_OK)
+o = run_in(t)
+check('⑥c 登记行缺 factor → symbols_top=[] 兜底不抛错',
+      o['cells']['S1']['symbols_top'] == [] and '暂无当日因子读数' in o['cells']['S1']['symbols_note'])
+# 6d：S4 纪律格=不买任何标的；S5 服务对象=增强层自身小仓（不动 F1 持仓）
+t = make_tree({'S1': shadow_cell(n=5), 'S2': shadow_cell(), 'S3': shadow_cell(),
+               'S4': {'gate_state': 'SUSPENDED', 'sealed': False, 'replenish': {'fw_old131_weak_days': 0}},
+               'S5': shadow_cell(n=5)},
+              fd_state={'n_matured': 5, 'sealed': False}, fd_days=[], live=LIVE_OK, regs=REG_OK)
+o = run_in(t)
+check('⑥d S4 纪律格标注「不买任何标的」',
+      '不买任何标的' in (o['cells']['S4'].get('symbols_note') or ''))
+check('⑥e S5 服务对象标注=增强层自身持仓 + 不动 F1 持仓',
+      '增强层' in (o['cells']['S5'].get('targets_note') or '')
+      and 'F1' in (o['cells']['S5'].get('targets_note') or ''))
+# 6f：页面渲染含「本格标的」行（读 JSON 不写死标的；缺字段兜底）
+html = open(os.path.join(ROOT, 'f1', 'index.html')).read()
+check('⑥f index.html 卡片含「🎯 本格标的」渲染行（数据源 symbols_*，无写死标的名）',
+      '本格标的' in html and 'symbols_note' in html and 'symbols_top' in html
+      and 'NVDAUSDT' not in html.split('renderEnhancement')[1].split('function acctRow')[0])
 
 print(f"\n==== 汇总：PASS={len(PASS)} FAIL={len(FAIL)} ====")
 if FAIL:
