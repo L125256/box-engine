@@ -47,6 +47,17 @@ summary{cursor:pointer;color:#58a6ff}
 <footer id="foot"></footer>
 <script>
 let D=null;
+/* 缓存免疫修复（2026-10-22）：增强层数据三通道——
+   ①主源 f1_live.json meta.enhancement（判定轮并入，已带 ?ts 防缓存）；
+   ②兜底 enhancement_state.json?ts= 独立通道（本通道更新频率独立于判定轮，
+     与主源按 generated/asof 择新渲染——任一通道缓存过期都能渲染出较新一方）；
+   ③双通道都缺 symbols 时卡片显示「🎯 本格标的：本轮回传未含名单」提示行，禁止静默空白。 */
+let ENH_STATE=null;
+function enhTs(e){if(!e)return 0;const t=(e.generated||e.asof||'')+'';
+  const v=Date.parse(t.replace(' ','T'));return isNaN(v)?0:v;}
+function pickEnh(m){const a=m&&m.enhancement,b=ENH_STATE;
+  if(a&&b)return enhTs(b)>enhTs(a)?b:a;
+  return a||b||null;}
 function lamp(l){return '<span class="lamp '+(l==='green'?'g':l==='yellow'?'y':'r')+'"></span>'}
 function pct(x,sgn){return (x>0&&sgn?'+':'')+x+'%'}
 /* 阈值一律读 meta.breaker_thresholds（R13）：改引擎常量即可，HTML 不得写死任何数值 */
@@ -183,8 +194,10 @@ function render(){
 function renderEnhancement(m){
   const sec=document.getElementById('enhsec'),box=document.getElementById('enh');
   sec.style.display='';
-  const E=m.enhancement;
+  /* 缓存免疫修复：E=f1_live.meta.enhancement 与独立通道择新（见文件头三通道注释） */
+  const E=pickEnh(m);
   if(!E||!E.cells){box.innerHTML='<div class="line">增强层未上线</div>';return;}
+  const ENH_ASOF=E.asof||E.generated||'';
   /* stale（§5-⑦）：>48h 显示「⚠ 增强层数据未更新（最后：<日期>）——档位冻结按旧值执行」 */
   let h='';
   const gen=E.generated||E.asof||'';
@@ -229,8 +242,10 @@ function renderEnhancement(m){
       /* 整改 2026-10-21（用户立法准绳：重要信息页面肉眼可见）：每格加「本格标的」行，
          数据源=enhancement_state.json cells.<cid>.symbols_note/symbols_scope/symbols_top，
          缺字段不渲染不报错。symbols_top=因子值降序前 5（参考·推导值·非指令） */
+      /* 缓存免疫修复·第三层兜底：deployed 格两通道都缺 symbols 时显示提示行（禁止静默空白） */
       (c.symbols_note?'<div class="line"><b>🎯 本格标的：</b>'+(c.symbols_scope?c.symbols_scope+'｜':'')+c.symbols_note+
-        ((c.symbols_top&&c.symbols_top.length)?'｜最新读数分高前 5（参考）：'+c.symbols_top.map(x=>x.sym).join('、'):'')+'</div>':'')+
+        ((c.symbols_top&&c.symbols_top.length)?'｜最新读数分高前 5（参考）：'+c.symbols_top.map(x=>x.sym).join('、'):'')+'</div>'
+       :(cid!=='S4'&&c.deployed)?'<div class="line"><b>🎯 本格标的：</b>本轮回传未含名单（asof='+ENH_ASOF+'）</div>':'')+
       (cid==='S5'&&(c.targets_note)?'<div class="line">🧷 '+c.targets_note+'</div>':'')+
       /* B-01：S5 卡内三行（实时信号/满额白话/实际仓位金额），数据源=enhancement_state.json
          cells.S5.realtime/full_note/pos_pct，缺字段兜底「—」（UX_REPORT §G-1/§G-3 逐字）
@@ -270,6 +285,10 @@ function renderSnap(snap){
 }
 fetch('f1_live.json?ts='+Date.now()).then(r=>r.json()).then(d=>{D=d;render();})
  .catch(e=>{document.getElementById('meta').textContent='数据加载失败：'+e});
+/* 增强层兜底通道（缓存免疫修复）：带防缓存时间戳独立拉取，拉到即择新重渲染 */
+fetch('enhancement_state.json?ts='+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})
+ .then(s=>{ENH_STATE=s;if(D)render();})
+ .catch(()=>{/* 独立通道缺失不影响主通道渲染 */});
 /* 快照轮（20:30/00:30/04:30）产物：拉取失败显示「快照暂无」，不影响判定区 */
 fetch('f1_live_intraday.json?ts='+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})
  .then(snap=>{
