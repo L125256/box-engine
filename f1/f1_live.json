@@ -2,12 +2,12 @@
  "meta": {
   "workorder": "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
   "seed": 42,
-  "generated": "2026-10-20 11:56:21",
-  "engine_sha256": "dc72783486daf4b2fad018645e560525b2276e5593684c54cb61bc2e9ecd63b6",
+  "generated": "2026-10-21 08:29:56",
+  "engine_sha256": "8a53b2523c07150a746ee1ed1885d24afded5e3d11f178c3c2a0a9ab26f8a667",
   "pool_n": 144,
   "breadth": {
-   "pct": 27.78,
-   "n_above": 40,
+   "pct": 30.56,
+   "n_above": 44,
    "n_total": 144,
    "ma_window": 50,
    "min_periods": 40
@@ -59,60 +59,173 @@
   },
   "calib_note": "熔断阈值=R13 重标定（现行 12.5% 敞口口径：单票 2.5%×5 票）。旧阈值 −32%/−20pp/21.7pp 属满仓时代口径，在本敞口下数学不可达，已废。若未来人工升敞口，须按敞口比例重标定（升档=新工单）。",
   "cb3_baseline_60d": 9.07,
-  "cb3_baseline_recomputed": 9.19,
+  "cb3_baseline_recomputed": 9.01,
   "cb3_baseline_drift_alert": false,
   "replay": {
-   "start": "2024-01-29",
-   "end": "2026-10-19",
-   "eq_net": 1.2604,
-   "eq_gross": 1.2825,
-   "stop_events_total": 105
+   "start": "2024-01-30",
+   "end": "2026-10-20",
+   "eq_net": 1.2658,
+   "eq_gross": 1.2876,
+   "stop_events_total": 103
   },
   "source": {
    "primary": "kxiandaoyan",
    "state": "NORMAL",
-   "asof": "2026-10-19",
+   "asof": "2026-10-20",
    "label": "主源",
    "mode": "判定轮",
    "backup": "sina（停用·SINA_BACKUP_ENABLED 未开启）",
    "data_source": "主源单源模式"
+  },
+  "enhancement": {
+   "generated": "2026-10-21 08:30:41",
+   "asof": null,
+   "protocol": "DEPLOY_SPEC_v1（分域增强插件层·影子折扣制；F1 外独立 add-on，R10 不回写）",
+   "judgment_basis": "SHADOW_SPEC_v1 §3（数字冻结：IC>0 ∧ t≥2 ∧ 命中率≥60%；早死 n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）——零新判线",
+   "tier_table_version": "DEPLOY_SPEC_v1 §2.2（2026-10-21 预注册冻结）",
+   "fee_note": "资金费=背景常数 0.03%/bar 仅事后披露，不参与判定",
+   "positioning": {
+    "baseline_pct_per_cell": 0.5,
+    "total_cap_pct": 2.0,
+    "single_pool_cap_coef": 50,
+    "denominator": "账户总权益（独立于 F1 的 12.5% 敞口；两层数学不相加进任何熔断阈值计算）"
+   },
+   "inputs_ok": true,
+   "fail_streak": 0,
+   "safe_default": false,
+   "cells": {
+    "S1": {
+     "tier": "T0",
+     "tier_name": "观察档",
+     "coef": 25,
+     "n_days": 0,
+     "n_registered": 4,
+     "sealed": false,
+     "verdict": null,
+     "status": "观察档（登记即部署起点（n<10））",
+     "name": "S1 反转",
+     "variant": "Q3-rev-liq",
+     "domain": "弱躁",
+     "pool": "full144 单池",
+     "domain_active": true,
+     "deployed": true,
+     "tier_note": "登记即部署起点（n<10）"
+    },
+    "S2": {
+     "tier": "T0",
+     "tier_name": "观察档",
+     "coef": 25,
+     "n_days": 0,
+     "n_registered": 4,
+     "sealed": false,
+     "verdict": null,
+     "status": "观察档（登记即部署起点（n<10））",
+     "name": "S2 反转粗筛",
+     "variant": "Q3-rev-5",
+     "domain": "弱躁",
+     "pool": "full144 单池",
+     "domain_active": true,
+     "deployed": true,
+     "tier_note": "登记即部署起点（n<10）"
+    },
+    "S3": {
+     "tier": "T0",
+     "tier_name": "观察档",
+     "coef": 25,
+     "n_days": 0,
+     "n_registered": 4,
+     "sealed": false,
+     "verdict": null,
+     "status": "观察档（登记即部署起点（n<10））",
+     "name": "S3 突破回踩",
+     "variant": "Q1-brk-pos-20",
+     "domain": "牛躁",
+     "pool": "full144 单池",
+     "domain_active": false,
+     "deployed": true,
+     "tier_note": "登记即部署起点（n<10）"
+    },
+    "S5": {
+     "tier": "T0",
+     "tier_name": "观察档",
+     "coef": 25,
+     "n_days": 0,
+     "n_registered": 1,
+     "sealed": false,
+     "verdict": null,
+     "status": "观察档（登记即部署起点（n<10））",
+     "name": "S5 fd 出场增强",
+     "variant": "K5-fd-exit-partial3r-breakeven",
+     "domain": "全域",
+     "pool": "fd 池配对",
+     "domain_active": true,
+     "deployed": true,
+     "tier_note": "登记即部署起点（n<10）"
+    },
+    "S4": {
+     "tier": null,
+     "tier_name": null,
+     "coef": 0,
+     "n_days": 56,
+     "n_need": 60,
+     "sealed": false,
+     "verdict": null,
+     "status": "SUSPENDED（补样未达 60 日门，未部署·仅展示）",
+     "name": "S4 高波停门",
+     "variant": "K1-d-gate-vol20p80-pause",
+     "domain": "弱稳",
+     "pool": "full144（old131 补样中）",
+     "domain_active": false,
+     "deployed": false,
+     "replenish_need": 4,
+     "replenish_have": 0
+    }
+   },
+   "linkage": {
+    "f1_gate": "open",
+    "f1_breaker_light": "unknown",
+    "enhanced_frozen": false,
+    "rule": "DEPLOY_SPEC_v1 §2.5 三条单向让位（闸关→冻结开新仓；红灯→整体冻结；CB2 冻结不连带——增强层独立小止损与 T 档自降级，风险自含）；增强层永不反向影响 F1"
+   },
+   "r10_note": "影子读数不回写 F1 主引擎任何参数/仓位/榜单（R10）；两引擎冲突时一律听 F1",
+   "updated_at": "2026-10-21 08:30:41"
   }
  },
  "signal": {
-  "asof": "2026-10-19",
-  "is_signal_day": true,
+  "asof": "2026-10-20",
+  "is_signal_day": false,
   "signal_rule": "每周首个交易日收盘出信号，次日开盘成交；本表为最新横截面评分参考",
   "gate": {
-   "idx": 222.6637,
-   "ma50": 235.9333,
+   "idx": 226.4525,
+   "ma50": 235.8281,
    "on_holdcash": true,
    "status": "red"
   },
   "crash_check": {
-   "pool_med_ret": 0.0026,
+   "pool_med_ret": 0.0172,
    "line": -0.05,
    "triggered": false
   },
   "top5": [
    {
     "sym": "EWZUSDT",
-    "score": 1.7967
+    "score": 1.8032
    },
    {
     "sym": "EBAYUSDT",
-    "score": 1.6307
-   },
-   {
-    "sym": "TEAMUSDT",
-    "score": 1.5866
+    "score": 1.6302
    },
    {
     "sym": "VUSDT",
-    "score": 1.5571
+    "score": 1.6225
    },
    {
-    "sym": "SHOPUSDT",
-    "score": 1.4874
+    "sym": "TEAMUSDT",
+    "score": 1.6156
+   },
+   {
+    "sym": "MRNAUSDT",
+    "score": 1.5164
    }
   ],
   "slot_per_stock_pct": 2.5,
@@ -169,7 +282,7 @@
     "light": "green",
     "action": "正常",
     "detail": {
-     "fee_60d": 0.001533,
+     "fee_60d": 0.001529,
      "fee_ann_pct": 0.0064,
      "line_ann_pct": 0.04,
      "red_ann_pct": 0.04,
@@ -199,7 +312,7 @@
    "month": "2026-01",
    "gross_pct": 6.28,
    "net_pct": 6.17,
-   "fee_pct": 0.118,
+   "fee_pct": 0.119,
    "pool_pct": 138.98,
    "concede_pct": 132.71
   },
@@ -215,7 +328,7 @@
    "month": "2026-03",
    "gross_pct": -0.79,
    "net_pct": -0.82,
-   "fee_pct": 0.032,
+   "fee_pct": 0.033,
    "pool_pct": 12.79,
    "concede_pct": 13.58
   },
@@ -223,7 +336,7 @@
    "month": "2026-04",
    "gross_pct": 10.26,
    "net_pct": 10.12,
-   "fee_pct": 0.165,
+   "fee_pct": 0.166,
    "pool_pct": 17.41,
    "concede_pct": 7.14
   },
@@ -231,7 +344,7 @@
    "month": "2026-05",
    "gross_pct": 3.17,
    "net_pct": 3.01,
-   "fee_pct": 0.205,
+   "fee_pct": 0.206,
    "pool_pct": 53.51,
    "concede_pct": 50.33
   },
@@ -263,7 +376,7 @@
    "month": "2026-09",
    "gross_pct": -1.38,
    "net_pct": -1.44,
-   "fee_pct": 0.083,
+   "fee_pct": 0.084,
    "pool_pct": 3.97,
    "concede_pct": 5.35
   },
@@ -272,8 +385,8 @@
    "gross_pct": -0.27,
    "net_pct": -0.33,
    "fee_pct": 0.064,
-   "pool_pct": -7.58,
-   "concede_pct": -7.31
+   "pool_pct": -6.01,
+   "concede_pct": -5.73
   }
  ],
  "fee_curve": [
@@ -287,7 +400,7 @@
   },
   {
    "month": "2026-01",
-   "fee_pct": 0.118
+   "fee_pct": 0.119
   },
   {
    "month": "2026-02",
@@ -295,15 +408,15 @@
   },
   {
    "month": "2026-03",
-   "fee_pct": 0.032
+   "fee_pct": 0.033
   },
   {
    "month": "2026-04",
-   "fee_pct": 0.165
+   "fee_pct": 0.166
   },
   {
    "month": "2026-05",
-   "fee_pct": 0.205
+   "fee_pct": 0.206
   },
   {
    "month": "2026-06",
@@ -319,7 +432,7 @@
   },
   {
    "month": "2026-09",
-   "fee_pct": 0.083
+   "fee_pct": 0.084
   },
   {
    "month": "2026-10",
@@ -419,9 +532,9 @@
  "guard": {
   "rule": "trim_and_guard（METHOD_BOOK_DECBAR.md §二）",
   "trimmed_intraday": [
-   "2026-10-20"
+   "2026-10-21"
   ],
-  "last_complete": "2026-10-19",
+  "last_complete": "2026-10-20",
   "gap_days": 1,
   "check": "OK"
  }
