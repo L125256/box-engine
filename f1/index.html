@@ -245,7 +245,7 @@ function renderEnhancement(m){
       /* 缓存免疫修复·第三层兜底：deployed 格两通道都缺 symbols 时显示提示行（禁止静默空白） */
       (c.symbols_note?'<div class="line"><b>🎯 本格标的：</b>'+(c.symbols_scope?c.symbols_scope+'｜':'')+c.symbols_note+
         ((c.symbols_top&&c.symbols_top.length)?'｜最新读数分高前 5（参考）：'+c.symbols_top.map(x=>x.sym).join('、'):'')+'</div>'
-       :(cid!=='S4'&&c.deployed)?'<div class="line"><b>🎯 本格标的：</b>本轮回传未含名单（asof='+ENH_ASOF+'）</div>':'')+
+       :((cid==='S1'||cid==='S2'||cid==='S3')&&c.deployed)?'<div class="line"><b>🎯 本格标的：</b>本轮回传未含名单（asof='+ENH_ASOF+'）</div>':'')+
       (cid==='S5'&&(c.targets_note)?'<div class="line">🧷 '+c.targets_note+'</div>':'')+
       /* B-01：S5 卡内三行（实时信号/满额白话/实际仓位金额），数据源=enhancement_state.json
          cells.S5.realtime/full_note/pos_pct，缺字段兜底「—」（UX_REPORT §G-1/§G-3 逐字）
