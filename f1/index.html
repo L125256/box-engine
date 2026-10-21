@@ -191,10 +191,13 @@ function renderEnhancement(m){
   const ageH=(Date.now()-new Date(gen.replace(' ','T')).getTime())/36e5;
   if(!isNaN(ageH)&&ageH>48)
     h+='<div class="warnline">⚠ 增强层数据未更新（最后：'+gen+'）——档位冻结按旧值执行</div>';
+  /* B-02 散户化整改（2026-10-21）：先结论后解释——区块顶部一行结论导语；联动与名词解释降级折叠 */
+  h+='<div class="line" style="font-weight:bold">先看结论：本区块是 F1 之外的「小仓参考区」——只有 S5（出场增强）满额上线，其余格还在积累观察样本；买卖决策一律以 F1 榜单为准。</div>';
   const lk=E.linkage||{};
-  h+='<div class="line">联动（单向让位·冲突一律听 F1）：F1 市场总开关='+(lk.f1_gate==='closed'?'关闭':'开放')+
+  h+='<details><summary>联动状态（增强层与 F1 主引擎的关系·点开看）</summary><div class="line">单向让位·冲突一律听 F1：F1 市场总开关='+(lk.f1_gate==='closed'?'关闭':'开放')+
      ' · F1 健康总灯='+(lk.f1_breaker_light||'未知')+
-     ' · 增强层冻结='+(lk.enhanced_frozen?'是（冻结开新仓）':'否')+'</div>';
+     ' · 增强层冻结='+(lk.enhanced_frozen?'是（冻结开新仓）':'否')+'</div></details>';
+  h+='<details><summary>名词白话（系数/n/档位这些词是什么意思·点开看）</summary><div class="line">系数=这格实际用多大的钱（100%=每格 0.5%、50%=每格 0.25%、0%=不用钱）｜n=已积累的观察天数（越大越可信）｜单池封顶=证据只来自一个股票池，最多给一半的钱｜冻结=这格停用不给钱｜分批止盈=涨到位置先卖一部分落袋｜保本=把卖出线抬到买入成本价，最差不亏</div></details>';
   const TIER_BADGE={'FULL':'g','POOL_CAP':'y','FROZEN':'r','OFFLINE':'r'};   /* 新制映射（方法书 v1.1 §二·补遗） */
   const ORDER=['S1','S2','S3','S5','S4'];
   ORDER.forEach(cid=>{
@@ -223,9 +226,17 @@ function renderEnhancement(m){
       '<div class="line">当前域状态：'+(cid==='S4'?(c.status||'SUSPENDED'):(c.domain_active?'当前域激活':'当前域未激活'))+
       (c.sealed?' · 已封印':'')+'</div>'+
       '<div class="line">'+note+'</div>'+
+      /* 整改 2026-10-21（用户立法准绳：重要信息页面肉眼可见）：每格加「本格标的」行，
+         数据源=enhancement_state.json cells.<cid>.symbols_note/symbols_scope/symbols_top，
+         缺字段不渲染不报错。symbols_top=因子值降序前 5（参考·推导值·非指令） */
+      (c.symbols_note?'<div class="line"><b>🎯 本格标的：</b>'+(c.symbols_scope?c.symbols_scope+'｜':'')+c.symbols_note+
+        ((c.symbols_top&&c.symbols_top.length)?'｜最新读数分高前 5（参考）：'+c.symbols_top.map(x=>x.sym).join('、'):'')+'</div>':'')+
+      (cid==='S5'&&(c.targets_note)?'<div class="line">🧷 '+c.targets_note+'</div>':'')+
       /* B-01：S5 卡内三行（实时信号/满额白话/实际仓位金额），数据源=enhancement_state.json
-         cells.S5.realtime/full_note/pos_pct，缺字段兜底「—」（UX_REPORT §G-1/§G-3 逐字） */
-      (cid==='S5'?'<div class="line">📊 '+(c.realtime&&c.realtime.text?c.realtime.text:'—')+'</div>'+
+         cells.S5.realtime/full_note/pos_pct，缺字段兜底「—」（UX_REPORT §G-1/§G-3 逐字）
+         B-02 散户化整改：出场信号触发时区块顶部加 🚨 醒目警示行（用户铁律：重要信息肉眼可见） */
+      (cid==='S5'?((c.realtime&&c.realtime.has_event)?'<div class="warnline" style="font-weight:bold">🚨 出场信号已触发——今天要动手：先卖 1/3 锁利润、余仓抬到成本价保本卖（只动增强层小仓，F1 主仓不动，详见下方 📊 行）</div>':'')+
+        '<div class="line">📊 '+(c.realtime&&c.realtime.text?c.realtime.text:'—')+'</div>'+
         '<div class="line">💰 '+(c.full_note||'—')+'</div>'+
         '<div class="line">💵 实际仓位金额='+(c.pos_pct==null?'—':c.pos_pct+'%（=基线 0.5%/格×系数 '+coef+'%）')+'</div>':'')+
       (!c.domain_active&&cid!=='S4'&&!c.sealed?'<div class="line">当前域未激活——本格读数冻结，仅作展示，不产生信号</div>':'')+
