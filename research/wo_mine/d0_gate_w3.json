@@ -1,0 +1,156 @@
+{
+ "ts": "2026-10-21 06:54:35",
+ "spec": "METHOD_BOOK_W3 §六 D0 五锚（一发验证，不过禁跑）",
+ "cache": "/tmp/box_cache_w2a",
+ "checks": {
+  "fd_DA_meanR": {
+   "got": {
+    "n": 1816,
+    "meanR": 1.493
+   },
+   "want": {
+    "n": 1816,
+    "meanR": 1.493
+   },
+   "tol": "n 逐位 / mean ±0.05",
+   "verdict": "hit"
+  },
+  "fd_ctrl_meanR": {
+   "got": {
+    "n": 1802,
+    "meanR": 1.1853
+   },
+   "want": {
+    "n": 1802,
+    "meanR": 1.1798
+   },
+   "tol": "n 逐位 / mean ±0.05",
+   "verdict": "hit"
+  },
+  "w2_weak_event_anchors": {
+   "detail": {
+    "ex-g80-ruowen": {
+     "got": {
+      "n_days": 20,
+      "n_sig": 38,
+      "mean_r": 9.4931,
+      "cushion": 2.43,
+      "p": 0.0
+     },
+     "want": {
+      "cushion": 2.43,
+      "n_days": 20,
+      "n_sig": 38,
+      "p": 0.0
+     },
+     "verdict": "hit"
+    },
+    "ex-rev5-ruowen": {
+     "got": {
+      "n_days": 48,
+      "n_sig": 127,
+      "mean_r": 6.1842,
+      "cushion": 2.58,
+      "p": 0.0
+     },
+     "want": {
+      "cushion": 2.58,
+      "n_days": 48,
+      "n_sig": 127,
+      "p": 0.0
+     },
+     "verdict": "hit"
+    },
+    "ex-brk20-ruowen": {
+     "got": {
+      "n_days": 31,
+      "n_sig": 83,
+      "mean_r": 4.666,
+      "cushion": 2.95,
+      "p": 0.001
+     },
+     "want": {
+      "cushion": 2.95,
+      "n_days": 31,
+      "n_sig": 83,
+      "p": 0.001
+     },
+     "verdict": "hit"
+    }
+   },
+   "tol": "n 逐位 / 垫 ±0.05 / p 逐位",
+   "verdict": "hit"
+  },
+  "armC_pb5": {
+   "FULL_avoid": {
+    "got": {
+     "old131": 43.7883,
+     "full144": 69.7292
+    },
+    "want": {
+     "old131": 43.7883,
+     "full144": 69.7292
+    },
+    "tol": "±0.05",
+    "verdict": "hit"
+   },
+   "s10_ruowen_weak_cell": {
+    "got": {
+     "n_days": 64,
+     "n_sig": 12,
+     "cushion_x": 170.32,
+     "ci": [
+      -3.6e-05,
+      0.004968
+     ],
+     "p": 0.031,
+     "q_replay": 0.065647
+    },
+    "want": {
+     "n_days": 64,
+     "n_sig": 12,
+     "cushion_x": 170.32,
+     "ci": [
+      -3.6e-05,
+      0.004968
+     ],
+     "p": 0.031,
+     "q": 0.065647
+    },
+    "tol": "n 逐位 / 垫 ±0.05 / CI ±1e-6 / p,q 逐位",
+    "verdict": "hit"
+   },
+   "verdict": "hit"
+  },
+  "gate_and_snapshot": {
+   "gate_thr": {
+    "got": {
+     "old131": 1.0359095406560563,
+     "full144": 1.2266534247386358
+    },
+    "want": {
+     "old131": 1.0359095406560563,
+     "full144": 1.2266534247386358
+    },
+    "tol": "逐位",
+    "verdict": "hit"
+   },
+   "snapshot": {
+    "got": {
+     "ledger_md5": "f3f790a6e873e01b1966f8d5b996e0d3",
+     "perfile_agg": "2b2c9572e054bfac04ad77444277c65c",
+     "n_files": 176
+    },
+    "want": {
+     "ledger_md5_frozen": "33c8b9ec54d17537c3b7f1f6d8d47463",
+     "perfile_agg_frozen": "2b2c9572e054bfac04ad77444277c65c"
+    },
+    "verdict": "hit_with_registered_deviation",
+    "note": "G9：ledger≠冻结值=在库先例重序列化偏差（D0_RESULT.json md5_clarification + dual_check.py L17-22），perfile_agg 逐位命中=batch0 workdir 冻结 vintage 同一性，fd 双锚逐位复现为实质硬闸；perfile_agg 不符即停机"
+   },
+   "verdict": "hit"
+  }
+ },
+ "all_pass": true,
+ "runtime_sec": 31.7
+}
