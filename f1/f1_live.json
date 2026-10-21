@@ -78,8 +78,8 @@
    "data_source": "主源单源模式"
   },
   "enhancement": {
-   "generated": "2026-10-21 08:30:41",
-   "asof": null,
+   "generated": "2026-10-21 03:35:10",
+   "asof": "2026-10-19",
    "protocol": "DEPLOY_SPEC_v1（分域增强插件层·影子折扣制；F1 外独立 add-on，R10 不回写）",
    "judgment_basis": "SHADOW_SPEC_v1 §3（数字冻结：IC>0 ∧ t≥2 ∧ 命中率≥60%；早死 n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）——零新判线",
    "tier_table_version": "DEPLOY_SPEC_v1 §2.2（2026-10-21 预注册冻结）",
@@ -99,7 +99,7 @@
      "tier_name": "观察档",
      "coef": 25,
      "n_days": 0,
-     "n_registered": 4,
+     "n_registered": 3,
      "sealed": false,
      "verdict": null,
      "status": "观察档（登记即部署起点（n<10））",
@@ -109,14 +109,15 @@
      "pool": "full144 单池",
      "domain_active": true,
      "deployed": true,
-     "tier_note": "登记即部署起点（n<10）"
+     "tier_note": "登记即部署起点（n<10）",
+     "pos_pct": 0.125
     },
     "S2": {
      "tier": "T0",
      "tier_name": "观察档",
      "coef": 25,
      "n_days": 0,
-     "n_registered": 4,
+     "n_registered": 3,
      "sealed": false,
      "verdict": null,
      "status": "观察档（登记即部署起点（n<10））",
@@ -126,14 +127,15 @@
      "pool": "full144 单池",
      "domain_active": true,
      "deployed": true,
-     "tier_note": "登记即部署起点（n<10）"
+     "tier_note": "登记即部署起点（n<10）",
+     "pos_pct": 0.125
     },
     "S3": {
      "tier": "T0",
      "tier_name": "观察档",
      "coef": 25,
      "n_days": 0,
-     "n_registered": 4,
+     "n_registered": 3,
      "sealed": false,
      "verdict": null,
      "status": "观察档（登记即部署起点（n<10））",
@@ -143,7 +145,8 @@
      "pool": "full144 单池",
      "domain_active": false,
      "deployed": true,
-     "tier_note": "登记即部署起点（n<10）"
+     "tier_note": "登记即部署起点（n<10）",
+     "pos_pct": 0.125
     },
     "S5": {
      "tier": "T0",
@@ -160,7 +163,14 @@
      "pool": "fd 池配对",
      "domain_active": true,
      "deployed": true,
-     "tier_note": "登记即部署起点（n<10）"
+     "tier_note": "登记即部署起点（n<10）",
+     "realtime": {
+      "has_event": false,
+      "date": null,
+      "text": "S5 今日实时信号：无出场事件（配对累计 n=0/20）"
+     },
+     "full_note": "本格满额=转正档 100%（0.5% 全额）；与 S1-S3 单池格封顶 50% 不同",
+     "pos_pct": 0.125
     },
     "S4": {
      "tier": null,
@@ -178,17 +188,18 @@
      "domain_active": false,
      "deployed": false,
      "replenish_need": 4,
-     "replenish_have": 0
+     "replenish_have": 0,
+     "pos_pct": null
     }
    },
    "linkage": {
-    "f1_gate": "open",
-    "f1_breaker_light": "unknown",
-    "enhanced_frozen": false,
+    "f1_gate": "closed",
+    "f1_breaker_light": "green",
+    "enhanced_frozen": true,
     "rule": "DEPLOY_SPEC_v1 §2.5 三条单向让位（闸关→冻结开新仓；红灯→整体冻结；CB2 冻结不连带——增强层独立小止损与 T 档自降级，风险自含）；增强层永不反向影响 F1"
    },
    "r10_note": "影子读数不回写 F1 主引擎任何参数/仓位/榜单（R10）；两引擎冲突时一律听 F1",
-   "updated_at": "2026-10-21 08:30:41"
+   "updated_at": "2026-10-21 03:35:10"
   }
  },
  "signal": {
