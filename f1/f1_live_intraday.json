@@ -2,12 +2,12 @@
  "meta": {
   "workorder": "R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）",
   "seed": 42,
-  "generated": "2026-10-22 20:34:40 北京时间",
+  "generated": "2026-10-23 00:33:58 北京时间",
   "engine_sha256": "92c090044683aff73f5d1193bd4941a001c638578aa0643f55b997eddd8a98f1",
   "pool_n": 144,
   "breadth": {
-   "pct": 29.86,
-   "n_above": 43,
+   "pct": 27.08,
+   "n_above": 39,
    "n_total": 144,
    "ma_window": 50,
    "min_periods": 40
@@ -15,9 +15,9 @@
   "mode": "intraday_snapshot",
   "operable": false,
   "data_source": "主源单源模式",
-  "round_id": "20:30",
+  "round_id": "00:30",
   "round_tz": "北京时间",
-  "round_semantic": "美股盘前（夏令时 9:30 ET 开盘 = 北京 21:30，本轮=开盘前约 1 小时）",
+  "round_semantic": "美股盘中（夏令时约 12:30 ET）",
   "dst_note": "北京时刻全年固定（无夏令时）；美股夏令时窗口 = 3 月第二个周日 ~ 11 月第一个周日。04:30 轮在夏令时窗口内=收盘后快照，窗口外（冬令时）=收盘前 30 分钟快照。",
   "asof_settled": "2026-10-21",
   "total_exposure_pct": 12.5,
@@ -63,7 +63,7 @@
    "end": "2026-10-22"
   },
   "enhancement": {
-   "generated": "2026-10-22 20:34:52",
+   "generated": "2026-10-23 00:34:13",
    "asof": null,
    "protocol": "DEPLOY_SPEC_v1（分域增强插件层·执照复审制·新制映射 v1.1 §二补遗；F1 外独立 add-on，R10 不回写）",
    "judgment_basis": "SHADOW_SPEC_v1 §3（数字冻结：IC>0 ∧ t≥2 ∧ 命中率≥60%；早死 n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）——零新判线（新制下判线输出=执照复审数据源，不再直接定档）",
@@ -257,7 +257,7 @@
     "rule": "DEPLOY_SPEC_v1 §2.5 三条单向让位（闸关→冻结开新仓；红灯→整体冻结；CB2 冻结不连带——增强层独立小止损与 T 档自降级，风险自含）；增强层永不反向影响 F1"
    },
    "r10_note": "增强层读数不回写 F1 主引擎任何参数/仓位/榜单（R10）；两引擎冲突时一律听 F1",
-   "updated_at": "2026-10-22 20:34:52"
+   "updated_at": "2026-10-23 00:34:13"
   }
  },
  "guard": {
@@ -277,7 +277,7 @@
   },
   "holdings": [],
   "crash_watch": {
-   "pool_med_ret_intraday": -0.0145,
+   "pool_med_ret_intraday": -0.0255,
    "line": -0.05,
    "triggered_estimate": false,
    "kind": "预估（部分K·未落定），不触发任何动作"
@@ -336,7 +336,7 @@
  },
  "push": {
   "push": true,
-  "key": "intraday:2026-10-21:20:30",
+  "key": "intraday:2026-10-21:00:30",
   "kind": "intraday",
   "label": "盘中快照·不可操作",
   "carries_decision": false,
