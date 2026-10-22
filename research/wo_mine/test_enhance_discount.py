@@ -304,10 +304,14 @@ removed_fee = [l for l in git.splitlines() if l.startswith('-') and '0.03' in l]
 added_fee = [l for l in git.splitlines() if l.startswith('+') and '0.03' in l]
 check('⑤c 引擎费常数 0.03%/bar 零改动（diff 无费常数行增删）', not removed_fee and not added_fee)
 # 5d：本单 f1_signal.py diff 仅 main() CLI 挂接段（四因子/闸/熔断主逻辑零改动）
-# （HEAD~1 基线下豁免 FW-READOUT-PATH-20261021 已备案的 forward_readout 绝对路径
-#   →__file__ 相对解析替换块（6 删除行：路径 2 + subprocess.run 调用行 4），
-#   sha 8a53b252→7da41c80 已登记，零判定逻辑改动）
-_fw_replaced = ('forward_readout.py', 'subprocess.run([sys.executable,')
+# （HEAD~1 基线下豁免已备案的「挂接行替换」类安全删除：
+#   FW-READOUT-PATH-20261021：forward_readout 绝对路径→__file__ 相对解析替换块
+#     （6 删除行：路径 2 + subprocess.run 调用行 4），sha 8a53b252→7da41c80 已登记；
+#   ENHANCE-PATH-20261022：判定轮/快照轮两处 enhance_discount subprocess 补传
+#     F1_OUT_JSON（env=_env 参数并入调用行，每处 1 删除行：
+#     '--auto'], timeout=300, check=False) → +env=_env），判定主逻辑零删除）
+_fw_replaced = ('forward_readout.py', 'subprocess.run([sys.executable,',
+                "'--auto'], timeout=300, check=False)")
 removed_logic = [l for l in git.splitlines()
                  if l.startswith('-') and l.strip() and not l.startswith('---')
                  and not any(k in l for k in _fw_replaced)]

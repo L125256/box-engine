@@ -29,6 +29,15 @@ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）。数字全部冻结逐�
 【挂接】判定轮/快照轮 f1_signal.py shadow_cells 旁路之后追加本件 --auto（同款
 subprocess 模式，异常不阻断，学 SH-1 先例）。
 
+【路径解析（ENHANCE-PATH-20261022·云端轮验收书 §4.3 方案甲①）】ROUND_F（判定轮
+产物 f1_live.json，血缘只读+回写目标）解析顺序与引擎 f1_signal.py:92 OUT_JSON_DEFAULT
+同源：① F1_OUT_JSON 环境变量（云端 runner 工作根布局，如 /tmp/f1work/f1_live.json，
+由引擎挂接处 subprocess env 透传）→ ② SHADOW_REPO_ROOT 布局（<repo根>/f1/）→
+③ __file__ 相对 repo 布局原值。修复定性：云端 runner 把引擎产物指到工作根布局，
+原值恒解 repo 布局 → _merge_into_live 读不存在路径确定性跳过（验收书 §三.1 Errno 2
+物证），快照轮间隙 meta.enhancement 滞后窗口由此根治；R10 定性不变（对 f1_live.json
+只动 meta.enhancement 一个键）。
+
 【资金费降级（DEPLOY_SPEC §1/§3.1，工单件⑤）】S1-S3 IC 读数与 S5 Δ meanR 判定
 管线中不存在资金费前置过滤步骤（本件施工时逐一核验：xsec_ic_series /
 fd_revive_run 判定路径零资金费引用）——降级=事实确认+事后常数披露：本件落盘携带
@@ -55,7 +64,21 @@ STATEDIR = os.path.join(ROOT, 'f1')
 SHADOW_STATE_F = os.path.join(STATEDIR, 'shadow_state.json')
 FD_STATE_F = os.path.join(STATEDIR, 'fd_revive_state.json')
 FD_DAYS_F = os.path.join(STATEDIR, 'fd_revive_days.jsonl')
-ROUND_F = os.path.join(STATEDIR, 'f1_live.json')            # 判定轮产物（血缘只读）
+# ENHANCE-PATH-20261022（云端轮验收书 §4.3 方案甲①·路径配置 bug 修复）：
+# ROUND_F 三档解析（与引擎 f1_signal.py:92 同源取路径）：
+#   ① F1_OUT_JSON 环境变量（云端 runner 工作根布局 /tmp/f1work/f1_live.json，
+#      由 f1_signal.py 挂接处 subprocess env 透传）；
+#   ② SHADOW_REPO_ROOT 布局（<repo根>/f1/f1_live.json）；
+#   ③ 原值（__file__ 相对 repo 布局 <repo根>/f1/f1_live.json，本地/无环境变量时）。
+# 原死分支：云端 F1_OUT_JSON 布局下原值恒指 repo 布局不存在路径 → _merge_into_live
+# 读失败落入 402-403 容错跳过（验收书 §三.1 证据链：Errno 2 报错物证）。
+# 注：验收书原文第二档 os.environ.get('SHADOW_REPO_ROOT','')+'/f1/f1_live.json' 在
+# 该变量未设时得 '/f1/f1_live.json'（空串拼接为 truthy，or 链误停破坏第三档），
+# 本件按同语义修正为仅非空时拼接——三档优先级不变，本地无环境变量回归原值。
+ROUND_F = (os.environ.get('F1_OUT_JSON')
+           or (os.environ.get('SHADOW_REPO_ROOT') and
+               os.environ['SHADOW_REPO_ROOT'] + '/f1/f1_live.json')
+           or os.path.join(STATEDIR, 'f1_live.json'))       # 判定轮产物（血缘只读）
 OUT_F = os.path.join(STATEDIR, 'enhancement_state.json')    # 运行产物不入库（云端轮回传）
 
 # ---- 档位表（新制映射：方法书 v1.1 §二·补遗 公式级定义照抄施工，裁定书

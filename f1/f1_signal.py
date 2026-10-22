@@ -1175,12 +1175,19 @@ def main():
             print(f'shadow_cells 挂接异常（不阻断）: {_se}')
         # DEPLOY_SPEC_v1 §3.1-② 分域增强折扣计算器（f1/enhancement_state.json 产数）：
         # 判定轮 shadow_cells 旁路之后同款 subprocess 旁路（异常不阻断判定轮）。
+        # ENHANCE-PATH-20261022（云端轮验收书 §4.3 方案甲②）：subprocess env 补传
+        # F1_OUT_JSON=本引擎判定轮 live 产物路径（与下方 ENHANCE-MERGE 并入块 _out_path
+        # 同源），使 enhance_discount._merge_into_live 在云端工作根布局（/tmp/f1work）
+        # 下能定位 f1_live.json（原确定性死分支修复）；只加环境变量透传，判定主逻辑/
+        # 参数/榜单零改动（R10）。
         try:
             import subprocess
             ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 引擎在 engine_f1/ 或 f1/，上级即仓库根
             ENH_SCRIPT = os.path.join(ROOT, 'research', 'wo_mine', 'enhance_discount.py')
+            _env = dict(os.environ)
+            _env['F1_OUT_JSON'] = cli_out or OUT_JSON_DEFAULT or '/workspace/f1_web/f1_live.json'
             subprocess.run([sys.executable, ENH_SCRIPT,
-                            '--auto'], timeout=300, check=False)
+                            '--auto'], timeout=300, check=False, env=_env)
         except Exception as _ene:  # 挂接旁路：任何异常只登记，不影响 live 输出
             print(f'enhance_discount 挂接异常（不阻断）: {_ene}')
         # ENHANCE-MERGE-20261021（遗留②修复·DEPLOY_SPEC_v1 §3.1-③④ 消费通道补挂）：
@@ -1239,12 +1246,19 @@ def main():
             print(f'shadow_cells 快照轮挂接异常（不阻断）: {_se2}')
         # DEPLOY_SPEC_v1 §3.1-② 分域增强折扣计算器（快照轮同款旁路，幂等落盘；
         # 异常不阻断快照轮）。
+        # ENHANCE-PATH-20261022（验收书 §4.3 方案甲②）：快照轮同样补传 F1_OUT_JSON，
+        # 但回写目标=判定轮 live 产物（f1_live.json，meta.enhancement 滞后窗口的根治点），
+        # 非快照文件（快照产物=f1_live_intraday.json，见 run_snapshot 默认路径）——
+        # 故不取 cli_out（快照轮 --out 指向快照文件），只取 OUT_JSON_DEFAULT/默认 live 路径；
+        # 只加环境变量透传，判定主逻辑/参数/榜单零改动（R10）。
         try:
             import subprocess
             ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 引擎在 engine_f1/ 或 f1/，上级即仓库根
             ENH_SCRIPT = os.path.join(ROOT, 'research', 'wo_mine', 'enhance_discount.py')
+            _env = dict(os.environ)
+            _env['F1_OUT_JSON'] = OUT_JSON_DEFAULT or '/workspace/f1_web/f1_live.json'
             subprocess.run([sys.executable, ENH_SCRIPT,
-                            '--auto'], timeout=300, check=False)
+                            '--auto'], timeout=300, check=False, env=_env)
         except Exception as _ene2:  # 挂接旁路：任何异常只登记，不影响快照输出
             print(f'enhance_discount 快照轮挂接异常（不阻断）: {_ene2}')
     elif mode == 'replay':
