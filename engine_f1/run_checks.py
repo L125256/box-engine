@@ -233,17 +233,22 @@ def g5():
 
 def main():
     for g in (g1, g2, g3, g4, g5):
+        name = g.__name__.upper()
         try:
             g()
-            RES.setdefault(g.__name__.upper(), {})['pass'] = RES.get(
-                g.__name__.upper(), {}).get('pass', True)
-            print(g.__name__.upper(), '-> PASS')
+            RES.setdefault(name, {})['pass'] = RES.get(name, {}).get('pass', True)
+            if RES[name].get('pass', True):
+                print(name, '-> PASS')
+            else:
+                # G2/G3/G4/G5 只写 RES 不抛异常：stdout 逐项须读 RES 真实 pass 值，
+                # 与 checks_result.json 结论一致（修 G2 假 PASS · v1.11）
+                print(name, '-> FAIL (pass=False，详见 checks_result.json)')
         except AssertionError as e:
-            RES[g.__name__.upper()] = {'pass': False, 'error': str(e)}
-            print(g.__name__.upper(), '-> FAIL', e)
+            RES[name] = {'pass': False, 'error': str(e)}
+            print(name, '-> FAIL', e)
         except Exception as e:
-            RES[g.__name__.upper()] = {'pass': False, 'error': f'{type(e).__name__}: {e}'}
-            print(g.__name__.upper(), '-> FAIL', type(e).__name__, e)
+            RES[name] = {'pass': False, 'error': f'{type(e).__name__}: {e}'}
+            print(name, '-> FAIL', type(e).__name__, e)
     with open(os.path.join(HERE, 'checks_result.json'), 'w') as f:
         json.dump(RES, f, ensure_ascii=False, indent=1)
     print(json.dumps({k: v.get('pass') for k, v in RES.items()}))
