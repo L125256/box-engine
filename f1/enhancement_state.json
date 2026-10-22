@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-22 04:32:54",
+ "generated": "2026-10-22 08:30:17",
  "asof": null,
  "protocol": "DEPLOY_SPEC_v1（分域增强插件层·执照复审制·新制映射 v1.1 §二补遗；F1 外独立 add-on，R10 不回写）",
  "judgment_basis": "SHADOW_SPEC_v1 §3（数字冻结：IC>0 ∧ t≥2 ∧ 命中率≥60%；早死 n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）——零新判线（新制下判线输出=执照复审数据源，不再直接定档）",
@@ -20,7 +20,7 @@
    "tier_name": "单池封顶",
    "coef": 50,
    "n_days": 0,
-   "n_registered": 4,
+   "n_registered": 5,
    "sealed": false,
    "verdict": null,
    "status": "单池封顶（复审样本累计中（执照复审数据源；单池封顶 50%））",
@@ -35,34 +35,34 @@
    "symbols_scope": "full144 单池·本行打分 72 只",
    "symbols_top": [
     {
-     "sym": "SOXSUSDT",
-     "val": 0.124002
+     "sym": "UVXYUSDT",
+     "val": 0.091966
     },
     {
-     "sym": "UVXYUSDT",
-     "val": 0.091153
+     "sym": "SOXSUSDT",
+     "val": 0.077215
     },
     {
      "sym": "NFLXUSDT",
-     "val": 0.080545
-    },
-    {
-     "sym": "SQQQUSDT",
-     "val": 0.066105
+     "val": 0.075025
     },
     {
      "sym": "CBRSUSDT",
-     "val": 0.028506
+     "val": 0.072391
+    },
+    {
+     "sym": "SQQQUSDT",
+     "val": 0.05668
     }
    ],
-   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 72 只逐日打分，分高者为多头侧候选（最新读数 2026-10-21，参考·推导值·非指令）"
+   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 72 只逐日打分，分高者为多头侧候选（最新读数 2026-10-22，参考·推导值·非指令）"
   },
   "S2": {
    "tier": "POOL_CAP",
    "tier_name": "单池封顶",
    "coef": 50,
    "n_days": 0,
-   "n_registered": 4,
+   "n_registered": 5,
    "sealed": false,
    "verdict": null,
    "status": "单池封顶（复审样本累计中（执照复审数据源；单池封顶 50%））",
@@ -77,34 +77,34 @@
    "symbols_scope": "full144 单池·本行打分 144 只",
    "symbols_top": [
     {
-     "sym": "SOXSUSDT",
-     "val": 0.124002
+     "sym": "UVXYUSDT",
+     "val": 0.091966
     },
     {
-     "sym": "UVXYUSDT",
-     "val": 0.091153
+     "sym": "LRCXUSDT",
+     "val": 0.078984
+    },
+    {
+     "sym": "SOXSUSDT",
+     "val": 0.077215
     },
     {
      "sym": "NFLXUSDT",
-     "val": 0.080545
+     "val": 0.075025
     },
     {
-     "sym": "DJTUSDT",
-     "val": 0.070036
-    },
-    {
-     "sym": "BOTUSDT",
-     "val": 0.066392
+     "sym": "CBRSUSDT",
+     "val": 0.072391
     }
    ],
-   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-21，参考·推导值·非指令）"
+   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-22，参考·推导值·非指令）"
   },
   "S3": {
    "tier": "FROZEN",
    "tier_name": "冻结",
    "coef": 0,
    "n_days": 0,
-   "n_registered": 4,
+   "n_registered": 5,
    "sealed": false,
    "verdict": null,
    "status": "冻结（域未激活=FROZEN（方法书 v1.1 §二·补遗））",
@@ -119,34 +119,34 @@
    "symbols_scope": "full144 单池·本行打分 144 只",
    "symbols_top": [
     {
-     "sym": "MRNAUSDT",
-     "val": 0.007693
-    },
-    {
-     "sym": "BRKBUSDT",
-     "val": -0.003378
-    },
-    {
-     "sym": "DKNGUSDT",
-     "val": -0.004371
-    },
-    {
-     "sym": "IBMUSDT",
-     "val": -0.005022
+     "sym": "SONYUSDT",
+     "val": 0.010955
     },
     {
      "sym": "VUSDT",
-     "val": -0.00767
+     "val": -0.006143
+    },
+    {
+     "sym": "BRKBUSDT",
+     "val": -0.008119
+    },
+    {
+     "sym": "COSTUSDT",
+     "val": -0.010542
+    },
+    {
+     "sym": "TMFUSDT",
+     "val": -0.011154
     }
    ],
-   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-21，参考·推导值·非指令）"
+   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-22，参考·推导值·非指令）"
   },
   "S5": {
    "tier": "FULL",
    "tier_name": "满额档",
    "coef": 100,
    "n_days": 0,
-   "n_registered": 1,
+   "n_registered": 2,
    "sealed": false,
    "verdict": null,
    "status": "满额档（S5 满额终裁（2026-10-21 16:08）生效；J5 判读线 n≥20 未至，n 只累计不判（执照复审数据源））",
@@ -193,5 +193,5 @@
   "rule": "DEPLOY_SPEC_v1 §2.5 三条单向让位（闸关→冻结开新仓；红灯→整体冻结；CB2 冻结不连带——增强层独立小止损与 T 档自降级，风险自含）；增强层永不反向影响 F1"
  },
  "r10_note": "增强层读数不回写 F1 主引擎任何参数/仓位/榜单（R10）；两引擎冲突时一律听 F1",
- "updated_at": "2026-10-22 04:32:54"
+ "updated_at": "2026-10-22 08:30:17"
 }
