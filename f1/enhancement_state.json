@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-23 04:32:35",
- "asof": null,
+ "generated": "2026-10-23 08:29:52",
+ "asof": "2026-10-22",
  "protocol": "DEPLOY_SPEC_v1（分域增强插件层·执照复审制·新制映射 v1.1 §二补遗；F1 外独立 add-on，R10 不回写）",
  "judgment_basis": "SHADOW_SPEC_v1 §3（数字冻结：IC>0 ∧ t≥2 ∧ 命中率≥60%；早死 n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）——零新判线（新制下判线输出=执照复审数据源，不再直接定档）",
  "tier_table_version": "方法书 v1.1 §二·补遗（ACCEPT-BOOK-FULLSCENE-v1.1 · 裁定书 §二并入 · 用户授权 2026-10-21 20:10）",
@@ -19,8 +19,8 @@
    "tier": "POOL_CAP",
    "tier_name": "单池封顶",
    "coef": 50,
-   "n_days": 0,
-   "n_registered": 5,
+   "n_days": 1,
+   "n_registered": 6,
    "sealed": false,
    "verdict": null,
    "status": "单池封顶（复审样本累计中（执照复审数据源；单池封顶 50%））",
@@ -35,34 +35,34 @@
    "symbols_scope": "full144 单池·本行打分 72 只",
    "symbols_top": [
     {
-     "sym": "UVXYUSDT",
-     "val": 0.091966
-    },
-    {
-     "sym": "SOXSUSDT",
-     "val": 0.077215
-    },
-    {
-     "sym": "NFLXUSDT",
-     "val": 0.075025
+     "sym": "SOXLUSDT",
+     "val": 0.148277
     },
     {
      "sym": "CBRSUSDT",
-     "val": 0.072391
+     "val": 0.148049
     },
     {
-     "sym": "SQQQUSDT",
-     "val": 0.05668
+     "sym": "NOKUSDT",
+     "val": 0.143319
+    },
+    {
+     "sym": "COHRUSDT",
+     "val": 0.134776
+    },
+    {
+     "sym": "INTWUSDT",
+     "val": 0.125648
     }
    ],
-   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 72 只逐日打分，分高者为多头侧候选（最新读数 2026-10-22，参考·推导值·非指令）"
+   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 72 只逐日打分，分高者为多头侧候选（最新读数 2026-10-23，参考·推导值·非指令）"
   },
   "S2": {
    "tier": "POOL_CAP",
    "tier_name": "单池封顶",
    "coef": 50,
-   "n_days": 0,
-   "n_registered": 5,
+   "n_days": 1,
+   "n_registered": 6,
    "sealed": false,
    "verdict": null,
    "status": "单池封顶（复审样本累计中（执照复审数据源；单池封顶 50%））",
@@ -77,34 +77,34 @@
    "symbols_scope": "full144 单池·本行打分 144 只",
    "symbols_top": [
     {
-     "sym": "UVXYUSDT",
-     "val": 0.091966
+     "sym": "FLEXUSDT",
+     "val": 0.151088
     },
     {
      "sym": "LRCXUSDT",
-     "val": 0.078984
+     "val": 0.150376
     },
     {
-     "sym": "SOXSUSDT",
-     "val": 0.077215
-    },
-    {
-     "sym": "NFLXUSDT",
-     "val": 0.075025
+     "sym": "SOXLUSDT",
+     "val": 0.148277
     },
     {
      "sym": "CBRSUSDT",
-     "val": 0.072391
+     "val": 0.148049
+    },
+    {
+     "sym": "NOKUSDT",
+     "val": 0.143319
     }
    ],
-   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-22，参考·推导值·非指令）"
+   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-23，参考·推导值·非指令）"
   },
   "S3": {
    "tier": "FROZEN",
    "tier_name": "冻结",
    "coef": 0,
    "n_days": 0,
-   "n_registered": 5,
+   "n_registered": 6,
    "sealed": false,
    "verdict": null,
    "status": "冻结（域未激活=FROZEN（方法书 v1.1 §二·补遗））",
@@ -120,33 +120,33 @@
    "symbols_top": [
     {
      "sym": "SONYUSDT",
-     "val": 0.010955
+     "val": 0.005287
+    },
+    {
+     "sym": "HDUSDT",
+     "val": -0.000488
+    },
+    {
+     "sym": "WMTUSDT",
+     "val": -0.000575
     },
     {
      "sym": "VUSDT",
-     "val": -0.006143
+     "val": -0.001058
     },
     {
-     "sym": "BRKBUSDT",
-     "val": -0.008119
-    },
-    {
-     "sym": "COSTUSDT",
-     "val": -0.010542
-    },
-    {
-     "sym": "TMFUSDT",
-     "val": -0.011154
+     "sym": "KOUSDT",
+     "val": -0.00136
     }
    ],
-   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-22，参考·推导值·非指令）"
+   "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-23，参考·推导值·非指令）"
   },
   "S5": {
    "tier": "FULL",
    "tier_name": "满额档",
    "coef": 100,
    "n_days": 0,
-   "n_registered": 2,
+   "n_registered": 3,
    "sealed": false,
    "verdict": null,
    "status": "满额档（S5 满额终裁（2026-10-21 16:08）生效；J5 判读线 n≥20 未至，n 只累计不判（执照复审数据源））",
@@ -187,11 +187,11 @@
   }
  },
  "linkage": {
-  "f1_gate": "open",
-  "f1_breaker_light": "unknown",
-  "enhanced_frozen": false,
+  "f1_gate": "closed",
+  "f1_breaker_light": "green",
+  "enhanced_frozen": true,
   "rule": "DEPLOY_SPEC_v1 §2.5 三条单向让位（闸关→冻结开新仓；红灯→整体冻结；CB2 冻结不连带——增强层独立小止损与 T 档自降级，风险自含）；增强层永不反向影响 F1"
  },
  "r10_note": "增强层读数不回写 F1 主引擎任何参数/仓位/榜单（R10）；两引擎冲突时一律听 F1",
- "updated_at": "2026-10-23 04:32:35"
+ "updated_at": "2026-10-23 08:29:52"
 }
