@@ -106,7 +106,7 @@ class KxClient:
         # 【v3.4.0 数据源容灾】导演主源故障切换（2026-10-13 用户拍板+工程双席裁决）
         #   主源=导演；连续 3 次失败切币安 S3 T+1 日K（data.binance.vision）；
         #   降级 bar 带 source='s3'；每 30 分钟探测导演恢复自动回切；
-        #   新浪(hq.sinajs.cn)仅作存活心跳探针，其价格数据一律禁用（规矩第 13 条）。
+        #   新浪探活件已按 KUXIN-BREAKER-20261024 砍除，任何路径不再触新浪行情域名。
         self._mode = 'director'            # 'director' | 's3'
         self._fail_count = 0
         self._probe_interval = 1800        # 降级态探测导演恢复的间隔（30 分钟）
@@ -209,9 +209,7 @@ class KxClient:
                     with self._mode_lock:
                         self._mode = 's3'
                         self._last_probe = time.time()
-                    _alive = self.probe_sina_alive()
-                    print(f"[replica] 数据源切换: 导演连续{fc}次失败 -> S3降级模式"
-                          f"（新浪心跳={'可达' if _alive else '亦不可达'}）")
+                    print(f"[replica] 数据源切换: 导演连续{fc}次失败 -> S3降级模式")
                     return self._get_kline_s3(symbol, market, period, limit)
                 raise
         # S3 降级态：先看导演是否恢复（30 分钟探测间隔）
@@ -241,19 +239,6 @@ class KxClient:
             print("[replica] 数据源回切: 导演已恢复 -> 主源模式")
         except Exception as e:  # noqa: BLE001
             log.info("[replica] 导演探测未恢复: %s", e)
-
-    # ------------------------------------------------------------------ #
-    @staticmethod
-    def probe_sina_alive() -> bool:
-        """新浪存活心跳探针——只测可达性，禁止使用其价格（规矩第 13 条）。"""
-        try:
-            r = requests.get("https://hq.sinajs.cn/list=gb_orcl",
-                             headers={"User-Agent": UA,
-                                      "Referer": "https://finance.sina.com.cn"},
-                             timeout=(3, 4))
-            return r.status_code == 200
-        except Exception:  # noqa: BLE001
-            return False
 
     # ------------------------------------------------------------------ #
     def get_status(self) -> dict:

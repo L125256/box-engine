@@ -3,49 +3,49 @@
  "n_pass": 21,
  "cases": [
   {
-   "name": "T1.1 SINA_HEADERS 常量存在且含 Referer",
+   "name": "T1.1 refresh_cache.py 零新浪触点（hq.sinajs 0 命中）",
    "pass": true,
-   "detail": "Referer=https://finance.sina.com.cn"
+   "detail": "文件=refresh_cache.py"
   },
   {
-   "name": "T1.2 SINA_HEADERS 含浏览器 UA",
+   "name": "T1.1 kx_client.py 零新浪触点（hq.sinajs 0 命中）",
+   "pass": true,
+   "detail": "文件=kx_client.py"
+  },
+  {
+   "name": "T1.2 refresh_cache 无新浪探活/请求头/探针端点标识符（代码级移除）",
    "pass": true,
    "detail": ""
   },
   {
-   "name": "T1.3 kx_client.probe_sina_alive 注入 Referer",
-   "pass": true,
-   "detail": "headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'Referer': 'https://finance.sina.com.cn'}"
-  },
-  {
-   "name": "T1.4 kx_client.probe_sina_alive 注入浏览器 UA",
+   "name": "T1.3 kx_client 无新浪心跳件（probe_sina_alive 已删）",
    "pass": true,
    "detail": ""
   },
   {
-   "name": "T1.5 probe_sina_alive 命中新浪端点",
+   "name": "T1.4 refresh_cache.probe_stooq 存在且带浏览器 UA",
    "pass": true,
    "detail": ""
   },
   {
-   "name": "T1.6 refresh_cache.probe_sina 注入 Referer",
+   "name": "T1.5 probe_stooq 200→alive",
    "pass": true,
-   "detail": "headers={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'referer': 'https://finance.sina.com.cn', 'accept': '*/*', 'accept-language': 'zh-CN,zh;q=0.9'}"
+   "detail": "{'alive': True, 'status': 200}"
   },
   {
-   "name": "T1.7 refresh_cache.probe_sina 注入浏览器 UA",
+   "name": "T1.6 probe_director 异常→dead 且不触 get_kline",
    "pass": true,
-   "detail": ""
+   "detail": "{'alive': False, 'status': None, 'error': 'refused'}"
   },
   {
-   "name": "T1.8 probe_sina 命中新浪端点",
+   "name": "T1.7 probe_all 双探针聚合（director/stooq，无 sina 键）+全挂→全 dead",
    "pass": true,
-   "detail": ""
+   "detail": "{'director': {'alive': False, 'status': None, 'error': 'refused'}, 'stooq': {'alive': False, 'status': None, 'error': 'refused'}}"
   },
   {
-   "name": "T1.9 刷新器源码无裸 requests.get 直调（新浪触点全走 probe_sina 带 SINA_HEADERS）",
+   "name": "T1.8 requests.get 直调仅存在于探针内（数据路径走 kx_client 单一路径）",
    "pass": true,
-   "detail": ""
+   "detail": "探针外直调=False"
   },
   {
    "name": "T2.1 429 全败：单轮请求次数 == 3（REFRESH_ATTEMPTS）",
@@ -53,14 +53,14 @@
    "detail": "calls=3"
   },
   {
-   "name": "T2.2 429 全败：退避序列 == [2.0, 8.0]（2s→8s 档；32s 为第 3 档备用）",
+   "name": "T2.2 429 全败：退避序列 == [2.0, 8.0]（v3 默认两档）",
    "pass": true,
    "detail": "sleeps=[2.0, 8.0]"
   },
   {
-   "name": "T2.3 429 全败：返回失败三元组不写缓存",
+   "name": "T2.3 429 全败：返回失败四元组且错误分类=net，不写缓存",
    "pass": true,
-   "detail": ""
+   "detail": "ek=net"
   },
   {
    "name": "T2.4 首败次成：请求 2 次、退避 [2.0]、成功 1 根",
@@ -68,12 +68,12 @@
    "detail": "calls=2 sleeps=[2.0] n=1"
   },
   {
-   "name": "T2.5 成功路径返回末根时间",
+   "name": "T2.5 成功路径返回末根时间且分类=ok",
    "pass": true,
-   "detail": "lb=2026-10-23 00:00:00"
+   "detail": "lb=2026-10-23 00:00:00 ek=ok"
   },
   {
-   "name": "T2.6 attempts=4 时退避序列完整走 2→8→32 三档",
+   "name": "T2.6 attempts=4 + env 三档时退避完整走 2→8→32（向后兼容）",
    "pass": true,
    "detail": "sleeps=['2', '8', '32']"
   },

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""test_refresh_fix.py — SINA429-FIX-20261024 修复批单测
-覆盖（工单验收①）：T1 请求头注入存在性 / T2 退避逻辑（模拟 429 序列）/ T3 并发参数可配置
+"""test_refresh_fix.py — SINA429-FIX-20261024 + KUXIN-BREAKER-20261024 修复批单测
+覆盖：T1 新浪代码零残留与双探针 / T2 退避逻辑（模拟 429 序列）/ T3 并发参数可配置
 纯 python3 断言，无 pytest 依赖。用法：python3 test_refresh_fix.py
 """
 import inspect
@@ -23,73 +23,69 @@ def check(name, cond, detail=''):
     print(f"[{'PASS' if cond else 'FAIL'}] {name}" + (f"  {detail}" if detail else ''))
 
 
-# ---------------- T1 请求头注入存在性 ----------------
-def t1_headers():
-    h = rc.SINA_HEADERS
-    check('T1.1 SINA_HEADERS 常量存在且含 Referer',
-          h.get('Referer') == 'https://finance.sina.com.cn', f"Referer={h.get('Referer')}")
-    check('T1.2 SINA_HEADERS 含浏览器 UA',
-          'Mozilla/5.0' in h.get('User-Agent', '') and 'Chrome/126' in h.get('User-Agent', ''))
+# ---------------- T1 新浪零残留 + 双探针 ----------------
+RUNTIME_FILES = [
+    os.path.join(HERE, 'refresh_cache.py'),
+    os.path.join(HERE, '..', '..', 'lib', 'kx_client.py'),
+]
 
-    # kx_client.probe_sina_alive：mock requests.get 捕获实参 headers
-    import kx_client
-    captured = {}
 
-    def fake_get(url, headers=None, timeout=None):
-        captured['url'] = url
-        captured['headers'] = dict(headers or {})
-        req = io.BytesIO(b'ok')
+def t1_no_sina():
+    srcs = {p: open(p, encoding='utf-8').read() for p in RUNTIME_FILES}
+    for p, src in srcs.items():
+        base = os.path.basename(p)
+        check(f'T1.1 {base} 零新浪触点（hq.sinajs 0 命中）',
+              'hq.sinajs' not in src, f'文件={base}')
+    rc_src = srcs[RUNTIME_FILES[0]]
+    kx_src = srcs[RUNTIME_FILES[1]]
+    check('T1.2 refresh_cache 无新浪探活/请求头/探针端点标识符（代码级移除）',
+          all(x not in rc_src for x in
+              ('probe_sina', 'SINA_HEADERS', 'SINA_PROBE_URL', "'sina'", '"sina"')))
+    check('T1.3 kx_client 无新浪心跳件（probe_sina_alive 已删）',
+          'probe_sina_alive' not in kx_src and 'sinajs' not in kx_src)
+    check('T1.4 refresh_cache.probe_stooq 存在且带浏览器 UA',
+          'User-Agent' in inspect.getsource(rc.probe_stooq)
+          and 'Mozilla/5.0' in rc.BROWSER_UA)
 
-        class R:
-            status_code = 200
-            def __iter__(self):
-                return iter([b'ok'])
+    # probe_stooq：200→alive / 异常→dead（mock requests.get）
+    def fake_ok(url, **kw):
+        class R: status_code = 200
         return R()
-
-    orig_get = kx_client.requests.get
-    kx_client.requests.get = fake_get
+    orig = rc.requests.get
+    rc.requests.get = fake_ok
     try:
-        alive = kx_client.KxClient.probe_sina_alive()
+        p_ok = rc.probe_stooq()
     finally:
-        kx_client.requests.get = orig_get
-    ck = captured.get('headers', {})
-    check('T1.3 kx_client.probe_sina_alive 注入 Referer',
-          ck.get('Referer') == 'https://finance.sina.com.cn', f"headers={ck}")
-    check('T1.4 kx_client.probe_sina_alive 注入浏览器 UA',
-          'Mozilla/5.0' in ck.get('User-Agent', ''))
-    check('T1.5 probe_sina_alive 命中新浪端点', 'hq.sinajs.cn' in captured.get('url', ''))
+        rc.requests.get = orig
+    check('T1.5 probe_stooq 200→alive', p_ok == {'alive': True, 'status': 200}, f'{p_ok}')
 
-    # refresh_cache.probe_sina：mock urlopen 捕获实参 headers
-    cap2 = {}
+    # probe_director：异常→dead 且不触 get_kline
+    class FakeK:
+        class session:
+            @staticmethod
+            def get(url, params=None, timeout=None):
+                raise ConnectionError('refused')
+        base = 'https://x/api'
+    p_d = rc.probe_director(FakeK())
+    check('T1.6 probe_director 异常→dead 且不触 get_kline',
+          p_d['alive'] is False and p_d['status'] is None, f'{p_d}')
 
-    class FakeResp(io.BytesIO):
-        status = 200
-        def read(self, n=-1):
-            return b'ok'
-
-    def fake_urlopen(req, timeout=None, context=None):
-        cap2['url'] = req.full_url
-        cap2['headers'] = {k.lower(): v for k, v in req.header_items()}
-        return FakeResp(b'ok')
-
-    orig_open = rc.urllib.request.urlopen if hasattr(rc, 'urllib') else None
-    import urllib.request as _ur
-    _orig = _ur.urlopen
-    _ur.urlopen = fake_urlopen
+    # probe_all：双探针聚合（director+stooq），无 sina 键
+    def fake_refused(url, **kw):
+        raise ConnectionError('refused')
+    rc.requests.get = fake_refused
     try:
-        p = rc.probe_sina('gb_aapl')
+        pa = rc.probe_all(FakeK())
     finally:
-        _ur.urlopen = _orig
-    ck2 = cap2.get('headers', {})
-    check('T1.6 refresh_cache.probe_sina 注入 Referer',
-          ck2.get('referer') == 'https://finance.sina.com.cn', f"headers={ck2}")
-    check('T1.7 refresh_cache.probe_sina 注入浏览器 UA',
-          'Mozilla/5.0' in ck2.get('user-agent', ''))
-    check('T1.8 probe_sina 命中新浪端点', 'hq.sinajs.cn' in cap2.get('url', ''))
-    # 源码级存在性：刷新器源文件包含 SINA_HEADERS 引用（防后续裸写 requests.get）
-    src = open(os.path.join(HERE, 'refresh_cache.py'), encoding='utf-8').read()
-    check('T1.9 刷新器源码无裸 requests.get 直调（新浪触点全走 probe_sina 带 SINA_HEADERS）',
-          'requests.get' not in src)
+        rc.requests.get = orig
+    check('T1.7 probe_all 双探针聚合（director/stooq，无 sina 键）+全挂→全 dead',
+          set(pa) == {'director', 'stooq'}
+          and not any(x['alive'] for x in pa.values()), f'{pa}')
+    # 源码级：requests.get 直调仅存在于探针函数内
+    ps, pq = inspect.getsource(rc.probe_stooq), inspect.getsource(rc.probe_director)
+    others = rc_src.replace(ps, '').replace(pq, '')
+    check('T1.8 requests.get 直调仅存在于探针内（数据路径走 kx_client 单一路径）',
+          'requests.get' not in others, f'探针外直调={"requests.get" in others}')
 
 
 # ---------------- T2 退避逻辑（模拟 429 序列） ----------------
@@ -108,14 +104,15 @@ def t2_backoff():
     rc.time.sleep = lambda s: sleeps.append(float(s))
     try:
         k = Always429()
-        sym, n, lb = rc.pull(k, 'AAPLUSDT')
+        sym, n, lb, ek = rc.pull(k, 'AAPLUSDT')
     finally:
         rc.time.sleep = orig_sleep
     check('T2.1 429 全败：单轮请求次数 == 3（REFRESH_ATTEMPTS）',
           k.calls == 3, f'calls={k.calls}')
-    check('T2.2 429 全败：退避序列 == [2.0, 8.0]（2s→8s 档；32s 为第 3 档备用）',
+    check('T2.2 429 全败：退避序列 == [2.0, 8.0]（v3 默认两档）',
           sleeps == [2.0, 8.0], f'sleeps={sleeps}')
-    check('T2.3 429 全败：返回失败三元组不写缓存', (sym, n, lb) == ('AAPLUSDT', 0, None))
+    check('T2.3 429 全败：返回失败四元组且错误分类=net，不写缓存',
+          (sym, n, lb) == ('AAPLUSDT', 0, None) and ek == 'net', f'ek={ek}')
 
     # 第 2 次成功：退避只发生 1 次
     class Retry2Ok:
@@ -136,20 +133,22 @@ def t2_backoff():
     rc.CACHE_DIR = tmpdir
     try:
         k2 = Retry2Ok()
-        sym2, n2, lb2 = rc.pull(k2, 'NVDAUSDT')
+        sym2, n2, lb2, ek2 = rc.pull(k2, 'NVDAUSDT')
     finally:
         rc.time.sleep = orig_sleep
         rc.CACHE_DIR = orig_cd
     check('T2.4 首败次成：请求 2 次、退避 [2.0]、成功 1 根',
           k2.calls == 2 and sleeps2 == [2.0] and n2 == 1,
           f'calls={k2.calls} sleeps={sleeps2} n={n2}')
-    check('T2.5 成功路径返回末根时间', lb2 == '2026-10-23 00:00:00', f'lb={lb2}')
+    check('T2.5 成功路径返回末根时间且分类=ok',
+          lb2 == '2026-10-23 00:00:00' and ek2 == 'ok', f'lb={lb2} ek={ek2}')
 
-    # 配置放大：BOX_REFRESH_ATTEMPTS=4 时退避序列用到第 3 档 32s
+    # 配置放大：BOX_REFRESH_ATTEMPTS=4 + BOX_BACKOFF_SEQ=2,8,32（env 覆盖）时退避用第 3 档
     code = (
         "import sys, os\n"
         "sys.path.insert(0, %r)\n" % HERE
         + "os.environ['BOX_REFRESH_ATTEMPTS']='4'\n"
+        "os.environ['BOX_BACKOFF_SEQ']='2,8,32'\n"
         "import refresh_cache as rc\n"
         "rc.time.sleep = lambda s: print('SLEEP', round(s), flush=True)\n"
         "class K429:\n"
@@ -158,7 +157,7 @@ def t2_backoff():
     import subprocess
     p = subprocess.run([sys.executable, '-c', code], capture_output=True, text=True)
     got = [ln.split()[1] for ln in p.stdout.splitlines() if ln.startswith('SLEEP')]
-    check('T2.6 attempts=4 时退避序列完整走 2→8→32 三档',
+    check('T2.6 attempts=4 + env 三档时退避完整走 2→8→32（向后兼容）',
           got == ['2', '8', '32'], f'sleeps={got}')
     src = open(os.path.join(HERE, 'refresh_cache.py'), encoding='utf-8').read()
     check('T2.7 无固定 2s 硬打残留（旧版 time.sleep(2) 已移除）', 'time.sleep(2)' not in src)
@@ -181,7 +180,7 @@ def t3_workers():
 
 
 def main():
-    t1_headers()
+    t1_no_sina()
     t2_backoff()
     t3_workers()
     n_pass = sum(1 for _, ok, _ in RES if ok)

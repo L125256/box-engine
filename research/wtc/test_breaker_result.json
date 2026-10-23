@@ -1,0 +1,106 @@
+{
+ "n": 20,
+ "n_pass": 20,
+ "cases": [
+  {
+   "name": "T1.1 probe_stooq 200→alive 且带浏览器 UA",
+   "pass": true,
+   "detail": "status=200"
+  },
+  {
+   "name": "T1.2 probe_director 异常→dead 且不触 get_kline",
+   "pass": true,
+   "detail": "{'alive': False, 'status': None, 'error': 'refused'}"
+  },
+  {
+   "name": "T1.3 probe_all 双探针全挂→全 dead（SOURCE-DOWN 判定输入，无 sina 键）",
+   "pass": true,
+   "detail": "{'director': {'alive': False, 'status': None, 'error': 'refused'}, 'stooq': {'alive': False, 'status': None, 'error': 'refused'}}"
+  },
+  {
+   "name": "T2.1 err_kind: ConnectionError→net",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T2.2 err_kind: Timeout→net",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T2.3 err_kind: HTTP 429/4xx→net",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T2.4 err_kind: empty bars（RuntimeError）→data（不计连败）",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T2.5 阈值=8: 全 net 失败恰在阈值熔断（邻域 8/12/16）",
+   "pass": true,
+   "detail": "ok=0 skipped=168 streak=8"
+  },
+  {
+   "name": "T2.5 阈值=12: 全 net 失败恰在阈值熔断（邻域 8/12/16）",
+   "pass": true,
+   "detail": "ok=0 skipped=164 streak=12"
+  },
+  {
+   "name": "T2.5 阈值=16: 全 net 失败恰在阈值熔断（邻域 8/12/16）",
+   "pass": true,
+   "detail": "ok=0 skipped=160 streak=16"
+  },
+  {
+   "name": "T2.6 数据类失败打断连败：mix 模式（workers=1 序确定，连败至多 4）不熔断",
+   "pass": true,
+   "detail": "status=PARTIAL breaker={'triggered': False}"
+  },
+  {
+   "name": "T2.7 全成功轮：status=OK 且无熔断、无 skipped",
+   "pass": true,
+   "detail": "ok=176/176"
+  },
+  {
+   "name": "T3.1 report 含 shadow_run 必需 4 键（ok/fail/cache_files/ts）",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T3.2 SOURCE-DOWN 管数据源（status/source_probe）与 PULL-CHECK 管代码版本互不耦合（PULL-CHECK 仅存在于头注释说明，代码逻辑零引用，两开关独立回报）",
+   "pass": true,
+   "detail": "代码级引用行=0"
+  },
+  {
+   "name": "T3.3 breaker/skipped/breaker_after/total_budget/elapsed_sec 增补键在位",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T3.4 探针全挂：立即 SOURCE-DOWN（<5s），ok=0 fail=[] 缓存零写入",
+   "pass": true,
+   "detail": "elapsed=0.0s files=['report.json']"
+  },
+  {
+   "name": "T4.1 预算 1s：超时立即熔断，status=BUDGET-EXCEEDED、reason=budget-exceeded、elapsed>1s 且 <20s（未经 180s 陪跑）",
+   "pass": true,
+   "detail": "elapsed=1.21 ok=3 skipped=173"
+  },
+  {
+   "name": "T4.2 预算默认 150s（150+在途~15s+退避残余~10s < 180s 判线；BOX_TOTAL_BUDGET env 可调）",
+   "pass": true,
+   "detail": "default=150"
+  },
+  {
+   "name": "T4.3 budget_exceeded 未启用（T0 未设）→False",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T5.1 运行链代码集 grep hq.sinajs == 0 命中",
+   "pass": true,
+   "detail": "命中文件=[]"
+  }
+ ]
+}
