@@ -1,0 +1,111 @@
+{
+ "n": 21,
+ "n_pass": 21,
+ "cases": [
+  {
+   "name": "T1.1 SINA_HEADERS 常量存在且含 Referer",
+   "pass": true,
+   "detail": "Referer=https://finance.sina.com.cn"
+  },
+  {
+   "name": "T1.2 SINA_HEADERS 含浏览器 UA",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T1.3 kx_client.probe_sina_alive 注入 Referer",
+   "pass": true,
+   "detail": "headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'Referer': 'https://finance.sina.com.cn'}"
+  },
+  {
+   "name": "T1.4 kx_client.probe_sina_alive 注入浏览器 UA",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T1.5 probe_sina_alive 命中新浪端点",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T1.6 refresh_cache.probe_sina 注入 Referer",
+   "pass": true,
+   "detail": "headers={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'referer': 'https://finance.sina.com.cn', 'accept': '*/*', 'accept-language': 'zh-CN,zh;q=0.9'}"
+  },
+  {
+   "name": "T1.7 refresh_cache.probe_sina 注入浏览器 UA",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T1.8 probe_sina 命中新浪端点",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T1.9 刷新器源码无裸 requests.get 直调（新浪触点全走 probe_sina 带 SINA_HEADERS）",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T2.1 429 全败：单轮请求次数 == 3（REFRESH_ATTEMPTS）",
+   "pass": true,
+   "detail": "calls=3"
+  },
+  {
+   "name": "T2.2 429 全败：退避序列 == [2.0, 8.0]（2s→8s 档；32s 为第 3 档备用）",
+   "pass": true,
+   "detail": "sleeps=[2.0, 8.0]"
+  },
+  {
+   "name": "T2.3 429 全败：返回失败三元组不写缓存",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T2.4 首败次成：请求 2 次、退避 [2.0]、成功 1 根",
+   "pass": true,
+   "detail": "calls=2 sleeps=[2.0] n=1"
+  },
+  {
+   "name": "T2.5 成功路径返回末根时间",
+   "pass": true,
+   "detail": "lb=2026-10-23 00:00:00"
+  },
+  {
+   "name": "T2.6 attempts=4 时退避序列完整走 2→8→32 三档",
+   "pass": true,
+   "detail": "sleeps=['2', '8', '32']"
+  },
+  {
+   "name": "T2.7 无固定 2s 硬打残留（旧版 time.sleep(2) 已移除）",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "T3.1 默认并发 == 8（降并发 32→8）",
+   "pass": true,
+   "detail": "WORKERS=8"
+  },
+  {
+   "name": "T3.2 BOX_WORKERS=5 生效",
+   "pass": true,
+   "detail": "got=5"
+  },
+  {
+   "name": "T3.3 BOX_WORKERS=16 生效",
+   "pass": true,
+   "detail": "got=16"
+  },
+  {
+   "name": "T3.4 build_pool 池=176（与 10-22 基线一致）",
+   "pass": true,
+   "detail": "pool=176"
+  },
+  {
+   "name": "T3.5 稀疏标的剔除生效",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}
