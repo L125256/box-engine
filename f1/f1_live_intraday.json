@@ -2,7 +2,7 @@
  "meta": {
   "workorder": "R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）",
   "seed": 42,
-  "generated": "2026-10-24 09:39:56 北京时间",
+  "generated": "2026-10-24 09:50:28 北京时间",
   "engine_sha256": "92c090044683aff73f5d1193bd4941a001c638578aa0643f55b997eddd8a98f1",
   "pool_n": 144,
   "breadth": {
@@ -80,7 +80,7 @@
   },
   "holdings": [],
   "crash_watch": {
-   "pool_med_ret_intraday": -0.0009,
+   "pool_med_ret_intraday": -0.0007,
    "line": -0.05,
    "triggered_estimate": false,
    "kind": "预估（部分K·未落定），不触发任何动作"
