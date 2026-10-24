@@ -3,6 +3,10 @@
 # 复用 /tmp/build_cache.py 逻辑：kx_client 拉日线 limit=700，失败跳过（保留旧缓存）。
 # 池 = 存档面板标的（剔除稀疏标的） ∪ 清洗池 144 标的（保证权威池完整）。
 # 只写 /tmp/box_cache/*.json 与 /tmp/wtc/refresh_report.json，不改其他目录。
+import os as _os
+_os.environ.setdefault('REQUESTS_CA_BUNDLE', '/etc/ssl/certs/ca-certificates.crt')
+_os.environ.setdefault('SSL_CERT_FILE', '/etc/ssl/certs/ca-certificates.crt')
+_os.environ.setdefault('CURL_CA_BUNDLE', '')
 import sys, os, json, time, logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
