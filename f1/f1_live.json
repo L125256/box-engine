@@ -2,7 +2,7 @@
  "meta": {
   "workorder": "R11' F1 上线运营 · f1_signal.py v1（BUG-01~05 修复版）",
   "seed": 42,
-  "generated": "2026-10-23 08:29:35 北京时间",
+  "generated": "2026-10-24 09:11:10 北京时间",
   "engine_sha256": "92c090044683aff73f5d1193bd4941a001c638578aa0643f55b997eddd8a98f1",
   "pool_n": 144,
   "breadth": {
@@ -62,24 +62,24 @@
   "cb3_baseline_recomputed": 9.27,
   "cb3_baseline_drift_alert": false,
   "replay": {
-   "start": "2024-02-01",
-   "end": "2026-10-22",
-   "eq_net": 1.2582,
-   "eq_gross": 1.2799,
+   "start": "2024-02-02",
+   "end": "2026-10-23",
+   "eq_net": 1.2529,
+   "eq_gross": 1.2745,
    "stop_events_total": 106
   },
   "source": {
    "primary": "kxiandaoyan",
    "state": "NORMAL",
-   "asof": "2026-10-22",
+   "asof": "2026-10-23",
    "label": "主源",
    "mode": "判定轮",
    "backup": "sina（停用·SINA_BACKUP_ENABLED 未开启）",
    "data_source": "主源单源模式"
   },
   "enhancement": {
-   "generated": "2026-10-23 08:29:52",
-   "asof": "2026-10-22",
+   "generated": "2026-10-24 09:11:21",
+   "asof": "2026-10-23",
    "protocol": "DEPLOY_SPEC_v1（分域增强插件层·执照复审制·新制映射 v1.1 §二补遗；F1 外独立 add-on，R10 不回写）",
    "judgment_basis": "SHADOW_SPEC_v1 §3（数字冻结：IC>0 ∧ t≥2 ∧ 命中率≥60%；早死 n≥10 ∧ t≤−2 ∧ IC<0；S4 事件腿 avoid>0 ∧ mdd_red≥10% ∧ lag 不翻转）+ FD_REVIVE_SPEC_v1 §4 J5（n≥20 配对 Δ meanR>0）——零新判线（新制下判线输出=执照复审数据源，不再直接定档）",
    "tier_table_version": "方法书 v1.1 §二·补遗（ACCEPT-BOOK-FULLSCENE-v1.1 · 裁定书 §二并入 · 用户授权 2026-10-21 20:10）",
@@ -98,8 +98,8 @@
      "tier": "POOL_CAP",
      "tier_name": "单池封顶",
      "coef": 50,
-     "n_days": 1,
-     "n_registered": 6,
+     "n_days": 2,
+     "n_registered": 7,
      "sealed": false,
      "verdict": null,
      "status": "单池封顶（复审样本累计中（执照复审数据源；单池封顶 50%））",
@@ -114,34 +114,34 @@
      "symbols_scope": "full144 单池·本行打分 72 只",
      "symbols_top": [
       {
+       "sym": "SNXXUSDT",
+       "val": 0.196446
+      },
+      {
        "sym": "SOXLUSDT",
-       "val": 0.148277
+       "val": 0.163341
       },
       {
-       "sym": "CBRSUSDT",
-       "val": 0.148049
+       "sym": "BEUSDT",
+       "val": 0.151414
       },
       {
-       "sym": "NOKUSDT",
-       "val": 0.143319
+       "sym": "CRDOUSDT",
+       "val": 0.142322
       },
       {
-       "sym": "COHRUSDT",
-       "val": 0.134776
-      },
-      {
-       "sym": "INTWUSDT",
-       "val": 0.125648
+       "sym": "AAOIUSDT",
+       "val": 0.140349
       }
      ],
-     "symbols_note": "因子记分牌格——不绑定单一标的：对池内 72 只逐日打分，分高者为多头侧候选（最新读数 2026-10-23，参考·推导值·非指令）"
+     "symbols_note": "因子记分牌格——不绑定单一标的：对池内 72 只逐日打分，分高者为多头侧候选（最新读数 2026-10-24，参考·推导值·非指令）"
     },
     "S2": {
      "tier": "POOL_CAP",
      "tier_name": "单池封顶",
      "coef": 50,
-     "n_days": 1,
-     "n_registered": 6,
+     "n_days": 2,
+     "n_registered": 7,
      "sealed": false,
      "verdict": null,
      "status": "单池封顶（复审样本累计中（执照复审数据源；单池封顶 50%））",
@@ -156,34 +156,34 @@
      "symbols_scope": "full144 单池·本行打分 144 只",
      "symbols_top": [
       {
-       "sym": "FLEXUSDT",
-       "val": 0.151088
-      },
-      {
-       "sym": "LRCXUSDT",
-       "val": 0.150376
+       "sym": "SNXXUSDT",
+       "val": 0.196446
       },
       {
        "sym": "SOXLUSDT",
-       "val": 0.148277
+       "val": 0.163341
       },
       {
-       "sym": "CBRSUSDT",
-       "val": 0.148049
+       "sym": "LRCXUSDT",
+       "val": 0.161394
       },
       {
-       "sym": "NOKUSDT",
-       "val": 0.143319
+       "sym": "SHAZUSDT",
+       "val": 0.156112
+      },
+      {
+       "sym": "BEUSDT",
+       "val": 0.151414
       }
      ],
-     "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-23，参考·推导值·非指令）"
+     "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-24，参考·推导值·非指令）"
     },
     "S3": {
      "tier": "FROZEN",
      "tier_name": "冻结",
      "coef": 0,
      "n_days": 0,
-     "n_registered": 6,
+     "n_registered": 7,
      "sealed": false,
      "verdict": null,
      "status": "冻结（域未激活=FROZEN（方法书 v1.1 §二·补遗））",
@@ -198,27 +198,27 @@
      "symbols_scope": "full144 单池·本行打分 144 只",
      "symbols_top": [
       {
-       "sym": "SONYUSDT",
-       "val": 0.005287
+       "sym": "NOWUSDT",
+       "val": -0.00219
       },
       {
-       "sym": "HDUSDT",
-       "val": -0.000488
+       "sym": "XLEUSDT",
+       "val": -0.002719
       },
       {
-       "sym": "WMTUSDT",
-       "val": -0.000575
+       "sym": "ZSUSDT",
+       "val": -0.002999
       },
       {
-       "sym": "VUSDT",
-       "val": -0.001058
+       "sym": "BXUSDT",
+       "val": -0.009154
       },
       {
-       "sym": "KOUSDT",
-       "val": -0.00136
+       "sym": "DISUSDT",
+       "val": -0.009863
       }
      ],
-     "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-23，参考·推导值·非指令）"
+     "symbols_note": "因子记分牌格——不绑定单一标的：对池内 144 只逐日打分，分高者为多头侧候选（最新读数 2026-10-24，参考·推导值·非指令）"
     },
     "S5": {
      "tier": "FULL",
@@ -272,44 +272,44 @@
     "rule": "DEPLOY_SPEC_v1 §2.5 三条单向让位（闸关→冻结开新仓；红灯→整体冻结；CB2 冻结不连带——增强层独立小止损与 T 档自降级，风险自含）；增强层永不反向影响 F1"
    },
    "r10_note": "增强层读数不回写 F1 主引擎任何参数/仓位/榜单（R10）；两引擎冲突时一律听 F1",
-   "updated_at": "2026-10-23 08:29:52"
+   "updated_at": "2026-10-24 09:11:21"
   }
  },
  "signal": {
-  "asof": "2026-10-22",
+  "asof": "2026-10-23",
   "is_signal_day": false,
   "signal_rule": "每周首个交易日收盘出信号，次日开盘成交；本表为最新横截面评分参考",
   "gate": {
-   "idx": 215.8803,
-   "ma50": 235.5404,
+   "idx": 217.0018,
+   "ma50": 235.2891,
    "on_holdcash": true,
    "status": "red"
   },
   "crash_check": {
-   "pool_med_ret": -0.0381,
+   "pool_med_ret": 0.002,
    "line": -0.05,
    "triggered": false
   },
   "top5": [
    {
+    "sym": "ZSUSDT",
+    "score": 1.7471
+   },
+   {
     "sym": "VUSDT",
-    "score": 1.7147
+    "score": 1.6322
    },
    {
     "sym": "EBAYUSDT",
-    "score": 1.6573
+    "score": 1.6126
+   },
+   {
+    "sym": "NOWUSDT",
+    "score": 1.5895
    },
    {
     "sym": "EWZUSDT",
-    "score": 1.5477
-   },
-   {
-    "sym": "BRKBUSDT",
-    "score": 1.478
-   },
-   {
-    "sym": "WMTUSDT",
-    "score": 1.4634
+    "score": 1.5689
    }
   ],
   "slot_per_stock_pct": 2.5,
@@ -343,8 +343,8 @@
     "light": "green",
     "action": "正常",
     "detail": {
-     "gross_60d_pct": -0.0166,
-     "net_60d_pct": -0.0177,
+     "gross_60d_pct": -0.0165,
+     "net_60d_pct": -0.0176,
      "stop_count_60d": 10,
      "stop_pnl_sum_60d": -0.0211,
      "red_pp": -0.05,
@@ -366,8 +366,8 @@
     "light": "green",
     "action": "正常",
     "detail": {
-     "fee_60d": 0.001499,
-     "fee_ann_pct": 0.0063,
+     "fee_60d": 0.001482,
+     "fee_ann_pct": 0.0062,
      "line_ann_pct": 0.04,
      "red_ann_pct": 0.04,
      "warn_ann_pct": 0.02
@@ -380,7 +380,7 @@
    "month": "2025-11",
    "gross_pct": 0.62,
    "net_pct": 0.55,
-   "fee_pct": 0.063,
+   "fee_pct": 0.062,
    "pool_pct": -2.75,
    "concede_pct": -3.36
   },
@@ -388,7 +388,7 @@
    "month": "2025-12",
    "gross_pct": -0.75,
    "net_pct": -0.81,
-   "fee_pct": 0.068,
+   "fee_pct": 0.067,
    "pool_pct": 0.45,
    "concede_pct": 1.2
   },
@@ -396,7 +396,7 @@
    "month": "2026-01",
    "gross_pct": 6.28,
    "net_pct": 6.17,
-   "fee_pct": 0.118,
+   "fee_pct": 0.117,
    "pool_pct": 138.98,
    "concede_pct": 132.71
   },
@@ -420,7 +420,7 @@
    "month": "2026-04",
    "gross_pct": 10.26,
    "net_pct": 10.12,
-   "fee_pct": 0.165,
+   "fee_pct": 0.164,
    "pool_pct": 17.41,
    "concede_pct": 7.14
   },
@@ -428,7 +428,7 @@
    "month": "2026-05",
    "gross_pct": 3.17,
    "net_pct": 3.01,
-   "fee_pct": 0.205,
+   "fee_pct": 0.204,
    "pool_pct": 53.51,
    "concede_pct": 50.33
   },
@@ -436,7 +436,7 @@
    "month": "2026-06",
    "gross_pct": -1.42,
    "net_pct": -1.48,
-   "fee_pct": 0.071,
+   "fee_pct": 0.07,
    "pool_pct": -18.09,
    "concede_pct": -16.67
   },
@@ -469,22 +469,22 @@
    "gross_pct": -0.27,
    "net_pct": -0.33,
    "fee_pct": 0.064,
-   "pool_pct": -10.39,
-   "concede_pct": -10.12
+   "pool_pct": -9.93,
+   "concede_pct": -9.66
   }
  ],
  "fee_curve": [
   {
    "month": "2025-11",
-   "fee_pct": 0.063
+   "fee_pct": 0.062
   },
   {
    "month": "2025-12",
-   "fee_pct": 0.068
+   "fee_pct": 0.067
   },
   {
    "month": "2026-01",
-   "fee_pct": 0.118
+   "fee_pct": 0.117
   },
   {
    "month": "2026-02",
@@ -496,15 +496,15 @@
   },
   {
    "month": "2026-04",
-   "fee_pct": 0.165
+   "fee_pct": 0.164
   },
   {
    "month": "2026-05",
-   "fee_pct": 0.205
+   "fee_pct": 0.204
   },
   {
    "month": "2026-06",
-   "fee_pct": 0.071
+   "fee_pct": 0.07
   },
   {
    "month": "2026-07",
@@ -616,9 +616,9 @@
  "guard": {
   "rule": "trim_and_guard（METHOD_BOOK_DECBAR.md §二）",
   "trimmed_intraday": [
-   "2026-10-23"
+   "2026-10-24"
   ],
-  "last_complete": "2026-10-22",
+  "last_complete": "2026-10-23",
   "gap_days": 1,
   "check": "OK"
  }
