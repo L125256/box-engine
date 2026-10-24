@@ -58,7 +58,7 @@ class KxClient:
     """带重试的 API 客户端"""
 
     def __init__(self, base_url: str = BASE_URL, timeout: int = 10,
-                 retries: int = 2, retry_delay: float = 1.0,
+                 retries: int = 1, retry_delay: float = 1.0,
                  signal_age_days: float = 10, connect_timeout: int = 5):
         self.base = base_url.rstrip("/")
         # 【v3.3.25 超时治理】拆分「连接超时 / 读取超时」，并整体下调。
@@ -103,26 +103,6 @@ class KxClient:
         self.session.mount("https://", _adapter)
         self.session.mount("http://", _adapter)
 
-        # 【v3.4.0 数据源容灾】导演主源故障切换（2026-10-13 用户拍板+工程双席裁决）
-        #   主源=导演；连续 3 次失败切币安 S3 T+1 日K（data.binance.vision）；
-        #   降级 bar 带 source='s3'；每 30 分钟探测导演恢复自动回切；
-        #   新浪探活件已按 KUXIN-BREAKER-20261024 砍除，任何路径不再触新浪行情域名。
-        self._mode = 'director'            # 'director' | 's3'
-        self._fail_count = 0
-        self._probe_interval = 1800        # 降级态探测导演恢复的间隔（30 分钟）
-        self._last_probe = 0.0
-        self._mode_lock = threading.Lock()
-        self._s3_cache = {}                # symbol -> {'bars': [...], 'fetched_day': date}
-        self._s3_locks = {}
-        self._s3_workers = 8               # 工程裁决 Q2：降级专用 8 线程，防 S3 限流
-        self._s3_semaphore = threading.Semaphore(8)   # 审计 C4：全局并发上限（跨 16 worker 共享）
-        self._s3_base = 'https://data.binance.vision/data/futures/um'
-        self._s3_session = requests.Session()
-        self._s3_session.headers.update({"User-Agent": UA})
-        # 审计 C4：S3 会话独立连接池，pool_maxsize=32 覆盖峰值并发，避免连接反复重建
-        _s3_adapter = requests.adapters.HTTPAdapter(
-            pool_connections=32, pool_maxsize=32, pool_block=True, max_retries=0)
-        self._s3_session.mount("https://", _s3_adapter)
 
     # ------------------------------------------------------------------ #
     def _get(self, path: str, params: Optional[dict] = None) -> Any:
@@ -183,153 +163,24 @@ class KxClient:
     # ------------------------------------------------------------------ #
     def get_kline(self, symbol: str, market: str = "futures",
                   period: str = "1d", limit: int = 300) -> dict:
-        """单标的 K 线 + 各指标信号（limit >= 50）——容灾入口。
+        """单标的 K 线 + 各指标信号（limit >= 50）。单源直连：导演，失败直接抛。"""
+        r = self._get(f"/kline/{symbol}", {
+            "market": market, "period": period, "limit": max(50, limit),
+        })
+        return r
 
-        主源=导演；连续 3 次失败进入 S3 降级（币安永续 T+1 日K，bar 带 source='s3'，
-        最后完整 bar=昨日），每 30 分钟探测导演恢复自动回切。
-        返回包含: bars(K线), signals(...), cci/vertex/vr/haos/soma/dvvo/box 等
-        各引擎明细（S3 降级态仅 bars + source/degraded 标识）。
-        **页面上的"买卖信号(Lucky箭头)"就是由 signals.buy / signals.sell 渲染的**，
-        这是唯一可信的买卖信号数据源（汇总接口的 signal_* 字段与页面不一致）。
-        """
-        if self._mode == 'director':
-            try:
-                r = self._get(f"/kline/{symbol}", {
-                    "market": market, "period": period, "limit": max(50, limit),
-                })
-                with self._mode_lock:
-                    self._fail_count = 0
-                return r
-            except Exception as e:  # noqa: BLE001
-                with self._mode_lock:
-                    self._fail_count += 1
-                    fc = self._fail_count
-                log.error("[replica] 导演拉取失败(%d/3) %s: %s", fc, symbol, e)
-                if fc >= 3:
-                    with self._mode_lock:
-                        self._mode = 's3'
-                        self._last_probe = time.time()
-                    print(f"[replica] 数据源切换: 导演连续{fc}次失败 -> S3降级模式")
-                    return self._get_kline_s3(symbol, market, period, limit)
-                raise
-        # S3 降级态：先看导演是否恢复（30 分钟探测间隔）
-        self._maybe_failback()
-        return self._get_kline_s3(symbol, market, period, limit)
 
     # ------------------------------------------------------------------ #
-    def _maybe_failback(self) -> None:
-        """降级态每 30 分钟探测一次导演；恢复则自动回切主源。"""
-        now = time.time()
-        if now - self._last_probe < self._probe_interval:
-            return
-        with self._mode_lock:
-            if self._mode != 's3':
-                return
-            self._last_probe = now
-        try:
-            _to = (self.connect_timeout, 5)
-            r = self.session.get(f"{self.base}/signals",
-                                 params={"market": "futures", "period": "1d",
-                                         "page": 1, "size": 1}, timeout=_to)
-            r.raise_for_status()
-            r.json()
-            with self._mode_lock:
-                self._mode = 'director'
-                self._fail_count = 0
-            print("[replica] 数据源回切: 导演已恢复 -> 主源模式")
-        except Exception as e:  # noqa: BLE001
-            log.info("[replica] 导演探测未恢复: %s", e)
+
 
     # ------------------------------------------------------------------ #
     def get_status(self) -> dict:
         """数据源状态（供日志/快照上报，引擎零改动）。"""
-        with self._mode_lock:
-            return {"source": self._mode, "degraded": self._mode == 's3',
-                    "fail_count": self._fail_count}
+        return {"source": "director", "degraded": False, "fail_count": 0}
 
     # ------------------------------------------------------------------ #
-    def _get_kline_s3(self, symbol: str, market: str,
-                      period: str, limit: int) -> dict:
-        """S3 降级模式：币安 U 本位永续日K（T+1，data.binance.vision）。
 
-        工程裁决：Q1=只给完整 bar（绝不伪造盘中 bar，缺今日 bar 属预期语义）；
-        Q2=拉满 limit 根保口径一致 + 降级专用 8 线程 + 每标内存缓存。
-        仅支持 market='futures' / period='1d'（引擎唯一消费路径）。
-        """
-        if market != 'futures' or period != '1d':
-            raise ValueError(f"S3 降级仅支持 futures/1d，收到 {market}/{period}")
-        today = datetime.now(timezone.utc).date()
-        with self._mode_lock:
-            cached = self._s3_cache.get(symbol)
-        if cached and cached['fetched_day'] == today and cached['bars']:
-            bars = cached['bars'][-max(50, limit):]
-            return {"bars": bars, "source": "s3", "degraded": True}
 
-        lock = self._s3_locks.setdefault(symbol, threading.Lock())
-        with lock:
-            with self._mode_lock:
-                cached = self._s3_cache.get(symbol)
-            if cached and cached['fetched_day'] == today and cached['bars']:
-                bars = cached['bars'][-max(50, limit):]
-                return {"bars": bars, "source": "s3", "degraded": True}
-
-            need_days = max(50, limit)
-            start = today - timedelta(days=need_days + 5)
-            months = []
-            y, m = start.year, start.month
-            while (y, m) <= (today.year, today.month):
-                months.append(f"{y:04d}-{m:02d}")
-                m += 1
-                if m == 13:
-                    y, m = y + 1, 1
-            month_urls = [f"{self._s3_base}/monthly/klines/{symbol}/1d/"
-                          f"{symbol}-1d-{mm}.zip" for mm in months[:-1]]
-            # daily zip 只存在于近期（历史都打进月度包）：只请求当月 1 日至昨日
-            d0 = today.replace(day=1)
-            daily_urls = []
-            while d0 <= today - timedelta(days=1):
-                daily_urls.append(f"{self._s3_base}/daily/klines/{symbol}/1d/"
-                                  f"{symbol}-1d-{d0.isoformat()}.zip")
-                d0 += timedelta(days=1)
-
-            rows = {}
-
-            def _fetch(url: str):
-                try:
-                    with self._s3_semaphore:
-                        r = self._s3_session.get(url, timeout=(5, 20))
-                    if r.status_code != 200:
-                        return
-                    zf = zipfile.ZipFile(io.BytesIO(r.content))
-                    csv = zf.read(zf.namelist()[0]).decode('utf-8', 'ignore')
-                    for line in csv.strip().split('\n')[1:]:
-                        c = line.split(',')
-                        if len(c) < 6:
-                            continue
-                        d = datetime.fromtimestamp(int(c[0]) / 1000,
-                                                   timezone.utc).date()
-                        rows[d.isoformat()] = (float(c[1]), float(c[2]),
-                                               float(c[3]), float(c[4]),
-                                               float(c[5]) if len(c) > 5 else 0.0)
-                except Exception:  # noqa: BLE001 - 单文件失败静默跳过
-                    pass
-
-            with ThreadPoolExecutor(self._s3_workers) as ex:
-                list(ex.map(_fetch, month_urls + daily_urls))
-
-            bars = [{"time": f"{d} 00:00:00", "open": o, "high": h, "low": l,
-                     "close": c, "volume": v, "source": "s3"}
-                    for d, (o, h, l, c, v) in sorted(rows.items())]
-            if len(bars) < 40:
-                raise ConnectionError(f"S3 降级数据不足: {symbol} 仅 {len(bars)} 根")
-            with self._mode_lock:
-                self._s3_cache[symbol] = {"bars": bars, "fetched_day": today}
-            bars = bars[-max(50, limit):]
-            log.warning("[replica] S3降级供数: %s %d根(最后完整bar=%s)",
-                        symbol, len(bars), bars[-1]['time'][:10])
-            return {"bars": bars, "source": "s3", "degraded": True}
-
-    # ------------------------------------------------------------------ #
     def get_lucky_signal(self, symbol: str, market: str = "futures",
                          limit: int = 300,
                          ignore_unclosed: bool = False) -> dict:
