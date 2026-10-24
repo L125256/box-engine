@@ -54,6 +54,7 @@ BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
       纯 meta 读数新增（live/snapshot 双模式均输出），零信号行为改动：
       四因子/top5/gate/熔断/止损/状态机逻辑一行不动。
 """
+import re
 import json
 import os
 import sys
@@ -940,7 +941,7 @@ def run_snapshot(out_json=None, cache=CACHE, round_id='20:30'):
         'push': push,
         'writes': {'f1_state.json': False, 'f1_live.json': False},
     }
-    os.makedirs(os.path.dirname(out_json), exist_ok=True)
+    os.makedirs(os.path.dirname(out_json) or '.', exist_ok=True)
     tmp = out_json + '.tmp'
     with open(tmp, 'w') as f:
         json.dump(out, f, ensure_ascii=False, indent=1, default=str)
@@ -1121,7 +1122,7 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True
                                        'sina（停用·SINA_BACKUP_ENABLED 未开启）')
     out['meta']['source']['data_source'] = ('主源+新浪备源容灾' if _sina_on
                                             else '主源单源模式')
-    os.makedirs(os.path.dirname(out_json), exist_ok=True)
+    os.makedirs(os.path.dirname(out_json) or '.', exist_ok=True)
     tmp = out_json + '.tmp'
     with open(tmp, 'w') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
@@ -1223,9 +1224,12 @@ def main():
             print(f'snapshot REFUSED: {e}')
             sys.exit(2)
         rnd = sys.argv[sys.argv.index('--round') + 1] if '--round' in sys.argv else '20:30'
-        if rnd not in INTRADAY_ROUNDS or rnd == 'DECIDE':
-            print(f'未知轮次 {rnd}；可选：20:30 / 00:30 / 04:30')
+        if rnd == 'DECIDE' or (rnd not in INTRADAY_ROUNDS and not re.fullmatch(r'\d{2}:30', rnd)):
+            print(f'未知轮次 {rnd}；可选：20:30 / 00:30 / 04:30 或任意 HH:30 盘中快照')
             sys.exit(2)
+        if rnd not in INTRADAY_ROUNDS:
+            INTRADAY_ROUNDS[rnd] = {'tz': '北京时间', 'readonly': True,
+                                    'semantic': f'盘中快照（{rnd}，动态登记）'}
         out = run_snapshot(out_json=cli_out, round_id=rnd)
         sn = out['snapshot']
         print(f"snapshot ok(只读): round={rnd} asof_settled={out['meta']['asof_settled']} "
