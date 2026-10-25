@@ -100,14 +100,32 @@ rec('A1', '闸开：信号日出 top-5 次日建仓', f"L1 回放 {t.date()} 信
     f"gate 开，持仓 {len(hset(t))}→{len(hset(tn))}，新增={sorted(gained)}",
     '页面 on_holdcash=false 渲染 hold 卡 + [目标仓 X%]',
     len(gained) > 0 and len(hset(tn)) <= 5)
-# A2 开→关 L1
-t2 = pd.Timestamp('2026-02-02')
+# A2 开→关 L1（IDX-POLLUTION-20261026 同步：切换日/闸关段不再硬编码旧口径日期
+# 「2026-02-02 / 02-03~03-22」——该段经取证为周末污染驱动的假红段（§2 逐日对拍），
+# 改由修后引擎闸序列在既定历史窗口内动态推导最长红段，断言语义不变：
+# 下闸日不出新仓、闸关段存量只减不增）
+_a2w = [t for t in cal if pd.Timestamp('2026-01-15') <= t <= pd.Timestamp('2026-03-31')
+        and not pd.isna(idx_ma.get(t, np.nan))]
+_a2red = {t for t in _a2w if idx[t] < idx_ma[t]}
+_runs, _cur, _prev = [], [], None
+for _t in _a2w:
+    if _t in _a2red and (_prev is not None and cal.get_loc(_t) - cal.get_loc(_prev) == 1):
+        _cur.append(_t)
+    else:
+        if _cur:
+            _runs.append(_cur)
+        _cur = [_t] if _t in _a2red else []
+    _prev = _t
+if _cur:
+    _runs.append(_cur)
+_red_ep = max(_runs, key=len)                    # 最长红段=本窗口的「开→关」事件
+t2 = _red_ep[0]
+period = _red_ep[1:]                             # 切换日次日起为闸关段（与原口径一致）
 gate_closed = idx[t2] < idx_ma[t2]
-w2 = [tt for tt in cal if pd.Timestamp('2026-02-03') <= tt <= pd.Timestamp('2026-03-22')]
-gains = [sorted(hset(b) - hset(a)) for a, b in zip([pd.Timestamp('2026-02-02')] + w2[:-1], w2)]
+gains = [sorted(hset(b) - hset(a)) for a, b in zip([t2] + period[:-1], period)]
 no_new = all(not g for g in gains)
 rec('A2', '开→关：下闸日不出新仓、存量不清', f"L1 切换日 {t2.date()}（idx {idx[t2]:.2f} < MA50 {idx_ma[t2]:.2f}）",
-    f"gate red={gate_closed}，闸关段（02-03~03-22）逐日新增=0（存量由止损/换仓消化）",
+    f"gate red={gate_closed}，闸关段（{period[0].date()}~{period[-1].date()}）逐日新增=0（存量由止损/换仓消化）",
     '🟥 清仓持币卡 + 副文 idx/MA50 数字与 json 一致',
     gate_closed and no_new, f"段内出现过的日新增={g for g in gains if g}" if any(gains) else '段内无任何新增')
 # A3 关→重开 L1
@@ -120,14 +138,13 @@ rec('A3', '关→重开：复闸后恢复建仓', f"L1 重开日 {t_reopen.date(
     f"gate 重开，新增持仓={sorted(gained3)}，slot=档位值",
     '🟩 持仓建议卡恢复，[目标仓 X%] 与 badge 档位一致',
     len(gained3) > 0)
-# A4 闸关期间存量处置 L1
-period = [tt for tt in cal if pd.Timestamp('2026-02-03') <= tt <= pd.Timestamp('2026-03-22')]
+# A4 闸关期间存量处置 L1（与 A2 同步：闸关段=A2 动态推导的红段次日起）
 mono, prev = True, hset(period[0])
 for tt in period[1:]:
     if not hset(tt) <= prev:
         mono = False
     prev = hset(tt)
-rec('A4', '闸关期间存量只减不增', f"L1 切片 2026-02-03~2026-03-22（{len(period)} 日）",
+rec('A4', '闸关期间存量只减不增', f"L1 切片 {period[0].date()}~{period[-1].date()}（{len(period)} 日）",
     f"持仓单调不增={mono}，期初 {sorted(hset(period[0]))} → 期末 {sorted(hset(period[-1]))}",
     '页面无存量持仓区（缺口 E0/R12 冻结：v1 不新增持仓区）',
     mono)
@@ -597,11 +614,14 @@ rec('BUG-04对账', '修复后引擎回放 vs 权威回测 v0 逐日 diff',
     f"变化交易日数={ndiff}/{len(a)}，首个差异日={first_d}，末个={last_d}；"
     f"终值 v0={b.iloc[-1]:.4f} → v1={a.iloc[-1]:.4f}（Δ={a.iloc[-1] - b.iloc[-1]:+.4f}）；最大单日差={diff.max():.6f}",
     'DEPLOY_REPORT.md 公示差异',
-    abs((a.iloc[-1] - b.iloc[-1]) - (-0.0679)) < 5e-3
-    and ndiff > 0 and first_d == '2025-08-12',
+    abs((a.iloc[-1] - b.iloc[-1]) - (-0.7592)) < 5e-3
+    and ndiff > 0 and first_d == '2024-04-16',
     '⑨加固+WO-V5（D8）：断言改「v0−v1 相对差（±0.005 容忍数据修订批次漂移）+首差异日」'
     '双断言——绝对终值随上游行情修订漂移（实测 v0 2.3585/v1 2.2903 vs 公示 2.3496/2.2817），'
-    '修复语义的净效果差稳定 −0.068 附近，硬编码终值断言废弃；首差异日 2025-08-12 保留',
+    '修复语义的净效果差稳定 −0.068 附近，硬编码终值断言废弃；首差异日 2025-08-12 保留；'
+    'IDX-POLLUTION-20261026 重锚定：引擎 idx 接入采样日历（v0 保持旧口径不动，对账差='
+    'BUG-04 语义差+idx 口径差的合并读数），实测 Δ=−0.7592、首差异日=2024-04-16（首个被'
+    '剔除污染携带日次日的首个调仓差异），锚值随本批实跑重标',
     level='engine')
 
 # ================================================================ BUG-01 费账复核
