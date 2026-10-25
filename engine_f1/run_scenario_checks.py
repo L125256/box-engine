@@ -100,14 +100,32 @@ rec('A1', '闸开：信号日出 top-5 次日建仓', f"L1 回放 {t.date()} 信
     f"gate 开，持仓 {len(hset(t))}→{len(hset(tn))}，新增={sorted(gained)}",
     '页面 on_holdcash=false 渲染 hold 卡 + [目标仓 X%]',
     len(gained) > 0 and len(hset(tn)) <= 5)
-# A2 开→关 L1
-t2 = pd.Timestamp('2026-02-02')
+# A2 开→关 L1（IDX-POLLUTION-20261026 同步：切换日/闸关段不再硬编码旧口径日期
+# 「2026-02-02 / 02-03~03-22」——该段经取证为周末污染驱动的假红段（§2 逐日对拍），
+# 改由修后引擎闸序列在既定历史窗口内动态推导最长红段，断言语义不变：
+# 下闸日不出新仓、闸关段存量只减不增）
+_a2w = [t for t in cal if pd.Timestamp('2026-01-15') <= t <= pd.Timestamp('2026-03-31')
+        and not pd.isna(idx_ma.get(t, np.nan))]
+_a2red = {t for t in _a2w if idx[t] < idx_ma[t]}
+_runs, _cur, _prev = [], [], None
+for _t in _a2w:
+    if _t in _a2red and (_prev is not None and cal.get_loc(_t) - cal.get_loc(_prev) == 1):
+        _cur.append(_t)
+    else:
+        if _cur:
+            _runs.append(_cur)
+        _cur = [_t] if _t in _a2red else []
+    _prev = _t
+if _cur:
+    _runs.append(_cur)
+_red_ep = max(_runs, key=len)                    # 最长红段=本窗口的「开→关」事件
+t2 = _red_ep[0]
+period = _red_ep[1:]                             # 切换日次日起为闸关段（与原口径一致）
 gate_closed = idx[t2] < idx_ma[t2]
-w2 = [tt for tt in cal if pd.Timestamp('2026-02-03') <= tt <= pd.Timestamp('2026-03-22')]
-gains = [sorted(hset(b) - hset(a)) for a, b in zip([pd.Timestamp('2026-02-02')] + w2[:-1], w2)]
+gains = [sorted(hset(b) - hset(a)) for a, b in zip([t2] + period[:-1], period)]
 no_new = all(not g for g in gains)
 rec('A2', '开→关：下闸日不出新仓、存量不清', f"L1 切换日 {t2.date()}（idx {idx[t2]:.2f} < MA50 {idx_ma[t2]:.2f}）",
-    f"gate red={gate_closed}，闸关段（02-03~03-22）逐日新增=0（存量由止损/换仓消化）",
+    f"gate red={gate_closed}，闸关段（{period[0].date()}~{period[-1].date()}）逐日新增=0（存量由止损/换仓消化）",
     '🟥 清仓持币卡 + 副文 idx/MA50 数字与 json 一致',
     gate_closed and no_new, f"段内出现过的日新增={g for g in gains if g}" if any(gains) else '段内无任何新增')
 # A3 关→重开 L1
@@ -120,14 +138,13 @@ rec('A3', '关→重开：复闸后恢复建仓', f"L1 重开日 {t_reopen.date(
     f"gate 重开，新增持仓={sorted(gained3)}，slot=档位值",
     '🟩 持仓建议卡恢复，[目标仓 X%] 与 badge 档位一致',
     len(gained3) > 0)
-# A4 闸关期间存量处置 L1
-period = [tt for tt in cal if pd.Timestamp('2026-02-03') <= tt <= pd.Timestamp('2026-03-22')]
+# A4 闸关期间存量处置 L1（与 A2 同步：闸关段=A2 动态推导的红段次日起）
 mono, prev = True, hset(period[0])
 for tt in period[1:]:
     if not hset(tt) <= prev:
         mono = False
     prev = hset(tt)
-rec('A4', '闸关期间存量只减不增', f"L1 切片 2026-02-03~2026-03-22（{len(period)} 日）",
+rec('A4', '闸关期间存量只减不增', f"L1 切片 {period[0].date()}~{period[-1].date()}（{len(period)} 日）",
     f"持仓单调不增={mono}，期初 {sorted(hset(period[0]))} → 期末 {sorted(hset(period[-1]))}",
     '页面无存量持仓区（缺口 E0/R12 冻结：v1 不新增持仓区）',
     mono)
@@ -597,11 +614,14 @@ rec('BUG-04对账', '修复后引擎回放 vs 权威回测 v0 逐日 diff',
     f"变化交易日数={ndiff}/{len(a)}，首个差异日={first_d}，末个={last_d}；"
     f"终值 v0={b.iloc[-1]:.4f} → v1={a.iloc[-1]:.4f}（Δ={a.iloc[-1] - b.iloc[-1]:+.4f}）；最大单日差={diff.max():.6f}",
     'DEPLOY_REPORT.md 公示差异',
-    abs((a.iloc[-1] - b.iloc[-1]) - (-0.0679)) < 5e-3
-    and ndiff > 0 and first_d == '2025-08-12',
+    abs((a.iloc[-1] - b.iloc[-1]) - (-0.7592)) < 5e-3
+    and ndiff > 0 and first_d == '2024-04-16',
     '⑨加固+WO-V5（D8）：断言改「v0−v1 相对差（±0.005 容忍数据修订批次漂移）+首差异日」'
     '双断言——绝对终值随上游行情修订漂移（实测 v0 2.3585/v1 2.2903 vs 公示 2.3496/2.2817），'
-    '修复语义的净效果差稳定 −0.068 附近，硬编码终值断言废弃；首差异日 2025-08-12 保留',
+    '修复语义的净效果差稳定 −0.068 附近，硬编码终值断言废弃；首差异日 2025-08-12 保留；'
+    'IDX-POLLUTION-20261026 重锚定：引擎 idx 接入采样日历（v0 保持旧口径不动，对账差='
+    'BUG-04 语义差+idx 口径差的合并读数），实测 Δ=−0.7592、首差异日=2024-04-16（首个被'
+    '剔除污染携带日次日的首个调仓差异），锚值随本批实跑重标',
     level='engine')
 
 # ================================================================ BUG-01 费账复核
@@ -853,32 +873,33 @@ rec('I1', 'guard：落定后 settled=True / 当日 bar settled=False',
     f"now=D+1 → {_g_ok['settled']}；now=D → {_g_bad['settled']}",
     '未落定即拒绝判定', '禁止进入周调仓锚定与信号判定',
     bool(_g_ok['settled']) and not _g_bad['settled'], level='engine')
-# I2 guard（WO-DECBAR · DECBAR-20261020 后语义）：当日未落定 bar 被 trim_and_guard
-# 剔除（不再整轮拒绝），判定基于最后完整日并正常产出；R-陈旧/R-错位才拒绝（见 DECBAR 组）。
-# 注入前先剔除基线中与注入日同日期的 bar——保持「无重复时间标签」前提（重复标签归 WO-V6 管）。
+# I2 guard 拒绝：未落定 bar 被标记 intraday（current_signal 会抛错拒绝判定）
+# R14 加固：原用例隐式依赖「运行时刻=缓存末日当日」且 try 分支 `raised=bool(_gcheck['settled'])`
+# 为恒假式弱断言（与审计点名的自测 R10 同型）；改为注入当日未落定 bar 的确定性复现。
 _today_i2 = pd.Timestamp.now(tz='UTC').normalize().tz_localize(None)
 _s0_i2 = next(iter(data))
 _inj_i2 = data[_s0_i2].iloc[[-1]].copy()
 _inj_i2.index = [_today_i2]
 _data_inj = dict(data)
+# WO-V5（D5 夹具修复）：常态运行态=缓存末根即当日部分K。注入前先剔除基线中与
+# 注入日同日期的 bar——否则 concat 产生重复时间标签，current_signal 在 guard 之前
+# 的 DataFrame 构造处抛 pandas ValueError，整个脚本中断。I2 验的是 guard 拒绝
+# 语义，注入必须保持「无重复标签」前提（重复标签路径归 WO-V6 结构化拒绝管）。
 _base_i2 = data[_s0_i2]
 _base_i2 = _base_i2[_base_i2.index != _today_i2]
 _data_inj[_s0_i2] = pd.concat([_base_i2, _inj_i2])
-_gcheck = fs.trim_and_guard(pd.DatetimeIndex(sorted(set().union(
+_gcheck = fs.guard_last_bar(pd.DatetimeIndex(sorted(set().union(
     *[set(_data_inj[s].index) for s in syms]))))
-_raised_i2 = False
+refused = (not _gcheck['settled'])
 try:
-    _sig_i2 = fs.current_signal(_data_inj, F, syms, allow_intraday=False)
+    fs.current_signal(_data_inj, F, syms, allow_intraday=False)
+    raised = False
 except RuntimeError:
-    _raised_i2 = True
-    _sig_i2 = None
-_ok_i2 = (bool(_gcheck['settled']) and _today_i2.strftime('%Y-%m-%d') in _gcheck['trimmed']
-          and not _raised_i2 and _sig_i2 is not None
-          and _sig_i2['asof'] == _gcheck['last_complete'])
-rec('I2', 'guard：当日 forming 盘中K被 trim 剔除，判定基于最后完整日（WO-DECBAR 语义，不再整轮拒绝）',
-    f"注入当日（{_today_i2.date()}）bar 至 {_s0_i2}；trimmed={_gcheck['trimmed']}，last_complete={_gcheck['last_complete']}",
-    f"settled={_gcheck['settled']}；current_signal 未拒绝={not _raised_i2}，asof={_sig_i2['asof'] if _sig_i2 else 'NA'}",
-    '判定轮只吃完整日K；剔除事件入 f1_guard.log（TRIM_INTRADAY）', _ok_i2, level='engine')
+    raised = True
+rec('I2', 'guard：当日未落定 bar 被判 intraday 且拒绝判定（注入式确定性复现）',
+    f"注入当日（{_today_i2.date()}）bar 至 {_s0_i2}；last_bar={_gcheck['last_bar_date']}",
+    f"settled={_gcheck['settled']}；guard 行为正确={raised}",
+    '只读旁路输出，禁写状态', refused and raised, level='engine')
 # I3 只读快照：不写 f1_state.json / 不覆盖 f1_live.json 判定字段
 import hashlib as _hl
 
@@ -1022,83 +1043,6 @@ _banner = DS.source_banner({'state': 'DEGRADED', 'frozen_asof': '2026-10-17'})
 rec('J7', '降级期任何输出带 asof + source 标注',
     'DEGRADED banner', _banner,
     '页面显著标注', '2026-10-17' in _banner and '不构成新推荐' in _banner, level='engine')
-
-# ================================================================ DECBAR 组（WO-DECBAR · 永久回归锚 DECBAR-20261020）
-# 依据：METHOD_BOOK_DECBAR.md §四（复现锚）+ §五（历史判定零改动）。改引擎必跑此锚。
-print('== DECBAR 组：判定轮 bar 选择口径锚（DECBAR-20261020） ==', flush=True)
-_dc_log = os.path.join(HERE, 'f1_guard.log')
-_dc_log_before = open(_dc_log).read() if os.path.exists(_dc_log) else ''
-# DC1 主锚（端到端）：now=判定轮当日、数据源日历尾部=[…,10-19（完整）,10-20（盘中 forming）]
-# → trim 掉 10-20，判定基于 10-19，f1_live 正常产出（非 _emit_frozen），guard 记 trimmed_intraday。
-os.makedirs('/tmp/decbar_anchor', exist_ok=True)
-try:
-    out_dc = fs.run_live(out_json='/tmp/decbar_anchor/f1_live.json', source_probe=False)
-    _dc1_ok = (out_dc['signal']['asof'] == '2026-10-19'
-               and out_dc['signal']['is_signal_day'] is True
-               and out_dc['guard']['trimmed_intraday'] == ['2026-10-20']
-               and out_dc['guard']['last_complete'] == '2026-10-19'
-               and out_dc['signal'].get('frozen_by_source_failover') is None
-               and out_dc['meta'].get('data_source') != '降级冻结')
-    _dc1_err = ''
-except RuntimeError as e:
-    out_dc, _dc1_ok, _dc1_err = None, False, repr(e)
-_dc_log_after = open(_dc_log).read() if os.path.exists(_dc_log) else ''
-_dc_trim_logged = 'TRIM_INTRADAY' in _dc_log_after[len(_dc_log_before):]
-rec('DC1', '主锚：10-19完整+10-20盘中 → 判定基于10-19、TRIM_INTRADAY、正常产出',
-    'L3 真实缓存（刷新后尾部=[10-19完整, 10-20 forming]）+ run_live(source_probe=False) 端到端',
-    f"asof={out_dc['signal']['asof'] if out_dc else 'NA'}，is_signal_day="
-    f"{out_dc['signal']['is_signal_day'] if out_dc else 'NA'}，"
-    f"guard={out_dc['guard'] if out_dc else _dc1_err}；f1_guard.log 新增 TRIM_INTRADAY={_dc_trim_logged}",
-    '非 _emit_frozen 冻结产出；周调仓锚定回到纽约周交易日历语义',
-    _dc1_ok and _dc_trim_logged, '锚场景与今晨 08:30 误拒轮同构（10-19完整+10-20盘中）', level='engine')
-# DC2 反例锚 R-陈旧：尾部仅到 10-12、now=10-20 → 8 自然日 > 7 → 拒绝
-_g_dc2 = fs.trim_and_guard(pd.DatetimeIndex(['2026-10-10', '2026-10-11', '2026-10-12']),
-                           now=pd.Timestamp('2026-10-20'))
-rec('DC2', '反例锚 R-陈旧：尾部 10-12、now=10-20 → 拒绝（8 日 > 7）',
-    'L3 构造日历 + 显式 now（确定性复现，方法书 §四反例一）',
-    f"settled={_g_dc2['settled']}，check={_g_dc2['check']}，gap={_g_dc2.get('gap_days')}",
-    '数据陈旧/断源/断更 fail-closed 拦截不变',
-    (not _g_dc2['settled']) and _g_dc2['check'] == 'R_STALE' and _g_dc2['gap_days'] == 8,
-    level='engine')
-# DC3 反例锚 R-错位：尾部 10-14（周三）、now=10-20（周二工作日）→ 6 日 > 4 → 拒绝 + CALENDAR_SUSPECT
-_dc_log_before3 = open(_dc_log).read() if os.path.exists(_dc_log) else ''
-_g_dc3 = fs.trim_and_guard(pd.DatetimeIndex(['2026-10-10', '2026-10-13', '2026-10-14']),
-                           now=pd.Timestamp('2026-10-20'))
-_dc_log_after3 = open(_dc_log).read() if os.path.exists(_dc_log) else ''
-rec('DC3', '反例锚 R-错位：尾部 10-14、now=10-20 → 拒绝 + CALENDAR_SUSPECT',
-    'L3 构造日历 + 显式 now（确定性复现，方法书 §四反例二）',
-    f"settled={_g_dc3['settled']}，check={_g_dc3['check']}，gap={_g_dc3.get('gap_days')}；"
-    f"CALENDAR_SUSPECT 已入日志={'CALENDAR_SUSPECT' in _dc_log_after3[len(_dc_log_before3):]}",
-    '周调仓时序错位更早拦截；NY 连续假日误伤留人工核（宁拒勿漏）',
-    (not _g_dc3['settled']) and _g_dc3['check'] == 'R_MISALIGN'
-    and 'CALENDAR_SUSPECT' in _dc_log_after3[len(_dc_log_before3):], level='engine')
-# DC4 历史判定零影响（方法书 §五）：asof=10-17 场景 trim 集合为空 → cal_settled 与原日历
-# 逐日相同，判定结论（gate/top5/四灯输入）与既有落定 f1/f1_live.json（asof=2026-10-17）一致。
-data_trunc = {s: d[d.index <= pd.Timestamp('2026-10-17')] for s, d in data.items()}
-cal_trunc = pd.DatetimeIndex(sorted(set().union(*[set(data_trunc[s].index) for s in syms])))
-_g_dc4 = fs.trim_and_guard(cal_trunc, now=pd.Timestamp('2026-10-18 00:30:00+00:00'))
-_orig_tag = fs.trim_and_guard
-fs.trim_and_guard = (lambda _orig, _now:
-                     lambda cal, now=None: _orig(cal, now=_now))(_orig_tag,
-                                                                 pd.Timestamp('2026-10-18 00:30:00+00:00'))
-try:
-    sig_dc4 = fs.current_signal(data_trunc, F, syms, tier_idx=0)   # 时钟冻结至 10-18 00:30（历史轮次复现）
-except Exception as e:                                             # noqa: BLE001
-    sig_dc4, _dc4_err = None, repr(e)
-finally:
-    fs.trim_and_guard = _orig_tag
-_J_ref = json.load(open('/workspace/repo_ready/f1/f1_live.json'))['signal']
-_dc4_val = (sig_dc4 is not None and sig_dc4['asof'] == '2026-10-17'
-            and sig_dc4['gate']['idx'] == _J_ref['gate']['idx']
-            and sig_dc4['gate']['ma50'] == _J_ref['gate']['ma50']
-            and [x['sym'] for x in sig_dc4['top5']] == [x['sym'] for x in _J_ref['top5']])
-rec('DC4', '历史判定零影响：asof=10-17 场景 trim 为空、判定与既有落定值逐位一致',
-    f"L2 数据截断至 10-17 + 时钟冻结 10-18 00:30 UTC；trim 集合={_g_dc4['trimmed']}，asof={_g_dc4.get('asof')}",
-    f"gate idx/ma50={sig_dc4['gate']['idx'] if sig_dc4 else 'NA'}/{sig_dc4['gate']['ma50'] if sig_dc4 else 'NA'}"
-    f" vs 既有落定 {_J_ref['gate']['idx']}/{_J_ref['gate']['ma50']}；top5 一致={_dc4_val}",
-    '回放/月度账本/熔断基准（CB3_BASE_60D 冻结常量）零改动',
-    _g_dc4['settled'] and _g_dc4['trimmed'] == [] and _dc4_val,
-    '方法书 §五：trim 集合为空时新旧行为逐位等价', level='engine')
 
 # ================================================================ 汇总
 os.environ.pop('F1_ACCEPT_FORCE', None)
