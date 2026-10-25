@@ -130,8 +130,17 @@ def run_backtest(data, F, syms, gated, factors):
     open_ = open_.reindex(cal)
     low = low.reindex(cal)
     mark = close.ffill()                                   # 停牌日按最近收盘记账
-    idx = close.mean(axis=1)                               # 池等权收盘均价
+    # idx 采样日历（IDX-POLLUTION-20261026 同步）：本件为对账红线夹具，按设计独立实现
+    # （不引用引擎函数），此处按《idx周末污染-取证修复上会记录-2026-10-26.md》§1.3 独立重写：
+    # 采样日 = 当日有收盘标的数 >= 0.90 × 该日为中心 ±30 个在册日的中位数；idx 仅采样日
+    # 取值，MA50=采样日序列 rolling(MA_REG)（50 个观测）；非采样日 idx/MA50 前向携带。
+    cnt = close.notna().sum(axis=1)
+    med = cnt.rolling(61, center=True, min_periods=1).median()
+    keep = cnt >= 0.90 * med
+    idx = close[keep].mean(axis=1)                         # 池等权收盘均价（仅采样日）
     idx_ma = idx.rolling(MA_REG).mean()
+    idx = idx.reindex(cal).ffill()
+    idx_ma = idx_ma.reindex(cal).ffill()
     med_ret = close.pct_change().median(axis=1)            # 池单日中位收益
 
     iso = cal.isocalendar()
