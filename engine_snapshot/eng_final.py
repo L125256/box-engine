@@ -6,6 +6,9 @@
 #   成交价：
 #     止盈 = max(tp, 当根open)   止损 = min(eff, 当根open)   硬顶 = 当根close
 #     成交价须落在当根 [low,high]，否则顺延至下一根 open（守卫计数 defer_count）
+#   idx 唯一口径改动 = IDX-POLLUTION-20261026（2026-10-26）：7x24 报价的周末/休市低参与日
+#     被剔出 idx 采样日历（相对参与数 ≥0.90×邻域中位），前向携带回全日历；等权收盘/rolling50/
+#     idx>ma50 判定式逐字不变，dict 键集合不变。
 #   资金费 0.03%/bar × (实际出场bar - 入场bar)
 # 主窗 = 入场日(et) >= 2025-06-01；池 = 清洗后 bars>=100 的 144 标的；idx 仅用池内标的。
 # 内置回归锚：--anchor 时以 V1 收盘口径复跑，断言三套参数成交键集合与 V2 完全一致。
@@ -88,17 +91,46 @@ def load_pool(cache):
         else: dropped.append(dict(tkr=t,bars_raw=len(d),bars_clean=len(cl)))
     return kept,dropped
 
+IDX_MIN_PARTICIPATION = 0.90   # idx 采样日准入门槛：参与数 >= 该比例 × 邻域中位参与数
+IDX_MEDIAN_HALFWIN = 30        # 邻域半径（单位=在册日个数，中心窗口 ±30 → 最多 61 个在册日）
+
 def build_idx_bull(pool):
-    """idx=池等权收盘均价（仅池内标的），MA50 牛闸，与 box_module.main() 逐字一致"""
+    """idx=池等权收盘均价（仅池内标的），MA50 牛闸。
+
+    IDX-POLLUTION-20261026 修法（唯一改动点）：
+      7x24 报价使周末/休市只有极少数标的产出 K 线，「等权收盘均价」成分一夜塌缩又一夜
+      复原，出现与 constituents 真实涨跌无关的单日假跳变（典型 2026-01-31 +130.99%，
+      当日全池只有 1 只有报价），进而把 MA50 地基顶偏。
+      卫生处理：idx 的采样日历限为「当日参与标的数 >= IDX_MIN_PARTICIPATION × 该日
+      为中心 ±IDX_MEDIAN_HALFWIN 个在册日的中位参与数」之日（相对口径，不误伤早期
+      上市稀薄期的成分齐全交易日）。
+      判定逻辑（等权收盘 / rolling 50 个观测 / idx>ma50）逐字不变；非采样日按前向携带
+      最近一个采样日读数映射回全日历，dict 键集合与修改前一致（零结构性副作用）。
+    """
     all_dates=sorted({b['time'] for bars in pool.values() for b in bars})
+    cnt={dt:0 for dt in all_dates}
+    for bars in pool.values():
+        for b in bars:
+            if b['time'] in cnt: cnt[b['time']]+=1
     idx={}
     for dt in all_dates:
         vals=[b['close'] for bars in pool.values() for b in bars if b['time']==dt]
         if vals: idx[dt]=sum(vals)/len(vals)
-    dts=sorted(idx); ma50={}
+    dts=sorted(idx)
+    clean=[]
     for i,dt in enumerate(dts):
-        w=dts[max(0,i-49):i+1]; ma50[dt]=sum(idx[d] for d in w)/len(w)
-    return {dt: idx[dt]>ma50[dt] for dt in dts}
+        lo=max(0,i-IDX_MEDIAN_HALFWIN); hi=min(len(dts),i+IDX_MEDIAN_HALFWIN+1)
+        med=statistics.median([cnt[d] for d in dts[lo:hi]])
+        if cnt[dt]>=IDX_MIN_PARTICIPATION*med: clean.append(dt)
+    ma50={}
+    for i,dt in enumerate(clean):
+        w=clean[max(0,i-49):i+1]; ma50[dt]=sum(idx[d] for d in w)/len(w)
+    gate={dt: idx[dt]>ma50[dt] for dt in clean}
+    out={}; last=False
+    for dt in dts:
+        if dt in gate: last=gate[dt]
+        out[dt]=last
+    return out
 
 def collect(params, pool, bull, v1=False):
     global N,K,M,E
