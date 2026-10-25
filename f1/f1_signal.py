@@ -102,6 +102,29 @@ FEE_SIDE = 0.0005
 FUNDING = 0.0003
 MA_REG = 50
 
+# ---- idx 采样日历（IDX-POLLUTION-20261026 · 唯一新增规则，判定式逐字不变）
+# 7x24 报价使周末/休市只有极少数标的打印 K 线，「池等权收盘均价」成分一夜塌缩又一夜复原，
+# 出现与 constituents 真实涨跌无关的单日假跳变（典型 2026-01-31 当日全池仅 1 只有报价，
+# idx 假跳 +131%），把 MA50 地基顶偏。卫生处理：采样日历限为「当日有收盘标的数 >=
+# IDX_RATIO × 该日为中心 ±IDX_HALFWIN 个在册日的中位数」（相对口径，不误伤早期上市
+# 稀薄期的成分齐全交易日）；idx 只在采样日取值，非采样日不插值不补值、idx/MA50 读数
+# 一并前向携带映射回全日历（Series 键集合与修改前一致，下游比较零改动）。
+IDX_RATIO = 0.90
+IDX_HALFWIN = 30
+
+
+def idx_gate_series(close):
+    """IDX-POLLUTION-20261026：返回 (idx, idx_ma50)，索引与 close 相同（键集合不变）。
+    idx=池等权收盘均价，仅采样日取值；MA50=采样日序列上 rolling(MA_REG)（50 个观测，
+    与原实现逐字一致）；非采样日 idx/MA50 前向携带（leading 无源段保持 NaN，与原
+    rolling 不足窗口的 NaN 行为一致）。回放/持仓/判定/倒计时镜像四处必须同源调用本函数。"""
+    cnt = close.notna().sum(axis=1)
+    med = cnt.rolling(2 * IDX_HALFWIN + 1, center=True, min_periods=1).median()
+    keep = cnt >= IDX_RATIO * med
+    idx_c = close[keep].mean(axis=1)
+    ma_c = idx_c.rolling(MA_REG).mean()
+    return idx_c.reindex(close.index).ffill(), ma_c.reindex(close.index).ffill()
+
 # ---- 熔断阈值（R13 重标定 · 现行 12.5% 敞口口径）
 # 依据：旧阈值（−32%/−20pp/21.7pp）为满仓时代口径遗产，在 5 票×2.5%=12.5% 敞口下数学不可达
 #      （真实回放 2025-06→2026-10 四条线 0 触发）。R13 按「现行口径实测极值×1.06~1.2」重标定。
@@ -246,8 +269,7 @@ def replay(data, F, syms, slot=0.025, entry_out=None):
     cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
     close, open_, low = (x.reindex(cal) for x in (close, open_, low))
     mark = close.ffill()
-    idx = close.mean(axis=1)
-    idx_ma = idx.rolling(MA_REG).mean()
+    idx, idx_ma = idx_gate_series(close)          # IDX-POLLUTION-20261026：采样日历+前向携带
     med_ret = close.pct_change().median(axis=1)
     sig_days = week_first_days(cal)
 
@@ -370,8 +392,7 @@ def _replay_holdings(data, F, syms, slot=0.025, entry_out=None):
     cal = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
     close, open_, low = (x.reindex(cal) for x in (close, open_, low))
     mark = close.ffill()
-    idx = close.mean(axis=1)
-    idx_ma = idx.rolling(MA_REG).mean()
+    idx, idx_ma = idx_gate_series(close)          # IDX-POLLUTION-20261026：采样日历+前向携带
     med_ret = close.pct_change().median(axis=1)
     sig_days = week_first_days(cal)
     cash, pos = 1.0, {}
@@ -650,8 +671,7 @@ def current_signal(data, F, syms, tier_idx=0,
                              if d < pd.Timestamp(_g['today_utc_date'])])
            if _g['trimmed'] else cal_raw)
     close = pd.DataFrame({s: data[s]['close'] for s in syms}).reindex(cal)
-    idx = close.mean(axis=1)
-    idx_ma = idx.rolling(MA_REG).mean()
+    idx, idx_ma = idx_gate_series(close)          # IDX-POLLUTION-20261026：采样日历+前向携带
     med_ret = close.pct_change().median(axis=1)
     t = cal[-1]
     gate_on = bool(not pd.isna(idx_ma.iloc[-1]) and idx.iloc[-1] < idx_ma.iloc[-1])
