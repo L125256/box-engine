@@ -45,7 +45,9 @@ BUG-01~05 修复版（交易四席冻结规格 · 2026-10-18）：
       未落定的当日 bar 由 guard_last_bar() 标记 intraday 并拒绝进入周调仓锚定与信号判定。
 判定轮 bar 选择口径（WO-DECBAR · 2026-10-20，唯一依据 METHOD_BOOK_DECBAR.md）：
       判定轮入口 trim_and_guard() 剔除数据源当日未收盘 forming 盘中K并基于最后完整日 bar 判定；
-      拒绝收窄为 R-陈旧（>7 自然日）与 R-错位（工作日轮次>4 日/落周末）两条 fail-closed；
+      拒绝收窄为 R-陈旧（>7 自然日）与 R-错位（工作日轮次>4 日/参与率对齐判不过）两条 fail-closed；
+      「落周末」子句经 RWEEKEND-20261026 废除（7×24 代币化域周末为真实交易日，错位真特征=
+      参与率塌缩，口径与 idx_gate_series 同源），周一判定轮不再固定被拒；
       快照轮 guard_last_bar 语义不动；回放/熔断/成交语义零改动。永久回归锚 DECBAR-20261020。
 
 市场宽度（WO-BREADTH-01 · 2026-10-19）：meta.breadth = {pct, n_above, n_total, ma_window, min_periods}，
@@ -664,7 +666,8 @@ def current_signal(data, F, syms, tier_idx=0,
     # guard 拒绝条件同步替换为 R-陈旧/R-错位两判；asof/is_signal_day 按最后完整日。
     # forming 盘中K剔除不再构成拒绝理由；R-陈旧/R-错位 fail-closed（allow_intraday
     # 不再旁路任何拒绝——陈旧/错位宁拒勿漏，参数保留仅兼容旧调用方签名）。
-    _g = trim_and_guard(cal_raw)
+    _g = trim_and_guard(cal_raw,
+                        participation=participation_counts(data, syms, cal_raw))
     if not _g['settled']:
         raise RuntimeError('拒绝判定：' + _g['reason'])
     cal = (pd.DatetimeIndex([d for d in cal_raw
@@ -758,19 +761,42 @@ def guard_last_bar(cal, now=None):
             'settle_rule': f'日K {DAILY_BAR_SETTLE_UTC_HOUR:02d}:00 UTC（北京 08:00）落定'}
 
 
-def trim_and_guard(cal, now=None):
-    """WO-DECBAR（METHOD_BOOK_DECBAR.md §二，永久回归锚 DECBAR-20261020）：
+def participation_counts(data, syms, cal):
+    """RWEEKEND-20261026：逐日池参与数（当日有 bar 的标的数），供 trim_and_guard
+    参与率对齐判。口径与 idx_gate_series 的 cnt 同源（有 bar 即有收盘，当日有收盘标的数；
+    check_data_integrity 已保无重复时间标签，每标的每日至多 1 根）。"""
+    cal = pd.DatetimeIndex(cal).normalize()
+    flags = pd.DataFrame({s: pd.Series(1.0, index=pd.DatetimeIndex(data[s].index).normalize())
+                          for s in syms})
+    return flags.reindex(cal).notna().sum(axis=1).astype('int64')
+
+
+def trim_and_guard(cal, now=None, participation=None):
+    """WO-DECBAR（METHOD_BOOK_DECBAR.md §二，永久回归锚 DECBAR-20261020）
+    + RWEEKEND-20261026（方法书冻结件：deliverables/trade-analysis/
+    R错位周末子句修复上会记录-2026-10-26.md §1）：
     判定轮 bar 选择/拒绝语义——剔除（trim）当日未收盘 forming 盘中K并基于最后完整日
     bar 判定，而不是因数据源含当日盘中 bar 就整轮拒绝；拒绝仅保留两条（fail-closed，
     宁拒勿漏，任一命中即拒）：
     - R-陈旧：today_utc − last_complete > 7 自然日（数据陈旧/断源/断更；
       依据：正常最坏 3 日（跨周末）→ 4 日（单 NY 假日）→ 6 日（9/11 极端闭市）→ 7 日兜底）
-    - R-错位：today_utc 为工作日 且（距 last_complete > 4 自然日 或 last_complete 落在周末）
-      （周调仓时序错位：本应已有更新的已收盘 bar 却缺失）；命中且 R-陈旧未命中时
-      日志标 CALENDAR_SUSPECT（NY 连续假日如圣诞周可能误伤，留人工核）
+    - R-错位：today_utc 为工作日 且（距 last_complete > 4 自然日 或 参与率对齐判不过）
+      （周调仓时序错位：本应已有更新的已收盘 bar 却缺失）。RWEEKEND-20261026：原
+      「last_complete 落在周末」子句废除——本数据域为 7×24 代币化合约，周末是真实
+      交易日（2026-10-24/10-25 全池 144 完整K、闸覆盖率 100% 实证），周末子句导致
+      每个周一判定轮固定被拒（周日K周一 08:00 落定为最后完整日）；替换为参与率对齐判
+      （复用 IDX-POLLUTION-20261026 冻结口径，与 idx_gate_series 同源）：
+      last_complete 当日池参与数 ≥ 0.90 × 其 ±30 个在册且已落定日的中位参与数 → 放行；
+      < 0.90 → 仍拒并标 CALENDAR_SUSPECT（人工核）。参与数经 participation 传入
+      （participation_counts 构造）；未传时该判不参与拒绝（结果诚实标注 SKIPPED），
+      生产三调用方（current_signal / run_live 判定入口 / f1_generate
+      compute_gate_countdown）必须传真实参与数；参与数序列缺 last_complete 当日
+      → 视作 0 → 拒（宁拒勿漏）。命中且 R-陈旧未命中时日志标 CALENDAR_SUSPECT
+      （NY 连续假日如圣诞周可能误伤，留人工核）
     通过 → settled=True、asof=last_complete；trimmed 非空时 f1_guard.log 记
     TRIM_INTRADAY{trimmed, last_complete}（append-only 可审计，合规席条款）。
-    不变的部分：check_data_integrity 前置拒绝、探活 DEGRADED 冻结、sha 对表闸门、
+    不变的部分：R-陈旧、工作日前置与 gap>4 分支、trim forming K、NO_SETTLED_BAR、
+    check_data_integrity 前置拒绝、探活 DEGRADED 冻结、sha 对表闸门、
     _emit_frozen 冻结产出、快照轮 guard_last_bar（settled 判定展示语义）全不动；
     回放/熔断/成交语义零改动。"""
     now = pd.Timestamp.now(tz='UTC') if now is None else pd.Timestamp(now)
@@ -789,22 +815,50 @@ def trim_and_guard(cal, now=None):
     last_complete = pd.Timestamp(cal_settled[-1]).normalize()
     gap = int((today_utc - last_complete).days)
     is_weekday = bool(today_utc.dayofweek < 5)          # 周一~五（NY 假日未知时宁严）
-    weekend_last = bool(last_complete.dayofweek >= 5)   # last_complete 落在周六/周日
     stale = bool(gap > 7)                               # R-陈旧
-    misaligned = bool(is_weekday and (gap > 4 or weekend_last))   # R-错位
+    # RWEEKEND-20261026：参与率对齐判（周末子句废除；口径与 idx_gate_series 同源）
+    part_ok = None
+    part_info = {'participation_check': 'SKIPPED'}
+    if participation is not None:
+        ps = participation if isinstance(participation, pd.Series) else pd.Series(participation)
+        ps = ps.copy()
+        ps.index = pd.DatetimeIndex(ps.index).normalize()
+        ps = ps.sort_index()
+        ps = ps[ps.index < today_utc]     # 仅已落定日（同 idx_gate_series 剔除 forming 日口径）
+        if len(ps) and last_complete in ps.index:
+            pos = ps.index.get_loc(last_complete)
+            win = ps.iloc[max(0, pos - IDX_HALFWIN): pos + IDX_HALFWIN + 1]
+            med = float(win.median())
+            cnt_lc = int(ps.loc[last_complete])
+            part_ok = bool(cnt_lc >= IDX_RATIO * med)
+            part_info = {'participation_check': 'PASS' if part_ok else 'FAIL',
+                         'part_cnt': cnt_lc, 'part_med': round(med, 2),
+                         'part_ratio': IDX_RATIO, 'part_window': int(len(win))}
+        else:
+            part_ok = False               # 序列缺 last_complete 当日 → 视作 0 → 拒
+            part_info = {'participation_check': 'FAIL', 'part_cnt': None,
+                         'part_med': None, 'part_ratio': IDX_RATIO}
+    misaligned = bool(is_weekday and (gap > 4 or part_ok is False))   # R-错位
     base = {'trimmed': trimmed, 'today_utc_date': str(today_utc.date()),
             'last_complete': str(last_complete.date()), 'gap_days': gap,
             'settle_rule': f'日K {DAILY_BAR_SETTLE_UTC_HOUR:02d}:00 UTC（北京 08:00）落定'}
+    base.update(part_info)
     if stale or misaligned:
         if misaligned and not stale:
             _log_guard('CALENDAR_SUSPECT', dict(base, check='R_MISALIGN'))
         check = 'R_STALE' if stale else 'R_MISALIGN'
-        reason = (f'数据陈旧：最后完整日 {last_complete.date()} 距今 {gap} 自然日 > 7 '
-                  f'（R-陈旧，疑似断源/断更），禁止进入周调仓锚定与信号判定'
-                  if stale else
-                  f'周调仓时序错位：最后完整日 {last_complete.date()} 距今 {gap} 自然日'
-                  f'{">4 或落在周末" if weekend_last else ">4"}（今日为工作日），'
-                  '本应已有更新的已收盘 bar 却缺失（R-错位），禁止进入周调仓锚定与信号判定')
+        if stale:
+            reason = (f'数据陈旧：最后完整日 {last_complete.date()} 距今 {gap} 自然日 > 7 '
+                      f'（R-陈旧，疑似断源/断更），禁止进入周调仓锚定与信号判定')
+        elif gap > 4:
+            reason = (f'周调仓时序错位：最后完整日 {last_complete.date()} 距今 {gap} 自然日>4'
+                      f'（今日为工作日），本应已有更新的已收盘 bar 却缺失（R-错位），'
+                      '禁止进入周调仓锚定与信号判定')
+        else:
+            reason = (f'周调仓时序错位：最后完整日 {last_complete.date()} 池参与数 '
+                      f'{part_info.get("part_cnt")} < ±{IDX_HALFWIN} 个在册日中位参与数 '
+                      f'{part_info.get("part_med")}×{IDX_RATIO}（参与率对齐判，今日为工作日），'
+                      '本应已有更新的已收盘 bar 却缺失（R-错位），禁止进入周调仓锚定与信号判定')
         return dict(base, settled=False, check=check, reason=reason)
     if trimmed:
         _log_guard('TRIM_INTRADAY', {'trimmed': trimmed,
@@ -1048,7 +1102,8 @@ def run_live(out_json=None, cache=CACHE, allow_intraday=False, source_probe=True
     # 判定/回放/熔断/宽度一律只吃剔除后的 cal_settled（最后完整日口径）；
     # 回放/熔断/成交语义零改动（replay 只看完整 bar，天然兼容）。
     _cal0 = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
-    _g = trim_and_guard(_cal0)
+    _g = trim_and_guard(_cal0,
+                        participation=participation_counts(data, syms, _cal0))
     if not _g['settled']:
         _log_guard('REFUSE_DECIDE', _g)
         raise RuntimeError('拒绝判定：' + _g['reason'])
@@ -1164,7 +1219,7 @@ def main():
             print(f'live REFUSED: {e}')
             print('说明：判定轮只吃完整日K（数据源当日 forming 盘中K自动剔除，'
                   'WO-DECBAR / DECBAR-20261020）；拒绝仅出现在 R-陈旧（最后完整日距今>7 自然日）'
-                  '或 R-错位（工作日轮次>4 日/落周末）两类 fail-closed 场景，'
+                  '或 R-错位（工作日轮次>4 日/参与率对齐判不过）两类 fail-closed 场景，'
                   '请检查数据源最新完整 vintage 后重跑。')
             sys.exit(2)
         bk = out['breakers']['overall']
