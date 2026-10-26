@@ -82,9 +82,7 @@ def compute_gate_countdown(live):
         data = f1_signal.load_data()
         syms = f1_signal.build_pool(data)
         cal_raw = pd.DatetimeIndex(sorted(set().union(*[set(data[s].index) for s in syms])))
-        _g = f1_signal.trim_and_guard(
-            cal_raw,
-            participation=f1_signal.participation_counts(data, syms, cal_raw))
+        _g = f1_signal.trim_and_guard(cal_raw)
         if not _g['settled']:
             out['note'] = f"数据守卫拒绝（{_g.get('check')}），倒计时停发"
             return out
