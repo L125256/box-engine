@@ -2,7 +2,7 @@
  "meta": {
   "workorder": "R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）",
   "seed": 42,
-  "generated": "2026-10-26 16:39:07 北京时间",
+  "generated": "2026-10-26 16:39:35 北京时间",
   "engine_sha256": "3906ae833217ee70aeda4b0303640ef573fe2971a18e93f9ac65e8cb8463520f",
   "pool_n": 144,
   "breadth": {
