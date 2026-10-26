@@ -3,7 +3,7 @@
 # 流程：32线程刷缓存 → import 本机权威引擎 eng_final.py（禁止修改，仅复用）跑两组冻结参数
 #       → 状态机影子扫描输出当前箱体卡片（与引擎交易键集合断言一致）→ 渲染同款风格 HTML + JSON
 # 复现：PYTHONHASHSEED=42 python3 /tmp/web_build/generate_page.py
-import sys, os, json, importlib.util, random, datetime, shutil, re, tempfile
+import sys, os, json, importlib.util, random, datetime, shutil, re, tempfile, statistics
 
 SEED = 42
 random.seed(SEED)
@@ -54,7 +54,10 @@ def load_module(name, path):
 # ---- WO-UX-A01：箱体判定级 forming-K 剔除（唯一依据=engine_f1/METHOD_BOOK_DECBAR.md §二，
 #      照 F1 trim_and_guard 口径逐字移植；锚回归：10-19 dirty 输入→BULL_OPEN=false/
 #      BULL_ASOF=2026-10-17，正常输入→闸与 F1 同步）。作用在数据加载层：box 缓存装载后、
-#      build_idx_bull 之前；BULL_ASOF 语义改「最后完整日」。----
+#      build_idx_bull 之前；BULL_ASOF 语义改「最后完整日」。
+#      BOX-RWEEKEND-ALIGN-20261026：R-错位「落周末」子句废除，改参与率对齐判（与 F1
+#      RWEEKEND-20261026 同口径逐字移植；方法书 §1 冻结件见 deliverables/trade-analysis/
+#      箱体守卫周末子句对齐上会记录-2026-10-26.md）。----
 GUARD_LOG_F = os.path.join(_HERE, 'box_guard.log')
 BOX_SETTLE_RULE = '日K 00:00 UTC（北京 08:00）落定'
 
@@ -154,12 +157,38 @@ def gate_meta_for(pool):
         f'[卫生门·覆盖率] 全部日期 bar 覆盖率 <{GATE_COVER_MIN:.0%} —— 闸值无可用收盘基准，拒载 exit≠0')
 
 
+BOX_IDX_RATIO = 0.90      # 参与率对齐判阈值（= f1_signal.IDX_RATIO，同源同值，勿另创一套）
+BOX_IDX_HALFWIN = 30      # 邻域半径（单位=在册已落定日个数，中心窗口 ±30 → 最多 61 日；= f1_signal.IDX_HALFWIN）
+
+
+def participation_counts_pool(pool_settled, dates):
+    """BOX-RWEEKEND-ALIGN-20261026：逐日池参与数（当日有 bar 的标的数），供
+    trim_and_guard_pool 参与率对齐判。口径与 f1_signal.participation_counts /
+    idx_gate_series 的 cnt 同源：有 bar 即有收盘，卫生门已保无重复时间标签 ⇒ 每标的
+    每日至多 1 根；日期域=全池已落定 bar 日期并集（与 F1 的 cal 并集构造同一规则）。"""
+    cnt = {d: 0 for d in dates}
+    for bars in pool_settled.values():
+        for b in bars:
+            if b['time'] in cnt:
+                cnt[b['time']] += 1
+    return cnt
+
+
 def trim_and_guard_pool(pool, now=None):
     """剔除未收盘 forming 盘中K并基于最后完整日判定（METHOD_BOOK_DECBAR.md §二 S1–S4 逐字）；
     拒绝仅保留两类（fail-closed 宁拒勿漏，任一命中即拒）：
     - R-陈旧：today_utc − last_complete > 7 自然日（数据陈旧/断源/断更）
-    - R-错位：today_utc 为工作日 且（距 last_complete > 4 自然日 或 last_complete 落在周末）
+    - R-错位：today_utc 为工作日 且（距 last_complete > 4 自然日 或 参与率对齐判不过）
       （命中且 R-陈旧未命中 → 日志标 CALENDAR_SUSPECT，NY 连续假日留人工核）
+    BOX-RWEEKEND-ALIGN-20261026（方法书冻结件见 deliverables/trade-analysis/
+    箱体守卫周末子句对齐上会记录-2026-10-26.md §1，逐字移植 F1 RWEEKEND-20261026）：
+    原「last_complete 落在周末」子句废除——箱体域同为 7×24 代币化合约，周末是真实
+    交易日（周末 K 是真实成交），该子句使箱体 09:00 判定级轮每周一固定 fail-closed
+    （牛闸强制关闭、BULL_ASOF 钉在周日）；替换为参与率对齐判（复用 IDX-POLLUTION
+    冻结口径，与 idx_gate_series 采样日历同源）：
+    last_complete 当日池参与数 >= 0.90 × 其 ±30 个在册且已落定日的中位参与数 → 放行；
+    < 0.90 → 仍拒并标 CALENDAR_SUSPECT（人工核）。参与数由 pool 自身派生（同源 cnt），
+    结构上不缺 last_complete 当日（等价 F1「缺当日⇒视作 0⇒拒」的 fail-closed 语义）。
     通过 → settled=True、asof=last_complete；trimmed 非空 → 日志记 TRIM_INTRADAY。
     返回 (pool_settled, guard)。"""
     now = now or datetime.datetime.utcnow()
@@ -178,20 +207,35 @@ def trim_and_guard_pool(pool, now=None):
     last_complete = dates[-1]
     gap = (today - datetime.date.fromisoformat(last_complete)).days
     is_weekday = today.weekday() < 5                          # 周一~五（NY 假日未知时宁严）
-    weekend_last = datetime.date.fromisoformat(last_complete).weekday() >= 5
     stale = bool(gap > 7)                                     # R-陈旧
-    misaligned = bool(is_weekday and (gap > 4 or weekend_last))   # R-错位
-    base.update(last_complete=last_complete, gap_days=gap)
+    # BOX-RWEEKEND-ALIGN-20261026：参与率对齐判（周末子句废除；口径与 idx_gate_series 同源）
+    cnt = participation_counts_pool(pool_settled, dates)
+    pos = dates.index(last_complete)                          # lc 必在序列内（同源派生）
+    win = dates[max(0, pos - BOX_IDX_HALFWIN): pos + BOX_IDX_HALFWIN + 1]
+    med = float(statistics.median([cnt[d] for d in win]))
+    cnt_lc = int(cnt[last_complete])
+    part_ok = bool(cnt_lc >= BOX_IDX_RATIO * med)
+    base.update(last_complete=last_complete, gap_days=gap,
+                participation_check='PASS' if part_ok else 'FAIL',
+                part_cnt=cnt_lc, part_med=round(med, 2),
+                part_ratio=BOX_IDX_RATIO, part_window=len(win))
+    misaligned = bool(is_weekday and (gap > 4 or part_ok is False))   # R-错位
     if stale or misaligned:
         if misaligned and not stale:
             _log_box_guard('CALENDAR_SUSPECT', dict(base, check='R_MISALIGN'))
         check = 'R_STALE' if stale else 'R_MISALIGN'
-        reason = (f'数据陈旧：最后完整日 {last_complete} 距今 {gap} 自然日 > 7'
-                  f'（R-陈旧，疑似断源/断更），禁止进入牛闸判定'
-                  if stale else
-                  f'周调仓时序错位：最后完整日 {last_complete} 距今 {gap} 自然日'
-                  f'{"，且落在周末" if weekend_last else ""}（今日为工作日），'
-                  '本应已有更新的已收盘 bar 却缺失（R-错位），禁止进入牛闸判定')
+        if stale:
+            reason = (f'数据陈旧：最后完整日 {last_complete} 距今 {gap} 自然日 > 7'
+                      f'（R-陈旧，疑似断源/断更），禁止进入牛闸判定')
+        elif gap > 4:
+            reason = (f'周调仓时序错位：最后完整日 {last_complete} 距今 {gap} 自然日'
+                      '（今日为工作日），本应已有更新的已收盘 bar 却缺失（R-错位），'
+                      '禁止进入牛闸判定')
+        else:
+            reason = (f'周调仓时序错位：最后完整日 {last_complete} 池参与数 {cnt_lc} '
+                      f'< ±{BOX_IDX_HALFWIN} 个在册日中位参与数 {round(med, 2)}'
+                      f'×{BOX_IDX_RATIO}（参与率对齐判，今日为工作日），'
+                      '本应已有更新的已收盘 bar 却缺失（R-错位），禁止进入牛闸判定')
         return pool_settled, dict(base, settled=False, check=check, reason=reason)
     if trimmed:
         _log_box_guard('TRIM_INTRADAY', {'trimmed': trimmed, 'last_complete': last_complete})
