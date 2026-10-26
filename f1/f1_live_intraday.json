@@ -2,12 +2,12 @@
  "meta": {
   "workorder": "R13 · 盘中只读快照（WO-R13-03 展示多轮、判定一轮）",
   "seed": 42,
-  "generated": "2026-10-26 05:36:01 北京时间",
+  "generated": "2026-10-26 16:39:07 北京时间",
   "engine_sha256": "3906ae833217ee70aeda4b0303640ef573fe2971a18e93f9ac65e8cb8463520f",
   "pool_n": 144,
   "breadth": {
-   "pct": 27.08,
-   "n_above": 39,
+   "pct": 26.39,
+   "n_above": 38,
    "n_total": 144,
    "ma_window": 50,
    "min_periods": 40
@@ -19,7 +19,7 @@
   "round_tz": "北京时间",
   "round_semantic": "美股盘前（夏令时 9:30 ET 开盘 = 北京 21:30，本轮=开盘前约 1 小时）",
   "dst_note": "北京时刻全年固定（无夏令时）；美股夏令时窗口 = 3 月第二个周日 ~ 11 月第一个周日。04:30 轮在夏令时窗口内=收盘后快照，窗口外（冬令时）=收盘前 30 分钟快照。",
-  "asof_settled": "2026-10-24",
+  "asof_settled": "2026-10-25",
   "total_exposure_pct": 12.5,
   "calib_epoch": "R13-2026-10-18",
   "breaker_thresholds": {
@@ -59,34 +59,34 @@
    }
   },
   "replay": {
-   "start": "2024-02-05",
-   "end": "2026-10-25"
+   "start": "2024-02-06",
+   "end": "2026-10-26"
   }
  },
  "guard": {
-  "last_bar_date": "2026-10-25",
-  "today_utc_date": "2026-10-25",
+  "last_bar_date": "2026-10-26",
+  "today_utc_date": "2026-10-26",
   "settled": false,
-  "reason": "最后一根K日期 2026-10-25 >= 当前 UTC 日 2026-10-25：未收盘的部分K（intraday），禁止进入周调仓锚定与信号判定",
+  "reason": "最后一根K日期 2026-10-26 >= 当前 UTC 日 2026-10-26：未收盘的部分K（intraday），禁止进入周调仓锚定与信号判定",
   "settle_rule": "日K 00:00 UTC（北京 08:00）落定"
  },
  "snapshot": {
   "notice": "盘中快照·不可操作：信号日结论只在日K落定后那轮产出",
   "intraday_bar": {
-   "date": "2026-10-25",
+   "date": "2026-10-26",
    "intraday": true,
    "source": "主源(kxiandaoyan)",
    "settled": false
   },
   "holdings": [],
   "crash_watch": {
-   "pool_med_ret_intraday": 0.002,
+   "pool_med_ret_intraday": -0.0051,
    "line": -0.05,
    "triggered_estimate": false,
    "kind": "预估（部分K·未落定），不触发任何动作"
   },
   "breaker_preview": {
-   "asof": "2026-10-24",
+   "asof": "2026-10-25",
    "kind": "熔断预演（基于已落定日K，非当日判定）",
    "overall": {
     "light": "green",
@@ -97,7 +97,7 @@
      "name": "CB1",
      "light": "green",
      "action": "正常",
-     "detail": -0.0069
+     "detail": -0.0055
     },
     {
      "name": "CB2",
@@ -127,7 +127,7 @@
      "light": "green",
      "action": "正常",
      "detail": {
-      "fee_60d": 0.001326,
+      "fee_60d": 0.001336,
       "fee_ann_pct": 0.0056,
       "line_ann_pct": 0.04,
       "red_ann_pct": 0.04,
@@ -139,7 +139,7 @@
  },
  "push": {
   "push": true,
-  "key": "intraday:2026-10-24:20:30",
+  "key": "intraday:2026-10-25:20:30",
   "kind": "intraday",
   "label": "盘中快照·不可操作",
   "carries_decision": false,
