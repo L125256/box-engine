@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-26 01:14 UTC",
- "round_type": "判定级",
+ "generated": "2026-10-26 09:39 UTC",
+ "round_type": "盘中快照·不可操作",
  "version": "box-web-v1.0(本机权威引擎复刻)",
  "seed": 42,
  "params": {
@@ -44,8 +44,8 @@
   ],
   "today_utc_date": "2026-10-26",
   "last_complete": "2026-10-25",
-  "check": "R_MISALIGN",
-  "reason": "周调仓时序错位：最后完整日 2026-10-25 距今 1 自然日，且落在周末（今日为工作日），本应已有更新的已收盘 bar 却缺失（R-错位），禁止进入牛闸判定"
+  "check": "OK",
+  "reason": "剔除 forming 盘中K后基于最后完整日判定"
  },
  "runs": {
   "baseline": {
