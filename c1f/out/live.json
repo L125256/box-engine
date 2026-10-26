@@ -12,10 +12,10 @@
  "batch_signal_day": "2026-09-26",
  "candidates": [],
  "weekend_block": false,
- "generated_at": "2026-10-26T22:25:00+0800",
- "generated_at_bj": "2026-10-26 22:25",
- "source": "/tmp/c1fresh",
- "pull_time": "2026-10-26 21:28",
+ "generated_at": "2026-10-26T22:35:43+0800",
+ "generated_at_bj": "2026-10-26 22:35",
+ "source": "/root/c1f_live/cache",
+ "pull_time": "2026-10-26 22:35",
  "gate_segment": [
   "2026-09-17",
   "2026-10-11"
