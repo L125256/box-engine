@@ -3,7 +3,8 @@
 """
 test_ux_fix_batch.py — 工程保障团队 UX 审查修复批·测试席五组测试（2026-10-21）
 ================================================================================
-① 箱体 trim 回归锚（A-01）：10-19 dirty 输入→BULL_OPEN=false/BULL_ASOF=2026-10-17；
+① 箱体 trim 回归锚（A-01）：10-19 dirty 输入→trim=[10-19]/最后完整日=2026-10-17，
+   新口径（BOX-RWEEKEND-ALIGN-20261026：周末子句废除→参与率对齐判）下放行 + 塌缩负向锚仍拒；
    正常输入→与 F1 trim_and_guard（METHOD_BOOK_DECBAR.md §二）逐例 parity
 ② S5 三行渲染+兜底（B-01）：实时信号/满额白话/实际仓位金额 + 缺字段兜底「—」
 ③ §7.9 五场景在位 + 版本 v1.6 + 双副本逐字节一致
@@ -51,8 +52,23 @@ p, g = gp.trim_and_guard_pool(
     now=datetime.datetime(2026, 10, 19, 0, 57))
 check('①主锚 10-19 dirty：trim=[10-19] 且最后完整日=10-17',
       g['trimmed'] == ['2026-10-19'] and g['last_complete'] == '2026-10-17', str(g['trimmed']))
-check('①主锚 R-错位 fail-closed → BULL_OPEN=false',
-      g['settled'] is False and g['check'] == 'R_MISALIGN', g['check'])
+# 重锚（BOX-RWEEKEND-ALIGN-20261026 §1.3 / §1.4-4）：原期望「落周末→R_MISALIGN」编码的是
+# 已废除的周末子句；新口径下该场景按参与率对齐判放行（settled/OK），旧锚失效非放水——
+# 同批补负向锚「参与塌缩→仍拒」以保住原锚的 fail-closed 检验意图。
+check('①主锚 R-错位周末子句废除：10-19 场景按参与率对齐判放行（settled/OK/asof=10-17）',
+      g['settled'] is True and g['check'] == 'OK' and g['asof'] == '2026-10-17'
+      and g['participation_check'] == 'PASS',
+      f"{g['check']} part={g['part_cnt']}/{g['part_med']}")
+_days = [(datetime.date(2026, 9, 1) + datetime.timedelta(days=i)).isoformat() for i in range(47)]
+_pc = {}
+for _i in range(10):                       # lc=10-17 当日仅 1 只参与，其余日 10 只
+    _ds = _days[:-1] if _i >= 1 else _days
+    _pc[f'S{_i:02d}'] = [{'time': _t, 'open': 1, 'high': 1, 'low': 1, 'close': 1} for _t in _ds]
+_, gc = gp.trim_and_guard_pool(_pc, now=datetime.datetime(2026, 10, 19, 0, 57))
+check('①负向锚 参与塌缩（lc 当日 1/10）→ 仍拒 R_MISALIGN（宁拒勿漏）',
+      gc['settled'] is False and gc['check'] == 'R_MISALIGN'
+      and gc['participation_check'] == 'FAIL',
+      f"{gc['check']} part={gc['part_cnt']}/{gc['part_med']}")
 check('①主锚 BULL_ASOF=2026-10-17（最后完整日语义）',
       g['last_complete'] == '2026-10-17')
 # 正常输入：10-20 完整 + 10-21 forming，now=10-21 00:57（判定级轮实况）
