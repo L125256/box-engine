@@ -1,0 +1,52 @@
+{
+ "asof": "2026-10-25",
+ "idx": 217.187,
+ "ma50": 234.598,
+ "gap": 8.017,
+ "gap_alt": -7.422,
+ "gate": false,
+ "participants": 144,
+ "participants_pool": 144,
+ "threshold": 129.6,
+ "batch_open_date": "2026-09-17",
+ "batch_signal_day": "2026-09-26",
+ "candidates": [],
+ "weekend_block": false,
+ "generated_at": "2026-10-26T22:25:00+0800",
+ "generated_at_bj": "2026-10-26 22:25",
+ "source": "/tmp/c1fresh",
+ "pull_time": "2026-10-26 21:28",
+ "gate_segment": [
+  "2026-09-17",
+  "2026-10-11"
+ ],
+ "gate_segment_days": 25,
+ "n_signal": 516,
+ "n_signal_exec": 484,
+ "curve": {
+  "C": {
+   "L": 5,
+   "final": 3.0964,
+   "mdd": 14.37,
+   "n": 482,
+   "win": 63.07,
+   "mean": 12.98,
+   "span": [
+    "2024-07-26",
+    "2026-10-05"
+   ]
+  },
+  "B": {
+   "L": 3,
+   "final": 2.0242,
+   "mdd": 8.65,
+   "n": 482,
+   "win": 63.07,
+   "mean": 7.79,
+   "span": [
+    "2024-07-26",
+    "2026-10-05"
+   ]
+  }
+ }
+}
