@@ -16,7 +16,7 @@ b.r{color:#ff2d2d}b.g{color:#16a34a}
 footer{color:#8b949e;font-size:11px;margin-top:20px;line-height:1.6}
 details{margin:6px 0;font-size:12px;color:#8b949e}summary{cursor:pointer;color:#58a6ff}
 </style></head><body>
-<h1>📖 箱体观察站 · 使用说明书（v1.0）</h1>
+<h1>📖 箱体观察站 · 使用说明书（v1.0.1）</h1>
 <div class="tabs"><a href="../index.html">📦 观察站</a><a class="on" href="manual.html">📖 使用说明</a><a href="../f1/index.html">📊 F1 运行页</a><a href="../f1/manual.html">📖 F1 使用说明</a></div>
 <div class="warnline">本手册与箱体引擎 eng_final.py + generate_page.py（seed=42）实际行为逐条核对 · <b>本页（箱体页）只看不动手，操作指令只在 F1 页（/f1/）</b> · 与引擎不一致处以引擎为准</div>
 
@@ -57,6 +57,7 @@ details{margin:6px 0;font-size:12px;color:#8b949e}summary{cursor:pointer;color:#
 <li><b>同一只票两边信号不同属正常</b>，互不保证、互不背书。</li>
 </ul>
 <p><b>双闸分离（2026-10-21 终裁）</b>：F1 页的市场总开关是 <b>F1 闸</b>（idx｜MA50，<b>收盘纪律</b>：只吃已落定日 K，判定轮算一次冻结）；本页温度计是 <b>箱体闸</b>（<b>盘中实时</b>）。两闸各自独立计算、互不影响、互不背书——盘中看箱体闸、收盘看 F1 闸。箱体闸入口带数据卫生三道门：①日期格式归一化（time 归一 date-only）；②混格式拒载（同一票内原始时间格式混写→整批拒载，宁缺勿错）；③覆盖率门 ≥80%（当日 bar 覆盖率不足→闸值作废沿用上一收盘值并标注）。两页闸区均按口径四要素标注：<b>闸名｜池口径｜数据日期｜样本数</b>——看任何闸值先读这四项。</p>
+<p><b>判定级轮的数据时序守（2026-10-26 与 F1 对齐）</b>：判定级轮进牛闸前过两道闸——①<b>陈旧</b>：最后完整日距今日 &gt;7 自然日 → 拒（断源/断更）；②<b>错位</b>：今日为工作日且（最后完整日距今 &gt;4 自然日，或<b>最后完整日当日的池参与数 &lt; 0.90×其前后 ±30 个在册日中位参与数</b>）→ 拒。<b>「最后完整日落在周末」不再构成拒绝理由</b>——本页数据域是 7×24 代币化合约，周末 K 是真实成交，不是脏数据。守卫拒绝时温度计标「数据守卫拒绝·fail-closed：牛闸强制关闭」，正常时标「（落定K）」，两者的牛闸读数口径相同，差别只在「这一天能不能判定」。</p>
 <p><b>与 F1 分域增强的关系</b>：箱体（本页）提供的是观察参考（fd 观察区、温度计）。其中 fd 出场结构已被选为 F1 页『分域增强』实验格 S5，按重重检测四层全过当日满额部署（F1 页独立小仓）——箱体页本身<b>不部署任何仓位</b>，两页互不背书；看到 fd 观察区信号≠可买，操作依据唯一=F1。</p>
 
 <h2>5. bk 为什么被折叠归档</h2>
@@ -76,5 +77,5 @@ details{margin:6px 0;font-size:12px;color:#8b949e}summary{cursor:pointer;color:#
 <tr><td><b>pf（profit factor）</b></td><td>总盈利/总亏损的比值，&gt;1 为正期望方向，样本内口径、不代表未来</td></tr>
 </table>
 
-<footer>📄 依据《箱体页重设计 + 使用说明冻结规格 v1.0》（9 席位会终裁 2026-10-19）落定 · fd 本体+框架价值确证、bk 穷举归档 · 复现：PYTHONHASHSEED=42 python3 generate_page.py</footer>
+<footer>📄 依据《箱体页重设计 + 使用说明冻结规格 v1.0》（9 席位会终裁 2026-10-19）落定 · fd 本体+框架价值确证、bk 穷举归档 · v1.0.1（2026-10-26 时序守对齐批：判定轮周末子句废除，改参与率对齐判，与 F1 同口径；牛闸读数/卡片/文案口径零变化） · 复现：PYTHONHASHSEED=42 python3 generate_page.py</footer>
 </body></html>
