@@ -1,0 +1,85 @@
+<!doctype html><html lang="zh"><meta charset="utf-8">
+<title>批量点火 · 第一段（独立策略）</title>
+<style>
+:root{--bg:#0f1216;--card:#171c22;--line:#252c35;--txt:#e8edf3;--dim:#8b97a5;--up:#2ecc71;--down:#e74c3c;--acc:#4da3ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:26px 22px 60px}
+h1{font-size:21px;margin:0 0 6px}.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--dim);vertical-align:3px}
+.sub{display:block;font-size:11px;color:var(--dim);margin-top:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.row{display:flex;gap:22px;flex-wrap:wrap}.kv{min-width:120px}.kv b{display:block;font-size:18px}.kv span{font-size:12px;color:var(--dim)}
+.on{color:var(--up)}.off{color:var(--down)}.warn{color:#f0b429}.ok{color:var(--up)}
+table{width:100%;border-collapse:collapse;margin-top:8px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;font-size:13px}
+th{color:var(--dim);font-weight:600;font-size:12px}
+input.px{width:92px;background:#0f1419;border:1px solid #2b3440;color:var(--txt);border-radius:6px;padding:4px 6px;font:inherit}
+.empty{border:1px dashed #33404d;border-radius:10px;padding:18px;color:var(--dim)}.empty b{color:var(--txt);font-size:15px}
+.hint{color:var(--dim);font-size:12px;margin:8px 0 0}.pos{color:var(--up)}.neg{color:var(--down)}
+ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0}
+.foot{color:#6f7a88;font-size:12px;margin-top:18px;line-height:1.7}
+</style>
+<div class="wrap">
+<h1>批量点火 · 第一段 <span class="pill">独立策略 · 未上线 · 与 v2.1/HF-1 分开记账</span></h1>
+<div class="row" style="margin-top:10px">
+  <div class="kv"><b>2026-10-26</b><span>数据截至</span></div>
+  <div class="kv"><b class="off">停火：点火 0 / 门槛 3</b><span>今日状态</span></div>
+  <div class="kv"><b>0</b><span>点火家数（门槛 3）</span></div>
+  <div class="kv"><b><input id="eq" value="10000" inputmode="decimal" style="width:86px;background:#0f1419;border:1px solid #2b3440;color:#e8edf3;border-radius:6px;padding:3px 6px;font-size:14px;font-weight:400"></b><span>权益 USDT</span></div>
+  <div class="kv"><b>0 / 0</b><span>站上 MA50 / 全部点火</span></div>
+  <div class="kv"><b class="warn">停新仓</b><span>近 5 日出现批量下跌</span></div>
+</div>
+<div class="card"><div class="empty"><b>今日不开仓</b><p>点火 0 只，未达到批次门槛 3 只。没有批量点火就不做——这正是这套策略天然的震荡/下跌过滤。</p></div></div>
+<div class="card">
+  <b>最近触发日（实际结果）</b>
+  <table><thead><tr><th>信号日</th><th>标的</th><th>入场 E</th><th>止损</th><th>止盈1</th><th>止盈2</th><th>净收益</th><th>退出</th></tr></thead>
+  <tbody><tr><td>2026-09-21</td><td>INTCUSDT</td><td>123.91</td><td>108.89</td><td>138.93</td><td>171.98</td><td class="neg">-12.83%</td><td>stop</td></tr><tr><td>2026-09-21</td><td>METAUSDT</td><td>740.62</td><td>681.50</td><td>799.74</td><td>929.79</td><td class="neg">-0.62%</td><td>time</td></tr><tr><td>2026-09-21</td><td>MSTRUSDT</td><td>169.60</td><td>146.25</td><td>192.95</td><td>244.31</td><td class="neg">-12.59%</td><td>time</td></tr><tr><td>2026-08-07</td><td>GTLBUSDT</td><td>38.48</td><td>33.68</td><td>43.27</td><td>53.82</td><td class="pos">+13.97%</td><td>tp1+</td></tr><tr><td>2026-08-07</td><td>GDXUSDT</td><td>88.90</td><td>80.85</td><td>96.95</td><td>114.65</td><td class="pos">+10.18%</td><td>tp1+</td></tr><tr><td>2026-08-07</td><td>NETUSDT</td><td>295.50</td><td>252.38</td><td>338.62</td><td>433.48</td><td class="pos">+0.12%</td><td>time</td></tr></tbody></table>
+  <p class="hint">按名义计净收益（双边 0.20% + 资金费 0.03%/日）。同一信号日多只属于同一波，不能当独立样本。</p>
+</div>
+<div class="card">
+  <b>规则（2026-10-28 冻结）</b>
+  <ul>
+    <li>点火：当日涨幅 ≥4% 且成交量 ≥2×20 日中位；个股站上 MA50；价格≥5、20 日成交额≥30M、ATR%≤6%。</li>
+    <li>批次：同一天 ≥3 只点火才开火，取涨幅前 5；同一天不足 3 只不做。</li>
+    <li>仓位：5x 逐仓，单笔保证金 3% 权益（名义 15%），最多 8 仓，毛敞口 ≤2.4 倍。</li>
+    <li>退出：止损 = 入场 −2.5 ATR；+2.5 ATR 平一半；剩下一半 +8 ATR 全平；否则持有 20 根日线（约 20 个自然日）按收盘平。</li>
+    <li>关火：下跌家数 ≥70% 且指数 ≤−1.5%，之后 5 个交易日不开新仓（不平旧仓）。</li>
+  </ul>
+</div>
+<div class="card">
+  <b>下单口径示例（权益 10000 USDT）</b>
+  <table><thead><tr><th>假设成交价 E</th><th>ATR</th><th>止损</th><th>止盈1 · 平一半</th><th>止盈2 · 封顶</th><th>数量</th><th>保证金</th><th>名义</th></tr></thead>
+  <tbody><tr><td>100.00</td><td>3.00</td><td>92.50</td><td>107.50</td><td>124.00</td><td>15.00</td><td>300</td><td>1500.00</td></tr></tbody></table>
+  <p class="hint">止损 = E − 2.5×ATR；止盈1 = E + 2.5×ATR（平一半）；止盈2 = E + 8×ATR（剩余全平）。数量 = 名义 / E，名义 = 权益 × 3% × 5 倍。</p>
+</div>
+<div class="card">
+  <b>历史结果（2025-04-01 → 2026-10-26，代理数据）</b>
+  <div class="row" style="margin-top:8px">
+    <div class="kv"><b>113</b><span>成交仓位</span></div>
+    <div class="kv"><b>61.1%</b><span>胜率</span></div>
+    <div class="kv"><b>2.44</b><span>PF</span></div>
+    <div class="kv"><b>+113.4%</b><span>累计</span></div>
+    <div class="kv"><b>11.6%</b><span>最大回撤</span></div>
+    <div class="kv"><b>0</b><span>爆仓</span></div>
+  </div>
+  <p class="hint">前 3 仓占总盈利 10%；去掉前 3 仓累计仍 +67.5%。</p>
+</div>
+<div class="foot">
+数据源：导演站日线（2026-01-26 之前为回填段，非 Gate 合约成交）。E 默认取信号日收盘，实盘以次日开盘为准；改 E 会重算止损止盈与数量。
+本页为独立策略，不影响 v2.1 执行口径与 HF-1；未获批准不发布。<br>重建：python build_page.py（加 --live 用未收盘数据）。
+</div>
+</div>
+<script>
+document.querySelectorAll('#tbl tr.cand').forEach(function(tr){
+  var atr=parseFloat(tr.dataset.atr);
+  var inp=tr.querySelector('input.px');
+  function calc(){
+    var e=parseFloat(inp.value); if(!isFinite(e)||e<=0) return;
+    tr.querySelector('.stop').textContent=(e-2.5*atr).toFixed(2);
+    tr.querySelector('.tp1').textContent=(e+2.5*atr).toFixed(2);
+    tr.querySelector('.tp2').textContent=(e+8*atr).toFixed(2);
+    var eq=parseFloat(document.getElementById('eq').value)||0;
+    tr.querySelector('.qty').textContent=(eq*0.15/e).toFixed(2);
+  }
+  inp.addEventListener('input',calc);
+  document.getElementById('eq').addEventListener('input',calc); calc();
+});
+</script></html>
