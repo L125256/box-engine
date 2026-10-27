@@ -1,0 +1,39 @@
+{
+ "name": "v2 / v2.1",
+ "frozen": "2026-10-27",
+ "frozen_page_sha256": "5f759067c33ae740ef7b2c71d8e4f1ce195b98696475d4d8bb9f7acf7c1e6ad8",
+ "active": "v2.1: index>MA50 and breadth5>=45%",
+ "control": "v2: index>MA50 (dashboard only)",
+ "config": {
+  "entry": {
+   "require_gate": true,
+   "gate_mode": "ma50",
+   "trend_ma": 100,
+   "slope_min": 0.0,
+   "dev20_max": -0.04,
+   "rsi2_max": 25,
+   "ret3_max": 9.9,
+   "atrp_max": 0.045,
+   "min_dv": 30000000.0,
+   "min_price": 5,
+   "warmup": 210,
+   "score": "rsi",
+   "tier": "A"
+  },
+  "exit": {
+   "sl_atr": 2.5,
+   "tp_atr": 2.0,
+   "hold": 10
+  },
+  "costs": {
+   "fee_side": 0.05,
+   "slip_side": 0.05,
+   "funding_bar": 0.03,
+   "mmr": 1.0,
+   "liq_fee": 0.6
+  }
+ },
+ "entry": "v2_update.py",
+ "upload": "put_artifacts.py",
+ "cloud": "three-step Contents API: pull -> build -> PUT"
+}

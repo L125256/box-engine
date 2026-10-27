@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+# generated on every run; the published page is v2/index.html
+v2_page.json
+v2_addendum.json
+v2_final.json
+dist/
+out/

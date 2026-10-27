@@ -1,0 +1,19 @@
+{
+ "asof": "2026-10-26",
+ "next_entry": "2026-10-27",
+ "active": "cand",
+ "refresh": {
+  "ok": 144,
+  "fail": [],
+  "last_bar": [
+   [
+    "2026-10-26",
+    144
+   ]
+  ]
+ },
+ "page": "index.html",
+ "page_bytes": 165088,
+ "page_sha256": "552c9931bcc8f077da23160d26285d2eeae4d4e98c0a732b80ef630f96cd36e5",
+ "page_json_sha256": "08f142c1657fef27be96caf444c06ef41e9c79a80375a45ebb7001dfe57bc59c"
+}
