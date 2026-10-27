@@ -1,0 +1,159 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HF-1 三层叠加 · 高胜率高频执行页</title>
+<style>
+body{background:#0d1117;color:#c9d1d9;font:14px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+h1{font-size:21px;margin:0 0 4px} h2{font-size:15px;margin:28px 0 10px;color:#e6edf3;
+border-left:3px solid #a371f7;padding-left:8px}
+.sub{color:#8b949e;font-size:12.5px}
+.card{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:15px 17px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mini{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:9px 11px}
+.mini .k{font-size:11.5px;color:#8b949e} .mini .m{font-size:19px;font-weight:600;color:#e6edf3}
+.mini .s{font-size:11px;color:#8b949e}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:6px 8px;border-bottom:1px solid #21262d;text-align:right;white-space:nowrap}
+th{color:#8b949e;font-weight:500;font-size:12px} td:first-child,th:first-child{text-align:left}
+.ok{color:#3fb950} .bad{color:#f85149} .dim{color:#8b949e}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border:1px solid #30363d;border-radius:12px;margin-right:6px}
+.banner{border-radius:8px;padding:11px 13px;font-size:14px;font-weight:600;margin-bottom:10px}
+.banner.off{background:#3a1d1d;border:1px solid #6d2626;color:#ffb3ad}
+.banner.on{background:#12261a;border:1px solid #1f6b3a;color:#7ee2a8}
+.mrow{display:flex;align-items:center;font-size:12px;margin:2px 0}
+.mk{width:62px;color:#8b949e} .mbar{position:relative;flex:1;height:11px}
+.mbar i{position:absolute;top:1px;height:9px;border-radius:2px}
+.mv{width:58px;text-align:right}
+ol,ul{margin:6px 0 0 18px;padding:0} li{margin:6px 0}
+.pxe{width:96px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:6px;
+padding:4px 6px;font-size:13px;text-align:right}
+.pxe:focus{outline:none;border-color:#a371f7} .pxe.badpx{border-color:#ff7b72}
+.v-note{margin-top:8px;font-size:12.5px;color:#8b949e}
+.bscroll{overflow-x:auto}
+.guide{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gstep{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:10px 12px;font-size:12.5px}
+.gstep b{display:block;color:#e6edf3;font-size:13px;margin-bottom:3px}
+@media (max-width:700px){
+  .grid{grid-template-columns:repeat(2,1fr)} .guide{grid-template-columns:1fr}
+  .pxe{width:76px} .bscroll table{min-width:620px}
+  .c-ctx{display:none}
+}
+</style></head><body><div class="wrap">
+<h1>HF-1 · 三层叠加（高胜率 + 机会多）<span class="pill">本地预览 · 未上线</span>
+<span class="pill"><a href="../" style="color:#a371f7;text-decoration:none">← v2.1 执行口径页</a></span></h1>
+<div class="sub">同一份 144 只日线池，剔除杠杆/反向与 ETF 后 120 只可交易 ·
+最后一根收全 <b>2026-10-26</b> · 更新于 <b>2026-10-27 20:04</b>（北京）·
+信号日收盘判定 → 次日（2026-10-27）开盘成交 · 5x 逐仓 · 含资金费与双边成本</div>
+
+<h2>怎么看这一页（三步）</h2>
+<div class="guide">
+<div class="gstep"><b>① 先看闸门</b>下方红/绿条。关闭 = 今天不下单，不用去找标的；打开才进入第 ② 步。</div>
+<div class="gstep"><b>② 再看「今日可开仓」表</b>每行给出成交价 E、止损价、止盈价、数量、名义、保证金、到期日，全是具体数字，不用自己算。</div>
+<div class="gstep"><b>③ 成交后把 E 改成实际成交价</b>止损、止盈、数量、止损占权益即时重算；止损距离超过 15.2% 会红字提示放弃该笔。</div>
+</div>
+
+<h2>今日执行清单</h2>
+<div class="card">
+<div class="banner off">当前：闸门关闭 · 今日空仓，不开新单　·　等权收益指数 2.984 / MA50 3.211
+（-7.06%）　·　5 日平滑广度 26.0%（阈值 45%）　·　已连续关闭 15 个交易日</div>
+<div class="sub" style="margin-bottom:8px">指数 2.984 低于 MA50 3.211（差 -7.06%）；5 日平滑广度 26.0% 低于阈值 45%</div>
+<div class="bscroll"><table><thead><tr>
+<th>代码</th><th>成交价 E</th><th class="c-ctx">ATR14</th><th>止损价</th><th>止盈价</th><th>数量</th>
+<th class="c-ctx">名义 USDT</th><th class="c-ctx">保证金</th><th>止损占权益</th><th>到期日</th>
+<th class="c-ctx">层</th><th class="c-ctx">RSI2</th><th class="c-ctx">20日偏离</th></tr></thead>
+<tbody id="boardTbl"><tr><td class="dim">闸门关闭 —— 今日 0 只可开仓，不开新单。下面「候补」是差得最近的标的，闸门一开它们最先可能变成可开仓。</td><td class="dim">—</td><td class="c-ctx dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="c-ctx dim">—</td><td class="c-ctx dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="c-ctx dim">—</td><td class="c-ctx dim">—</td><td class="c-ctx dim">—</td></tr></tbody></table></div>
+<div class="v-note">参考价 = 信号日 2026-10-26 收盘价；实际以次日开盘成交价 E 为准。
+止损 = E − 止损ATR × ATR14，止盈 = E + 止盈ATR × ATR14，到期日 = 下一交易日起第 N 个交易日按收盘平仓（时间闸，不是止盈目标）。
+每笔保证金 2.5% 权益（名义 1,250 USDT = 12% 权益），
+最多 20 只、毛敞口 ≤ 2.5 倍。三层最大止损宽度 12.0%，
+低于放弃线 15.2%（爆仓距离 19% 的 80%），所以清单里不会出现「止损过宽不可执行」的标的。</div>
+</div>
+
+<h2>候补（差在哪，闸门开了先看它们）</h2>
+<div class="card"><div class="bscroll"><table><thead><tr>
+<th>代码</th><th>收盘</th><th>RSI2</th><th>20日偏离</th><th>ATR%</th><th>未通过项</th></tr></thead>
+<tbody><tr><td><b>AAPL</b></td><td>343.96</td><td>0.0</td><td>0.45%</td><td>1.64%</td><td class="dim">闸门关闭、20日偏离 0.45% > -4.00%</td></tr><tr><td><b>AMD</b></td><td>536.75</td><td>89.6</td><td>-4.42%</td><td>5.28%</td><td class="dim">闸门关闭、RSI2 89.6 > 15</td></tr><tr><td><b>GME</b></td><td>23.61</td><td>11.0</td><td>-9.51%</td><td>4.86%</td><td class="dim">闸门关闭、20日均额 2M < 30M、ATR% 4.86% > 4.50%</td></tr><tr><td><b>SONY</b></td><td>26.03</td><td>0.0</td><td>4.52%</td><td>2.42%</td><td class="dim">闸门关闭、20日均额 0M < 30M、20日偏离 4.52% > -4.00%</td></tr><tr><td><b>TBT</b></td><td>38.52</td><td>0.0</td><td>-5.01%</td><td>2.21%</td><td class="dim">闸门关闭、20日均额 0M < 30M、未站上 MA100</td></tr><tr><td><b>HPE</b></td><td>59.19</td><td>100.0</td><td>-5.02%</td><td>5.86%</td><td class="dim">闸门关闭、20日均额 2M < 20M、RSI2 100.0 > 15</td></tr><tr><td><b>KO</b></td><td>92.62</td><td>0.0</td><td>1.27%</td><td>1.86%</td><td class="dim">闸门关闭、20日均额 1M < 30M、20日偏离 1.27% > -4.00%</td></tr><tr><td><b>DIS</b></td><td>110.58</td><td>6.8</td><td>0.52%</td><td>1.69%</td><td class="dim">闸门关闭、20日均额 0M < 30M、20日偏离 0.52% > -4.00%</td></tr><tr><td><b>EBAY</b></td><td>119.12</td><td>10.8</td><td>0.90%</td><td>2.86%</td><td class="dim">闸门关闭、20日均额 0M < 30M、20日偏离 0.90% > -4.00%</td></tr><tr><td><b>MSTR</b></td><td>140.77</td><td>0.0</td><td>-3.98%</td><td>6.77%</td><td class="dim">闸门关闭、ATR% 6.77% > 4.50%、20日偏离 -3.98% > -4.00%</td></tr><tr><td><b>NOW</b></td><td>157.45</td><td>0.7</td><td>7.43%</td><td>3.70%</td><td class="dim">闸门关闭、20日均额 2M < 30M、20日偏离 7.43% > -4.00%</td></tr><tr><td><b>COIN</b></td><td>160.56</td><td>0.0</td><td>-7.47%</td><td>5.58%</td><td class="dim">闸门关闭、ATR% 5.58% > 4.50%、未站上 MA100</td></tr><tr><td><b>SHOP</b></td><td>168.36</td><td>0.0</td><td>-1.59%</td><td>3.99%</td><td class="dim">闸门关闭、20日均额 1M < 30M、20日偏离 -1.59% > -4.00%</td></tr><tr><td><b>MRNA</b></td><td>196.06</td><td>0.0</td><td>-9.08%</td><td>11.62%</td><td class="dim">闸门关闭、20日均额 15M < 30M、ATR% 11.62% > 4.50%</td></tr></tbody></table></div>
+<div class="v-note">候补表只是提示，不是下单指令；只有「今日可开仓」表里的标的才执行。</div></div>
+
+<h2>核心结果</h2>
+<div class="grid"><div class="mini"><div class="k">笔数 / 月</div><div class="m">8.2</div><div class="s">共 189 笔 · 20 个月</div></div><div class="mini"><div class="k">胜率</div><div class="m">62.4%</div><div class="s">v2.1 为 63.6%</div></div><div class="mini"><div class="k">赔率（平均盈/平均亏）</div><div class="m">1.19</div><div class="s">v2.1 为 1.44</div></div><div class="mini"><div class="k">盈利因子 PF</div><div class="m">1.98</div><div class="s">v2.1 为 2.53</div></div><div class="mini"><div class="k">年化</div><div class="m">24.6%</div><div class="s">2026 样本外 12.1%</div></div><div class="mini"><div class="k">最大回撤</div><div class="m">6.93%</div><div class="s">v2.1 为 7.48%</div></div><div class="mini"><div class="k">爆仓次数</div><div class="m">0</div><div class="s">5x 逐仓 · 距爆仓 19%</div></div><div class="mini"><div class="k">右尾依赖</div><div class="m">13.8%</div><div class="s">前 5 笔占盈利；v2.1 为 17.9%</div></div></div>
+
+<h2>与 v2.1 对照</h2>
+<div class="card">
+<table><thead><tr><th>系统</th><th>笔/月</th><th>总笔数</th><th>胜率</th><th>赔率</th><th>PF</th><th>年化</th><th>回撤</th></tr></thead><tbody>
+<tr><td>v2.1（现执行口径，单腿 4%×12）</td><td>4.8</td><td>110</td><td>63.6%</td>
+<td>1.44</td><td>2.53</td><td>30.0%</td><td>7.48%</td></tr>
+<tr><td><b>HF-1（三层 2.5%×20）</b></td><td>8.2</td><td>189</td><td>62.4%</td>
+<td>1.19</td><td>1.98</td><td>24.6%</td><td>6.93%</td></tr>
+<tr><td class="dim">HF-1 的 2026 样本外</td><td class="dim">—</td><td class="dim">48</td>
+<td class="dim">62.5%</td><td class="dim">—</td><td class="dim">1.6</td>
+<td class="dim">12.1%</td><td class="dim">3.93%</td></tr>
+</tbody></table>
+<div class="v-note">出场结构 {"tp": 79, "tp_gap": 27, "time": 54, "stop": 25, "stop_gap": 4}（tp=止盈、stop=止损、time=到期、
+tp_gap/stop_gap=开盘跳空直接成交）；最长连亏 6 笔；12/20 个月为正；
+平均暴露 22.3% 权益。</div>
+</div>
+
+<h2>三层规则（全部要求站上 MA100 且 MA100 向上，天然不追高）</h2>
+<div class="card"><div class="bscroll"><table><thead><tr>
+<th>层</th><th>20日偏离</th><th>RSI2</th><th>ATR%</th><th>附加确认</th><th>止损/止盈/持有（ATR）</th><th>贡献</th>
+</tr></thead><tbody><tr><td>A 深回撤</td><td>≤ 4.0%</td><td>≤ 25</td><td>≤ 4.5%</td><td>—</td><td>2.5 / 2.0 / 10 根</td><td>105 笔 · 胜率 61.0% · PF 2.14</td></tr><tr><td>B 极端超卖</td><td>≤ 2.0%</td><td>≤ 15</td><td>≤ 6.0%</td><td>当日收阳</td><td>2.0 / 1.5 / 7 根</td><td>80 笔 · 胜率 63.7% · PF 1.82</td></tr><tr><td>C 5日急跌</td><td>≤ 2.0%</td><td>≤ 25</td><td>≤ 5.0%</td><td>当日收阳、5 日跌幅 ≥ 5%</td><td>2.0 / 1.5 / 7 根</td><td>4 笔 · 胜率 75.0% · PF 1.79</td></tr></tbody></table></div>
+<div class="v-note">追高检查：全部 189 笔里，信号日收盘距 20 日最高点不足 2% 的占 0%。</div></div>
+
+<h2>稳健性</h2>
+<div class="card">
+<div class="sub">滚动 6 个月窗口（重叠，步长 2 个月）：</div>
+<table><thead><tr><th>窗口</th><th>笔数</th><th>胜率</th><th>区间收益</th><th>窗口内回撤</th></tr></thead>
+<tbody><tr><td>2024-11-21 → 2025-08-19</td><td>65</td><td>60.0%</td><td>+8.7%</td><td>-0.0%</td></tr><tr><td>2025-02-24 → 2025-11-13</td><td>107</td><td>60.7%</td><td>+28.5%</td><td>-0.0%</td></tr><tr><td>2025-05-21 → 2026-02-08</td><td>130</td><td>61.5%</td><td>+35.2%</td><td>-0.0%</td></tr><tr><td>2025-08-19 → 2026-04-10</td><td>95</td><td>64.2%</td><td>+32.2%</td><td>-0.0%</td></tr><tr><td>2025-11-13 → 2026-06-10</td><td>46</td><td>67.4%</td><td>+13.0%</td><td>-0.0%</td></tr><tr><td>2026-02-08 → 2026-08-10</td><td>23</td><td>69.6%</td><td>+8.0%</td><td>-0.0%</td></tr><tr><td>2026-04-10 → 2026-10-10</td><td>26</td><td>69.2%</td><td>+8.9%</td><td>-0.0%</td></tr></tbody></table>
+<div class="sub" style="margin-top:10px">参数邻域（广度 40–55%、保证金 2%–4%、B/C 阈值上下）：胜率 61.5–63.3%、PF 1.76–2.08，是平台不是尖峰。</div>
+<table><thead><tr><th>变体</th><th>笔数</th><th>胜率</th><th>PF</th><th>年化</th><th>回撤</th></tr></thead>
+<tbody><tr><td>A+B+C</td><td>185</td><td>63.2%</td><td>1.92</td><td>27.4%</td><td>8.3%</td></tr><tr><td>A+B+C 2.5%×20</td><td>189</td><td>62.4%</td><td>1.98</td><td>24.6%</td><td>6.9%</td></tr><tr><td>A+B+C 2%×25</td><td>190</td><td>62.6%</td><td>1.99</td><td>19.7%</td><td>5.6%</td></tr></tbody></table>
+<div class="sub" style="margin-top:10px">成本敏感性：单边 0.10% → PF 1.92；0.15% → 1.85；0.20% → 1.79（胜率不变，只吃收益）。资金费按 0.03%/日计入。</div>
+</div>
+
+<h2>分月收益（权益口径）</h2>
+<div class="card"><div class="mrow"><span class="mk">2025-01</span><span class="mbar"><i style="left:50.0%;width:33.4%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+9.2%</span></div><div class="mrow"><span class="mk">2025-02</span><span class="mbar"><i style="left:46.3%;width:3.7%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-1.0%</span></div><div class="mrow"><span class="mk">2025-03</span><span class="mbar"><i style="left:41.6%;width:8.4%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-2.3%</span></div><div class="mrow"><span class="mk">2025-05</span><span class="mbar"><i style="left:48.3%;width:1.7%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-0.5%</span></div><div class="mrow"><span class="mk">2025-06</span><span class="mbar"><i style="left:50.0%;width:0.5%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+0.1%</span></div><div class="mrow"><span class="mk">2025-07</span><span class="mbar"><i style="left:50.0%;width:4.6%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+1.3%</span></div><div class="mrow"><span class="mk">2025-08</span><span class="mbar"><i style="left:50.0%;width:46.0%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+12.7%</span></div><div class="mrow"><span class="mk">2025-09</span><span class="mbar"><i style="left:50.0%;width:36.5%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+10.1%</span></div><div class="mrow"><span class="mk">2025-10</span><span class="mbar"><i style="left:50.0%;width:28.0%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+7.7%</span></div><div class="mrow"><span class="mk">2025-11</span><span class="mbar"><i style="left:34.0%;width:16.0%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-4.4%</span></div><div class="mrow"><span class="mk">2025-12</span><span class="mbar"><i style="left:50.0%;width:3.9%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+1.1%</span></div><div class="mrow"><span class="mk">2026-01</span><span class="mbar"><i style="left:50.0%;width:11.1%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+3.1%</span></div><div class="mrow"><span class="mk">2026-02</span><span class="mbar"><i style="left:50.0%;width:3.4%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+0.9%</span></div><div class="mrow"><span class="mk">2026-04</span><span class="mbar"><i style="left:47.1%;width:2.9%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-0.8%</span></div><div class="mrow"><span class="mk">2026-05</span><span class="mbar"><i style="left:50.0%;width:28.1%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+7.8%</span></div><div class="mrow"><span class="mk">2026-06</span><span class="mbar"><i style="left:50.0%;width:4.3%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+1.2%</span></div><div class="mrow"><span class="mk">2026-07</span><span class="mbar"><i style="left:49.8%;width:0.2%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-0.1%</span></div><div class="mrow"><span class="mk">2026-08</span><span class="mbar"><i style="left:48.8%;width:1.2%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-0.3%</span></div><div class="mrow"><span class="mk">2026-09</span><span class="mbar"><i style="left:50.0%;width:2.0%;background:#3fb950"></i></span><span class="mv" style="color:#3fb950">+0.6%</span></div><div class="mrow"><span class="mk">2026-10</span><span class="mbar"><i style="left:43.2%;width:6.8%;background:#f85149"></i></span><span class="mv" style="color:#f85149">-1.9%</span></div></div>
+
+<h2>净值曲线（2.5% 保证金口径，每 4 个交易日取一点）</h2>
+<div class="card"><svg viewBox="0 0 940 150" width="100%" height="150" preserveAspectRatio="none"><line x1="0" y1="133.6" x2="940" y2="133.6" stroke="#30363d" stroke-dasharray="3 3"/><polyline fill="none" stroke="#a371f7" stroke-width="1.8" points="4.0,133.6 10.6,133.6 17.2,133.6 23.8,133.6 30.4,133.6 37.0,132.0 43.7,133.6 50.3,128.5 56.9,127.6 63.5,121.9 70.1,117.6 76.7,115.4 83.3,116.2 89.9,112.8 96.5,114.9 103.1,117.7 109.8,119.2 116.4,120.0 123.0,121.6 129.6,121.6 136.2,121.6 142.8,121.6 149.4,121.6 156.0,121.6 162.6,121.6 169.2,121.6 175.9,121.6 182.5,121.6 189.1,121.6 195.7,121.6 202.3,120.7 208.9,120.7 215.5,122.7 222.1,122.4 228.7,121.8 235.3,123.7 242.0,121.9 248.6,122.5 255.2,120.7 261.8,120.6 268.4,120.4 275.0,121.0 281.6,119.0 288.2,122.3 294.8,119.2 301.4,116.5 308.1,115.6 314.7,104.8 321.3,96.4 327.9,86.1 334.5,62.2 341.1,62.8 347.7,63.3 354.3,68.9 360.9,59.7 367.5,62.0 374.2,59.7 380.8,64.6 387.4,44.0 394.0,46.6 400.6,56.0 407.2,56.5 413.8,57.5 420.4,58.0 427.0,57.8 433.6,57.4 440.3,56.1 446.9,57.4 453.5,56.5 460.1,56.1 466.7,49.2 473.3,39.5 479.9,51.3 486.5,47.8 493.1,45.9 499.7,44.2 506.4,43.4 513.0,43.4 519.6,43.4 526.2,43.4 532.8,43.4 539.4,43.4 546.0,43.4 552.6,43.4 559.2,43.4 565.8,43.4 572.5,43.4 579.1,43.4 585.7,43.4 592.3,43.4 598.9,43.4 605.5,43.4 612.1,43.4 618.7,43.4 625.3,44.4 631.9,45.4 638.6,45.6 645.2,44.6 651.8,36.0 658.4,37.1 665.0,40.5 671.6,40.5 678.2,25.8 684.8,22.7 691.4,23.4 698.0,16.6 704.7,17.1 711.3,17.5 717.9,16.4 724.5,16.7 731.1,18.4 737.7,18.9 744.3,18.6 750.9,18.6 757.5,18.6 764.1,19.1 770.8,19.1 777.4,19.1 784.0,19.1 790.6,19.1 797.2,19.1 803.8,19.1 810.4,19.8 817.0,20.1 823.6,20.2 830.2,20.2 836.9,20.2 843.5,20.2 850.1,20.2 856.7,20.2 863.3,20.2 869.9,20.2 876.5,18.4 883.1,18.4 889.7,18.4 896.3,18.4 903.0,18.3 909.6,17.2 916.2,19.9 922.8,24.6 929.4,24.6 936.0,24.6"/></svg>
+<div class="v-note">起 2024-11-21 → 止 2026-10-25，期末 1.53 倍。</div></div>
+
+<h2>已知局限</h2>
+<div class="card"><ul>
+<li>HF-1 与 v2.1 同源：同闸门、同池、A 层就是 v2.1 的入场。它是「把 v2.1 的机会数放大」，不是分散化的第二套系统。</li>
+<li>2025-06 之前的数据段含合成成分；本页同时给全样本与 2026 样本外两组数，后者证据强度更高。</li>
+<li>空头腿与第四层「回踩 MA50」已测并否决（2026 段 PF 0.95–1.37），不在本页执行范围内。</li>
+<li>页面与数据只在本地 work/hf/，线上 v2 页与 c1f 未动。按你定的规矩，没听到「我觉得好了」我不发版。</li>
+</ul></div>
+<div class="sub" style="margin-top:18px">研究口径，不构成投资建议；回测含幸存者偏差（当前池 120 只可交易标的）。</div>
+</div>
+<script>
+(function(){
+  var EQ=10000, LEV=5, MP=0.025, ABN=15.2;
+  var NOTIONAL=EQ*MP*LEV;
+  function cell(tr,c){return tr.querySelector('.'+c);}
+  function recalc(tr){
+    var inp=tr.querySelector('.pxe'); if(!inp) return;
+    var E=parseFloat(inp.value), atr=parseFloat(tr.dataset.atr);
+    var sl=parseFloat(tr.dataset.sl), tp=parseFloat(tr.dataset.tp);
+    if(!(E>0)||!(atr>0)) return;
+    var stop=E-sl*atr, tgt=E+tp*atr, sp=(stop/E-1)*100;
+    var qty=NOTIONAL/E, stopEq=sp*LEV*MP;
+    cell(tr,'v-stop').textContent=stop.toFixed(3);
+    cell(tr,'v-tp').textContent=tgt.toFixed(3);
+    cell(tr,'v-qty').textContent=qty.toFixed(2);
+    cell(tr,'v-notional').textContent=Math.round(NOTIONAL).toLocaleString();
+    cell(tr,'v-margin').textContent=Math.round(EQ*MP).toLocaleString();
+    var bad=Math.abs(sp)>ABN;
+    cell(tr,'v-stopeq').textContent=stopEq.toFixed(2)+'%';
+    cell(tr,'v-stopeq').className='v-stopeq '+(bad?'bad':'ok');
+    cell(tr,'v-stopeq').title=bad?('止损距离 '+sp.toFixed(2)+'%，超过放弃线 '+ABN+'%（爆仓距离 19% 的 80%），按规则放弃该笔'):'';
+    inp.classList.toggle('badpx',bad);
+  }
+  var tb=document.getElementById('boardTbl');
+  if(tb) tb.addEventListener('input',function(ev){
+    if(ev.target.classList.contains('pxe')) recalc(ev.target.closest('tr'));
+  });
+})();
+</script>
+</body></html>
