@@ -7,7 +7,7 @@ Computes both bases side by side:
 Reads the same frozen rules as v2_final.py, rebuilds the backtest, and writes
 the 'board' and 'health' blocks into v2_page.json. Deterministic; no network.
 """
-import os, sys, json, datetime
+import os, sys, json, datetime, collections
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +37,36 @@ def next_weekday(d):
     while x.weekday() >= 5:
         x += datetime.timedelta(days=1)
     return x.isoformat()
+
+
+def add_weekdays(d, k):
+    """k weekdays after d (holidays not in the feed are not known in advance)."""
+    x = datetime.date.fromisoformat(d); n = 0
+    while n < k:
+        x += datetime.timedelta(days=1)
+        if x.weekday() < 5:
+            n += 1
+    return x.isoformat()
+
+
+def exit_mix(tr):
+    """Split closed trades by exit reason; 'time' is a deadline, not a profit target."""
+    c = collections.Counter()
+    for t in tr:
+        w = t['why']
+        if w.startswith('tp'):
+            c['tp'] += 1
+        elif w.startswith('stop') or w == 'liq':
+            c['stop'] += 1
+        elif w == 'time':
+            c['time'] += 1
+        else:
+            c['other'] += 1
+    tm = [t for t in tr if t['why'] == 'time']
+    return dict(n=len(tr), tp=c['tp'], time=c['time'], stop=c['stop'], other=c['other'],
+                time_avg=round(float(np.mean([t['pnl'] for t in tm])) * 100, 2) if tm else None,
+                time_win=round(float(np.mean([t['pnl'] > 0 for t in tm])) * 100, 1) if tm else None,
+                bars_avg=round(float(np.mean([t['bars'] for t in tr])), 1) if tr else None)
 
 
 def closed_streak(a, start):
@@ -141,7 +171,27 @@ def build_version(A, F, RG, BR, gate, i, cal):
                       half_fwd_pos=round(float((np.array(fwd_half) > 0).mean()) * 100, 0) if fwd_half else None,
                       n_all=len(p))
 
-    return dict(env=env, entry=dict(n=len(entry_rows), rows=entry_rows), risk=risk), h
+    return dict(env=env, entry=dict(n=len(entry_rows), rows=entry_rows), risk=risk,
+                exits=exit_mix(sim['trades'])), h
+
+
+def hold_audit(A, F, RG, BR, gate, cal):
+    """Same entry signals, only the 10-bar deadline changes: 10 bars vs no deadline."""
+    RGx = dict(RG); RGx['gate'] = gate
+    n = len(cal)
+    rows = []
+    for hold in (HOLD, None):
+        rules = dict(A_RULES)
+        rules['sig_exit'] = dict(A_RULES['sig_exit'],
+                                 hold=(hold if hold else 10 ** 6))
+        sig = dedupe(L.make_signals(A, F, RGx, BR, rules))
+        sim = L.simulate(A, F, RGx, sig, dict(C_PROFILE))
+        st = L.stats(sim, START, n - 1)
+        rows.append(dict(hold=hold, n=st['n'], win=round(st['win'], 1),
+                         pf=round(st['pf'], 2), mdd=round(st['mdd'], 2),
+                         cagr=round(st['cagr'], 1), final=round(st['final'], 3),
+                         stop=exit_mix(sim['trades'])['stop']))
+    return dict(rows=rows)
 
 
 def lev_audit(A, F, RG, BR, gate, cal):
@@ -192,6 +242,8 @@ def main():
     vc, hc = build_version(A, F, RG, BR, cand_gate, i, cal)
 
     la = lev_audit(A, F, RG, BR, cand_gate, cal)
+    ha = dict(base=hold_audit(A, F, RG, BR, base_gate, cal),
+              cand=hold_audit(A, F, RG, BR, cand_gate, cal))
     a0 = la['rows'][0]; b0 = la['rows'][3]; b2 = la['rows'][5]
     la['note'] = (f"同一批信号回放：名义固定 20% 时，1x / 3x / 5x 的 {a0['n']} 笔结果逐笔一致"
                   f"（胜率 {a0['win']:.1f}%、PF {a0['pf']:.2f}、年化 {a0['cagr']:.1f}%、"
@@ -263,10 +315,12 @@ def main():
 
     board = dict(
         asof=asof, next_entry=next_weekday(asof), active='cand',
+        entry_expiry=add_weekdays(next_weekday(asof), HOLD),
         near=dict(n=len(near), rows=near),
         funnel=funnel,
         v=dict(base=vb, cand=vc),
         lev_audit=la,
+        hold_audit=ha,
         rules=dict(lev=LEV, margin_pct=round(MARGIN_PCT * 100, 1),
                    gross_cap=GROSS_CAP, max_pos=C_PROFILE['max_pos'],
                    sl_atr=SL_ATR, tp_atr=TP_ATR, hold=HOLD,

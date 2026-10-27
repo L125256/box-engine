@@ -108,6 +108,15 @@ b,strong{font-weight:650}
 .bscroll{overflow-x:auto}
 .bscroll .tbl{min-width:720px}
 .bscroll .tbl td{padding:7px 9px}
+.pxe{width:96px;background:#0b1118;border:1px solid var(--line);border-radius:7px;color:var(--tx);
+  padding:5px 7px;font:12.5px/1.2 inherit;text-align:right;font-variant-numeric:tabular-nums}
+.pxe:focus{outline:none;border-color:#2f6fbf}
+.pxe.badpx{border-color:#ff7b72}
+@media (max-width:700px){
+  .pxe{width:76px}
+  #boardTbl .c-atr,#boardTbl .c-ctx{display:none}
+  .bscroll .tbl{min-width:560px}
+}
 .tbl tr.empty td{color:var(--dim);text-align:center;padding:18px 10px;line-height:1.7}
 .empty-note{color:var(--dim);font-size:12.5px;line-height:1.75;padding:12px 2px}
 .miss{color:#e3b341}
@@ -915,17 +924,25 @@ function fillBoard(){
   const notional=eq*(r.lev*r.margin_pct/100);
   const margin=eq*r.margin_pct/100;
 
-  const ec=['代码','参考价','ATR14','止损','止盈','名义 USDT','保证金','数量','止损占权益','RSI2','20 日偏离'];
-  let h='<thead><tr>'+ec.map(c=>'<th>'+c+'</th>').join('')+'</tr></thead><tbody>';
+  const ec=['代码','成交价 E','ATR14','止损价','止盈价','数量','名义 USDT','保证金','止损占权益','到期日（10 个交易日）','RSI2 / 20 日偏离'];
+  let h='<thead><tr>'+ec.map((c,i)=>'<th'+(i===2?' class="c-atr"':(i===10?' class="c-ctx"':''))+'>'+c+'</th>').join('')+'</tr></thead><tbody>';
   if(v.entry.n>0){
     v.entry.rows.forEach(t=>{
       const q=notional/t.close;
-      h+='<tr class="hl"><td><b>'+t.sym.replace('USDT','')+'</b></td><td>'+px(t.close)+'</td><td>'+t.atr.toFixed(3)+'</td>'+
-         '<td class="dn">'+px(t.stop)+' <span class="dim">'+fmtPct(t.stop_pct,2)+'</span></td>'+
-         '<td class="up">'+px(t.tp)+' <span class="dim">'+fmtPct(t.tp_pct,2)+'</span></td>'+
-         '<td>'+usd(notional)+'</td><td>'+usd(margin)+'</td><td>'+qty(q)+'</td>'+
-         '<td class="dn">'+fmtPct(t.stop_eq_pct,2)+'</td>'+
-         '<td>'+t.rsi2.toFixed(1)+'</td><td>'+fmtPct(t.dev20,2)+'</td></tr>';
+      h+='<tr class="hl" data-atr="'+t.atr+'" data-close="'+t.close+'">'+
+         '<td><b>'+t.sym.replace('USDT','')+'</b></td>'+
+         '<td><input class="pxe" type="number" step="0.01" min="0" value="'+t.close+'" '+
+            'data-close="'+t.close+'" data-atr="'+t.atr+'" title="改成实际成交价，右侧止损/止盈/数量会即时重算">'+
+            '<div class="dim" style="font-size:11px">信号收盘 '+px(t.close)+'</div></td>'+
+         '<td class="c-atr">'+t.atr.toFixed(3)+'</td>'+
+         '<td class="dn"><span class="v-stop">'+px(t.stop)+'</span> <span class="dim v-stop-pct">'+fmtPct(t.stop_pct,2)+'</span>'+
+            '<div class="dim v-stop-note" style="font-size:11px"></div></td>'+
+         '<td class="up"><span class="v-tp">'+px(t.tp)+'</span> <span class="dim v-tp-pct">'+fmtPct(t.tp_pct,2)+'</span></td>'+
+         '<td class="v-qty">'+qty(q)+'</td>'+
+         '<td class="v-notional">'+usd(notional)+'</td><td class="v-margin">'+usd(margin)+'</td>'+
+         '<td class="dn v-stopeq">'+fmtPct(t.stop_eq_pct,2)+'</td>'+
+         '<td>'+b.entry_expiry+'<div class="dim" style="font-size:11px">收盘价平仓，遇美股休市顺延</div></td>'+
+         '<td class="c-ctx">'+t.rsi2.toFixed(1)+' / '+fmtPct(t.dev20,2)+'</td></tr>';
     });
   }
   h+='</tbody>';
@@ -972,11 +989,47 @@ function fillBoard(){
     (r.max_stop_pct*r.margin_pct*r.lev/100).toFixed(2)+'%；5x 逐仓爆仓距离约 '+r.liq_pct+'%。'+
     (rk?('样本 '+rk.n+' 笔：止损 '+rk.stop_exits+' 笔，最差价格 '+fmtPct(rk.worst_price_pct,2)+'、权益 '+fmtPct(rk.worst_eq_pct,2)+'，爆仓 '+rk.liq+' 次。'):'')+
     '开盘价 E 若使止损距离超过 '+(r.liq_pct*0.8).toFixed(1)+'%，放弃该笔。候补表标“5x 不可执行”的标的，ATR% 已超过 '+r.atrp_max_pct+'%，止损贴近爆仓线，不可按 5x 执行。</div>';
+  const x=v.exits, ha=b.hold_audit[VER], h10=ha.rows[0], hN=ha.rows[1];
+  const timeTxt=(x.time&&x.time_avg!==null)
+    ? ('到期 '+x.time+' 笔，平均 <b>'+fmtPct(x.time_avg,2)+'</b> 权益、胜率 '+x.time_win+'%')
+    : ('到期 '+x.time+' 笔');
   $('boardNote').innerHTML='<b>执行口径固定 v2.1；v2 基线仅作对照，不用于下单。</b> 参考价 = 信号日收盘 '+b.asof+'；实际以 <b>次日（'+b.next_entry+'）开盘成交价 E</b> 为准：'+
     '止损 <span class="fml">E − '+(r.sl_atr).toFixed(1)+' × ATR</span>，止盈 <span class="fml">E + '+(r.tp_atr).toFixed(1)+' × ATR</span>。'+
-    '开盘价与参考价差超过 1 个 ATR 时，先按公式重算再挂单。仓位按权益 '+usd(notional)+' USDT 名义/只（保证金 '+usd(margin)+
-    '，'+r.lev+' 倍），最多 '+r.max_pos+' 只、毛敞口 ≤ '+r.gross_cap+' 倍；同日超过 '+r.max_pos+' 只时按 RSI2 从低到高取前 '+r.max_pos+'。满 '+r.hold+' 个交易日收盘平仓。'+
-    riskHtml;
+    '<b>表里「成交价 E」可改成你的实际成交价，止损、止盈、数量、止损占权益会立即重算，直接照抄进交易所。</b>'+
+    '开盘价与参考价差超过 1 个 ATR 时同样先改 E 再看值不值得做。仓位按权益 '+usd(notional)+' USDT 名义/只（保证金 '+usd(margin)+
+    '，'+r.lev+' 倍），最多 '+r.max_pos+' 只、毛敞口 ≤ '+r.gross_cap+' 倍；同日超过 '+r.max_pos+' 只时按 RSI2 从低到高取前 '+r.max_pos+'。'+
+    '满 '+r.hold+' 个交易日收盘平仓，到期日列已按工作日推出（遇美股休市顺延）。'+
+    riskHtml+
+    '<div style="margin-top:8px;border-top:1px dashed rgba(30,42,54,.65);padding-top:8px">'+
+    '<b>「到期平仓」是时间闸，不是止盈目标：</b>'+VNAME[VER]+' 样本 '+x.n+' 笔里，止盈 '+x.tp+' 笔、止损 '+x.stop+' 笔、'+timeTxt+'（平均持有 '+x.bars_avg+' 个交易日）。'+
+    '到期这笔多数是小亏离场，作用是腾出仓位、防止小亏拖成大亏，指望它赚钱会失望。同一批信号把到期取消、只等止损/止盈：'+
+    'PF <b>'+h10.pf.toFixed(2)+' → '+hN.pf.toFixed(2)+'</b>、最大回撤 <b>'+h10.mdd.toFixed(2)+'% → '+hN.mdd.toFixed(2)+'%</b>、止损 <b>'+h10.stop+' → '+hN.stop+'</b> 笔。'+
+    '所以到期保留；页面上标「到期日」，不标「时间止盈」。</div>';
+}
+
+function recalcRow(tr){
+  const inp=tr.querySelector('.pxe');
+  const E=Number(inp.value), atr=Number(tr.dataset.atr);
+  const r=D.board.rules, eq=boardEq();
+  const notional=eq*(r.lev*r.margin_pct/100), margin=eq*r.margin_pct/100;
+  const bad=!(E>0)||!isFinite(E);
+  inp.classList.toggle('badpx',bad);
+  if(bad) return;
+  const stop=E-r.sl_atr*atr, tp=E+r.tp_atr*atr;
+  const sp=(stop/E-1)*100, tpp=(tp/E-1)*100;
+  const stopEq=sp*(r.lev*r.margin_pct/100);
+  const lim=r.liq_pct*0.8;
+  const ok=Math.abs(sp)<=lim;
+  tr.querySelector('.v-stop').textContent=px(stop);
+  tr.querySelector('.v-stop-pct').textContent=fmtPct(sp,2);
+  tr.querySelector('.v-tp').textContent=px(tp);
+  tr.querySelector('.v-tp-pct').textContent=fmtPct(tpp,2);
+  tr.querySelector('.v-qty').textContent=qty(notional/E);
+  tr.querySelector('.v-notional').textContent=usd(notional);
+  tr.querySelector('.v-margin').textContent=usd(margin);
+  tr.querySelector('.v-stopeq').textContent=fmtPct(stopEq,2);
+  tr.querySelector('.v-stop-note').innerHTML=ok?''
+    :('<span class="riskline" style="display:inline">止损距离 '+fmtPct(sp,1)+' 已超过爆仓线 80%（'+lim.toFixed(1)+'%），按规则放弃该笔</span>');
 }
 
 function renderBoard(){
@@ -1005,10 +1058,10 @@ function renderBoard(){
   $('bEntrySub').textContent=VNAME[VER]+' · 信号日 '+b.asof+' · 下一交易日 '+b.next_entry+' · '+bv().entry.n+' 只';
   $('steps').innerHTML=
     '<li>收盘后刷新本页，先看闸门：<b>关闭就不下单</b>；打开才看「可开仓标的」。右上角可切换 v2 基线 / v2.1 执行口径。</li>'+
-    '<li>次日开盘在参考价附近挂限价单（或开盘市价），成交价记为 <b>E</b>。</li>'+
-    '<li>成交后立刻挂 reduce-only：止损 <span class="fml">E − '+r.sl_atr.toFixed(1)+' × ATR</span>，止盈 <span class="fml">E + '+r.tp_atr.toFixed(1)+' × ATR</span>；数量 = 名义 ÷ E。</li>'+
-    '<li>开盘成交价 E 若使止损距离超过 <b>'+(r.liq_pct*0.8).toFixed(1)+'%</b>（5x 爆仓线 '+r.liq_pct+'% 的 80%），<b>放弃该笔</b>，不降杠杆硬扛。</li>'+
-    '<li>持有满 <b>'+r.hold+' 个交易日</b>按收盘价平仓；期间触发止损或止盈即离场。</li>'+
+    '<li>次日开盘在参考价附近挂限价单（或开盘市价）。<b>成交后把表里「成交价 E」改成实际成交价</b>，止损、止盈、数量会立即重算。</li>'+
+    '<li>按表里算好的止损/止盈挂 reduce-only 两张单；数量 = 名义 ÷ E。止损 <span class="fml">E − '+r.sl_atr.toFixed(1)+' × ATR</span>，止盈 <span class="fml">E + '+r.tp_atr.toFixed(1)+' × ATR</span>。</li>'+
+    '<li>成交价 E 若使止损距离超过 <b>'+(r.liq_pct*0.8).toFixed(1)+'%</b>（5x 爆仓线 '+r.liq_pct+'% 的 80%），表内会红字提示，<b>放弃该笔</b>，不降杠杆硬扛。</li>'+
+    '<li>持有到「到期日」按收盘价平仓；这是时间闸，不是止盈。期间触发止损或止盈即离场。</li>'+
     '<li>单只保证金 '+r.margin_pct+'% 权益（'+r.lev+' 倍杠杆），最多 '+r.max_pos+' 只，毛敞口 ≤ '+r.gross_cap+' 倍；同日超额时按 RSI2 从低到高取前 '+r.max_pos+'。成本单边 0.10%，资金费按 '+r.fund_day_pct+'%/日计。</li>';
   fillBoard();
 }
@@ -1313,6 +1366,10 @@ window.addEventListener('load',()=>{
   renderStress(); renderConc(); renderNeighborhood(); renderTrades();
   $('eqIn').value = D.board.equity_default;
   $('eqIn').addEventListener('input', fillBoard);
+  $('boardTbl').addEventListener('input', ev=>{
+    const tr=ev.target.closest('tr');
+    if(ev.target.classList.contains('pxe')&&tr&&tr.dataset.atr) recalcRow(tr);
+  });
   document.querySelectorAll('.vbtn').forEach(btn=>btn.addEventListener('click',()=>setVer(btn.dataset.ver)));
   setVer(VER);
   buildCharts();
