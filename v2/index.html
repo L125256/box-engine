@@ -263,7 +263,7 @@ canvas{display:block;width:100%;height:100%}
   <section class="card" id="boardCard">
     <div class="card-h">
       <h2>今天开不开、开什么、挂在哪 <span class="sub" id="bVerSub">—</span></h2>
-      <div class="vsw"><button class="vbtn" data-ver="base">v2 基线（对照）</button><button class="vbtn on" data-ver="cand">v2.1 候选</button></div>
+      <div class="vsw"><button class="vbtn" data-ver="base">v2 基线（对照）</button><button class="vbtn on" data-ver="cand">v2.1 执行口径</button></div>
       <span class="pill" id="boardPill">—</span>
     </div>
     <div class="bgrid">
@@ -306,14 +306,14 @@ canvas{display:block;width:100%;height:100%}
   <section class="card" id="healthCard">
     <div class="card-h">
       <h2>系统体检 <span class="sub" id="healthVerSub">市场在变，先看这套规则此刻还有没有效</span></h2>
-      <div class="vsw"><button class="vbtn" data-ver="base">v2 基线（对照）</button><button class="vbtn on" data-ver="cand">v2.1 候选</button></div>
+      <div class="vsw"><button class="vbtn" data-ver="base">v2 基线（对照）</button><button class="vbtn on" data-ver="cand">v2.1 执行口径</button></div>
       <span class="pill" id="healthPill">—</span>
     </div>
     <div class="mini-kpis" id="healthKpis"></div>
     <div class="note" id="healthNote">—</div>
   </section>
 
-  <div class="section-title">v2 基线 · C 档全样本结果（下方净值、回撤、月度与交易表同口径；v2.1 对比见候选段）</div>
+  <div class="section-title" id="perfTitle">v2.1 执行口径 · C 档全样本结果（下方净值、回撤、月度与交易表同口径；与 v2 基线的差异见「执行口径 vs 基线」段）</div>
   <section class="kpis">
     <div class="kpi"><div class="k">累计净收益 · C 档</div><div class="v up" id="kFinal">—</div><div class="s" id="kFinalSub">—</div></div>
     <div class="kpi"><div class="k">年化收益</div><div class="v" id="kCagr">—</div><div class="s" id="kCagrSub">—</div></div>
@@ -347,11 +347,11 @@ canvas{display:block;width:100%;height:100%}
     <div class="note">C 档为默认：单笔 4% 保证金 × 5x = 20% 名义仓位，最多 12 笔，总名义暴露 ≤ 250%。D 档收益更高但回撤接近 9%，且单笔 30% 名义，集中度更高。所有档位均未触发爆仓。</div>
   </section>
 
-  <div class="section-title" id="cand">v2.1 · 候选改进（未设为默认）</div>
+  <div class="section-title" id="cand">v2.1 执行口径 · 相对 v2 基线的改进（已设为默认）</div>
   <section class="card">
     <div class="card-h">
       <h2>环境加一道“广度确认” <span class="sub">指数 &gt; MA50 且 5 日平滑宽度 ≥ 45%</span></h2>
-      <span class="pill warn">候选 · 待确认</span>
+      <span class="pill ok">执行口径 · 已设默认</span>
     </div>
     <div class="split">
       <div>
@@ -502,7 +502,7 @@ canvas{display:block;width:100%;height:100%}
   <div class="section-title" id="risks">Risks · 必须知道的风险</div>
   <section class="card">
     <div class="risks">
-      <div class="risk"><div><b>样本太短。</b>只有 23 个月、117 笔交易（候选 112 笔），不足以证明“长期”。2025 是强牛市，2026 年化已明显降速（默认 +13.2%，候选 +18.0%）。</div></div>
+      <div class="risk"><div><b>样本太短。</b>只有 23 个月、117 笔交易（v2.1 执行口径 112 笔），不足以证明“长期”。2025 是强牛市，2026 年化已明显降速（v2 基线 +13.2%，v2.1 执行口径 +18.0%）。</div></div>
       <div class="risk"><div><b>闸门会错过 V 型反转。</b>等权指数跌破 MA50 后系统空仓；如果市场直接 V 型收复，会错过第一段。当前已空仓 15 天，历史最长 45 天。</div></div>
       <div class="risk"><div><b>5x 杠杆的跳空风险。</b>止损 2.5 ATR 通常远高于爆仓价，但隔夜跳空可能越过止损；回测 0 次爆仓，不代表未来不会。</div></div>
       <div class="risk"><div><b>代币合约不是现货。</b>回测用美股 K 线 + 合约成本近似；真实代币永续有溢价/折价、资金费方向变化、流动性与交易所风险。</div></div>
@@ -518,7 +518,7 @@ canvas{display:block;width:100%;height:100%}
 
   <footer class="foot">
     <div>V2 深回撤低吸 · 每日看板 · 规则版本 v2.1-frozen-2026-10-27<br>价格：导演站 120 只美股代币永续日线 · 2024-11-20 至 2026-10-26 ｜ 资金费：Gate 公开接口 · 140 只 · 2026-05-04 至 2026-10-26 ｜ 已部署（GitHub Pages）</div>
-    <div style="text-align:right">老 C1 引擎、<code>/c1f/</code> 页面与云端任务均未改动<br>v2.1 候选未设为默认 · 发布前需用户确认</div>
+    <div style="text-align:right">老 C1 引擎、<code>/c1f/</code> 页面与云端任务均未改动<br>v2.1 为执行口径 · v2 仅作对照</div>
   </footer>
 </div>
 <div id="tip"></div>
@@ -770,7 +770,7 @@ function renderCandidate(){
     ['中位窗口',fmtPct(b.rolling.med,2),fmtPct(c.rolling.med,2)],
     ['开闸天数占比',b.gate_on.toFixed(1)+'%',c.gate_on.toFixed(1)+'%']
   ];
-  $('candTbl').innerHTML='<thead><tr><th>指标</th><th>现行 MA50</th><th>候选 + 广度</th></tr></thead><tbody>'+
+  $('candTbl').innerHTML='<thead><tr><th>指标</th><th>v2 基线</th><th>v2.1 执行口径</th></tr></thead><tbody>'+
     rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="up"><b>'+r[2]+'</b></td></tr>').join('')+'</tbody>';
 
   const d=a.dropped.map(t=>Object.assign({kind:'过滤'},t)).concat(a.added.map(t=>Object.assign({kind:'新增'},t)));
@@ -840,31 +840,36 @@ function renderFactbook(){
   $('fbNote').innerHTML='结论：绝大多数因子是死的——392 格里只有 <b>4 格胜任</b>，且全部是单池、<b>release_eligible=false</b>；24 个变体因安慰剂不守恒整族作废（K2 全部 48 格无效，K1 40 格无效）。Q5 的 IC 很强但核心腿不过，Q2 自相关在每个域都为负。这反过来支持“简单环境 + 深回撤低吸”，而不是继续堆因子。ATLAS 是研究坐标，不是部署开关；其正式判读仍待首席终裁。';
 }
 
+function stNow(){ return VER==='base' ? D.profiles.C.st : D.addendum.cand.st; }
+
 function renderHeader(){
   $('asof').textContent = D.asof;
   $('universe').textContent = D.universe;
-  const c=D.profiles.C.st, b=D.benchmark;
+  const isCand = (VER!=='base');
+  const c = stNow(), b = D.benchmark, other = isCand ? D.profiles.C.st : D.addendum.cand.st;
+  const stName = isCand ? 'v2.1 执行口径' : 'v2 基线（对照）';
+  const otherName = isCand ? 'v2 基线' : 'v2.1 执行口径';
+  $('perfTitle').innerHTML = stName+' · C 档全样本结果（下方净值、回撤、月度与交易表同口径；与 '+otherName+'的差异见「执行口径 vs 基线」段）';
   $('kFinal').textContent = fmtPct((c.final-1)*100,1);
   $('kFinalSub').textContent = '同期等权 '+fmtPct((b.final-1)*100,1)+' / 回撤 -'+b.mdd.toFixed(1)+'%';
   $('kCagr').textContent = fmtPct(c.cagr,1);
-  $('kCagrSub').textContent = (c.cagr/c.mdd).toFixed(1)+' 倍年化/回撤';
+  $('kCagrSub').textContent = (c.cagr/c.mdd).toFixed(1)+' 倍年化/回撤 · '+otherName+' '+fmtPct(other.cagr,1);
   $('kMdd').textContent = '-'+c.mdd.toFixed(2)+'%';
-  $('kMddSub').textContent = 'Sharpe '+c.sharpe.toFixed(2);
+  $('kMddSub').textContent = 'Sharpe '+c.sharpe.toFixed(2)+' · '+otherName+' '+other.sharpe.toFixed(2);
   $('kWin').textContent = c.win.toFixed(1)+'%';
-  $('kWinSub').textContent = c.n+' 笔 · 平均持有 '+D.risk.C.avg_hold+' 天';
+  $('kWinSub').textContent = c.n+' 笔 · 月均 '+(c.n/23).toFixed(1)+' 笔 · '+otherName+' '+other.win.toFixed(1)+'%';
   $('kPay').textContent = c.payoff.toFixed(2);
-  $('kPaySub').textContent = '均盈 +'+D.risk.C.avg_win.toFixed(2)+'% / 均亏 '+D.risk.C.avg_loss.toFixed(2)+'%';
+  $('kPaySub').textContent = isCand ? '同赔率口径 · 均盈/均亏明细见风险段' : '均盈 +'+D.risk.C.avg_win.toFixed(2)+'% / 均亏 '+D.risk.C.avg_loss.toFixed(2)+'%';
   $('kPf').textContent = c.pf.toFixed(2);
-  const netSum = D.trades.C.reduce((a,t)=>a+t.pnl,0);
-  $('kPfSub').textContent = '毛利 '+D.concentration.gross_profit.toFixed(1)+' / 毛损 '+(D.concentration.gross_profit-netSum).toFixed(1);
+  $('kPfSub').textContent = '相对 '+otherName+' '+other.pf.toFixed(2);
   $('kN').textContent = c.n;
-  $('kNSub').textContent = '月均 '+(c.n/23).toFixed(1)+' 笔 · 最大并发 '+D.risk.C.max_concurrent;
+  $('kNSub').textContent = '月均 '+(c.n/23).toFixed(1)+' 笔 · '+otherName+' '+other.n+' 笔';
   $('kExpo').textContent = c.expo.toFixed(1)+'%';
-  $('kExpoSub').textContent = '峰值 '+D.risk.C.expo_max.toFixed(0)+'% · 持仓日 '+D.risk.C.in_market+'%';
+  $('kExpoSub').textContent = '相对 '+otherName+' '+other.expo.toFixed(1)+'%';
 }
 
 let VER = 'cand';
-const VNAME = {base:'v2 基线（对照）', cand:'v2.1 候选'};
+const VNAME = {base:'v2 基线（对照）', cand:'v2.1 执行口径'};
 const VDESC = {base:'指数 > MA50 · 收盘定信号 · 次日开盘执行',
                cand:'指数 > MA50 且 5 日平滑宽度 ≥ 45% · 收盘定信号 · 次日开盘执行'};
 function bv(){ return D.board.v[VER]; }
@@ -993,13 +998,13 @@ function renderBoard(){
   } else {
     const split = e.base_gate && !e.gate;
     $('bWhy').innerHTML = e.gate
-      ? '闸门打开（v2.1 候选）：指数在 MA50 上方 <b>'+fmtPct(e.gap,2)+'</b>，5 日宽度 <b>'+e.br5.toFixed(1)+'%</b> ≥ '+r.br_min+'%。收盘信号已确认，次日开盘按清单执行；清单为空就空仓。'
-      : '闸门关闭（v2.1 候选）：指数低于 MA50 <b class="dn">'+fmtPct(e.gap,2)+'</b>（需回升 <b>'+e.idx_to_gate.toFixed(2)+'%</b> 才回到闸门线），5 日宽度 <b>'+e.br5.toFixed(1)+'%</b>（阈值 '+r.br_min+'%，差 <b>'+e.br_gap.toFixed(1)+'</b> 个百分点）。今天不开新仓，已有仓位按止损/止盈/'+r.hold+' 日到期管理。连续关闭 <b>'+e.closed_days+'</b> 天，历史最长 <b>'+e.longest_closed+'</b> 天（'+(e.longest_end||'—')+' 结束）。'+
-        (split?' 注意：基线 v2 只看指数，今天<b>是开的</b>；是宽度这一道把候选口径关掉了。两者历史分歧 6 次，全部亏损。':'');
+      ? '闸门打开（v2.1 执行口径）：指数在 MA50 上方 <b>'+fmtPct(e.gap,2)+'</b>，5 日宽度 <b>'+e.br5.toFixed(1)+'%</b> ≥ '+r.br_min+'%。收盘信号已确认，次日开盘按清单执行；清单为空就空仓。'
+      : '闸门关闭（v2.1 执行口径）：指数低于 MA50 <b class="dn">'+fmtPct(e.gap,2)+'</b>（需回升 <b>'+e.idx_to_gate.toFixed(2)+'%</b> 才回到闸门线），5 日宽度 <b>'+e.br5.toFixed(1)+'%</b>（阈值 '+r.br_min+'%，差 <b>'+e.br_gap.toFixed(1)+'</b> 个百分点）。今天不开新仓，已有仓位按止损/止盈/'+r.hold+' 日到期管理。连续关闭 <b>'+e.closed_days+'</b> 天，历史最长 <b>'+e.longest_closed+'</b> 天（'+(e.longest_end||'—')+' 结束）。'+
+        (split?' 注意：基线 v2 只看指数，今天<b>是开的</b>；是宽度这一道把 v2.1 执行口径关掉了。两者历史分歧 6 次，全部亏损。':'');
   }
   $('bEntrySub').textContent=VNAME[VER]+' · 信号日 '+b.asof+' · 下一交易日 '+b.next_entry+' · '+bv().entry.n+' 只';
   $('steps').innerHTML=
-    '<li>收盘后刷新本页，先看闸门：<b>关闭就不下单</b>；打开才看「可开仓标的」。右上角可切换 v2 基线 / v2.1 候选。</li>'+
+    '<li>收盘后刷新本页，先看闸门：<b>关闭就不下单</b>；打开才看「可开仓标的」。右上角可切换 v2 基线 / v2.1 执行口径。</li>'+
     '<li>次日开盘在参考价附近挂限价单（或开盘市价），成交价记为 <b>E</b>。</li>'+
     '<li>成交后立刻挂 reduce-only：止损 <span class="fml">E − '+r.sl_atr.toFixed(1)+' × ATR</span>，止盈 <span class="fml">E + '+r.tp_atr.toFixed(1)+' × ATR</span>；数量 = 名义 ÷ E。</li>'+
     '<li>开盘成交价 E 若使止损距离超过 <b>'+(r.liq_pct*0.8).toFixed(1)+'%</b>（5x 爆仓线 '+r.liq_pct+'% 的 80%），<b>放弃该笔</b>，不降杠杆硬扛。</li>'+
@@ -1245,8 +1250,8 @@ function buildCharts(){
 
   const ac=D.addendum.curve;
   candChartObj=lineChart($('candChart'),[
-    {label:'现行 MA50',color:C.up,data:ac.base,width:1.6},
-    {label:'候选 MA50+广度',color:C.ac,data:ac.cand,width:2.3}
+    {label:'v2 基线（MA50）',color:C.up,data:ac.base,width:1.6},
+    {label:'v2.1 执行口径（MA50+广度）',color:C.ac,data:ac.cand,width:2.3}
   ],{labels:ac.dates,yFmt:v=>v.toFixed(2)+'x',baseline:1,xFmt:s=>s.slice(2,7),tipFmt:v=>v.toFixed(3)+'x'});
   candChartObj.draw();
 
@@ -1299,7 +1304,7 @@ function setVer(v){
   if(!D.board.v[v]) return;
   VER=v;
   document.querySelectorAll('.vbtn').forEach(x=>x.classList.toggle('on', x.dataset.ver===v));
-  renderLive(); renderBoard(); renderHealth();
+  renderLive(); renderBoard(); renderHealth(); renderHeader();
 }
 
 window.addEventListener('load',()=>{
