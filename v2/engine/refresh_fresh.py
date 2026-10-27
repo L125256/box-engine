@@ -4,16 +4,33 @@
 用法: python refresh_fresh.py <cache_dir> [workers]
 """
 import os, sys, json, time, urllib.request, urllib.parse
+from datetime import datetime, timedelta, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 BASE_URL = "https://www.kxiandaoyan.com/api"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")
+CST = timezone(timedelta(hours=8))
+DEFAULT_WORKERS = 6   # 32 并发会被站点限流（113/144 超时），6 并发约 2 分钟跑完
+
+
+def trim_incomplete(bars, now=None):
+    """导演站是 UTC 日线，次日 08:00（北京）才收全；未收全的尾根剔除。"""
+    now = now or datetime.now(CST)
+    while bars:
+        try:
+            day = datetime.strptime(str(bars[-1]["time"])[:10], "%Y-%m-%d").replace(tzinfo=CST)
+        except (ValueError, KeyError):
+            break
+        if now >= day + timedelta(days=1, hours=8):
+            break
+        bars.pop()
+    return bars
 
 
 class KxClient:
     """stdlib-only client; public kline endpoint, no auth, no key."""
-    def __init__(self, timeout=10, retries=1, connect_timeout=5):
+    def __init__(self, timeout=25, retries=1, connect_timeout=8):
         self.timeout, self.retries, self.connect_timeout = timeout, retries, connect_timeout
 
     def get_kline(self, symbol, market="futures", period="1d", limit=700):
@@ -30,15 +47,15 @@ def pull(k, sym, cache_dir):
     for attempt in range(3):
         try:
             r = k.get_kline(sym, market="futures", period="1d", limit=700)
-            bars = r.get("bars") or []
+            bars = trim_incomplete(r.get("bars") or [])
             if bars:
                 tmp = os.path.join(cache_dir, f".{sym}.tmp")
                 with open(tmp, "w", encoding="utf-8") as f:
                     json.dump(bars, f)
                 os.replace(tmp, os.path.join(cache_dir, f"{sym}.json"))
                 return sym, len(bars), bars[-1]["time"]
-        except Exception as e:
-            time.sleep(2)
+        except Exception:
+            time.sleep(1.5 * (attempt + 1))
     return sym, 0, None
 
 
@@ -48,7 +65,7 @@ def pool_file():
         "engine_snapshot", "cleaned_pool.json")
 
 
-def refresh(cache_dir, workers=32, pool_path=None):
+def refresh(cache_dir, workers=DEFAULT_WORKERS, pool_path=None):
     """Pull all 144 symbols; returns dict(ok, fail, last_bar, seconds)."""
     cache_dir = os.path.abspath(cache_dir)
     os.makedirs(cache_dir, exist_ok=True)
@@ -84,7 +101,7 @@ def refresh(cache_dir, workers=32, pool_path=None):
 
 def main():
     cache_dir = sys.argv[1] if len(sys.argv) > 1 else "cache_fresh"
-    workers = int(sys.argv[2]) if len(sys.argv) > 2 else 32
+    workers = int(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_WORKERS
     refresh(cache_dir, workers)
 
 

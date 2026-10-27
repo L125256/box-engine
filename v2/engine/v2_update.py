@@ -58,7 +58,7 @@ def main():
     ap.add_argument('--cache', default=os.environ.get('V2_CACHE') or os.path.join(WORK, 'cache_fresh'))
     ap.add_argument('--pool', default=os.environ.get('V2_POOL') or default_pool())
     ap.add_argument('--outdir', default=os.path.join(HERE, 'dist'))
-    ap.add_argument('--workers', type=int, default=32)
+    ap.add_argument('--workers', type=int, default=6)
     ap.add_argument('--skip-refresh', action='store_true')
     ap.add_argument('--allow-partial', action='store_true',
                     help='build even if some symbols failed to refresh (default: abort)')
@@ -123,6 +123,7 @@ def main():
 
     build_rep = dict(
         asof=page['asof'],
+        built_at=page.get('board', {}).get('built_at'),
         next_entry=page.get('board', {}).get('next_entry'),
         active=page.get('board', {}).get('active'),
         refresh=None if rep is None else dict(

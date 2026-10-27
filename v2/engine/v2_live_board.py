@@ -315,6 +315,8 @@ def main():
 
     board = dict(
         asof=asof, next_entry=next_weekday(asof), active='cand',
+        built_at=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))
+                                       ).strftime('%Y-%m-%d %H:%M'),
         entry_expiry=add_weekdays(next_weekday(asof), HOLD),
         near=dict(n=len(near), rows=near),
         funnel=funnel,

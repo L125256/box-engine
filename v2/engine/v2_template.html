@@ -250,7 +250,8 @@ canvas{display:block;width:100%;height:100%}
       <span class="pill ok">已上线 · 手动刷新</span>
       <span class="pill">v2 / v2.1 双口径</span>
       <span class="pill">规则冻结 2026-10-27</span>
-      <span class="pill">数据截至 <b id="asof">—</b></span>
+      <span class="pill">数据截至 <b id="asof">—</b> 收盘</span>
+      <span class="pill">更新于 <b id="builtAt">—</b> <span class="dim">北京</span></span>
       <span class="pill">样本 <b id="universe">—</b> 只</span>
     </div>
   </header>
@@ -853,6 +854,7 @@ function stNow(){ return VER==='base' ? D.profiles.C.st : D.addendum.cand.st; }
 
 function renderHeader(){
   $('asof').textContent = D.asof;
+  $('builtAt').textContent = (D.board && D.board.built_at) || '—';
   $('universe').textContent = D.universe;
   const isCand = (VER!=='base');
   const c = stNow(), b = D.benchmark, other = isCand ? D.profiles.C.st : D.addendum.cand.st;
@@ -995,6 +997,7 @@ function fillBoard(){
     : ('到期 '+x.time+' 笔');
   $('boardNote').innerHTML='<b>执行口径固定 v2.1；v2 基线仅作对照，不用于下单。</b> 参考价 = 信号日收盘 '+b.asof+'；实际以 <b>次日（'+b.next_entry+'）开盘成交价 E</b> 为准：'+
     '止损 <span class="fml">E − '+(r.sl_atr).toFixed(1)+' × ATR</span>，止盈 <span class="fml">E + '+(r.tp_atr).toFixed(1)+' × ATR</span>。'+
+    '等权指数与全部信号只用<b>已收盘日线</b>（最新 '+b.asof+'），当日未收盘的 bar 不计入；本页生成于 <b>'+b.built_at+'</b>（北京）。'+
     '<b>表里「成交价 E」可改成你的实际成交价，止损、止盈、数量、止损占权益会立即重算，直接照抄进交易所。</b>'+
     '开盘价与参考价差超过 1 个 ATR 时同样先改 E 再看值不值得做。仓位按权益 '+usd(notional)+' USDT 名义/只（保证金 '+usd(margin)+
     '，'+r.lev+' 倍），最多 '+r.max_pos+' 只、毛敞口 ≤ '+r.gross_cap+' 倍；同日超过 '+r.max_pos+' 只时按 RSI2 从低到高取前 '+r.max_pos+'。'+
