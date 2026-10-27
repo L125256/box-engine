@@ -4,7 +4,7 @@
  "active": "cand",
  "refresh": null,
  "page": "index.html",
- "page_bytes": 170516,
- "page_sha256": "75224f6ca369385938d1d7383b535bb2320c5150a8ea5f33baa7c7a76cb82cb4",
- "page_json_sha256": "4f8dee2de9137ecc5eeb792a7d5172013632ffed08c092123cfe99afe05c3714"
+ "page_bytes": 169986,
+ "page_sha256": "b3c46b8eb1283e2655be41e32c0d7f6a93b3d05a563b8bd35d27b9e623457dac",
+ "page_json_sha256": "bca8ac1811da6da14d38209532df0cf9473de36ce6071beaf7c85865ae431d54"
 }
