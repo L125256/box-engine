@@ -26,23 +26,22 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
   <div class="kv"><b>0</b><span>点火家数（门槛 3）</span></div>
   <div class="kv"><b><input id="eq" value="10000" inputmode="decimal" style="width:86px;background:#0f1419;border:1px solid #2b3440;color:#e8edf3;border-radius:6px;padding:3px 6px;font-size:14px;font-weight:400"></b><span>权益 USDT</span></div>
   <div class="kv"><b>0 / 0</b><span>站上 MA50 / 全部点火</span></div>
-  <div class="kv"><b class="warn">停新仓</b><span>近 5 日出现批量下跌</span></div>
 </div>
 <div class="card"><div class="empty"><b>今日不开仓</b><p>点火 0 只，未达到批次门槛 3 只。没有批量点火就不做——这正是这套策略天然的震荡/下跌过滤。</p></div></div>
 <div class="card">
   <b>最近触发日（实际结果）</b>
   <table><thead><tr><th>信号日</th><th>标的</th><th>入场 E</th><th>止损</th><th>止盈1</th><th>止盈2</th><th>净收益</th><th>退出</th></tr></thead>
-  <tbody><tr><td>2026-09-21</td><td>INTCUSDT</td><td>123.91</td><td>108.89</td><td>138.93</td><td>171.98</td><td class="neg">-12.83%</td><td>stop</td></tr><tr><td>2026-09-21</td><td>METAUSDT</td><td>740.62</td><td>681.50</td><td>799.74</td><td>929.79</td><td class="neg">-0.62%</td><td>time</td></tr><tr><td>2026-09-21</td><td>MSTRUSDT</td><td>169.60</td><td>146.25</td><td>192.95</td><td>244.31</td><td class="neg">-12.59%</td><td>time</td></tr><tr><td>2026-08-07</td><td>GTLBUSDT</td><td>38.48</td><td>33.68</td><td>43.27</td><td>53.82</td><td class="pos">+13.97%</td><td>tp1+</td></tr><tr><td>2026-08-07</td><td>GDXUSDT</td><td>88.90</td><td>80.85</td><td>96.95</td><td>114.65</td><td class="pos">+10.18%</td><td>tp1+</td></tr><tr><td>2026-08-07</td><td>NETUSDT</td><td>295.50</td><td>252.38</td><td>338.62</td><td>433.48</td><td class="pos">+0.12%</td><td>time</td></tr></tbody></table>
+  <tbody><tr><td>2026-09-21</td><td>INTCUSDT</td><td>123.91</td><td>108.89</td><td>138.93</td><td>171.98</td><td class="neg">-12.83%</td><td>stop</td></tr><tr><td>2026-09-21</td><td>METAUSDT</td><td>740.62</td><td>681.50</td><td>799.74</td><td>929.79</td><td class="neg">-0.62%</td><td>time</td></tr><tr><td>2026-09-21</td><td>MSTRUSDT</td><td>169.60</td><td>146.25</td><td>192.95</td><td>244.31</td><td class="neg">-12.59%</td><td>time</td></tr><tr><td>2026-08-19</td><td>MSTRUSDT</td><td>108.11</td><td>95.11</td><td>121.11</td><td>149.72</td><td class="pos">+17.14%</td><td>tp1+</td></tr><tr><td>2026-08-19</td><td>MRKUSDT</td><td>150.78</td><td>140.95</td><td>160.61</td><td>182.23</td><td class="neg">-2.64%</td><td>time</td></tr><tr><td>2026-08-19</td><td>CRCLUSDT</td><td>80.50</td><td>69.36</td><td>91.64</td><td>116.16</td><td class="pos">+13.85%</td><td>tp1+</td></tr></tbody></table>
   <p class="hint">按名义计净收益（双边 0.20% + 资金费 0.03%/日）。同一信号日多只属于同一波，不能当独立样本。</p>
 </div>
 <div class="card">
-  <b>规则（2026-10-28 冻结）</b>
+  <b>规则（2026-10-28 修订：去掉关火）</b>
   <ul>
     <li>点火：当日涨幅 ≥4% 且成交量 ≥2×20 日中位；个股站上 MA50；价格≥5、20 日成交额≥30M、ATR%≤6%。</li>
     <li>批次：同一天 ≥3 只点火才开火，取涨幅前 5；同一天不足 3 只不做。</li>
     <li>仓位：5x 逐仓，单笔保证金 3% 权益（名义 15%），最多 8 仓，毛敞口 ≤2.4 倍。</li>
     <li>退出：止损 = 入场 −2.5 ATR；+2.5 ATR 平一半；剩下一半 +8 ATR 全平；否则持有 20 根日线（约 20 个自然日）按收盘平。</li>
-    <li>关火：下跌家数 ≥70% 且指数 ≤−1.5%，之后 5 个交易日不开新仓（不平旧仓）。</li>
+    <li>不设关火：2026-10-28 实测，5 日停新仓把年化从 56.5% 降到 37.2%，回撤反而从 12.33% 升到 13.10%，被挡掉的那批 PF 1.54 是正期望。</li>
   </ul>
 </div>
 <div class="card">
@@ -61,7 +60,7 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
     <div class="kv"><b>11.6%</b><span>最大回撤</span></div>
     <div class="kv"><b>0</b><span>爆仓</span></div>
   </div>
-  <p class="hint">前 3 仓占总盈利 10%；去掉前 3 仓累计仍 +67.5%。</p>
+  <p class="hint">前 3 仓占总盈利 10%；去掉前 3 仓累计仍 +67.5%。2026-10-28 同引擎复核：不关火 117 仓 / +102.1% / 回撤 12.33%；5 日关火 86 仓 / +64.3% / 13.10%，已去掉（笔数与 113 的差异来自滚动窗口边界）。</p>
 </div>
 <div class="foot">
 数据源：导演站日线（2026-01-26 之前为回填段，非 Gate 合约成交）。E 默认取信号日收盘，实盘以次日开盘为准；改 E 会重算止损止盈与数量。

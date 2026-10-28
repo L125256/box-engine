@@ -63,11 +63,6 @@ def main():
         verdict = '停火：点火 %d / 门槛 %d' % (st['n_ign'], S.MIN_BATCH)
         cls = 'off'
 
-    if st['blocked']:
-        shut_cls, shut_short, shut_desc = 'warn', '停新仓', '近 5 日出现批量下跌'
-    else:
-        shut_cls, shut_short, shut_desc = 'ok', '正常', '无批量下跌' 
-
     rrows = ''
     for r in recent:
         pnl_cls = 'pos' if r['pnl'] > 0 else 'neg'
@@ -105,7 +100,6 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
   <div class="kv"><b>__NIGN__</b><span>点火家数（门槛 __MINB__）</span></div>
   <div class="kv"><b><input id="eq" value="__EQUITY__" inputmode="decimal" style="width:86px;background:#0f1419;border:1px solid #2b3440;color:#e8edf3;border-radius:6px;padding:3px 6px;font-size:14px;font-weight:400"></b><span>权益 USDT</span></div>
   <div class="kv"><b>__NABOVE__ / __NIGN__</b><span>站上 MA50 / 全部点火</span></div>
-  <div class="kv"><b class="__SHUTCLS__">__SHUTSHORT__</b><span>__SHUTDESC__</span></div>
 </div>
 <div class="card">__TABLE__</div>
 <div class="card">
@@ -115,13 +109,13 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
   <p class="hint">按名义计净收益（双边 0.20% + 资金费 0.03%/日）。同一信号日多只属于同一波，不能当独立样本。</p>
 </div>
 <div class="card">
-  <b>规则（2026-10-28 冻结）</b>
+  <b>规则（2026-10-28 修订：去掉关火）</b>
   <ul>
     <li>点火：当日涨幅 ≥4% 且成交量 ≥2×20 日中位；个股站上 MA50；价格≥5、20 日成交额≥30M、ATR%≤6%。</li>
     <li>批次：同一天 ≥3 只点火才开火，取涨幅前 5；同一天不足 3 只不做。</li>
     <li>仓位：5x 逐仓，单笔保证金 3% 权益（名义 15%），最多 8 仓，毛敞口 ≤2.4 倍。</li>
     <li>退出：止损 = 入场 −2.5 ATR；+2.5 ATR 平一半；剩下一半 +8 ATR 全平；否则持有 20 根日线（约 20 个自然日）按收盘平。</li>
-    <li>关火：下跌家数 ≥70% 且指数 ≤−1.5%，之后 5 个交易日不开新仓（不平旧仓）。</li>
+    <li>不设关火：2026-10-28 实测，5 日停新仓把年化从 56.5% 降到 37.2%，回撤反而从 12.33% 升到 13.10%，被挡掉的那批 PF 1.54 是正期望。</li>
   </ul>
 </div>
 <div class="card">
@@ -140,7 +134,7 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
     <div class="kv"><b>11.6%</b><span>最大回撤</span></div>
     <div class="kv"><b>0</b><span>爆仓</span></div>
   </div>
-  <p class="hint">前 3 仓占总盈利 10%；去掉前 3 仓累计仍 +67.5%。</p>
+  <p class="hint">前 3 仓占总盈利 10%；去掉前 3 仓累计仍 +67.5%。2026-10-28 同引擎复核：不关火 117 仓 / +102.1% / 回撤 12.33%；5 日关火 86 仓 / +64.3% / 13.10%，已去掉（笔数与 113 的差异来自滚动窗口边界）。</p>
 </div>
 <div class="foot">
 数据源：导演站日线（2026-01-26 之前为回填段，非 Gate 合约成交）。E 默认取信号日收盘，实盘以次日开盘为准；改 E 会重算止损止盈与数量。
@@ -170,9 +164,6 @@ document.querySelectorAll('#tbl tr.cand').forEach(function(tr){
               .replace('__NIGN__', str(st['n_ign']))
               .replace('__MINB__', str(S.MIN_BATCH))
               .replace('__NABOVE__', str(st['n_above']))
-              .replace('__SHUTCLS__', shut_cls)
-              .replace('__SHUTSHORT__', shut_short)
-              .replace('__SHUTDESC__', shut_desc)
               .replace('__TABLE__', table)
               .replace('__RECENT__', rrows)
               .replace('__NOTIONAL__', '%.2f' % notional)

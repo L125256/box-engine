@@ -10,7 +10,8 @@
   仓位：5x 逐仓、单笔保证金 = 权益 3%（名义 15%）、最多 8 仓、毛敞口 2.4 倍
   退出：止损 = 入场 −2.5 ATR；到 +2.5 ATR 平一半；剩下一半到 +8 ATR 全平；
         否则持有 20 个交易日按收盘平仓
-  关火：下跌家数 ≥70% 且 指数 ≤−1.5%，之后 5 个交易日不开新仓（不平旧仓）
+  不设关火（2026-10-28 实测：5 日停新仓年化 37.2%、回撤 13.10%，
+        不关火 56.5%、12.33%；被挡掉的那批 PF 1.54，不是坏单）
 """
 import os
 import numpy as np
@@ -69,29 +70,13 @@ def _eligible(A, F, i, n):
     return out
 
 
-def shutoff_days(RG, cal, A):
-    core = {s: b for s, b in A.items() if s not in L.ETF and s not in L.LEV}
-    n = len(cal)
-    dec = np.zeros(n); tot = np.zeros(n)
-    for s, b in core.items():
-        prev = np.concatenate(([np.nan], b['c'][:-1]))
-        r = b['c'] / prev - 1
-        ok = b['real'] & ~np.isnan(r)
-        dec[ok] += (r[ok] < 0); tot[ok] += 1
-    decf = np.where(tot > 0, dec / np.maximum(tot, 1), np.nan)
-    ret = np.concatenate(([0.0], RG['idx'][1:] / RG['idx'][:-1] - 1))
-    return (decf >= 0.70) & (ret <= -0.015)
-
-
 def state_today(A, F, RG, cal, lookback=6, asof=None):
     n = len(cal)
     i = next((k for k, d in enumerate(cal) if d >= asof), n - 1) if asof else n - 1
-    shut = shutoff_days(RG, cal, A)
-    blocked = bool(shut[max(0, i - 5):i].any())
     ign = _eligible(A, F, i, n)
     above = [x for x in ign if x['above50']]
     return dict(asof=cal[i], n_ign=len(ign), n_above=len(above),
-                blocked=blocked, candidates=above[:TOP_K], shut=bool(shut[i]))
+                candidates=above[:TOP_K])
 
 
 def levels(ref, atr):
@@ -141,12 +126,9 @@ def simulate_one(b, i, entry_i, atr, hold=HOLD):
 
 def recent_signals(A, F, RG, cal, k=5):
     n = len(cal)
-    shut = shutoff_days(RG, cal, A)
     out = []
     i = n - 2
     while i > 210 and len(out) < k:
-        if shut[max(0, i - 5):i].any():
-            i -= 1; continue
         ign = _eligible(A, F, i, n)
         above = [x for x in ign if x['above50']]
         if len(above) >= MIN_BATCH:
