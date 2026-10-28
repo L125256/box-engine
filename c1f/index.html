@@ -32,16 +32,16 @@ tr:hover td{background:#16202b}
 .banner{background:#2a2113;border:1px solid #6b5320;color:#e3b341;border-radius:8px;padding:10px 14px;font-size:13px;margin:14px 0}
 </style></head><body><div class="wrap">
 <h1>C1-fut · 牛闸与标的清单</h1>
-<div class="sub">候选清单供人工筛选，非买入指令。｜标的池 144 只（冻结）｜口径书 <b>F1_台账口径 §7.13</b>｜数据拉取 <b>2026-10-28 04:01</b>｜生成 <b>2026-10-28 04:01</b></div>
+<div class="sub">候选清单供人工筛选，非买入指令。｜标的池 144 只（冻结）｜口径书 <b>F1_台账口径 §7.13</b>｜数据拉取 <b>2026-10-28 09:12</b>｜生成 <b>2026-10-28 09:12</b></div>
 <h2>一、牛闸（7×24 日历口径）</h2><div class="status">
-<div class="metric"><div class="ml">判定基准日</div><div class="mv" style="font-size:16px">2026-10-26（周一）</div><div class="ms">最后一根收完整日K；当根未收线K剔除</div></div>
-<div class="metric"><div class="ml">池均价 idx</div><div class="mv">221.296</div><div class="ms">有效日 144 只等权收盘均价</div></div>
-<div class="metric"><div class="ml">开闸价（MA50）</div><div class="mv">234.321</div><div class="ms">有效交易日序列 rolling(50)</div></div>
+<div class="metric"><div class="ml">判定基准日</div><div class="mv" style="font-size:16px">2026-10-27（周二）</div><div class="ms">最后一根收完整日K；当根未收线K剔除</div></div>
+<div class="metric"><div class="ml">池均价 idx</div><div class="mv">224.895</div><div class="ms">有效日 144 只等权收盘均价</div></div>
+<div class="metric"><div class="ml">开闸价（MA50）</div><div class="mv">234.104</div><div class="ms">有效交易日序列 rolling(50)</div></div>
 <div class="metric bad"><div class="ml">闸态</div><div class="mv">关</div><div class="ms">idx &lt; MA50（硬比较，无缓冲）</div></div>
-<div class="metric bad"><div class="ml">缺口（主）(MA50−idx)/idx</div><div class="mv">5.886%</div><div class="ms">副口径 idx/MA50−1 = −5.559%</div></div>
+<div class="metric bad"><div class="ml">缺口（主）(MA50−idx)/idx</div><div class="mv">4.095%</div><div class="ms">副口径 idx/MA50−1 = −3.934%</div></div>
 <div class="metric"><div class="ml">参与数</div><div class="mv" style="font-size:16px">144 / 144</div><div class="ms">门槛 ≥ 129.6（0.90×±30日中位）</div></div>
-<div class="metric"><div class="ml">数据拉取时间</div><div class="mv" style="font-size:16px">10-28 04:01</div><div class="ms">/root/c1f_live/cache 文件 mtime</div></div>
-<div class="metric"><div class="ml">开闸段</div><div class="mv" style="font-size:15px">2026-09-17 → 2026-10-11</div><div class="ms">连续开闸 25 个有效日；2026-10-12 起闸关，至 2026-10-26 已 15 日</div></div>
+<div class="metric"><div class="ml">数据拉取时间</div><div class="mv" style="font-size:16px">10-28 09:12</div><div class="ms">/root/c1f_live/cache 文件 mtime</div></div>
+<div class="metric"><div class="ml">开闸段</div><div class="mv" style="font-size:15px">2026-09-17 → 2026-10-11</div><div class="ms">连续开闸 25 个有效日；2026-10-12 起闸关，至 2026-10-27 已 16 日</div></div>
 </div>
 <div class="note"><b>执行口径：牛闸 7×24 计算、入场剔除周末。</b>牛闸＝市场状态，按日历口径（周末/假日只要参与数 ≥0.90×±30 日中位即为有效日）计算，闸开＝idx &gt; MA50；缺口主口径 (MA50−idx)/idx，副口径 idx/MA50−1 仅在括号内。入场＝可执行性，只做周一~周五（按入场那根K的日期所属星期，遇周六/日不开仓）。</div>
 <h2>二、标的清单（本批：牛闸 2026-09-17 开闸）</h2>
