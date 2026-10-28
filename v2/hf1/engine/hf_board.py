@@ -23,6 +23,19 @@ EQUITY = 10000
 CST = datetime.timezone(datetime.timedelta(hours=8))
 
 
+def _v21_ref():
+    """v2.1 对照口径：优先读刚重建的 v2_page.json，读不到才用上次落盘的常数。"""
+    try:
+        p = json.load(open(os.path.join(HERE, '..', 'v2', 'v2_page.json'), encoding='utf-8'))
+        s = p['addendum']['cand']['st']
+        days = p['profiles']['C']['st']['days']
+        return dict(n=s['n'], win=round(s['win'], 1), payoff=round(s['payoff'], 2),
+                    pf=round(s['pf'], 2), cagr=round(s['cagr'], 1), mdd=round(s['mdd'], 2),
+                    per_month=round(s['n'] / (days / 30.44), 1))
+    except Exception:
+        return dict(n=110, win=63.6, payoff=1.44, pf=2.53, cagr=30.0, mdd=7.48, per_month=4.8)
+
+
 def add_weekdays(d, k):
     x = datetime.date.fromisoformat(d)
     while k > 0:
@@ -254,7 +267,7 @@ def main():
         candidates=cands[:20], near=near[:20],
         curve=[round(float(x), 4) for x in sim['curve'][START:len(cal) - 1:4]],
         curve_dates=cal[START:len(cal) - 1:4],
-        v21=dict(n=110, win=63.6, payoff=1.44, pf=2.53, cagr=30.0, mdd=7.48, per_month=4.8),
+        v21=_v21_ref(),
     )
     with open(os.path.join(HERE, 'hf1.json'), 'w', encoding='utf-8') as fh:
         json.dump(out, fh, ensure_ascii=False, indent=1, default=float)
