@@ -45,6 +45,12 @@ def add_weekdays(d, k):
     return x.isoformat()
 
 
+def add_days(d, k):
+    """k calendar days after d. The perp feed has a bar every calendar day, so the
+    engine's hold=N counts calendar days, not US trading days."""
+    return (datetime.date.fromisoformat(d) + datetime.timedelta(days=k)).isoformat()
+
+
 def next_weekday(d):
     return add_weekdays(d, 1)
 
@@ -91,11 +97,17 @@ def main():
         win_rows.append(dict(from_=cal[s0], to=cal[s1], ret=round(r * 100, 1), mdd=round(mdd, 1),
                              n=len(sub), win=round(float((e > 0).mean() * 100), 1) if sub else None))
 
-    # ---- 分月
+    # ---- 分月（权益曲线口径：用每月最后一个交易日的净值 / 上月末净值）
+    # 旧版按出场月加总逐笔 pnl/eq0，和复利曲线对不上（合计 43.2% vs 累计 51.0%），
+    # 2026-10-28 改成真正的账户月度收益，乘积与累计一致。
     mon = collections.OrderedDict()
-    for t in tr:
-        k = cal[t['exit']][:7]
-        mon[k] = mon.get(k, 0.0) + t['pnl']
+    prev = 1.0
+    for m in sorted({cal[i][:7] for i in range(START, len(cal))}):
+        idxs = [i for i in range(START, len(cal)) if cal[i][:7] == m]
+        end = idxs[-1]
+        val = float(cv[end])
+        mon[m] = (val / prev - 1.0) if prev else 0.0
+        prev = val
     monthly = {k: round(v * 100, 2) for k, v in mon.items()}
 
     # ---- 今日闸门与候选
@@ -190,7 +202,7 @@ def main():
                                   qty=round(EQUITY * PROF['margin_pct'] * PROF['lev'] / E, 4),
                                   stop_eq_pct=round(-ex_['sl_atr'] * h['atr'] / E * 100 *
                                                     PROF['lev'] * PROF['margin_pct'], 3),
-                                  expiry=add_weekdays(next_weekday(asof), ex_['hold'])))
+                                  expiry=add_days(next_weekday(asof), ex_['hold'])))
             elif sym not in seen:
                 mm = miss_at(sym, i, r)
                 if len(mm) <= 2:

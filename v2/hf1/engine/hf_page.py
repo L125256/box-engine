@@ -201,7 +201,7 @@ padding:4px 6px;font-size:13px;text-align:right}}
 <h2>今日执行清单</h2>
 <div class="card">
 <div class="banner {('on' if g['open'] else 'off')}">当前：闸门{gate_txt}　·　等权收益指数 {g['idx']:.3f} / MA50 {g['ma50']:.3f}
-（{pct(g['gap'],2)}）　·　5 日平滑广度 {g['br5']:.1f}%（阈值 {g['br_min']:.0f}%）　·　已连续关闭 {g['closed_days']} 个交易日</div>
+（{pct(g['gap'],2)}）　·　5 日平滑广度 {g['br5']:.1f}%（阈值 {g['br_min']:.0f}%）　·　已连续关闭 {g['closed_days']} 天</div>
 <div class="sub" style="margin-bottom:8px">{'；'.join(d['gaps']) if d['gaps'] else '两道条件都满足，按下方清单执行。'}</div>
 <div class="bscroll"><table><thead><tr>
 <th>代码</th><th>成交价 E</th><th class="c-ctx">ATR14</th><th>止损价</th><th>止盈价</th><th>数量</th>
@@ -209,7 +209,7 @@ padding:4px 6px;font-size:13px;text-align:right}}
 <th class="c-ctx">层</th><th class="c-ctx">RSI2</th><th class="c-ctx">20日偏离</th></tr></thead>
 <tbody id="boardTbl">{cand_html}</tbody></table></div>
 <div class="v-note">参考价 = 信号日 {d['asof']} 收盘价；实际以次日开盘成交价 E 为准。
-止损 = E − 止损ATR × ATR14，止盈 = E + 止盈ATR × ATR14，到期日 = 下一交易日起第 N 个交易日按收盘平仓（时间闸，不是止盈目标）。
+止损 = E − 止损ATR × ATR14，止盈 = E + 止盈ATR × ATR14，到期日 = 下一交易日起第 N 根日线（约 N 个自然日）按收盘平仓（时间闸，不是止盈目标）。
 每笔保证金 {MP*100:.1f}% 权益（名义 {NOTIONAL:,.0f} USDT = {MP*LEV*100:.0f}% 权益），
 最多 {PROF['max_pos']} 只、毛敞口 ≤ {PROF['gross_cap']} 倍。三层最大止损宽度 {cfg['max_stop_pct']}%，
 低于放弃线 {cfg['abandon_pct']}%（爆仓距离 19% 的 80%），所以清单里不会出现「止损过宽不可执行」的标的。</div>
@@ -226,7 +226,7 @@ padding:4px 6px;font-size:13px;text-align:right}}
 
 <h2>与 v2.1 对照</h2>
 <div class="card">
-<table><thead><tr><th>系统</th><th>笔/月</th><th>总笔数</th><th>胜率</th><th>赔率</th><th>PF</th><th>年化</th><th>回撤</th></tr></thead><tbody>
+<div class="bscroll"><table><thead><tr><th>系统</th><th>笔/月</th><th>总笔数</th><th>胜率</th><th>赔率</th><th>PF</th><th>年化</th><th>回撤</th></tr></thead><tbody>
 <tr><td>v2.1（现执行口径，单腿 4%×12）</td><td>{v['per_month']}</td><td>{v['n']}</td><td>{v['win']}%</td>
 <td>{v['payoff']}</td><td>{v['pf']}</td><td>{v['cagr']}%</td><td>{v['mdd']}%</td></tr>
 <tr><td><b>HF-1（三层 2.5%×20）</b></td><td>{st['per_month']}</td><td>{st['n']}</td><td>{st['win']}%</td>
@@ -234,7 +234,7 @@ padding:4px 6px;font-size:13px;text-align:right}}
 <tr><td class="dim">HF-1 的 2026 样本外</td><td class="dim">—</td><td class="dim">{st['oos']['n']}</td>
 <td class="dim">{st['oos']['win']}%</td><td class="dim">—</td><td class="dim">{st['oos']['pf']}</td>
 <td class="dim">{st['oos']['cagr']}%</td><td class="dim">{st['oos']['mdd']}%</td></tr>
-</tbody></table>
+</tbody></table></div>
 <div class="v-note">出场结构 {json.dumps(st['exit_mix'], ensure_ascii=False)}（tp=止盈、stop=止损、time=到期、
 tp_gap/stop_gap=开盘跳空直接成交）；最长连亏 {st['max_consec_loss']} 笔；{st['months_pos']}/{st['months']} 个月为正；
 平均暴露 {st['expo']}% 权益。</div>
@@ -249,18 +249,18 @@ tp_gap/stop_gap=开盘跳空直接成交）；最长连亏 {st['max_consec_loss'
 <h2>稳健性</h2>
 <div class="card">
 <div class="sub">滚动 6 个月窗口（重叠，步长 2 个月）：</div>
-<table><thead><tr><th>窗口</th><th>笔数</th><th>胜率</th><th>区间收益</th><th>窗口内回撤</th></tr></thead>
-<tbody>{roll_html}</tbody></table>
+<div class="bscroll"><table><thead><tr><th>窗口</th><th>笔数</th><th>胜率</th><th>区间收益</th><th>窗口内回撤</th></tr></thead>
+<tbody>{roll_html}</tbody></table></div>
 <div class="sub" style="margin-top:10px">参数邻域（广度 40–55%、保证金 2%–4%、B/C 阈值上下）：胜率 61.5–63.3%、PF 1.76–2.08，是平台不是尖峰。</div>
-<table><thead><tr><th>变体</th><th>笔数</th><th>胜率</th><th>PF</th><th>年化</th><th>回撤</th></tr></thead>
-<tbody>{nb_html}</tbody></table>
+<div class="bscroll"><table><thead><tr><th>变体</th><th>笔数</th><th>胜率</th><th>PF</th><th>年化</th><th>回撤</th></tr></thead>
+<tbody>{nb_html}</tbody></table></div>
 <div class="sub" style="margin-top:10px">成本敏感性：单边 0.10% → PF 1.92；0.15% → 1.85；0.20% → 1.79（胜率不变，只吃收益）。资金费按 0.03%/日计入。</div>
 </div>
 
 <h2>分月收益（权益口径）</h2>
 <div class="card">{spark(d['monthly'])}</div>
 
-<h2>净值曲线（2.5% 保证金口径，每 4 个交易日取一点）</h2>
+<h2>净值曲线（2.5% 保证金口径，每 4 根日线取一点）</h2>
 <div class="card">{curve_svg(d['curve'])}
 <div class="v-note">起 {d['curve_dates'][0]} → 止 {d['curve_dates'][-1]}，期末 {d['curve'][-1]:.2f} 倍。</div></div>
 

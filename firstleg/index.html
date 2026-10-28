@@ -22,12 +22,12 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
 <h1>批量点火 · 第一段 <span class="pill">独立策略 · 已上线 · 手动刷新 · 与 v2.1/HF-1 分开记账</span></h1>
 <div class="row" style="margin-top:10px">
   <div class="kv"><b>2026-10-27</b><span>数据截至</span></div>
-  <div class="kv"><b class="off">停火：点火 0 / 门槛 3</b><span>今日状态</span></div>
-  <div class="kv"><b>0</b><span>点火家数（门槛 3）</span></div>
+  <div class="kv"><b class="off">停火：站上 MA50 的点火 0 / 门槛 3</b><span>今日状态</span></div>
+  <div class="kv"><b>0</b><span>点火家数（全部）</span></div>
   <div class="kv"><b><input id="eq" value="10000" inputmode="decimal" style="width:86px;background:#0f1419;border:1px solid #2b3440;color:#e8edf3;border-radius:6px;padding:3px 6px;font-size:14px;font-weight:400"></b><span>权益 USDT</span></div>
   <div class="kv"><b>0 / 0</b><span>站上 MA50 / 全部点火</span></div>
 </div>
-<div class="card"><div class="empty"><b>今日不开仓</b><p>点火 0 只，未达到批次门槛 3 只。没有批量点火就不做——这正是这套策略天然的震荡/下跌过滤。</p></div></div>
+<div class="card"><div class="empty"><b>今日不开仓</b><p>站上 MA50 的点火 0 只，未达到批次门槛 3 只（全部点火 0 只，未过 MA50 的不计）。没有批量点火就不做——这正是这套策略天然的震荡/下跌过滤。</p></div></div>
 <div class="card">
   <b>最近触发日（实际结果）</b>
   <table><thead><tr><th>信号日</th><th>标的</th><th>入场 E</th><th>止损</th><th>止盈1</th><th>止盈2</th><th>净收益</th><th>退出</th></tr></thead>
@@ -38,29 +38,30 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
   <b>规则（2026-10-28 修订：去掉关火）</b>
   <ul>
     <li>点火：当日涨幅 ≥4% 且成交量 ≥2×20 日中位；个股站上 MA50；价格≥5、20 日成交额≥30M、ATR%≤6%。</li>
-    <li>批次：同一天 ≥3 只点火才开火，取涨幅前 5；同一天不足 3 只不做。</li>
+    <li>个股口径：不含 ETF、杠杆 ETF（2026-10-28 修订）。</li>
+    <li>批次：同一天 ≥3 只站上 MA50 的点火才开火，取涨幅前 5；不足 3 只不做。</li>
     <li>仓位：5x 逐仓，单笔保证金 3% 权益（名义 15%），最多 8 仓，毛敞口 ≤2.4 倍。</li>
     <li>退出：止损 = 入场 −2.5 ATR；+2.5 ATR 平一半；剩下一半 +8 ATR 全平；否则持有 20 根日线（约 20 个自然日）按收盘平。</li>
-    <li>不设关火：2026-10-28 实测，5 日停新仓把年化从 56.5% 降到 37.2%，回撤反而从 12.33% 升到 13.10%，被挡掉的那批 PF 1.54 是正期望。</li>
+    <li>不设关火：2026-10-28 个股口径实测，5 日停新仓把年化从 52.2% 降到 40.8%，回撤只从 12.76% 降到 11.48%；被挡掉的 35 仓 PF 1.65、逐笔 +15.9pp，是正期望，已去掉。</li>
   </ul>
 </div>
 <div class="card">
   <b>下单口径示例（权益 10000 USDT）</b>
   <table><thead><tr><th>假设成交价 E</th><th>ATR</th><th>止损</th><th>止盈1 · 平一半</th><th>止盈2 · 封顶</th><th>数量</th><th>保证金</th><th>名义</th></tr></thead>
   <tbody><tr><td>100.00</td><td>3.00</td><td>92.50</td><td>107.50</td><td>124.00</td><td>15.00</td><td>300</td><td>1500.00</td></tr></tbody></table>
-  <p class="hint">止损 = E − 2.5×ATR；止盈1 = E + 2.5×ATR（平一半）；止盈2 = E + 8×ATR（剩余全平）。数量 = 名义 / E，名义 = 权益 × 3% × 5 倍。</p>
+  <p class="hint">固定示例按权益 10000 USDT；候选表里的数量、保证金、名义会随上方权益联动。止损 = E − 2.5×ATR；止盈1 = E + 2.5×ATR（平一半）；止盈2 = E + 8×ATR（剩余全平）。数量 = 名义 / E，名义 = 权益 × 3% × 5 倍。</p>
 </div>
 <div class="card">
-  <b>历史结果（2025-04-01 → 2026-10-26，代理数据）</b>
+  <b>历史结果（2025-04-01 → 2026-10-27，代理数据）</b>
   <div class="row" style="margin-top:8px">
-    <div class="kv"><b>113</b><span>成交仓位</span></div>
-    <div class="kv"><b>61.1%</b><span>胜率</span></div>
-    <div class="kv"><b>2.44</b><span>PF</span></div>
-    <div class="kv"><b>+113.4%</b><span>累计</span></div>
-    <div class="kv"><b>11.6%</b><span>最大回撤</span></div>
+    <div class="kv"><b>110</b><span>成交仓位</span></div>
+    <div class="kv"><b>59.1%</b><span>胜率</span></div>
+    <div class="kv"><b>2.26</b><span>PF</span></div>
+    <div class="kv"><b>+93.6%</b><span>累计</span></div>
+    <div class="kv"><b>12.76%</b><span>最大回撤</span></div>
     <div class="kv"><b>0</b><span>爆仓</span></div>
   </div>
-  <p class="hint">前 3 仓占总盈利 10%；去掉前 3 仓累计仍 +67.5%。2026-10-28 同引擎复核：不关火 117 仓 / +102.1% / 回撤 12.33%；5 日关火 86 仓 / +64.3% / 13.10%，已去掉（笔数与 113 的差异来自滚动窗口边界）。</p>
+  <p class="hint">2026-10-28 同引擎复核（仅个股，不含 ETF/杠杆 ETF）：110 仓 / +93.6% / 回撤 12.76%；含 ETF/LEV 为 117 仓 / +102.1% / 12.33%。前 3 仓占总盈利 10.3%；剔除前 3 仓盈利后逐笔加总仍 +57.3 个百分点（未复利）。</p>
 </div>
 <div class="foot">
 数据源：导演站日线（2026-01-26 之前为回填段，非 Gate 合约成交）。E 默认取信号日收盘，实盘以次日开盘为准；改 E 会重算止损止盈与数量。
@@ -78,6 +79,8 @@ document.querySelectorAll('#tbl tr.cand').forEach(function(tr){
     tr.querySelector('.tp2').textContent=(e+8*atr).toFixed(2);
     var eq=parseFloat(document.getElementById('eq').value)||0;
     tr.querySelector('.qty').textContent=(eq*0.15/e).toFixed(2);
+    tr.querySelector('.margin').textContent=(eq*0.03).toFixed(0);
+    tr.querySelector('.notional').textContent=(eq*0.15).toFixed(0);
   }
   inp.addEventListener('input',calc);
   document.getElementById('eq').addEventListener('input',calc); calc();
