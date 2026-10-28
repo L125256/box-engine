@@ -1,9 +1,9 @@
 {
- "asof": "2026-10-26",
- "idx": 221.296,
- "ma50": 234.321,
- "gap": 5.886,
- "gap_alt": -5.559,
+ "asof": "2026-10-27",
+ "idx": 224.895,
+ "ma50": 234.104,
+ "gap": 4.095,
+ "gap_alt": -3.934,
  "gate": false,
  "participants": 144,
  "participants_pool": 144,
@@ -12,10 +12,10 @@
  "batch_signal_day": "2026-09-26",
  "candidates": [],
  "weekend_block": false,
- "generated_at": "2026-10-28T04:01:35+0800",
- "generated_at_bj": "2026-10-28 04:01",
+ "generated_at": "2026-10-28T09:12:47+0800",
+ "generated_at_bj": "2026-10-28 09:12",
  "source": "/root/c1f_live/cache",
- "pull_time": "2026-10-28 04:01",
+ "pull_time": "2026-10-28 09:12",
  "gate_segment": [
   "2026-09-17",
   "2026-10-11"
