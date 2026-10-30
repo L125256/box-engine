@@ -1,10 +1,10 @@
 {
- "asof": "2026-10-28",
- "built_at": "2026-10-29 08:23",
+ "asof": "2026-10-29",
+ "built_at": "2026-10-30 08:20",
  "state": "off",
  "n_ign": 0,
  "n_above": 0,
  "candidates": [],
- "page_sha256": "ec025e696ad1456e246fb4426ed262a84954746dfb99090923240b5f52fbbc95",
+ "page_sha256": "feb4a41b43046e55e9367c2793196923d52a0b2b4f8797f074eef290a7f019d4",
  "page_bytes": 7785
 }
