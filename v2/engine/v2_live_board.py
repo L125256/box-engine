@@ -49,6 +49,12 @@ def add_weekdays(d, k):
     return x.isoformat()
 
 
+def add_days(d, k):
+    """k calendar days after d. The perp feed has a bar every calendar day, so the
+    engine's hold=N counts calendar days, not US trading days."""
+    return (datetime.date.fromisoformat(d) + datetime.timedelta(days=k)).isoformat()
+
+
 def exit_mix(tr):
     """Split closed trades by exit reason; 'time' is a deadline, not a profit target."""
     c = collections.Counter()
@@ -317,7 +323,7 @@ def main():
         asof=asof, next_entry=next_weekday(asof), active='cand',
         built_at=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))
                                        ).strftime('%Y-%m-%d %H:%M'),
-        entry_expiry=add_weekdays(next_weekday(asof), HOLD),
+        entry_expiry=add_days(next_weekday(asof), HOLD),
         near=dict(n=len(near), rows=near),
         funnel=funnel,
         v=dict(base=vb, cand=vc),

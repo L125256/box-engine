@@ -96,8 +96,9 @@ def main():
         return 2
     print('cache complete: %d/%d symbols' % (len(pool) - len(missing), len(pool)))
 
-    import v2_diag, v2_addendum, v2_live_board, v2_page
+    import v2_diag, v2_bases, v2_addendum, v2_live_board, v2_page
     stage('backtest (v2_diag)', v2_diag.main)
+    stage('bases (v2_bases)', v2_bases.main)
     stage('addendum (v2_addendum)', v2_addendum.main)
     stage('live board (v2_live_board)', v2_live_board.main)
     out = stage('render page', lambda: v2_page.build(os.path.join(outdir, 'index.html')))

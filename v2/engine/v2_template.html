@@ -253,6 +253,7 @@ canvas{display:block;width:100%;height:100%}
       <span class="pill">数据截至 <b id="asof">—</b> 收盘</span>
       <span class="pill">更新于 <b id="builtAt">—</b> <span class="dim">北京</span></span>
       <span class="pill">样本 <b id="universe">—</b> 只</span>
+      <a class="pill" href="hf1/" style="color:inherit;text-decoration:none;border-color:#a371f7">HF-1 高频页 →</a>
     </div>
   </header>
 
@@ -325,7 +326,7 @@ canvas{display:block;width:100%;height:100%}
 
   <div class="section-title" id="perfTitle">v2.1 执行口径 · C 档全样本结果（下方净值、回撤、月度与交易表同口径；与 v2 基线的差异见「执行口径 vs 基线」段）</div>
   <section class="kpis">
-    <div class="kpi"><div class="k">累计净收益 · C 档</div><div class="v up" id="kFinal">—</div><div class="s" id="kFinalSub">—</div></div>
+    <div class="kpi"><div class="k">累计净收益 · 当前口径</div><div class="v up" id="kFinal">—</div><div class="s" id="kFinalSub">—</div></div>
     <div class="kpi"><div class="k">年化收益</div><div class="v" id="kCagr">—</div><div class="s" id="kCagrSub">—</div></div>
     <div class="kpi"><div class="k">最大回撤</div><div class="v dn" id="kMdd">—</div><div class="s" id="kMddSub">—</div></div>
     <div class="kpi"><div class="k">胜率</div><div class="v up" id="kWin">—</div><div class="s" id="kWinSub">—</div></div>
@@ -345,16 +346,16 @@ canvas{display:block;width:100%;height:100%}
       <div class="note">起点 2024-11-20 = 1.00。B=3x/6% 保证金，C=5x/4%，D=5x/6%；EW=120 只股票等权买入持有（不含成本）。点击图例可隐藏曲线。</div>
     </section>
     <section class="card">
-      <div class="card-h"><h2>回撤对比 <span class="sub">C 档 vs 等权基准</span></h2></div>
+      <div class="card-h"><h2>回撤对比 <span class="sub">v2 基线 C 档 vs 等权基准</span></h2></div>
       <div class="chart-box"><canvas id="ddChart"></canvas></div>
-      <div class="note">C 档最大回撤 <b class="up">-6.84%</b>，同期等权基准 <b class="dn">-32.13%</b>。系统大部分时间空仓，回撤天然更小；这不是满仓替代品。</div>
+      <div class="note">v2 基线 C 档最大回撤 <b class="up">-7.48%</b>，同期等权基准 <b class="dn">-32.13%</b>。系统大部分时间空仓，回撤天然更小；这不是满仓替代品。</div>
     </section>
   </div>
 
   <section class="card" id="profiles">
     <div class="card-h"><h2>三档杠杆 <span class="sub">同一套信号，只改保证金与杠杆</span></h2></div>
     <div style="overflow-x:auto"><table class="tbl" id="profileTbl"></table></div>
-    <div class="note">C 档为默认：单笔 4% 保证金 × 5x = 20% 名义仓位，最多 12 笔，总名义暴露 ≤ 250%。D 档收益更高但回撤接近 9%，且单笔 30% 名义，集中度更高。所有档位均未触发爆仓。</div>
+    <div class="note">C 档为默认：单笔 4% 保证金 × 5x = 20% 名义仓位，最多 12 笔，总名义暴露 ≤ 250%。D 档收益更高但回撤 10.1%，且单笔 30% 名义，集中度更高。所有档位均未触发爆仓。</div>
   </section>
 
   <div class="section-title" id="cand">v2.1 执行口径 · 相对 v2 基线的改进（已设为默认）</div>
@@ -399,7 +400,7 @@ canvas{display:block;width:100%;height:100%}
   <section class="card">
     <div class="card-h"><h2>试过 20 组地基，MA50 的综合最好 <span class="sub">同一套入场 / 出场 / 仓位，只换环境定义</span></h2></div>
     <div style="overflow-x:auto"><table class="tbl" id="basisTbl"></table></div>
-    <div class="note">MA50、MA100+距高点-8%、纯广度60% 三者的最大回撤同为 6.84%，但后两者的累计只有 +61.4% / +37.2%，机会也少得多。MA80 / MA100 / MA200 把回撤推到 11.5%–19.1%；纯波动、纯斜率、完全不设地基也在 18.8%–20.6%。原因不是均线越长越好，而是 MA50 更早躲开下跌段。真正有增量的是在 MA50 之上再加广度确认，而不是换掉 MA50。</div>
+    <div class="note">MA50 地基的回撤最低；换更长均线或只用宽度，累计和回撤都会变差。具体数字见下表。真正有增量的是在 MA50 之上再加广度确认，而不是换掉 MA50。</div>
   </section>
 
   <div class="section-title" id="perf">Performance · 时间维度</div>
@@ -431,7 +432,7 @@ canvas{display:block;width:100%;height:100%}
     <section class="card">
       <div class="card-h"><h2>名义暴露 <span class="sub">C 档 · 仓位占净值</span></h2></div>
       <div class="chart-box sm"><canvas id="expoChart"></canvas></div>
-      <div class="note">平均暴露 27.3%，95 分位 118.8%，峰值 230.4%；49.6% 的交易日有持仓。机会来时集中，平时空仓。</div>
+      <div class="note">平均暴露 27.3%，95 分位 118.8%，峰值 230.4%；49.6% 的日线有持仓。机会来时集中，平时空仓。</div>
     </section>
   </div>
 
@@ -450,7 +451,7 @@ canvas{display:block;width:100%;height:100%}
   </div>
 
   <section class="card">
-    <div class="card-h"><h2>出场结构 <span class="sub">C 档 · 117 笔</span></h2></div>
+    <div class="card-h"><h2>出场结构 <span class="sub">v2 基线 C 档 · 114 笔</span></h2></div>
     <div style="display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:center" id="exitWrap">
       <div class="chart-box sm" style="height:240px"><canvas id="exitChart"></canvas></div>
       <div id="exitLegend"></div>
@@ -506,20 +507,20 @@ canvas{display:block;width:100%;height:100%}
     <div class="card-h"><h2>逐笔记录 <span class="sub">C 档 · 按入场日倒序</span></h2></div>
     <div class="filters" id="tradeFilters"></div>
     <div class="tlog"><table class="tbl" id="tradeTbl"></table></div>
-    <div class="note">价格列是该笔的标的涨跌幅；账户列是按入场时净值折算的账户盈亏。账户盈亏之和为 +51.1 个百分点（未复利），复利后累计 +62.8%。</div>
+    <div class="note">价格列是该笔的标的涨跌幅；账户列是按入场时净值折算的账户盈亏。账户盈亏之和为 +47.3 个百分点（未复利），复利后累计 +56.8%。</div>
   </section>
 
   <div class="section-title" id="risks">Risks · 必须知道的风险</div>
   <section class="card">
     <div class="risks">
-      <div class="risk"><div><b>样本太短。</b>只有 23 个月、117 笔交易（v2.1 执行口径 112 笔），不足以证明“长期”。2025 是强牛市，2026 年化已明显降速（v2 基线 +13.2%，v2.1 执行口径 +18.0%）。</div></div>
+      <div class="risk"><div><b>样本太短。</b>只有 23 个月、114 笔交易（v2.1 执行口径 109 笔），不足以证明“长期”。2025 是强牛市，2026 年收益已明显降速（v2 基线 +13.2%，v2.1 执行口径 +18.0%）。</div></div>
       <div class="risk"><div><b>闸门会错过 V 型反转。</b>等权指数跌破 MA50 后系统空仓；如果市场直接 V 型收复，会错过第一段。当前已空仓 15 天，历史最长 45 天。</div></div>
       <div class="risk"><div><b>5x 杠杆的跳空风险。</b>止损 2.5 ATR 通常远高于爆仓价，但隔夜跳空可能越过止损；回测 0 次爆仓，不代表未来不会。</div></div>
       <div class="risk"><div><b>代币合约不是现货。</b>回测用美股 K 线 + 合约成本近似；真实代币永续有溢价/折价、资金费方向变化、流动性与交易所风险。</div></div>
       <div class="risk"><div><b>参数不是完全平坦。</b>dev20 放宽到 -3% 会把回撤推到 21%；系统对“深回撤”的定义有依赖，存在过拟合可能。</div></div>
       <div class="risk"><div><b>数据清洗有主观性。</b>导演站数据存在比例因子伪影（如 4x 来回），已按“可疑上涨抹掉、真实下跌保留”的保守规则修复；仍可能有漏网。</div></div>
       <div class="risk"><div><b>收益高度集中。</b>2025-08、2025-09 两个月贡献了全年大部分收益；错过这两个月，曲线会平庸很多。</div></div>
-      <div class="risk"><div><b>广度过滤不是新 alpha。</b>它只删掉 6 笔“窄参与”环境下的亏损，样本仅 112 笔；40%–50% 阈值是连续高原，但改善集中在 2025-12 至 2026-03，不能保证未来重复。</div></div>
+      <div class="risk"><div><b>广度过滤不是新 alpha。</b>它只删掉 6 笔“窄参与”环境下的亏损，样本仅 109 笔；40%–50% 阈值是连续高原，但改善集中在 2025-12 至 2026-03，不能保证未来重复。</div></div>
       <div class="risk"><div><b>资金费历史只有 176 天。</b>2024–2025 的回测仍按 0.03%/日假设；Gate 实测成熟期均值 0.0129%/日、最近 30 日 0.0040%/日，说明假设偏保守，但新合约上线首周出现过单日 5.2% 的极端值，实盘需回避上线 30 天内的合约。</div></div>
       <div class="risk"><div><b>Factbook 没有给出可放行的因子。</b>392 格只有 4 格胜任且全部单池；本系统没有把其中任何一格直接当信号，只把它当作“不要继续堆因子”的反证。</div></div>
       <div class="risk"><div><b>不构成投资建议。</b>历史回测不代表未来收益；实盘前应先小资金跑 2-3 个月，核对成交价、资金费与滑点。</div></div>
@@ -791,7 +792,7 @@ function renderCandidate(){
       '<td class="'+(t.pnl>0?'up':'dn')+'">'+fmtPct(t.pnl,2)+'</td><td>'+t.bars+' 天</td>'+
       '<td>'+({tp:'止盈',tp_gap:'跳空止盈',time:'时间',stop:'止损',stop_gap:'跳空止损'}[t.why]||t.why)+'</td></tr>').join('')+'</tbody>';
 
-  $('candNote').innerHTML='被过滤的 6 笔全部亏损，信号日 5 日宽度只有 <b>24.6%–41.8%</b>：指数还在 MA50 上方，但多数个股已经跌破自己的 MA50，属于“窄参与”环境。新增的 1 笔是 DDOG 在 12-08 的重新入场（宽度 49.7%，-1.94%）。净效果：少 5 笔、胜率 61.5%→64.3%、2026 收益 13.2%→18.0%、回撤不变；2025 基本不变（45.3%→45.7%）。交易频率并不均匀：2025 月均约 <b>7.1 笔</b>，2026 降到 v2 基线 <b>2.6 笔</b> / v2.1 执行口径 <b>2.1 笔</b>；中位月 3 / 2.5 笔，最多 20 笔，分别有 5 / 7 个零开仓月（当月没有新开仓，不等于整月无持仓）。整月完全无持仓的完整月份：v2 基线 2 个（2025-04、2026-08）、v2.1 执行口径 3 个（2025-04、2026-03、2026-08）；2024-11 属预热期、2026-10 是未走完的当月，均不计入。全程无持仓的天数占比 v2 基线 47.8% / v2.1 执行口径 52.6%。宽度阈值 40%–50%、平滑 1–20 日是一块连续高原，不是单点。';
+  $('candNote').innerHTML='被过滤的 6 笔全部亏损，信号日 5 日宽度只有 <b>24.6%–41.8%</b>：指数还在 MA50 上方，但多数个股已经跌破自己的 MA50，属于“窄参与”环境。新增的 1 笔是 DDOG 在 12-08 的重新入场（宽度 49.7%，-1.94%）。净效果：少 5 笔、胜率 60.5%→63.3%、2026 收益 13.2%→18.0%、回撤不变；2025 基本不变（40.7%→41.1%）。交易频率并不均匀：2025 月均约 <b>7.1 笔</b>，2026 降到 v2 基线 <b>2.6 笔</b> / v2.1 执行口径 <b>2.1 笔</b>；中位月 3 / 2.5 笔，最多 20 笔，分别有 5 / 7 个零开仓月（当月没有新开仓，不等于整月无持仓）。整月完全无持仓的完整月份：v2 基线 2 个（2025-04、2026-08）、v2.1 执行口径 3 个（2025-04、2026-03、2026-08）；2024-11 属预热期、2026-10 是未走完的当月，均不计入。全程无持仓的天数占比 v2 基线 47.8% / v2.1 执行口径 52.6%。宽度阈值 40%–50%、平滑 1–20 日是一块连续高原，不是单点。';
 }
 
 function renderBasis(){
@@ -860,7 +861,10 @@ function renderHeader(){
   const c = stNow(), b = D.benchmark, other = isCand ? D.profiles.C.st : D.addendum.cand.st;
   const stName = isCand ? 'v2.1 执行口径' : 'v2 基线（对照）';
   const otherName = isCand ? 'v2 基线' : 'v2.1 执行口径';
-  $('perfTitle').innerHTML = stName+' · C 档全样本结果（下方净值、回撤、月度与交易表同口径；与 '+otherName+'的差异见「执行口径 vs 基线」段）';
+  const candN = D.addendum.cand.st.n, baseN = D.profiles.C.st.n;
+  $('perfTitle').innerHTML = isCand
+    ? '头版 KPI：v2.1 执行口径（'+candN+' 笔）· 下方净值/回撤/月度/交易表：v2 基线 C 档（'+baseN+' 笔，用于对照）· 差异见「执行口径 vs 基线」段'
+    : 'v2 基线（对照）· C 档全样本结果（'+baseN+' 笔，下方同口径）';
   $('kFinal').textContent = fmtPct((c.final-1)*100,1);
   $('kFinalSub').textContent = '同期等权 '+fmtPct((b.final-1)*100,1)+' / 回撤 -'+b.mdd.toFixed(1)+'%';
   $('kCagr').textContent = fmtPct(c.cagr,1);
@@ -926,7 +930,7 @@ function fillBoard(){
   const notional=eq*(r.lev*r.margin_pct/100);
   const margin=eq*r.margin_pct/100;
 
-  const ec=['代码','成交价 E','ATR14','止损价','止盈价','数量','名义 USDT','保证金','止损占权益','到期日（10 个交易日）','RSI2 / 20 日偏离'];
+  const ec=['代码','成交价 E','ATR14','止损价','止盈价','数量','名义 USDT','保证金','止损占权益','到期日（10 根日线 ≈ 10 天）','RSI2 / 20 日偏离'];
   let h='<thead><tr>'+ec.map((c,i)=>'<th'+(i===2?' class="c-atr"':(i===10?' class="c-ctx"':''))+'>'+c+'</th>').join('')+'</tr></thead><tbody>';
   if(v.entry.n>0){
     v.entry.rows.forEach(t=>{
@@ -943,7 +947,7 @@ function fillBoard(){
          '<td class="v-qty">'+qty(q)+'</td>'+
          '<td class="v-notional">'+usd(notional)+'</td><td class="v-margin">'+usd(margin)+'</td>'+
          '<td class="dn v-stopeq">'+fmtPct(t.stop_eq_pct,2)+'</td>'+
-         '<td>'+b.entry_expiry+'<div class="dim" style="font-size:11px">收盘价平仓，遇美股休市顺延</div></td>'+
+         '<td>'+b.entry_expiry+'<div class="dim" style="font-size:11px">按日线收盘平仓（自然日）</div></td>'+
          '<td class="c-ctx">'+t.rsi2.toFixed(1)+' / '+fmtPct(t.dev20,2)+'</td></tr>';
     });
   }
@@ -1001,10 +1005,10 @@ function fillBoard(){
     '<b>表里「成交价 E」可改成你的实际成交价，止损、止盈、数量、止损占权益会立即重算，直接照抄进交易所。</b>'+
     '开盘价与参考价差超过 1 个 ATR 时同样先改 E 再看值不值得做。仓位按权益 '+usd(notional)+' USDT 名义/只（保证金 '+usd(margin)+
     '，'+r.lev+' 倍），最多 '+r.max_pos+' 只、毛敞口 ≤ '+r.gross_cap+' 倍；同日超过 '+r.max_pos+' 只时按 RSI2 从低到高取前 '+r.max_pos+'。'+
-    '满 '+r.hold+' 个交易日收盘平仓，到期日列已按工作日推出（遇美股休市顺延）。'+
+    '满 '+r.hold+' 根日线收盘平仓，到期日列按自然日推出（合约 7×24 每天一根）。'+
     riskHtml+
     '<div style="margin-top:8px;border-top:1px dashed rgba(30,42,54,.65);padding-top:8px">'+
-    '<b>「到期平仓」是时间闸，不是止盈目标：</b>'+VNAME[VER]+' 样本 '+x.n+' 笔里，止盈 '+x.tp+' 笔、止损 '+x.stop+' 笔、'+timeTxt+'（平均持有 '+x.bars_avg+' 个交易日）。'+
+    '<b>「到期平仓」是时间闸，不是止盈目标：</b>'+VNAME[VER]+' 样本 '+x.n+' 笔里，止盈 '+x.tp+' 笔、止损 '+x.stop+' 笔、'+timeTxt+'（平均持有 '+x.bars_avg+' 根日线）。'+
     '到期这笔多数是小亏离场，作用是腾出仓位、防止小亏拖成大亏，指望它赚钱会失望。同一批信号把到期取消、只等止损/止盈：'+
     'PF <b>'+h10.pf.toFixed(2)+' → '+hN.pf.toFixed(2)+'</b>、最大回撤 <b>'+h10.mdd.toFixed(2)+'% → '+hN.mdd.toFixed(2)+'%</b>、止损 <b>'+h10.stop+' → '+hN.stop+'</b> 笔。'+
     '所以到期保留；页面上标「到期日」，不标「时间止盈」。</div>';
@@ -1087,7 +1091,7 @@ function renderHealth(){
   $('healthNote').innerHTML='体检规则写死、不靠临场判断：近 20 笔胜率 &lt;45% 或 PF &lt;1.0 → <b>暂停开新仓并重新验证</b>，否则照常执行。这条线在 '+VNAME[VER]+' 样本内 '+au.n_all+' 笔里 <b>触发 '+au.pause_hits+' 次</b>，只当断路保护。'+
     '胜率 &lt;55% 或 PF &lt;1.3 只做记录、<b>不自动减仓</b>：历史出现 '+au.half_hits+' 次，之后 20 笔平均 '+fmtPct(au.half_fwd_avg,2)+'%、正收益占比 '+au.half_fwd_pos+'%，减仓会砍掉后续收益。'+
     '当前：<b>'+h.verdict.text+'</b>（近 20 笔胜率 '+h.t20.win.toFixed(1)+'%、PF '+h.t20.pf.toFixed(2)+'）。'+
-    '近 130 个交易日只有 '+h.last130.n+' 笔、收益 '+fmtPct(h.last130.ret,2)+'%，是窄行情主动空仓，不是规则失效。'+last+
+    '近 130 根日线只有 '+h.last130.n+' 笔、收益 '+fmtPct(h.last130.ret,2)+'%，是窄行情主动空仓，不是规则失效。'+last+
     ' 每月重跑一次滚动前推；近 20 笔一旦踩到暂停线就停手复核，不改规则硬扛。';
 }
 

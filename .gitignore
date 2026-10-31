@@ -1,2 +1,5 @@
 .cache/
+cache_fresh/
+cache_live_merged/
 __pycache__/
+systems/fd1/index.html

@@ -9,7 +9,14 @@ import os, sys, json, datetime, itertools, collections
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(os.path.dirname(HERE), 'v2'))
+WORK = os.path.dirname(HERE)
+ROOT = os.path.dirname(WORK)
+TOP = os.path.dirname(ROOT)
+for _p in (os.path.join(WORK, 'v2'), os.path.join(WORK, 'v2', 'engine'),
+           os.path.join(ROOT, 'v2'), os.path.join(ROOT, 'v2', 'engine'),
+           os.path.join(TOP, 'v2', 'engine'), HERE):
+    if os.path.isdir(_p):
+        sys.path.insert(0, _p)
 import v2_lib as V                                        # noqa: E402
 from v2_final import A_RULES, B_RULES, dedupe, START      # noqa: E402
 
@@ -17,6 +24,11 @@ BR_WIN = 5
 
 
 def load():
+    for _c in (os.environ.get('V2_CACHE'), os.path.join(WORK, 'cache_fresh'),
+               os.path.join(TOP, 'cache_fresh'), os.path.join(ROOT, 'cache_fresh')):
+        if _c and os.path.isdir(_c):
+            V.CACHE = _c
+            break
     raw, cal, g = V.load_all(include_lev=False, include_etf=False)
     A = V.align(raw, cal, g)
     F = V.features(A)

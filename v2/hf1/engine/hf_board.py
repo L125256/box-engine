@@ -7,8 +7,14 @@ import os, sys, json, datetime, collections
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(os.path.dirname(HERE), 'v2'))
-sys.path.insert(0, HERE)
+WORK = os.path.dirname(HERE)
+ROOT = os.path.dirname(WORK)
+TOP = os.path.dirname(ROOT)
+for _p in (os.path.join(WORK, 'v2'), os.path.join(WORK, 'v2', 'engine'),
+           os.path.join(ROOT, 'v2'), os.path.join(ROOT, 'v2', 'engine'),
+           os.path.join(TOP, 'v2', 'engine'), HERE):
+    if os.path.isdir(_p):
+        sys.path.insert(0, _p)
 import v2_lib as V                                        # noqa: E402
 from v2_final import A_RULES, dedupe, START               # noqa: E402
 import hf7 as H7                                          # noqa: E402
@@ -26,7 +32,10 @@ CST = datetime.timezone(datetime.timedelta(hours=8))
 def _v21_ref():
     """v2.1 对照口径：优先读刚重建的 v2_page.json，读不到才用上次落盘的常数。"""
     try:
-        p = json.load(open(os.path.join(HERE, '..', 'v2', 'v2_page.json'), encoding='utf-8'))
+        cands = [os.path.join(WORK, 'v2', 'v2_page.json'),
+                 os.path.join(TOP, 'v2', 'engine', 'v2_page.json'),
+                 os.path.join(ROOT, 'v2', 'engine', 'v2_page.json')]
+        p = json.load(open(next(q for q in cands if os.path.exists(q)), encoding='utf-8'))
         s = p['addendum']['cand']['st']
         days = p['profiles']['C']['st']['days']
         return dict(n=s['n'], win=round(s['win'], 1), payoff=round(s['payoff'], 2),

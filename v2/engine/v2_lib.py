@@ -310,7 +310,7 @@ def make_signals(A, F, RG, BR, p, start_i=None, end_i=None):
                 continue
             if i - b['first'] < p.get('warmup', 210):
                 continue
-            if b['jump'][i] or b['jump'][i + 1]:
+            if b['jump'][i]:
                 continue
             f = F[s]
             c = b['c'][i]
@@ -508,7 +508,8 @@ def simulate(A, F, RG, sig, p):
                 holdx = ex.get('hold', hold)
                 maxx = ex.get('ma_exit', ma_exit)
                 stop = ep - slx * x['atr']
-                if stop <= 0 or (ep - stop) / ep > 0.5:
+                liq = ep * (1 - 1.0 / lev + mmr)
+                if stop <= 0 or (ep - stop) / ep > 0.5 or stop <= liq:
                     dbg['stopdist'] += 1
                     continue
                 notional = margin_pct * equity * lev
@@ -522,7 +523,6 @@ def simulate(A, F, RG, sig, p):
                     dbg['room'] += 1
                     continue
                 margin = notional / lev
-                liq = ep * (1 - 1.0 / lev + mmr)
                 pos[s] = dict(ei=i, ep=ep, stop=stop, tp=(ep + tpx * x['atr']) if tpx else None,
                               notional=notional, margin=margin, eq0=equity, fund=0.0,
                               atr=x['atr'], liq=liq, sig=x, hold=holdx, ma_exit=maxx, tier=x.get('tier','A'))

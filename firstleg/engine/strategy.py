@@ -20,7 +20,9 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = os.path.dirname(os.path.dirname(HERE))
 import sys
-sys.path.insert(0, os.path.join(WORK, 'v2'))
+for _p in (os.path.join(WORK, 'v2'), os.path.join(WORK, 'v2', 'engine'), HERE):
+    if os.path.isdir(_p):
+        sys.path.insert(0, _p)
 import v2_lib as L
 
 RET1_MIN = 0.04
@@ -37,7 +39,8 @@ COST = 0.001
 FUND = 0.0003
 
 
-def load(cache='cache_fresh'):
+def load(cache=None):
+    cache = cache or os.environ.get('V2_CACHE') or 'cache_fresh'
     L.CACHE = os.path.join(WORK, cache) if not os.path.isabs(cache) else cache
     raw, cal, gi = L.load_all(include_lev=True, include_etf=True)
     A = L.align(raw, cal, gi)

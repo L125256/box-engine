@@ -1,3 +1,5 @@
+> 五套美股代币永续策略（v2.1、HF-1、批量点火、FD-1、P6）的代码、规则、回测与交接文档见 [SYSTEMS.md](SYSTEMS.md)。本 README 下半部分描述的是早期箱体引擎，保留作历史。
+
 # 📦 箱体引擎状态页（本机权威引擎复刻版）
 
 复刻 [原版状态页](https://llng125256.github.io/kx-combo/status/box.html) 同款风格（GitHub Dark 卡片式 UI），数据改由本机权威引擎 `eng_final.py`（WT-A 仲裁权威基线 v1.0，V2 可实现口径 + 清洗 144 标的池）每日自动计算生成。
