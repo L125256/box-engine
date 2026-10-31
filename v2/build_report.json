@@ -1,11 +1,11 @@
 {
- "asof": "2026-10-29",
- "built_at": "2026-10-30 08:20",
- "next_entry": "2026-10-30",
+ "asof": "2026-10-30",
+ "built_at": "2026-10-31 08:29",
+ "next_entry": "2026-11-02",
  "active": "cand",
  "refresh": null,
  "page": "index.html",
- "page_bytes": 171295,
- "page_sha256": "330465612d602b2d164af59615b54aff7e1e3f90d1f7bea4ac463e29439c8011",
- "page_json_sha256": "0dc854ef730f58a122de982fed27917c9a78650cc07219b073b89afb96512d1a"
+ "page_bytes": 171029,
+ "page_sha256": "c302671227912ea9950cd336d55bbc2f44eb2f8d8d17e8ff1e9adf04f31da645",
+ "page_json_sha256": "fd247e64f0431ff6f5172df92ce14b2ead9a5f9f926b088754910e079b91c410"
 }
