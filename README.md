@@ -1,5 +1,21 @@
 > 五套美股代币永续策略（v2.1、HF-1、批量点火、FD-1、P6）的代码、规则、回测与交接文档见 [SYSTEMS.md](SYSTEMS.md)。本 README 下半部分描述的是早期箱体引擎，保留作历史。
 
+## 两套可直接运行的引擎（2026-11-03）
+
+- **FD-1 双通道**：`systems/fd1/` — 深踩 + 20 日新高 2.0× 量能突破；全样本 519 笔 / 70.7% / PF1.49 / 年化 36.7% / 回撤 12.46%。
+- **P6 v2**：`systems/p6/` — 趋势 + 20 日收益 > 0 + 1.5× 量能，首次触发；全样本 653 笔 / 70.0% / PF1.17 / 年化 16.6% / 回撤 14.39%。
+- **数据适配器**：`systems/prepare_data.py` — 把 CSV/JSON 日线转成 `cache_fresh/`。
+- **完整逻辑、数据契约、运行与验证**：[`systems/ENGINES.md`](systems/ENGINES.md)。
+
+两套都只做多、5x、单笔保证金 3%、最多 16 仓、毛敞口 2.5x；只生成本地候选/看板，不下单、不需要 API key。最短路径：
+
+```bash
+pip install -r systems/requirements.txt
+python systems/prepare_data.py --input /path/to/kline.csv --out cache_fresh
+V2_CACHE=$PWD/cache_fresh python systems/fd1/strategy.py
+V2_CACHE=$PWD/cache_fresh python systems/p6/rs_scan.py
+```
+
 # 📦 箱体引擎状态页（本机权威引擎复刻版）
 
 复刻 [原版状态页](https://llng125256.github.io/kx-combo/status/box.html) 同款风格（GitHub Dark 卡片式 UI），数据改由本机权威引擎 `eng_final.py`（WT-A 仲裁权威基线 v1.0，V2 可实现口径 + 清洗 144 标的池）每日自动计算生成。

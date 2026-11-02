@@ -1,0 +1,28 @@
+{
+ "asof": "2026-11-01",
+ "built_at": "2026-11-03 01:22",
+ "n_candidates": 0,
+ "candidates": [],
+ "stats": {
+  "full": {
+   "n": 653,
+   "win": 70.0,
+   "pf": 1.17,
+   "cagr": 16.6,
+   "mdd": -14.39,
+   "pm": 29.7,
+   "total": 32.5
+  },
+  "since202506": {
+   "n": 581,
+   "win": 71.4,
+   "pf": 1.27,
+   "cagr": 31.9,
+   "mdd": -12.45,
+   "pm": 34.2,
+   "total": 48.1
+  }
+ },
+ "page_sha256": "b50c06501ceef9da31ef5040909f628976ef4acb3f2cb3cf7575b6267fb8642f",
+ "page_bytes": 6560
+}

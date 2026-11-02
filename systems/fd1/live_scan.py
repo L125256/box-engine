@@ -45,12 +45,21 @@ def main():
         '已收全' if is_closed(day) else '未收盘（盘中预演，收盘定稿为准）'))
 
     cand = strategy._eligible(A, F, i)
-    print('\n严格通过：%d 只' % len(cand))
+    print('\n通道 A 深踩 严格通过：%d 只' % len(cand))
     for x in cand:
-        r = fmt_row(x, EQUITY0, day)
+        r = fmt_row(x, EQUITY0, day, 'deep')
         print('  %-9s E %.2f  止损 %.2f  止盈 %.2f  数量 %.2f  保证金 %.0f  到期 %s ｜ RSI2 %.1f  偏离 %+.1f%%  ATR%% %s'
               % (r['sym'], r['close'], r['stop'], r['tp'], r['qty'], r['margin'], r['expiry'],
                  r['rsi2'], r['dev20'] * 100, fmt_atrp(x['atrp'])))
+
+    brk = [x for x in strategy._breakout_eligible(A, F, i)
+           if not strategy._breakout_recent(A, F, x['sym'], i)]
+    print('\n通道 B 突破 严格通过：%d 只' % len(brk))
+    for x in brk:
+        r = fmt_row(x, EQUITY0, day, 'brk')
+        print('  %-9s E %.2f  止损 %.2f  止盈 %.2f  数量 %.2f  保证金 %.0f  到期 %s ｜ 量比 %.2fx  20日高 %.2f  ATR%% %s'
+              % (r['sym'], r['close'], r['stop'], r['tp'], r['qty'], r['margin'], r['expiry'],
+                 r['volx'], r['hi20'], fmt_atrp(x['atrp'])))
 
     rows = []
     for s, b in A.items():

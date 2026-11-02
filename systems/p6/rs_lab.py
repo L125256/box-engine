@@ -5,6 +5,7 @@
   P  趋势回踩：站上 MA50、MA50>MA100、MA50/MA100 向上；20 日跑赢等权指数；
      回踩 MA20（dev20<=-2%）且 RSI2<=40
   PD 深回踩：同上，但 dev20<=-5%、RSI2<=30
+  V  趋势+强度+量能：趋势 + 20 日收益>0；成交量 >= volx × 20 日中位量；无回踩
   B  新高突破：趋势 + 相对强度；收盘创 20/60 日新高
   R  MA10/MA20 回收：趋势 + 相对强度；先前 5 日内曾低于 MA50 达 5%，今天收回 MA10/MA20
 
@@ -36,7 +37,7 @@ COST = 0.001
 FUND = 0.0003
 
 
-def build_events(A, F, RG, cal, kind, trend='ma50', rs='idx+2', min_dv=30e6):
+def build_events(A, F, RG, cal, kind, trend='ma50', rs='idx+2', min_dv=30e6, volx=None):
     n = len(cal)
     idx = RG['idx']
     ms50 = {}
@@ -89,7 +90,13 @@ def build_events(A, F, RG, cal, kind, trend='ma50', rs='idx+2', min_dv=30e6):
             if rs == 'abs+idx5' and not (r20 > 0 and r20 > idx20 + 0.05):
                 continue
 
-            if kind == 'pullback':
+            if kind == 'trend_vol':
+                if volx is not None:
+                    vm = float(np.median(b['v'][max(0, i - 20):i]))
+                    if vm <= 0 or b['v'][i] < volx * vm:
+                        continue
+                score = float(f['rsi2'][i])
+            elif kind == 'pullback':
                 if f['dev20'][i] > -0.02 or f['rsi2'][i] > 40:
                     continue
                 score = float(f['rsi2'][i])
