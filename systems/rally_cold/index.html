@@ -1,0 +1,48 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>冷启动 · 全历史起涨 本地看板</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#26303d;--txt:#d7dee8;--dim:#8b98a9;--pos:#3fb950;--neg:#f85149;--acc:#58a6ff;--warn:#d29922}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 22px 60px}
+h1{font-size:20px;margin:0 0 4px}h2{font-size:15px;margin:26px 0 10px;color:#c9d4e2}
+.sub{color:var(--dim);font-size:12px;margin-bottom:18px}
+.row{display:flex;gap:22px;flex-wrap:wrap}.kv b{display:block;font-size:18px}.kv span{font-size:12px;color:var(--dim)}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{color:var(--dim);font-weight:500}td:first-child,th:first-child{text-align:left}
+.pos{color:var(--pos)}.neg{color:var(--neg)}.acc{color:var(--acc)}.warn{color:var(--warn)}
+.hint{color:var(--dim);font-size:12px;margin-top:8px}
+ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0}
+</style></head><body><div class="wrap">
+<h1>冷启动 · 全历史起涨 <span style="font-size:12px;color:var(--dim)">本地看板 · 未上线</span></h1>
+<div class="sub">数据截至 2026-11-03 ｜ 生成于 2026-11-05 00:57 ｜ 季度走前模型 + 模型分≥0.75（全程统一，无日历）+ 宽度≤35% + 同日 A≥3 + 振幅/涨幅≥7%</div>
+<div class="row">
+  <div class="kv"><b class="pos">闸门开</b><span>市场宽度 20.8%（闸门 ≤35%）</span></div>
+  <div class="kv"><b>0</b><span>本季度信号</span></div>
+  <div class="kv"><b>49 笔 / 81.6% / 4.07</b><span>全历史组合（笔 / 胜率 / PF）</span></div>
+  <div class="kv"><b>21 笔 / 90.5% / 14.87</b><span>2026 组合（笔 / 胜率 / PF）</span></div>
+  <div class="kv"><b>2026-10-01 / 35267 行 / 1290 正</b><span>本季度模型（训练截止 / 行 / 正）</span></div>
+</div>
+<p class="hint">逐笔统计（不受同日 5 仓上限）：全样本 106 笔 / 85.8% / PF 10.55；2026 37 笔 / 86.5% / PF 13.55。组合统计见下表。</p>
+
+<h2>本季度候选 / 最近信号</h2>
+<p class="hint">最近 21 根没有新信号，当前空仓。 最后一个信号：<b>AMDUSDT</b> 2026-07-30（信号日）→ 2026-07-31（入场）。 需要同时满足「模型分≥0.75 + 宽度≤35% + 同日 A≥3 + 振幅/涨幅≥7%」。</p>
+
+<h2>实盘组合（100,000 起始，1% 风险/笔，5 仓日，16 仓）</h2>
+<table><thead><tr><th>窗口</th><th>信号</th><th>成交</th><th>被 5 仓日挡</th><th>胜率</th><th>PF</th><th>区间收益</th><th>年化</th><th>最大回撤</th><th>期末权益</th></tr></thead><tbody><tr><td>2025-03-01</td><td>106</td><td>49</td><td>52</td><td>81.6%</td><td>4.07</td><td class="pos">+38.99%</td><td>21.8%</td><td class="neg">-9.33%</td><td>138993</td></tr><tr><td>2025-06-01</td><td>56</td><td>35</td><td>18</td><td>80.0%</td><td>5.50</td><td class="pos">+28.87%</td><td>19.5%</td><td class="neg">-6.15%</td><td>128868</td></tr><tr><td>2026-01-01</td><td>37</td><td>21</td><td>13</td><td>90.5%</td><td>14.87</td><td class="pos">+18.82%</td><td>22.9%</td><td class="neg">-4.63%</td><td>118818</td></tr><tr><td>2026-01-26</td><td>37</td><td>21</td><td>13</td><td>90.5%</td><td>14.87</td><td class="pos">+18.82%</td><td>25.1%</td><td class="neg">-4.63%</td><td>118818</td></tr><tr><td>2026-05-01</td><td>8</td><td>6</td><td>2</td><td>100.0%</td><td>84375543.06</td><td class="pos">+8.49%</td><td>17.3%</td><td class="neg">-1.31%</td><td>108493</td></tr></tbody></table>
+
+<h2>最近成交（模拟，12/30 两段 + 60 日低 3 连收）</h2>
+<table><thead><tr><th>信号日</th><th>标的</th><th>入场</th><th>止损</th><th>结果</th><th>退出 1</th><th>退出 2</th><th>持有</th></tr></thead><tbody><tr><td>2026-03-31</td><td>RDDTUSDT</td><td>136.38</td><td class="neg">119.27</td><td class="pos">+19.32%</td><td>tp1</td><td>time</td><td>60 根</td></tr><tr><td>2026-03-31</td><td>RKLBUSDT</td><td>65.50</td><td class="neg">56.13</td><td class="pos">+20.45%</td><td>tp1</td><td>tp2</td><td>16 根</td></tr><tr><td>2026-03-31</td><td>SNDKUSDT</td><td>652.29</td><td class="neg">517.00</td><td class="pos">+20.60%</td><td>tp1</td><td>tp2</td><td>8 根</td></tr><tr><td>2026-03-31</td><td>WDCUSDT</td><td>280.35</td><td class="neg">237.30</td><td class="pos">+24.22%</td><td>tp1_gap</td><td>tp2</td><td>13 根</td></tr><tr><td>2026-07-27</td><td>IONQUSDT</td><td>34.18</td><td class="neg">32.56</td><td class="pos">+20.56%</td><td>tp1</td><td>tp2</td><td>10 根</td></tr><tr><td>2026-07-30</td><td>AMDUSDT</td><td>499.82</td><td class="neg">420.43</td><td class="pos">+15.17%</td><td>tp1</td><td>time</td><td>60 根</td></tr><tr><td>2026-07-30</td><td>INTCUSDT</td><td>95.24</td><td class="neg">79.16</td><td class="pos">+19.82%</td><td>tp1</td><td>tp2</td><td>52 根</td></tr><tr><td>2026-07-30</td><td>MARAUSDT</td><td>12.02</td><td class="neg">10.03</td><td class="neg">-20.36%</td><td>stop_close</td><td>stop_close</td><td>12 根</td></tr><tr><td>2026-07-30</td><td>MRVLUSDT</td><td>195.43</td><td class="neg">158.05</td><td class="pos">+20.42%</td><td>tp1</td><td>tp2</td><td>21 根</td></tr><tr><td>2026-07-30</td><td>MUUSDT</td><td>902.62</td><td class="neg">706.28</td><td class="pos">+14.09%</td><td>tp1</td><td>time</td><td>60 根</td></tr><tr><td>2026-07-30</td><td>NBISUSDT</td><td>199.18</td><td class="neg">141.67</td><td class="pos">+20.56%</td><td>tp1</td><td>tp2</td><td>12 根</td></tr><tr><td>2026-07-30</td><td>SNDKUSDT</td><td>1352.56</td><td class="neg">972.20</td><td class="pos">+20.35%</td><td>tp1</td><td>tp2</td><td>17 根</td></tr></tbody></table>
+
+<h2>规则</h2>
+<ul>
+<li><b>模型</b>：22 个因果特征（深回撤、ATR、RSI14、振幅、cpos、量比、宽度、同日反转/创新低家数、同日 A 信号数、市场 20 日收益等），L2 逻辑回归，起涨事件日等权；每季度只用之前的数据重训。</li>
+<li><b>门槛</b>：2025-03 那批分数只用 &lt;2025-03-01 的数据训练得到；模型分全程 ≥0.75，2026-11-05 起取消「2025-03/04 用 0.75、之后 0.65」的日历特权。2025-03 的信号最高只有 0.742，统一门槛即可把它们全部挡在门外（研究：work/COLD_DODGE_2026-11-05.md）。</li>
+<li><b>结构闸门</b>：120 只个股宽度≤35%；同日 A 信号≥3；个股当日振幅≥7% 或涨幅≥7%。</li>
+<li><b>出场/仓位</b>：与 U 完全相同，60 日低 3 连收、50% +12%、50% +30%、−30% 上限、60 根；1% 风险/笔、5x、16 仓、同日 5 仓、毛敞口≤2.5x。</li>
+<li>本页只本地生成，不提交、不发布；每天收盘后重跑一次。</li>
+<li><b>对照</b>：真实段严格版（只用 2025-06+ 训练、2026-01-26 窗口）是 21 笔 / 90.5% / PF17.57 / +22.77% / 回撤 −4.80%，那是另一套模型；本页是全历史季度走前 + 全程 0.75 门槛的版本，两者不要混用。</li>
+</ul>
+<p class="hint">全程 0.75 是收盘当天就能算的规则，不再依赖日期；但它挡掉 2025-03 的依据目前只有一次事件，与 3 月最高分 0.742 之间只有 0.008 的余量，所以门槛的任何调整都走前向判据复核，不用日期补丁。</p>
+</div></body></html>

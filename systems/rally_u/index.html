@@ -1,0 +1,46 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U 平衡 · 起涨点 本地看板</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#26303d;--txt:#d7dee8;--dim:#8b98a9;--pos:#3fb950;--neg:#f85149;--acc:#58a6ff;--warn:#d29922}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 22px 60px}
+h1{font-size:20px;margin:0 0 4px}h2{font-size:15px;margin:26px 0 10px;color:#c9d4e2}
+.sub{color:var(--dim);font-size:12px;margin-bottom:18px}
+.row{display:flex;gap:22px;flex-wrap:wrap}.kv b{display:block;font-size:18px}.kv span{font-size:12px;color:var(--dim)}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{color:var(--dim);font-weight:500}td:first-child,th:first-child{text-align:left}
+.pos{color:var(--pos)}.neg{color:var(--neg)}.acc{color:var(--acc)}.warn{color:var(--warn)}
+.hint{color:var(--dim);font-size:12px;margin-top:8px}
+ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0}
+</style></head><body><div class="wrap">
+<h1>U 平衡 · 集群 A≥3 且 B≥20 <span style="font-size:12px;color:var(--dim)">本地看板 · 未上线</span></h1>
+<div class="sub">数据截至 2026-11-03 ｜ 生成于 2026-11-05 01:14 ｜ A 质量版 + B+ 覆盖版，宽度≤34% + 振幅/涨幅≥7% + 同日 A≥3 且 B≥20（2026-11-05 加严）</div>
+<div class="row">
+  <div class="kv"><b class="pos">闸门开</b><span>市场宽度 20.8%（闸门 ≤34%）</span></div>
+  <div class="kv"><b>0</b><span>最近 21 根信号</span></div>
+  <div class="kv"><b>38 笔 / 89.5% / 43.48</b><span>全样本（笔 / 胜率 / PF）</span></div>
+  <div class="kv"><b>22 笔 / 90.9% / 81.79</b><span>2026（笔 / 胜率 / PF）</span></div>
+  <div class="kv"><b>16 笔 / 87.5% / 25.85</b><span>2025H2（笔 / 胜率 / PF）</span></div>
+</div>
+
+<h2>最近信号 / 当前候选</h2>
+<p class="hint">最近 21 根没有新信号，当前空仓。 最后一个信号：<b>AAOIUSDT</b> 2026-03-31（信号日）→ 2026-04-01（入场）。 需要同时满足「宽度≤34% + 个股振幅/涨幅≥7% + 同日 A≥3 且 B≥20」。</p>
+
+<h2>三窗口实盘组合（100,000 起始，1% 风险/笔，5 仓日，16 仓）</h2>
+<table><thead><tr><th>窗口</th><th>信号</th><th>成交</th><th>被 5 仓日挡</th><th>胜率</th><th>PF</th><th>区间收益</th><th>年化</th><th>最大回撤</th><th>期末权益</th></tr></thead><tbody><tr><td>2026-01-26</td><td>22</td><td>5</td><td>17</td><td>100.0%</td><td>∞</td><td class="pos">+5.49%</td><td>7.2%</td><td class="neg">-1.09%</td><td>105494</td></tr><tr><td>2026-05-01</td><td>0</td><td>0</td><td>0</td><td>0.0%</td><td>0.00</td><td class="pos">+0.00%</td><td>0.0%</td><td class="neg">0.00%</td><td>100000</td></tr><tr><td>2026-08-01</td><td>0</td><td>0</td><td>0</td><td>0.0%</td><td>0.00</td><td class="pos">+0.00%</td><td>0.0%</td><td class="neg">0.00%</td><td>100000</td></tr></tbody></table>
+
+<h2>最近成交（模拟，12/30 两段 + 60 日低 3 连收）</h2>
+<table><thead><tr><th>信号日</th><th>标的</th><th>入场</th><th>止损</th><th>结果</th><th>退出 1</th><th>退出 2</th><th>持有</th></tr></thead><tbody><tr><td>2026-03-31</td><td>HIMSUSDT</td><td>21.00</td><td class="neg">13.74</td><td class="pos">+20.36%</td><td>tp1</td><td>tp2</td><td>15 根</td></tr><tr><td>2026-03-31</td><td>IONQUSDT</td><td>29.64</td><td class="neg">25.89</td><td class="pos">+20.39%</td><td>tp1</td><td>tp2</td><td>14 根</td></tr><tr><td>2026-03-31</td><td>IRENUSDT</td><td>35.07</td><td class="neg">30.76</td><td class="pos">+20.47%</td><td>tp1</td><td>tp2</td><td>13 根</td></tr><tr><td>2026-03-31</td><td>MARAUSDT</td><td>8.22</td><td class="neg">6.66</td><td class="pos">+20.50%</td><td>tp1_gap</td><td>tp2</td><td>13 根</td></tr><tr><td>2026-03-31</td><td>MUUSDT</td><td>348.75</td><td class="neg">318.25</td><td class="pos">+20.52%</td><td>tp1</td><td>tp2</td><td>13 根</td></tr><tr><td>2026-03-31</td><td>NBISUSDT</td><td>105.94</td><td class="neg">73.52</td><td class="pos">+20.56%</td><td>tp1_gap</td><td>tp2</td><td>9 根</td></tr><tr><td>2026-03-31</td><td>ONDSUSDT</td><td>9.30</td><td class="neg">7.78</td><td class="pos">+19.90%</td><td>tp1</td><td>tp2</td><td>44 根</td></tr><tr><td>2026-03-31</td><td>RKLBUSDT</td><td>65.50</td><td class="neg">56.13</td><td class="pos">+20.45%</td><td>tp1</td><td>tp2</td><td>16 根</td></tr><tr><td>2026-03-31</td><td>STXXUSDT</td><td>396.49</td><td class="neg">342.00</td><td class="pos">+20.62%</td><td>tp1_gap</td><td>tp2</td><td>7 根</td></tr><tr><td>2026-03-31</td><td>TERUSDT</td><td>301.84</td><td class="neg">238.54</td><td class="pos">+20.36%</td><td>tp1_gap</td><td>tp2</td><td>22 根</td></tr><tr><td>2026-03-31</td><td>VRTUSDT</td><td>256.89</td><td class="neg">172.18</td><td class="pos">+20.17%</td><td>tp1</td><td>tp2_gap</td><td>34 根</td></tr><tr><td>2026-03-31</td><td>WDCUSDT</td><td>280.35</td><td class="neg">237.30</td><td class="pos">+20.50%</td><td>tp1_gap</td><td>tp2</td><td>13 根</td></tr></tbody></table>
+
+<h2>规则</h2>
+<ul>
+<li><b>入场</b>：A 质量版 dev20≤−8%、RSI2≤40、ATR≥6%、跌破前 10 日低、量比≥0.8、dv20≥3000 万、价≥5、5 根内收回、cpos≥0.4；B+ 覆盖版 dev20≤−5%、RSI2≤50、ATR≥4%、量比≥0.5、8 根内收回、收阳。</li>
+<li><b>市场层</b>：120 只个股收盘在 MA50 上方的比例 ≤34%；A 当日振幅≥7%，B 当日涨幅≥7%；同日 A 信号≥3 且同日 B 信号≥20（B 层是宽松弹簧，当日家数收盘可算；加严依据 work/COLD_DODGE_2026-11-05.md 第 14 节：A≥3 单独用挡不住 2025-03 型阴跌）；同标的 5 根内只留一个，A 优先。</li>
+<li><b>出场</b>：50% +12%、50% +30%、−30% 灾难上限、最多 60 根；连续 3 根收盘跌破 60 日低点，第 3 根收盘走。</li>
+<li><b>仓位</b>：1% 权益风险/笔，名义=1%/止损距离，单仓名义上限 20%，5x，最多 16 仓，同日最多 5 仓，毛敞口≤2.5x。</li>
+<li>本页只本地生成，不提交、不发布；每天收盘后重跑一次。</li>
+</ul>
+<p class="hint">止损 = 入场前 60 日最低价；止盈1 = 入场×1.12；止盈2 = 入场×1.30；数量 = 名义 / 入场；保证金 = 名义 / 5。</p>
+</div></body></html>

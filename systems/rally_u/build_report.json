@@ -1,0 +1,100 @@
+{
+ "asof": "2026-11-03",
+ "built_at": "2026-11-05 01:14",
+ "breadth": 0.2083,
+ "gate": "闸门开",
+ "cluster_min": 3,
+ "cluster_b_min": 20,
+ "n_pre_cluster": 55,
+ "nA_raw": 445,
+ "nB_raw": 1140,
+ "nU": 38,
+ "nA_scan": 615,
+ "nB_scan": 1504,
+ "scan_i0": 220,
+ "recent": [],
+ "stats": {
+  "full": {
+   "n": 38,
+   "win": 89.5,
+   "avg": 16.95,
+   "med": 20.46,
+   "pf": 43.48,
+   "payoff": 5.12,
+   "avgR": 1.14,
+   "worst": -8.5,
+   "best": 20.7,
+   "sum": 644.2
+  },
+  "h2": {
+   "n": 16,
+   "win": 87.5,
+   "avg": 16.12,
+   "med": 20.4,
+   "pf": 25.85,
+   "payoff": 3.69,
+   "avgR": 1.33,
+   "worst": -8.5,
+   "best": 20.7,
+   "sum": 258.0
+  },
+  "y26": {
+   "n": 22,
+   "win": 90.9,
+   "avg": 17.56,
+   "med": 20.46,
+   "pf": 81.79,
+   "payoff": 8.18,
+   "avgR": 1.0,
+   "worst": -2.8,
+   "best": 20.7,
+   "sum": 386.3
+  }
+ },
+ "windows": [
+  {
+   "window": "2026-01-26",
+   "taken": 5,
+   "signals": 22,
+   "skipped": 17,
+   "n": 5,
+   "win": 100.0,
+   "avg": 1.1,
+   "pf": 54944078.86,
+   "ret": 5.49,
+   "cagr": 7.2,
+   "mdd": -1.09,
+   "final_eq": 105494.41
+  },
+  {
+   "window": "2026-05-01",
+   "taken": 0,
+   "signals": 0,
+   "skipped": 0,
+   "n": 0,
+   "win": 0.0,
+   "avg": 0.0,
+   "pf": 0.0,
+   "ret": 0.0,
+   "cagr": 0.0,
+   "mdd": 0.0,
+   "final_eq": 100000.0
+  },
+  {
+   "window": "2026-08-01",
+   "taken": 0,
+   "signals": 0,
+   "skipped": 0,
+   "n": 0,
+   "win": 0.0,
+   "avg": 0.0,
+   "pf": 0.0,
+   "ret": 0.0,
+   "cagr": 0.0,
+   "mdd": 0.0,
+   "final_eq": 100000.0
+  }
+ ],
+ "page_sha256": "89d3f61bc1baefba776cc5257c578a76c6b9875cfe36cb2a383aaba54332b5b4",
+ "page_bytes": 6553
+}

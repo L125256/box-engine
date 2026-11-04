@@ -83,7 +83,7 @@ ul{margin:6px 0 0;padding-left:20px;color:#c7d1dc;font-size:13px}li{margin:3px 0
 input{background:#0b0f14;border:1px solid var(--line);color:var(--txt);padding:4px 8px;border-radius:6px;width:110px}
 </style></head><body><div class="wrap">
 <h1>深踩快打 · FD-1 双通道 <span style="font-size:12px;color:var(--dim)">本地看板 · 未上线</span></h1>
-<div class="sub">数据截至 __ASOF__ ｜ 生成于 __BUILT__ ｜ 通道 A 深踩 + 通道 B 20 日新高放量突破，共用 0.8/1.5/5 出口</div>
+<div class="sub">数据截至 __ASOF__ ｜ 生成于 __BUILT__ ｜ 通道 A 深踩 + 通道 B 20 日新高放量突破，共用 __EXIT__ 出口</div>
 <div class="row">
   <div class="kv"><b>__NDEEP__ / __NBRK__</b><span>今日候选（深踩 / 突破）</span></div>
   <div class="kv"><b>__FULL__</b><span>双通道全样本（笔 / 胜率 / PF）</span></div>
@@ -101,16 +101,16 @@ __TABLE_BRK__
 <h2>最近成交</h2>
 __RECENT__
 
-<h2>规则（2026-11-03 双通道版）</h2>
+<h2>规则（2026-11-04 双通道版 · 止盈 0.9 ATR）</h2>
 <ul>
 <li><b>通道 A 深踩</b>：收盘 &gt; MA100 且 MA100 20 日斜率 ≥ 0；20 日偏离 ≤ −5%；RSI2 ≤ 30；价格 ≥ 5、20 日均额 ≥ 3000 万、ATR% ≤ 6%。</li>
 <li><b>通道 B 突破</b>：收盘 &gt; 过去 20 根收盘最高（不含当日）；当日量 ≥ 2.0 × 过去 20 日中位量；收盘 &gt; MA100 且斜率 ≥ 0；价格 ≥ 5、20 日均额 ≥ 3000 万、ATR% ≤ 6%；同一标的 10 根内只取第一次。</li>
-<li><b>出场</b>：+0.8 ATR 止盈、−1.5 ATR 止损（跳空按开盘价）、最多 5 根日线。</li>
+<li><b>出场</b>：+__TP__ ATR 止盈、−__SL__ ATR 止损（跳空按开盘价）、最多 __HOLD__ 根日线。2026-11-04 起止盈由 0.8 提到 0.9（出场全扫描：前向 2026 年化 +32.7%→+52.0%、回撤 6.29%→5.25%、盈亏比 0.70→0.84，代价胜率 −2.5pp）。</li>
 <li><b>仓位</b>：5x 逐仓、单笔保证金 3% 权益、最多 16 仓、毛敞口 2.5 倍。</li>
 <li><b>统计</b>：双通道 __NP__ 笔 / 胜率 __WIN__ / PF __PF__ / 年化 __CAGR__ / 回撤 __MDD__；2026 段 __R26__；原版深踩对照 __O26__。</li>
 <li>本页只本地生成，不提交、不发布；每天收盘后重跑一次。</li>
 </ul>
-<p class="hint">止损 = E − 1.5×ATR；止盈 = E + 0.8×ATR；数量 = 名义 / E，名义 = 权益 × 3% × 5；到期 = 入场日 + 5 天按收盘平。</p>
+<p class="hint">止损 = E − __SL__×ATR；止盈 = E + __TP__×ATR；数量 = 名义 / E，名义 = 权益 × 3% × 5；到期 = 入场日 + __HOLD__ 天按收盘平。</p>
 </div></body></html>"""
 
 
@@ -169,7 +169,10 @@ def main():
     recent = ''.join(rb) + '</tbody></table>'
 
     f = stats['full']; r = stats['real']; o = stats['orig_full']
+    fmt = lambda v: ('%g' % v)
     html = (HTML.replace('__ASOF__', st['asof']).replace('__BUILT__', __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M'))
+            .replace('__EXIT__', '%s/%s/%d' % (fmt(TP_ATR), fmt(SL_ATR), HOLD))
+            .replace('__TP__', fmt(TP_ATR)).replace('__SL__', fmt(SL_ATR)).replace('__HOLD__', str(HOLD))
             .replace('__NDEEP__', str(st['n_deep'])).replace('__NBRK__', str(st['n_brk']))
             .replace('__FULL__', '%d 笔 / %.1f%% / %.2f' % (f['n'], f['win'], f['pf']))
             .replace('__REAL__', '%d 笔 / %.1f%% / %.2f' % (r['n'], r['win'], r['pf']))

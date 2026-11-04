@@ -1,41 +1,41 @@
 {
- "asof": "2026-11-01",
- "built_at": "2026-11-03 01:22",
+ "asof": "2026-11-03",
+ "built_at": "2026-11-04 23:15",
  "n_deep": 0,
  "n_brk": 0,
  "deep_candidates": [],
  "brk_candidates": [],
  "stats": {
   "full": {
-   "n": 519,
-   "win": 70.7,
-   "pf": 1.49,
-   "cagr": 36.7,
-   "mdd": 12.46
+   "n": 509,
+   "win": 68.0,
+   "pf": 1.57,
+   "cagr": 45.1,
+   "mdd": 13.03
   },
   "real": {
-   "n": 147,
-   "win": 72.8,
-   "pf": 1.78,
-   "cagr": 34.7,
-   "mdd": 5.35
+   "n": 146,
+   "win": 69.9,
+   "pf": 2.05,
+   "cagr": 53.7,
+   "mdd": 4.86
   },
   "orig_full": {
-   "n": 271,
-   "win": 70.8,
-   "pf": 1.6,
+   "n": 264,
+   "win": 67.4,
+   "pf": 1.59,
    "cagr": 22.3,
-   "mdd": 8.52
+   "mdd": 8.53
   },
   "orig_real": {
    "n": 65,
-   "win": 69.2,
-   "pf": 1.65,
-   "cagr": 12.7,
-   "mdd": 4.05
+   "win": 66.2,
+   "pf": 1.81,
+   "cagr": 16.6,
+   "mdd": 4.24
   },
-  "n_brk": 252
+  "n_brk": 250
  },
- "page_sha256": "3b95ebd059faa0e5801e9ca10bcfc6e07c18dc89af7b325763287b546e6cb678",
- "page_bytes": 6014
+ "page_sha256": "87362ac2fd4cda29c8ebd9fe9652aefea616490b65121180642cfb1eb5c1fa7b",
+ "page_bytes": 6202
 }

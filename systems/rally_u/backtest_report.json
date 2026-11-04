@@ -1,0 +1,223 @@
+{
+ "asof": "2026-11-03",
+ "meta": {
+  "asof": "2026-11-03",
+  "nA_raw": 445,
+  "nB_raw": 1140,
+  "nA_scan": 615,
+  "nB_scan": 1504,
+  "scan_i0": 220,
+  "nA_tier": 44,
+  "nB_tier": 35,
+  "nU": 38,
+  "n_pre_cluster": 55,
+  "cluster_min": 3,
+  "cluster_b_min": 20,
+  "start_date": "2025-06-01"
+ },
+ "full": {
+  "n": 38,
+  "win": 89.5,
+  "avg": 16.95,
+  "med": 20.46,
+  "pf": 43.48,
+  "payoff": 5.12,
+  "avgR": 1.14,
+  "worst": -8.5,
+  "best": 20.7,
+  "sum": 644.2
+ },
+ "h2": {
+  "n": 16,
+  "win": 87.5,
+  "avg": 16.12,
+  "med": 20.4,
+  "pf": 25.85,
+  "payoff": 3.69,
+  "avgR": 1.33,
+  "worst": -8.5,
+  "best": 20.7,
+  "sum": 258.0
+ },
+ "y26": {
+  "n": 22,
+  "win": 90.9,
+  "avg": 17.56,
+  "med": 20.46,
+  "pf": 81.79,
+  "payoff": 8.18,
+  "avgR": 1.0,
+  "worst": -2.8,
+  "best": 20.7,
+  "sum": 386.3
+ },
+ "windows": [
+  {
+   "start": "2026-01-26",
+   "end": "2026-11-03",
+   "signals": 22,
+   "taken": 5,
+   "skipped_cap": 17,
+   "skipped_gross": 0,
+   "skipped_dup": 0,
+   "stats": {
+    "n": 5,
+    "win": 100.0,
+    "avg": 1.1,
+    "pf": 54944078.86,
+    "ret": 5.49,
+    "cagr": 7.2,
+    "mdd": -1.09,
+    "final_eq": 105494.41
+   },
+   "monthly": {
+    "2026-01": 0.0,
+    "2026-02": 0.0,
+    "2026-03": 0.0,
+    "2026-04": 4.84,
+    "2026-05": 0.63,
+    "2026-06": 0.0,
+    "2026-07": 0.0,
+    "2026-08": 0.0,
+    "2026-09": 0.0,
+    "2026-10": 0.0,
+    "2026-11": 0.0
+   },
+   "trades": [
+    {
+     "sym": "AAOIUSDT",
+     "signal_date": "2026-03-31",
+     "entry_date": "2026-04-01",
+     "exit_date": "2026-04-06",
+     "entry": 90.15,
+     "stop": 37.0183,
+     "risk_pct": 58.93699389905712,
+     "notional_pct": 1.6967271892297822,
+     "pnl_eq_pct": 0.35139220088948786,
+     "ret_notional_pct": 20.709999999999997,
+     "bars": 5,
+     "w1": "tp1",
+     "w2": "tp2"
+    },
+    {
+     "sym": "ALABUSDT",
+     "signal_date": "2026-03-31",
+     "entry_date": "2026-04-01",
+     "exit_date": "2026-04-10",
+     "entry": 111.21,
+     "stop": 97.89,
+     "risk_pct": 11.97734016725114,
+     "notional_pct": 8.349099099099103,
+     "pnl_eq_pct": 1.8458840840840853,
+     "ret_notional_pct": 22.1087815843899,
+     "bars": 9,
+     "w1": "tp1_gap",
+     "w2": "tp2"
+    },
+    {
+     "sym": "BEUSDT",
+     "signal_date": "2026-03-31",
+     "entry_date": "2026-04-01",
+     "exit_date": "2026-04-13",
+     "entry": 135.1,
+     "stop": 116.505,
+     "risk_pct": 13.763878608438192,
+     "notional_pct": 7.265393923097607,
+     "pnl_eq_pct": 1.490495563323474,
+     "ret_notional_pct": 20.514999999999997,
+     "bars": 12,
+     "w1": "tp1",
+     "w2": "tp2"
+    },
+    {
+     "sym": "HIMSUSDT",
+     "signal_date": "2026-03-31",
+     "entry_date": "2026-04-01",
+     "exit_date": "2026-04-16",
+     "entry": 21.0,
+     "stop": 13.74,
+     "risk_pct": 34.57142857142857,
+     "notional_pct": 2.8925619834710745,
+     "pnl_eq_pct": 0.5890702479338842,
+     "ret_notional_pct": 20.365,
+     "bars": 15,
+     "w1": "tp1",
+     "w2": "tp2"
+    },
+    {
+     "sym": "ONDSUSDT",
+     "signal_date": "2026-03-31",
+     "entry_date": "2026-04-01",
+     "exit_date": "2026-05-15",
+     "entry": 9.3,
+     "stop": 7.78,
+     "risk_pct": 16.34408602150538,
+     "notional_pct": 6.118421052631578,
+     "pnl_eq_pct": 1.2175657894736838,
+     "ret_notional_pct": 19.899999999999995,
+     "bars": 44,
+     "w1": "tp1",
+     "w2": "tp2"
+    }
+   ],
+   "final_curve": 1.0549
+  },
+  {
+   "start": "2026-05-01",
+   "end": "2026-11-03",
+   "signals": 0,
+   "taken": 0,
+   "skipped_cap": 0,
+   "skipped_gross": 0,
+   "skipped_dup": 0,
+   "stats": {
+    "n": 0,
+    "win": 0.0,
+    "avg": 0.0,
+    "pf": 0.0,
+    "ret": 0.0,
+    "cagr": 0.0,
+    "mdd": 0.0,
+    "final_eq": 100000.0
+   },
+   "monthly": {
+    "2026-05": 0.0,
+    "2026-06": 0.0,
+    "2026-07": 0.0,
+    "2026-08": 0.0,
+    "2026-09": 0.0,
+    "2026-10": 0.0,
+    "2026-11": 0.0
+   },
+   "trades": [],
+   "final_curve": 1.0
+  },
+  {
+   "start": "2026-08-01",
+   "end": "2026-11-03",
+   "signals": 0,
+   "taken": 0,
+   "skipped_cap": 0,
+   "skipped_gross": 0,
+   "skipped_dup": 0,
+   "stats": {
+    "n": 0,
+    "win": 0.0,
+    "avg": 0.0,
+    "pf": 0.0,
+    "ret": 0.0,
+    "cagr": 0.0,
+    "mdd": 0.0,
+    "final_eq": 100000.0
+   },
+   "monthly": {
+    "2026-08": 0.0,
+    "2026-09": 0.0,
+    "2026-10": 0.0,
+    "2026-11": 0.0
+   },
+   "trades": [],
+   "final_curve": 1.0
+  }
+ ]
+}
