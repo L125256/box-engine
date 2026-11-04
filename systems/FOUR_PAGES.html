@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>四个本地引擎页 · 入口</title>
+<style>
+body{background:#0f1418;color:#e6edf3;font-family:"Microsoft YaHei",system-ui,sans-serif;margin:0;padding:20px 16px;max-width:760px}
+h1{font-size:18px;margin:0 0 6px}
+p.s{color:#8b98a5;font-size:12.5px;margin:0 0 18px;line-height:1.7}
+a.card{display:block;background:#161d24;border:1px solid #24313c;border-radius:12px;padding:14px 15px;margin:0 0 11px;text-decoration:none;color:#e6edf3}
+a.card:active,a.card:hover{border-color:#3d87c9;background:#1a232b}
+b{font-size:15px}
+.t{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid #2d3b47;color:#9fb3c4;margin-left:6px}
+.t1{border-color:#1d5c31;color:#5fd783}.t2{border-color:#5c451d;color:#e0a45a}
+.d{color:#8b98a5;font-size:12px;margin-top:6px;line-height:1.7}
+.l{display:block;margin-top:8px;font-size:12.5px;color:#3d87c9;word-break:break-all}
+.l2{color:#6b7a88}
+.note{margin-top:16px;padding:12px 13px;background:#131a20;border-left:3px solid #3d87c9;border-radius:8px;font-size:12px;color:#9fb3c4;line-height:1.8}
+</style></head><body>
+<h1>四个引擎页 · 手机 / 本机都能开</h1>
+<p class="s">每张卡片里有两个链接：<b>第一条是线上地址，手机浏览器直接打开</b>；第二条是本机文件，只有这台电脑能开。页面内的数字以页面自身右上角「数据截至」为准，这里不复制数字，所以这个入口不会过期。</p>
+
+<a class="card" href="https://l125256.github.io/box-engine/systems/p6/">
+<b>1 · 单兵 P6 v2</b><span class="t t2">本轮未改动</span>
+<div class="d">趋势 + 20 日收益 &gt; 0 + 量比 ≥ 1.5，首次触发；出场 100% 仓位 +0.8 ATR 止盈 / −1.8 ATR 止损 / 最多 7 根；30M、5x、3%×16、毛 2.5x。</div>
+<span class="l">线上（手机可开）https://l125256.github.io/box-engine/systems/p6/ ↓</span></a>
+<a class="card l2" href="file:///C:/Users/Administrator/Documents/Qoder/2026-10-27/e37631a2/work/repo_new/systems/p6/index.html" style="margin-top:-6px">本机文件 work/repo_new/systems/p6/index.html</a>
+
+<a class="card" href="https://l125256.github.io/box-engine/systems/fd1/">
+<b>2 · 深踩快打 FD-1 双通道</b><span class="t t1">止盈 0.8 → 0.9</span>
+<div class="d">通道 A 深踩 + 通道 B 20 日新高放量突破；共用 +0.9 ATR 止盈 / −1.5 ATR 止损 / 最多 5 根；5x、3%×16、毛 2.5x。回退触发：前向 40 笔内胜率 &lt;62%、跳空止盈 0 笔、亏超 −8% 占比 &gt;12%。</div>
+<span class="l">线上（手机可开）https://l125256.github.io/box-engine/systems/fd1/ ↓</span></a>
+<a class="card l2" href="file:///C:/Users/Administrator/Documents/Qoder/2026-10-27/e37631a2/work/repo_new/systems/fd1/index.html" style="margin-top:-6px">本机文件 work/repo_new/systems/fd1/index.html</a>
+
+<a class="card" href="https://l125256.github.io/box-engine/systems/rally_u/">
+<b>3 · U 平衡 · 起涨点</b><span class="t t1">集群 A≥3 且 B≥20</span>
+<div class="d">洗盘弹簧 A/B 两层 + 宽度 ≤34% + 同日 A≥3 且同日 B≥20；出场 50% @+12% / 50% @+30%、60 日低 3 连收、−30% 上限、60 根；1% 风险、5x、16 仓、5 仓/日。全样本同日 B≥20 只有 14 天，所以长期空仓是设计结果。</div>
+<span class="l">线上（手机可开）https://l125256.github.io/box-engine/systems/rally_u/ ↓</span></a>
+<a class="card l2" href="file:///C:/Users/Administrator/Documents/Qoder/2026-10-27/e37631a2/work/repo_new/systems/rally_u/index.html" style="margin-top:-6px">本机文件 work/repo_new/systems/rally_u/index.html</a>
+
+<a class="card" href="https://l125256.github.io/box-engine/systems/rally_cold/">
+<b>4 · 冷启动 · 全历史起涨</b><span class="t t1">全程模型分 ≥0.75（甲）</span>
+<div class="d">22 个因果特征 + L2 逻辑回归，季度走前训练；全程统一门槛 0.75，已取消「2025-03/04 用 0.75、之后 0.65」的日历特权；再加宽度 ≤35%、同日 A≥3、振幅/涨幅 ≥7%。出场与仓位沿用 U。</div>
+<span class="l">线上（手机可开）https://l125256.github.io/box-engine/systems/rally_cold/ ↓</span></a>
+<a class="card l2" href="file:///C:/Users/Administrator/Documents/Qoder/2026-10-27/e37631a2/work/repo_new/systems/rally_cold/index.html" style="margin-top:-6px">本机文件 work/repo_new/systems/rally_cold/index.html</a>
+
+<div class="note">
+线上这四条是 <b>systems/ 快照</b>，不会自己变新：每次「刷新」后我会用 <b>publish_systems_2026-11-05.py --refresh</b> 重推一次，链接不变、内容跟着变。只动 systems/ 路径，执行页 v2/、v2/hf1/、firstleg/、C1 都不碰，也不算发版。数据口径：只取已收全的 UTC 日线（日线 D 要到 D+1 日 08:00 北京才算收全）。
+</div>
+</body></html>
